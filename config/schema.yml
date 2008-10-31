@@ -1,0 +1,30 @@
+propel:
+  _attributes: { package: plugins.opOpenSocialPlugin.lib.model }
+
+  applications:
+    id: ~
+    url: { type: varchar(128), require: true }
+    title: { type: varchar(128) }
+    directory_title : { type: varchar(128) }
+    screenshot: { type: varchar(128) }
+    thumbnail : { type: varchar(128) }
+    author:  { type: varchar(128) }
+    author_email: { type: varchar(128) }
+    description: { type: longvarchar }
+    settings: { type: longvarchar }
+    views: { type: longvarchar }
+    version: { type: varchar(64), require: true }
+    height: { type: integer, require: true }
+    scrolling: { type: integer, require: true }
+    modified: { type: integer, require: true }
+
+  application_settings:
+    applications_id: ~
+    member_id: { type: integer, foreignTable: member, foreignReference: id }
+    name: { type: varchar(128), require: true }
+    value: { type: varchar(255), require: true }
+
+  member_applications:
+    id: ~
+    member_id: { type: integer, foreignTable: member, foreignReference: id }
+    applications_id: ~
