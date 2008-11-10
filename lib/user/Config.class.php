@@ -16,10 +16,10 @@ class Config
       'compress_javascript' => true, 
 
       // The URL Prefix under which shindig lives ie if you have http://myhost.com/shindig/php set web_prefix to /shindig/php
-      'web_prefix' => '', 
+      'web_prefix' => $_SERVER['SCRIPT_NAME'], 
       // If you changed the web prefix, add the prefix to these too
-      'default_js_prefix' => '/gadgets/js/', 
-      'default_iframe_prefix' => '/gadgets/ifr?', 
+      'default_js_prefix' => $_SERVER['SCRIPT_NAME'].'/gadgets/js/', 
+      'default_iframe_prefix' => $_SERVER['SCRIPT_NAME'].'/gadgets/ifr?', 
       
       // The encryption keys for encrypting the security token, and the expiration of it. Make sure these match the keys used in your container/site
       'token_cipher_key' => 'INSECURE_DEFAULT_KEY',
