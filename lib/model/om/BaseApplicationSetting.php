@@ -1,7 +1,7 @@
 <?php
 
 
-abstract class BaseApplicationSettings extends BaseObject  implements Persistent {
+abstract class BaseApplicationSetting extends BaseObject  implements Persistent {
 
 
 	
@@ -9,7 +9,11 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 
 
 	
-	protected $applications_id;
+	protected $id;
+
+
+	
+	protected $application_id;
 
 
 	
@@ -23,12 +27,8 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 	
 	protected $value;
 
-
 	
-	protected $id;
-
-	
-	protected $aApplications;
+	protected $aApplication;
 
 	
 	protected $aMember;
@@ -40,10 +40,17 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 	protected $alreadyInValidation = false;
 
 	
-	public function getApplicationsId()
+	public function getId()
 	{
 
-		return $this->applications_id;
+		return $this->id;
+	}
+
+	
+	public function getApplicationId()
+	{
+
+		return $this->application_id;
 	}
 
 	
@@ -68,27 +75,34 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 	}
 
 	
-	public function getId()
-	{
-
-		return $this->id;
-	}
-
-	
-	public function setApplicationsId($v)
+	public function setId($v)
 	{
 
 						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
-		if ($this->applications_id !== $v) {
-			$this->applications_id = $v;
-			$this->modifiedColumns[] = ApplicationSettingsPeer::APPLICATIONS_ID;
+		if ($this->id !== $v) {
+			$this->id = $v;
+			$this->modifiedColumns[] = ApplicationSettingPeer::ID;
 		}
 
-		if ($this->aApplications !== null && $this->aApplications->getId() !== $v) {
-			$this->aApplications = null;
+	} 
+	
+	public function setApplicationId($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->application_id !== $v) {
+			$this->application_id = $v;
+			$this->modifiedColumns[] = ApplicationSettingPeer::APPLICATION_ID;
+		}
+
+		if ($this->aApplication !== null && $this->aApplication->getId() !== $v) {
+			$this->aApplication = null;
 		}
 
 	} 
@@ -102,7 +116,7 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 
 		if ($this->member_id !== $v) {
 			$this->member_id = $v;
-			$this->modifiedColumns[] = ApplicationSettingsPeer::MEMBER_ID;
+			$this->modifiedColumns[] = ApplicationSettingPeer::MEMBER_ID;
 		}
 
 		if ($this->aMember !== null && $this->aMember->getId() !== $v) {
@@ -120,7 +134,7 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 
 		if ($this->name !== $v) {
 			$this->name = $v;
-			$this->modifiedColumns[] = ApplicationSettingsPeer::NAME;
+			$this->modifiedColumns[] = ApplicationSettingPeer::NAME;
 		}
 
 	} 
@@ -134,21 +148,7 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 
 		if ($this->value !== $v) {
 			$this->value = $v;
-			$this->modifiedColumns[] = ApplicationSettingsPeer::VALUE;
-		}
-
-	} 
-	
-	public function setId($v)
-	{
-
-						if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->id !== $v) {
-			$this->id = $v;
-			$this->modifiedColumns[] = ApplicationSettingsPeer::ID;
+			$this->modifiedColumns[] = ApplicationSettingPeer::VALUE;
 		}
 
 	} 
@@ -157,15 +157,15 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 	{
 		try {
 
-			$this->applications_id = $rs->getInt($startcol + 0);
+			$this->id = $rs->getInt($startcol + 0);
 
-			$this->member_id = $rs->getInt($startcol + 1);
+			$this->application_id = $rs->getInt($startcol + 1);
 
-			$this->name = $rs->getString($startcol + 2);
+			$this->member_id = $rs->getInt($startcol + 2);
 
-			$this->value = $rs->getString($startcol + 3);
+			$this->name = $rs->getString($startcol + 3);
 
-			$this->id = $rs->getInt($startcol + 4);
+			$this->value = $rs->getString($startcol + 4);
 
 			$this->resetModified();
 
@@ -173,7 +173,7 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 
 						return $startcol + 5; 
 		} catch (Exception $e) {
-			throw new PropelException("Error populating ApplicationSettings object", $e);
+			throw new PropelException("Error populating ApplicationSetting object", $e);
 		}
 	}
 
@@ -185,12 +185,12 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(ApplicationSettingsPeer::DATABASE_NAME);
+			$con = Propel::getConnection(ApplicationSettingPeer::DATABASE_NAME);
 		}
 
 		try {
 			$con->begin();
-			ApplicationSettingsPeer::doDelete($this, $con);
+			ApplicationSettingPeer::doDelete($this, $con);
 			$this->setDeleted(true);
 			$con->commit();
 		} catch (PropelException $e) {
@@ -207,7 +207,7 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(ApplicationSettingsPeer::DATABASE_NAME);
+			$con = Propel::getConnection(ApplicationSettingPeer::DATABASE_NAME);
 		}
 
 		try {
@@ -229,11 +229,11 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 
 
 												
-			if ($this->aApplications !== null) {
-				if ($this->aApplications->isModified()) {
-					$affectedRows += $this->aApplications->save($con);
+			if ($this->aApplication !== null) {
+				if ($this->aApplication->isModified()) {
+					$affectedRows += $this->aApplication->save($con);
 				}
-				$this->setApplications($this->aApplications);
+				$this->setApplication($this->aApplication);
 			}
 
 			if ($this->aMember !== null) {
@@ -246,12 +246,12 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 
 						if ($this->isModified()) {
 				if ($this->isNew()) {
-					$pk = ApplicationSettingsPeer::doInsert($this, $con);
+					$pk = ApplicationSettingPeer::doInsert($this, $con);
 					$affectedRows += 1; 										 										 
 					$this->setId($pk);  
 					$this->setNew(false);
 				} else {
-					$affectedRows += ApplicationSettingsPeer::doUpdate($this, $con);
+					$affectedRows += ApplicationSettingPeer::doUpdate($this, $con);
 				}
 				$this->resetModified(); 			}
 
@@ -292,9 +292,9 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 
 
 												
-			if ($this->aApplications !== null) {
-				if (!$this->aApplications->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aApplications->getValidationFailures());
+			if ($this->aApplication !== null) {
+				if (!$this->aApplication->validate($columns)) {
+					$failureMap = array_merge($failureMap, $this->aApplication->getValidationFailures());
 				}
 			}
 
@@ -305,7 +305,7 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 			}
 
 
-			if (($retval = ApplicationSettingsPeer::doValidate($this, $columns)) !== true) {
+			if (($retval = ApplicationSettingPeer::doValidate($this, $columns)) !== true) {
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
@@ -320,7 +320,7 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 	
 	public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
 	{
-		$pos = ApplicationSettingsPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+		$pos = ApplicationSettingPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 		return $this->getByPosition($pos);
 	}
 
@@ -329,19 +329,19 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 	{
 		switch($pos) {
 			case 0:
-				return $this->getApplicationsId();
+				return $this->getId();
 				break;
 			case 1:
-				return $this->getMemberId();
+				return $this->getApplicationId();
 				break;
 			case 2:
-				return $this->getName();
+				return $this->getMemberId();
 				break;
 			case 3:
-				return $this->getValue();
+				return $this->getName();
 				break;
 			case 4:
-				return $this->getId();
+				return $this->getValue();
 				break;
 			default:
 				return null;
@@ -351,13 +351,13 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 	
 	public function toArray($keyType = BasePeer::TYPE_PHPNAME)
 	{
-		$keys = ApplicationSettingsPeer::getFieldNames($keyType);
+		$keys = ApplicationSettingPeer::getFieldNames($keyType);
 		$result = array(
-			$keys[0] => $this->getApplicationsId(),
-			$keys[1] => $this->getMemberId(),
-			$keys[2] => $this->getName(),
-			$keys[3] => $this->getValue(),
-			$keys[4] => $this->getId(),
+			$keys[0] => $this->getId(),
+			$keys[1] => $this->getApplicationId(),
+			$keys[2] => $this->getMemberId(),
+			$keys[3] => $this->getName(),
+			$keys[4] => $this->getValue(),
 		);
 		return $result;
 	}
@@ -365,7 +365,7 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 	
 	public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
 	{
-		$pos = ApplicationSettingsPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+		$pos = ApplicationSettingPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 		return $this->setByPosition($pos, $value);
 	}
 
@@ -374,44 +374,44 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 	{
 		switch($pos) {
 			case 0:
-				$this->setApplicationsId($value);
+				$this->setId($value);
 				break;
 			case 1:
-				$this->setMemberId($value);
+				$this->setApplicationId($value);
 				break;
 			case 2:
-				$this->setName($value);
+				$this->setMemberId($value);
 				break;
 			case 3:
-				$this->setValue($value);
+				$this->setName($value);
 				break;
 			case 4:
-				$this->setId($value);
+				$this->setValue($value);
 				break;
 		} 	}
 
 	
 	public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
 	{
-		$keys = ApplicationSettingsPeer::getFieldNames($keyType);
+		$keys = ApplicationSettingPeer::getFieldNames($keyType);
 
-		if (array_key_exists($keys[0], $arr)) $this->setApplicationsId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setMemberId($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setName($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setValue($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setId($arr[$keys[4]]);
+		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
+		if (array_key_exists($keys[1], $arr)) $this->setApplicationId($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setMemberId($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setName($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setValue($arr[$keys[4]]);
 	}
 
 	
 	public function buildCriteria()
 	{
-		$criteria = new Criteria(ApplicationSettingsPeer::DATABASE_NAME);
+		$criteria = new Criteria(ApplicationSettingPeer::DATABASE_NAME);
 
-		if ($this->isColumnModified(ApplicationSettingsPeer::APPLICATIONS_ID)) $criteria->add(ApplicationSettingsPeer::APPLICATIONS_ID, $this->applications_id);
-		if ($this->isColumnModified(ApplicationSettingsPeer::MEMBER_ID)) $criteria->add(ApplicationSettingsPeer::MEMBER_ID, $this->member_id);
-		if ($this->isColumnModified(ApplicationSettingsPeer::NAME)) $criteria->add(ApplicationSettingsPeer::NAME, $this->name);
-		if ($this->isColumnModified(ApplicationSettingsPeer::VALUE)) $criteria->add(ApplicationSettingsPeer::VALUE, $this->value);
-		if ($this->isColumnModified(ApplicationSettingsPeer::ID)) $criteria->add(ApplicationSettingsPeer::ID, $this->id);
+		if ($this->isColumnModified(ApplicationSettingPeer::ID)) $criteria->add(ApplicationSettingPeer::ID, $this->id);
+		if ($this->isColumnModified(ApplicationSettingPeer::APPLICATION_ID)) $criteria->add(ApplicationSettingPeer::APPLICATION_ID, $this->application_id);
+		if ($this->isColumnModified(ApplicationSettingPeer::MEMBER_ID)) $criteria->add(ApplicationSettingPeer::MEMBER_ID, $this->member_id);
+		if ($this->isColumnModified(ApplicationSettingPeer::NAME)) $criteria->add(ApplicationSettingPeer::NAME, $this->name);
+		if ($this->isColumnModified(ApplicationSettingPeer::VALUE)) $criteria->add(ApplicationSettingPeer::VALUE, $this->value);
 
 		return $criteria;
 	}
@@ -419,9 +419,9 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 	
 	public function buildPkeyCriteria()
 	{
-		$criteria = new Criteria(ApplicationSettingsPeer::DATABASE_NAME);
+		$criteria = new Criteria(ApplicationSettingPeer::DATABASE_NAME);
 
-		$criteria->add(ApplicationSettingsPeer::ID, $this->id);
+		$criteria->add(ApplicationSettingPeer::ID, $this->id);
 
 		return $criteria;
 	}
@@ -442,7 +442,7 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 	public function copyInto($copyObj, $deepCopy = false)
 	{
 
-		$copyObj->setApplicationsId($this->applications_id);
+		$copyObj->setApplicationId($this->application_id);
 
 		$copyObj->setMemberId($this->member_id);
 
@@ -469,36 +469,36 @@ abstract class BaseApplicationSettings extends BaseObject  implements Persistent
 	public function getPeer()
 	{
 		if (self::$peer === null) {
-			self::$peer = new ApplicationSettingsPeer();
+			self::$peer = new ApplicationSettingPeer();
 		}
 		return self::$peer;
 	}
 
 	
-	public function setApplications($v)
+	public function setApplication($v)
 	{
 
 
 		if ($v === null) {
-			$this->setApplicationsId(NULL);
+			$this->setApplicationId(NULL);
 		} else {
-			$this->setApplicationsId($v->getId());
+			$this->setApplicationId($v->getId());
 		}
 
 
-		$this->aApplications = $v;
+		$this->aApplication = $v;
 	}
 
 
 	
-	public function getApplications($con = null)
+	public function getApplication($con = null)
 	{
-		if ($this->aApplications === null && ($this->applications_id !== null)) {
-						$this->aApplications = ApplicationsPeer::retrieveByPK($this->applications_id, $con);
+		if ($this->aApplication === null && ($this->application_id !== null)) {
+						$this->aApplication = ApplicationPeer::retrieveByPK($this->application_id, $con);
 
 			
 		}
-		return $this->aApplications;
+		return $this->aApplication;
 	}
 
 	

@@ -2,10 +2,10 @@
 
 
 
-class MemberApplicationsMapBuilder {
+class MemberApplicationMapBuilder {
 
 	
-	const CLASS_NAME = 'plugins.opOpenSocialPlugin.lib.model.map.MemberApplicationsMapBuilder';
+	const CLASS_NAME = 'plugins.opOpenSocialPlugin.lib.model.map.MemberApplicationMapBuilder';
 
 	
 	private $dbMap;
@@ -27,8 +27,8 @@ class MemberApplicationsMapBuilder {
 	{
 		$this->dbMap = Propel::getDatabaseMap('propel');
 
-		$tMap = $this->dbMap->addTable('member_applications');
-		$tMap->setPhpName('MemberApplications');
+		$tMap = $this->dbMap->addTable('member_application');
+		$tMap->setPhpName('MemberApplication');
 
 		$tMap->setUseIdGenerator(true);
 
@@ -36,7 +36,7 @@ class MemberApplicationsMapBuilder {
 
 		$tMap->addForeignKey('MEMBER_ID', 'MemberId', 'int', CreoleTypes::INTEGER, 'member', 'ID', false, null);
 
-		$tMap->addForeignKey('APPLICATIONS_ID', 'ApplicationsId', 'int', CreoleTypes::INTEGER, 'applications', 'ID', false, null);
+		$tMap->addForeignKey('APPLICATION_ID', 'ApplicationId', 'int', CreoleTypes::INTEGER, 'application', 'ID', false, null);
 
 	} 
 } 

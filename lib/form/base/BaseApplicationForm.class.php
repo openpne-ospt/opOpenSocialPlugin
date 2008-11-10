@@ -1,19 +1,20 @@
 <?php
 
 /**
- * Applications form base class.
+ * Application form base class.
  *
  * @package    form
- * @subpackage applications
+ * @subpackage application
  * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 8807 2008-05-06 14:12:28Z fabien $
  */
-class BaseApplicationsForm extends BaseFormPropel
+class BaseApplicationForm extends BaseFormPropel
 {
   public function setup()
   {
     $this->setWidgets(array(
       'id'              => new sfWidgetFormInputHidden(),
       'url'             => new sfWidgetFormInput(),
+      'culture'         => new sfWidgetFormInput(),
       'title'           => new sfWidgetFormInput(),
       'directory_title' => new sfWidgetFormInput(),
       'screenshot'      => new sfWidgetFormInput(),
@@ -30,8 +31,9 @@ class BaseApplicationsForm extends BaseFormPropel
     ));
 
     $this->setValidators(array(
-      'id'              => new sfValidatorPropelChoice(array('model' => 'Applications', 'column' => 'id', 'required' => false)),
-      'url'             => new sfValidatorString(array('max_length' => 128, 'required' => false)),
+      'id'              => new sfValidatorPropelChoice(array('model' => 'Application', 'column' => 'id', 'required' => false)),
+      'url'             => new sfValidatorString(array('max_length' => 128)),
+      'culture'         => new sfValidatorString(array('max_length' => 7)),
       'title'           => new sfValidatorString(array('max_length' => 128, 'required' => false)),
       'directory_title' => new sfValidatorString(array('max_length' => 128, 'required' => false)),
       'screenshot'      => new sfValidatorString(array('max_length' => 128, 'required' => false)),
@@ -41,13 +43,13 @@ class BaseApplicationsForm extends BaseFormPropel
       'description'     => new sfValidatorString(array('required' => false)),
       'settings'        => new sfValidatorString(array('required' => false)),
       'views'           => new sfValidatorString(array('required' => false)),
-      'version'         => new sfValidatorString(array('max_length' => 64, 'required' => false)),
-      'height'          => new sfValidatorInteger(array('required' => false)),
-      'scrolling'       => new sfValidatorInteger(array('required' => false)),
-      'modified'        => new sfValidatorInteger(array('required' => false)),
+      'version'         => new sfValidatorString(array('max_length' => 64)),
+      'height'          => new sfValidatorInteger(),
+      'scrolling'       => new sfValidatorInteger(),
+      'modified'        => new sfValidatorInteger(),
     ));
 
-    $this->widgetSchema->setNameFormat('applications[%s]');
+    $this->widgetSchema->setNameFormat('application[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -56,7 +58,7 @@ class BaseApplicationsForm extends BaseFormPropel
 
   public function getModelName()
   {
-    return 'Applications';
+    return 'Application';
   }
 
 

@@ -2,10 +2,10 @@
 
 
 
-class ApplicationsMapBuilder {
+class ApplicationMapBuilder {
 
 	
-	const CLASS_NAME = 'plugins.opOpenSocialPlugin.lib.model.map.ApplicationsMapBuilder';
+	const CLASS_NAME = 'plugins.opOpenSocialPlugin.lib.model.map.ApplicationMapBuilder';
 
 	
 	private $dbMap;
@@ -27,14 +27,16 @@ class ApplicationsMapBuilder {
 	{
 		$this->dbMap = Propel::getDatabaseMap('propel');
 
-		$tMap = $this->dbMap->addTable('applications');
-		$tMap->setPhpName('Applications');
+		$tMap = $this->dbMap->addTable('application');
+		$tMap->setPhpName('Application');
 
 		$tMap->setUseIdGenerator(true);
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addColumn('URL', 'Url', 'string', CreoleTypes::VARCHAR, false, 128);
+		$tMap->addColumn('URL', 'Url', 'string', CreoleTypes::VARCHAR, true, 128);
+
+		$tMap->addColumn('CULTURE', 'Culture', 'string', CreoleTypes::VARCHAR, true, 7);
 
 		$tMap->addColumn('TITLE', 'Title', 'string', CreoleTypes::VARCHAR, false, 128);
 
@@ -54,13 +56,13 @@ class ApplicationsMapBuilder {
 
 		$tMap->addColumn('VIEWS', 'Views', 'string', CreoleTypes::LONGVARCHAR, false, null);
 
-		$tMap->addColumn('VERSION', 'Version', 'string', CreoleTypes::VARCHAR, false, 64);
+		$tMap->addColumn('VERSION', 'Version', 'string', CreoleTypes::VARCHAR, true, 64);
 
-		$tMap->addColumn('HEIGHT', 'Height', 'int', CreoleTypes::INTEGER, false, null);
+		$tMap->addColumn('HEIGHT', 'Height', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addColumn('SCROLLING', 'Scrolling', 'int', CreoleTypes::INTEGER, false, null);
+		$tMap->addColumn('SCROLLING', 'Scrolling', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addColumn('MODIFIED', 'Modified', 'int', CreoleTypes::INTEGER, false, null);
+		$tMap->addColumn('MODIFIED', 'Modified', 'int', CreoleTypes::INTEGER, true, null);
 
 	} 
 } 

@@ -1,16 +1,16 @@
 <?php
 
 
-abstract class BaseMemberApplicationsPeer {
+abstract class BaseMemberApplicationPeer {
 
 	
 	const DATABASE_NAME = 'propel';
 
 	
-	const TABLE_NAME = 'member_applications';
+	const TABLE_NAME = 'member_application';
 
 	
-	const CLASS_DEFAULT = 'plugins.opOpenSocialPlugin.lib.model.MemberApplications';
+	const CLASS_DEFAULT = 'plugins.opOpenSocialPlugin.lib.model.MemberApplication';
 
 	
 	const NUM_COLUMNS = 3;
@@ -20,13 +20,13 @@ abstract class BaseMemberApplicationsPeer {
 
 
 	
-	const ID = 'member_applications.ID';
+	const ID = 'member_application.ID';
 
 	
-	const MEMBER_ID = 'member_applications.MEMBER_ID';
+	const MEMBER_ID = 'member_application.MEMBER_ID';
 
 	
-	const APPLICATIONS_ID = 'member_applications.APPLICATIONS_ID';
+	const APPLICATION_ID = 'member_application.APPLICATION_ID';
 
 	
 	private static $phpNameMap = null;
@@ -34,30 +34,30 @@ abstract class BaseMemberApplicationsPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'MemberId', 'ApplicationsId', ),
-		BasePeer::TYPE_COLNAME => array (MemberApplicationsPeer::ID, MemberApplicationsPeer::MEMBER_ID, MemberApplicationsPeer::APPLICATIONS_ID, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'member_id', 'applications_id', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'MemberId', 'ApplicationId', ),
+		BasePeer::TYPE_COLNAME => array (MemberApplicationPeer::ID, MemberApplicationPeer::MEMBER_ID, MemberApplicationPeer::APPLICATION_ID, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'member_id', 'application_id', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'MemberId' => 1, 'ApplicationsId' => 2, ),
-		BasePeer::TYPE_COLNAME => array (MemberApplicationsPeer::ID => 0, MemberApplicationsPeer::MEMBER_ID => 1, MemberApplicationsPeer::APPLICATIONS_ID => 2, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'member_id' => 1, 'applications_id' => 2, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'MemberId' => 1, 'ApplicationId' => 2, ),
+		BasePeer::TYPE_COLNAME => array (MemberApplicationPeer::ID => 0, MemberApplicationPeer::MEMBER_ID => 1, MemberApplicationPeer::APPLICATION_ID => 2, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'member_id' => 1, 'application_id' => 2, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, )
 	);
 
 	
 	public static function getMapBuilder()
 	{
-		return BasePeer::getMapBuilder('plugins.opOpenSocialPlugin.lib.model.map.MemberApplicationsMapBuilder');
+		return BasePeer::getMapBuilder('plugins.opOpenSocialPlugin.lib.model.map.MemberApplicationMapBuilder');
 	}
 	
 	public static function getPhpNameMap()
 	{
 		if (self::$phpNameMap === null) {
-			$map = MemberApplicationsPeer::getTableMap();
+			$map = MemberApplicationPeer::getTableMap();
 			$columns = $map->getColumns();
 			$nameMap = array();
 			foreach ($columns as $column) {
@@ -91,23 +91,23 @@ abstract class BaseMemberApplicationsPeer {
 	
 	public static function alias($alias, $column)
 	{
-		return str_replace(MemberApplicationsPeer::TABLE_NAME.'.', $alias.'.', $column);
+		return str_replace(MemberApplicationPeer::TABLE_NAME.'.', $alias.'.', $column);
 	}
 
 	
 	public static function addSelectColumns(Criteria $criteria)
 	{
 
-		$criteria->addSelectColumn(MemberApplicationsPeer::ID);
+		$criteria->addSelectColumn(MemberApplicationPeer::ID);
 
-		$criteria->addSelectColumn(MemberApplicationsPeer::MEMBER_ID);
+		$criteria->addSelectColumn(MemberApplicationPeer::MEMBER_ID);
 
-		$criteria->addSelectColumn(MemberApplicationsPeer::APPLICATIONS_ID);
+		$criteria->addSelectColumn(MemberApplicationPeer::APPLICATION_ID);
 
 	}
 
-	const COUNT = 'COUNT(member_applications.ID)';
-	const COUNT_DISTINCT = 'COUNT(DISTINCT member_applications.ID)';
+	const COUNT = 'COUNT(member_application.ID)';
+	const COUNT_DISTINCT = 'COUNT(DISTINCT member_application.ID)';
 
 	
 	public static function doCount(Criteria $criteria, $distinct = false, $con = null)
@@ -116,9 +116,9 @@ abstract class BaseMemberApplicationsPeer {
 
 				$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(MemberApplicationsPeer::COUNT_DISTINCT);
+			$criteria->addSelectColumn(MemberApplicationPeer::COUNT_DISTINCT);
 		} else {
-			$criteria->addSelectColumn(MemberApplicationsPeer::COUNT);
+			$criteria->addSelectColumn(MemberApplicationPeer::COUNT);
 		}
 
 				foreach($criteria->getGroupByColumns() as $column)
@@ -126,7 +126,7 @@ abstract class BaseMemberApplicationsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$rs = MemberApplicationsPeer::doSelectRS($criteria, $con);
+		$rs = MemberApplicationPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
 			return $rs->getInt(1);
 		} else {
@@ -138,7 +138,7 @@ abstract class BaseMemberApplicationsPeer {
 	{
 		$critcopy = clone $criteria;
 		$critcopy->setLimit(1);
-		$objects = MemberApplicationsPeer::doSelect($critcopy, $con);
+		$objects = MemberApplicationPeer::doSelect($critcopy, $con);
 		if ($objects) {
 			return $objects[0];
 		}
@@ -147,7 +147,7 @@ abstract class BaseMemberApplicationsPeer {
 	
 	public static function doSelect(Criteria $criteria, $con = null)
 	{
-		return MemberApplicationsPeer::populateObjects(MemberApplicationsPeer::doSelectRS($criteria, $con));
+		return MemberApplicationPeer::populateObjects(MemberApplicationPeer::doSelectRS($criteria, $con));
 	}
 	
 	public static function doSelectRS(Criteria $criteria, $con = null)
@@ -158,7 +158,7 @@ abstract class BaseMemberApplicationsPeer {
 
 		if (!$criteria->getSelectColumns()) {
 			$criteria = clone $criteria;
-			MemberApplicationsPeer::addSelectColumns($criteria);
+			MemberApplicationPeer::addSelectColumns($criteria);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -170,7 +170,7 @@ abstract class BaseMemberApplicationsPeer {
 	{
 		$results = array();
 	
-				$cls = MemberApplicationsPeer::getOMClass();
+				$cls = MemberApplicationPeer::getOMClass();
 		$cls = sfPropel::import($cls);
 				while($rs->next()) {
 		
@@ -189,9 +189,9 @@ abstract class BaseMemberApplicationsPeer {
 
 				$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(MemberApplicationsPeer::COUNT_DISTINCT);
+			$criteria->addSelectColumn(MemberApplicationPeer::COUNT_DISTINCT);
 		} else {
-			$criteria->addSelectColumn(MemberApplicationsPeer::COUNT);
+			$criteria->addSelectColumn(MemberApplicationPeer::COUNT);
 		}
 
 				foreach($criteria->getGroupByColumns() as $column)
@@ -199,9 +199,9 @@ abstract class BaseMemberApplicationsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(MemberApplicationsPeer::MEMBER_ID, MemberPeer::ID);
+		$criteria->addJoin(MemberApplicationPeer::MEMBER_ID, MemberPeer::ID);
 
-		$rs = MemberApplicationsPeer::doSelectRS($criteria, $con);
+		$rs = MemberApplicationPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
 			return $rs->getInt(1);
 		} else {
@@ -211,15 +211,15 @@ abstract class BaseMemberApplicationsPeer {
 
 
 	
-	public static function doCountJoinApplications(Criteria $criteria, $distinct = false, $con = null)
+	public static function doCountJoinApplication(Criteria $criteria, $distinct = false, $con = null)
 	{
 				$criteria = clone $criteria;
 
 				$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(MemberApplicationsPeer::COUNT_DISTINCT);
+			$criteria->addSelectColumn(MemberApplicationPeer::COUNT_DISTINCT);
 		} else {
-			$criteria->addSelectColumn(MemberApplicationsPeer::COUNT);
+			$criteria->addSelectColumn(MemberApplicationPeer::COUNT);
 		}
 
 				foreach($criteria->getGroupByColumns() as $column)
@@ -227,9 +227,9 @@ abstract class BaseMemberApplicationsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(MemberApplicationsPeer::APPLICATIONS_ID, ApplicationsPeer::ID);
+		$criteria->addJoin(MemberApplicationPeer::APPLICATION_ID, ApplicationPeer::ID);
 
-		$rs = MemberApplicationsPeer::doSelectRS($criteria, $con);
+		$rs = MemberApplicationPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
 			return $rs->getInt(1);
 		} else {
@@ -247,17 +247,17 @@ abstract class BaseMemberApplicationsPeer {
 			$c->setDbName(self::DATABASE_NAME);
 		}
 
-		MemberApplicationsPeer::addSelectColumns($c);
-		$startcol = (MemberApplicationsPeer::NUM_COLUMNS - MemberApplicationsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		MemberApplicationPeer::addSelectColumns($c);
+		$startcol = (MemberApplicationPeer::NUM_COLUMNS - MemberApplicationPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 		MemberPeer::addSelectColumns($c);
 
-		$c->addJoin(MemberApplicationsPeer::MEMBER_ID, MemberPeer::ID);
+		$c->addJoin(MemberApplicationPeer::MEMBER_ID, MemberPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
 		while($rs->next()) {
 
-			$omClass = MemberApplicationsPeer::getOMClass();
+			$omClass = MemberApplicationPeer::getOMClass();
 
 			$cls = sfPropel::import($omClass);
 			$obj1 = new $cls();
@@ -273,12 +273,12 @@ abstract class BaseMemberApplicationsPeer {
 			foreach($results as $temp_obj1) {
 				$temp_obj2 = $temp_obj1->getMember(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-										$temp_obj2->addMemberApplications($obj1); 					break;
+										$temp_obj2->addMemberApplication($obj1); 					break;
 				}
 			}
 			if ($newObject) {
-				$obj2->initMemberApplicationss();
-				$obj2->addMemberApplications($obj1); 			}
+				$obj2->initMemberApplications();
+				$obj2->addMemberApplication($obj1); 			}
 			$results[] = $obj1;
 		}
 		return $results;
@@ -286,7 +286,7 @@ abstract class BaseMemberApplicationsPeer {
 
 
 	
-	public static function doSelectJoinApplications(Criteria $c, $con = null)
+	public static function doSelectJoinApplication(Criteria $c, $con = null)
 	{
 		$c = clone $c;
 
@@ -294,23 +294,23 @@ abstract class BaseMemberApplicationsPeer {
 			$c->setDbName(self::DATABASE_NAME);
 		}
 
-		MemberApplicationsPeer::addSelectColumns($c);
-		$startcol = (MemberApplicationsPeer::NUM_COLUMNS - MemberApplicationsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		ApplicationsPeer::addSelectColumns($c);
+		MemberApplicationPeer::addSelectColumns($c);
+		$startcol = (MemberApplicationPeer::NUM_COLUMNS - MemberApplicationPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		ApplicationPeer::addSelectColumns($c);
 
-		$c->addJoin(MemberApplicationsPeer::APPLICATIONS_ID, ApplicationsPeer::ID);
+		$c->addJoin(MemberApplicationPeer::APPLICATION_ID, ApplicationPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
 		while($rs->next()) {
 
-			$omClass = MemberApplicationsPeer::getOMClass();
+			$omClass = MemberApplicationPeer::getOMClass();
 
 			$cls = sfPropel::import($omClass);
 			$obj1 = new $cls();
 			$obj1->hydrate($rs);
 
-			$omClass = ApplicationsPeer::getOMClass();
+			$omClass = ApplicationPeer::getOMClass();
 
 			$cls = sfPropel::import($omClass);
 			$obj2 = new $cls();
@@ -318,14 +318,14 @@ abstract class BaseMemberApplicationsPeer {
 
 			$newObject = true;
 			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getApplications(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+				$temp_obj2 = $temp_obj1->getApplication(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-										$temp_obj2->addMemberApplications($obj1); 					break;
+										$temp_obj2->addMemberApplication($obj1); 					break;
 				}
 			}
 			if ($newObject) {
-				$obj2->initMemberApplicationss();
-				$obj2->addMemberApplications($obj1); 			}
+				$obj2->initMemberApplications();
+				$obj2->addMemberApplication($obj1); 			}
 			$results[] = $obj1;
 		}
 		return $results;
@@ -339,9 +339,9 @@ abstract class BaseMemberApplicationsPeer {
 
 				$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(MemberApplicationsPeer::COUNT_DISTINCT);
+			$criteria->addSelectColumn(MemberApplicationPeer::COUNT_DISTINCT);
 		} else {
-			$criteria->addSelectColumn(MemberApplicationsPeer::COUNT);
+			$criteria->addSelectColumn(MemberApplicationPeer::COUNT);
 		}
 
 				foreach($criteria->getGroupByColumns() as $column)
@@ -349,11 +349,11 @@ abstract class BaseMemberApplicationsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(MemberApplicationsPeer::MEMBER_ID, MemberPeer::ID);
+		$criteria->addJoin(MemberApplicationPeer::MEMBER_ID, MemberPeer::ID);
 
-		$criteria->addJoin(MemberApplicationsPeer::APPLICATIONS_ID, ApplicationsPeer::ID);
+		$criteria->addJoin(MemberApplicationPeer::APPLICATION_ID, ApplicationPeer::ID);
 
-		$rs = MemberApplicationsPeer::doSelectRS($criteria, $con);
+		$rs = MemberApplicationPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
 			return $rs->getInt(1);
 		} else {
@@ -371,25 +371,25 @@ abstract class BaseMemberApplicationsPeer {
 			$c->setDbName(self::DATABASE_NAME);
 		}
 
-		MemberApplicationsPeer::addSelectColumns($c);
-		$startcol2 = (MemberApplicationsPeer::NUM_COLUMNS - MemberApplicationsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		MemberApplicationPeer::addSelectColumns($c);
+		$startcol2 = (MemberApplicationPeer::NUM_COLUMNS - MemberApplicationPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 
 		MemberPeer::addSelectColumns($c);
 		$startcol3 = $startcol2 + MemberPeer::NUM_COLUMNS;
 
-		ApplicationsPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + ApplicationsPeer::NUM_COLUMNS;
+		ApplicationPeer::addSelectColumns($c);
+		$startcol4 = $startcol3 + ApplicationPeer::NUM_COLUMNS;
 
-		$c->addJoin(MemberApplicationsPeer::MEMBER_ID, MemberPeer::ID);
+		$c->addJoin(MemberApplicationPeer::MEMBER_ID, MemberPeer::ID);
 
-		$c->addJoin(MemberApplicationsPeer::APPLICATIONS_ID, ApplicationsPeer::ID);
+		$c->addJoin(MemberApplicationPeer::APPLICATION_ID, ApplicationPeer::ID);
 
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
 		while($rs->next()) {
 
-			$omClass = MemberApplicationsPeer::getOMClass();
+			$omClass = MemberApplicationPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -410,18 +410,18 @@ abstract class BaseMemberApplicationsPeer {
 				$temp_obj1 = $results[$j];
 				$temp_obj2 = $temp_obj1->getMember(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-					$temp_obj2->addMemberApplications($obj1); 					break;
+					$temp_obj2->addMemberApplication($obj1); 					break;
 				}
 			}
 
 			if ($newObject) {
-				$obj2->initMemberApplicationss();
-				$obj2->addMemberApplications($obj1);
+				$obj2->initMemberApplications();
+				$obj2->addMemberApplication($obj1);
 			}
 
 
 					
-			$omClass = ApplicationsPeer::getOMClass();
+			$omClass = ApplicationPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -431,15 +431,15 @@ abstract class BaseMemberApplicationsPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getApplications(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
+				$temp_obj3 = $temp_obj1->getApplication(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
 					$newObject = false;
-					$temp_obj3->addMemberApplications($obj1); 					break;
+					$temp_obj3->addMemberApplication($obj1); 					break;
 				}
 			}
 
 			if ($newObject) {
-				$obj3->initMemberApplicationss();
-				$obj3->addMemberApplications($obj1);
+				$obj3->initMemberApplications();
+				$obj3->addMemberApplication($obj1);
 			}
 
 			$results[] = $obj1;
@@ -455,9 +455,9 @@ abstract class BaseMemberApplicationsPeer {
 
 				$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(MemberApplicationsPeer::COUNT_DISTINCT);
+			$criteria->addSelectColumn(MemberApplicationPeer::COUNT_DISTINCT);
 		} else {
-			$criteria->addSelectColumn(MemberApplicationsPeer::COUNT);
+			$criteria->addSelectColumn(MemberApplicationPeer::COUNT);
 		}
 
 				foreach($criteria->getGroupByColumns() as $column)
@@ -465,9 +465,9 @@ abstract class BaseMemberApplicationsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(MemberApplicationsPeer::APPLICATIONS_ID, ApplicationsPeer::ID);
+		$criteria->addJoin(MemberApplicationPeer::APPLICATION_ID, ApplicationPeer::ID);
 
-		$rs = MemberApplicationsPeer::doSelectRS($criteria, $con);
+		$rs = MemberApplicationPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
 			return $rs->getInt(1);
 		} else {
@@ -477,15 +477,15 @@ abstract class BaseMemberApplicationsPeer {
 
 
 	
-	public static function doCountJoinAllExceptApplications(Criteria $criteria, $distinct = false, $con = null)
+	public static function doCountJoinAllExceptApplication(Criteria $criteria, $distinct = false, $con = null)
 	{
 				$criteria = clone $criteria;
 
 				$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(MemberApplicationsPeer::COUNT_DISTINCT);
+			$criteria->addSelectColumn(MemberApplicationPeer::COUNT_DISTINCT);
 		} else {
-			$criteria->addSelectColumn(MemberApplicationsPeer::COUNT);
+			$criteria->addSelectColumn(MemberApplicationPeer::COUNT);
 		}
 
 				foreach($criteria->getGroupByColumns() as $column)
@@ -493,9 +493,9 @@ abstract class BaseMemberApplicationsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(MemberApplicationsPeer::MEMBER_ID, MemberPeer::ID);
+		$criteria->addJoin(MemberApplicationPeer::MEMBER_ID, MemberPeer::ID);
 
-		$rs = MemberApplicationsPeer::doSelectRS($criteria, $con);
+		$rs = MemberApplicationPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
 			return $rs->getInt(1);
 		} else {
@@ -513,13 +513,13 @@ abstract class BaseMemberApplicationsPeer {
 			$c->setDbName(self::DATABASE_NAME);
 		}
 
-		MemberApplicationsPeer::addSelectColumns($c);
-		$startcol2 = (MemberApplicationsPeer::NUM_COLUMNS - MemberApplicationsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		MemberApplicationPeer::addSelectColumns($c);
+		$startcol2 = (MemberApplicationPeer::NUM_COLUMNS - MemberApplicationPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 
-		ApplicationsPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + ApplicationsPeer::NUM_COLUMNS;
+		ApplicationPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + ApplicationPeer::NUM_COLUMNS;
 
-		$c->addJoin(MemberApplicationsPeer::APPLICATIONS_ID, ApplicationsPeer::ID);
+		$c->addJoin(MemberApplicationPeer::APPLICATION_ID, ApplicationPeer::ID);
 
 
 		$rs = BasePeer::doSelect($c, $con);
@@ -527,13 +527,13 @@ abstract class BaseMemberApplicationsPeer {
 
 		while($rs->next()) {
 
-			$omClass = MemberApplicationsPeer::getOMClass();
+			$omClass = MemberApplicationPeer::getOMClass();
 
 			$cls = sfPropel::import($omClass);
 			$obj1 = new $cls();
 			$obj1->hydrate($rs);
 
-			$omClass = ApplicationsPeer::getOMClass();
+			$omClass = ApplicationPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -543,16 +543,16 @@ abstract class BaseMemberApplicationsPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getApplications(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+				$temp_obj2 = $temp_obj1->getApplication(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-					$temp_obj2->addMemberApplications($obj1);
+					$temp_obj2->addMemberApplication($obj1);
 					break;
 				}
 			}
 
 			if ($newObject) {
-				$obj2->initMemberApplicationss();
-				$obj2->addMemberApplications($obj1);
+				$obj2->initMemberApplications();
+				$obj2->addMemberApplication($obj1);
 			}
 
 			$results[] = $obj1;
@@ -562,7 +562,7 @@ abstract class BaseMemberApplicationsPeer {
 
 
 	
-	public static function doSelectJoinAllExceptApplications(Criteria $c, $con = null)
+	public static function doSelectJoinAllExceptApplication(Criteria $c, $con = null)
 	{
 		$c = clone $c;
 
@@ -570,13 +570,13 @@ abstract class BaseMemberApplicationsPeer {
 			$c->setDbName(self::DATABASE_NAME);
 		}
 
-		MemberApplicationsPeer::addSelectColumns($c);
-		$startcol2 = (MemberApplicationsPeer::NUM_COLUMNS - MemberApplicationsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		MemberApplicationPeer::addSelectColumns($c);
+		$startcol2 = (MemberApplicationPeer::NUM_COLUMNS - MemberApplicationPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 
 		MemberPeer::addSelectColumns($c);
 		$startcol3 = $startcol2 + MemberPeer::NUM_COLUMNS;
 
-		$c->addJoin(MemberApplicationsPeer::MEMBER_ID, MemberPeer::ID);
+		$c->addJoin(MemberApplicationPeer::MEMBER_ID, MemberPeer::ID);
 
 
 		$rs = BasePeer::doSelect($c, $con);
@@ -584,7 +584,7 @@ abstract class BaseMemberApplicationsPeer {
 
 		while($rs->next()) {
 
-			$omClass = MemberApplicationsPeer::getOMClass();
+			$omClass = MemberApplicationPeer::getOMClass();
 
 			$cls = sfPropel::import($omClass);
 			$obj1 = new $cls();
@@ -602,14 +602,14 @@ abstract class BaseMemberApplicationsPeer {
 				$temp_obj1 = $results[$j];
 				$temp_obj2 = $temp_obj1->getMember(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-					$temp_obj2->addMemberApplications($obj1);
+					$temp_obj2->addMemberApplication($obj1);
 					break;
 				}
 			}
 
 			if ($newObject) {
-				$obj2->initMemberApplicationss();
-				$obj2->addMemberApplications($obj1);
+				$obj2->initMemberApplications();
+				$obj2->addMemberApplication($obj1);
 			}
 
 			$results[] = $obj1;
@@ -631,7 +631,7 @@ abstract class BaseMemberApplicationsPeer {
 	
 	public static function getOMClass()
 	{
-		return MemberApplicationsPeer::CLASS_DEFAULT;
+		return MemberApplicationPeer::CLASS_DEFAULT;
 	}
 
 	
@@ -645,7 +645,7 @@ abstract class BaseMemberApplicationsPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
-		$criteria->remove(MemberApplicationsPeer::ID); 
+		$criteria->remove(MemberApplicationPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 
@@ -672,8 +672,8 @@ abstract class BaseMemberApplicationsPeer {
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; 
-			$comparison = $criteria->getComparison(MemberApplicationsPeer::ID);
-			$selectCriteria->add(MemberApplicationsPeer::ID, $criteria->remove(MemberApplicationsPeer::ID), $comparison);
+			$comparison = $criteria->getComparison(MemberApplicationPeer::ID);
+			$selectCriteria->add(MemberApplicationPeer::ID, $criteria->remove(MemberApplicationPeer::ID), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -690,7 +690,7 @@ abstract class BaseMemberApplicationsPeer {
 		}
 		$affectedRows = 0; 		try {
 									$con->begin();
-			$affectedRows += BasePeer::doDeleteAll(MemberApplicationsPeer::TABLE_NAME, $con);
+			$affectedRows += BasePeer::doDeleteAll(MemberApplicationPeer::TABLE_NAME, $con);
 			$con->commit();
 			return $affectedRows;
 		} catch (PropelException $e) {
@@ -703,16 +703,16 @@ abstract class BaseMemberApplicationsPeer {
 	 public static function doDelete($values, $con = null)
 	 {
 		if ($con === null) {
-			$con = Propel::getConnection(MemberApplicationsPeer::DATABASE_NAME);
+			$con = Propel::getConnection(MemberApplicationPeer::DATABASE_NAME);
 		}
 
 		if ($values instanceof Criteria) {
-			$criteria = clone $values; 		} elseif ($values instanceof MemberApplications) {
+			$criteria = clone $values; 		} elseif ($values instanceof MemberApplication) {
 
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(MemberApplicationsPeer::ID, (array) $values, Criteria::IN);
+			$criteria->add(MemberApplicationPeer::ID, (array) $values, Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -731,13 +731,13 @@ abstract class BaseMemberApplicationsPeer {
 	}
 
 	
-	public static function doValidate(MemberApplications $obj, $cols = null)
+	public static function doValidate(MemberApplication $obj, $cols = null)
 	{
 		$columns = array();
 
 		if ($cols) {
-			$dbMap = Propel::getDatabaseMap(MemberApplicationsPeer::DATABASE_NAME);
-			$tableMap = $dbMap->getTable(MemberApplicationsPeer::TABLE_NAME);
+			$dbMap = Propel::getDatabaseMap(MemberApplicationPeer::DATABASE_NAME);
+			$tableMap = $dbMap->getTable(MemberApplicationPeer::TABLE_NAME);
 
 			if (! is_array($cols)) {
 				$cols = array($cols);
@@ -753,11 +753,11 @@ abstract class BaseMemberApplicationsPeer {
 
 		}
 
-		$res =  BasePeer::doValidate(MemberApplicationsPeer::DATABASE_NAME, MemberApplicationsPeer::TABLE_NAME, $columns);
+		$res =  BasePeer::doValidate(MemberApplicationPeer::DATABASE_NAME, MemberApplicationPeer::TABLE_NAME, $columns);
     if ($res !== true) {
         $request = sfContext::getInstance()->getRequest();
         foreach ($res as $failed) {
-            $col = MemberApplicationsPeer::translateFieldname($failed->getColumn(), BasePeer::TYPE_COLNAME, BasePeer::TYPE_PHPNAME);
+            $col = MemberApplicationPeer::translateFieldname($failed->getColumn(), BasePeer::TYPE_COLNAME, BasePeer::TYPE_PHPNAME);
             $request->setError($col, $failed->getMessage());
         }
     }
@@ -772,12 +772,12 @@ abstract class BaseMemberApplicationsPeer {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
 
-		$criteria = new Criteria(MemberApplicationsPeer::DATABASE_NAME);
+		$criteria = new Criteria(MemberApplicationPeer::DATABASE_NAME);
 
-		$criteria->add(MemberApplicationsPeer::ID, $pk);
+		$criteria->add(MemberApplicationPeer::ID, $pk);
 
 
-		$v = MemberApplicationsPeer::doSelect($criteria, $con);
+		$v = MemberApplicationPeer::doSelect($criteria, $con);
 
 		return !empty($v) > 0 ? $v[0] : null;
 	}
@@ -794,8 +794,8 @@ abstract class BaseMemberApplicationsPeer {
 			$objs = array();
 		} else {
 			$criteria = new Criteria();
-			$criteria->add(MemberApplicationsPeer::ID, $pks, Criteria::IN);
-			$objs = MemberApplicationsPeer::doSelect($criteria, $con);
+			$criteria->add(MemberApplicationPeer::ID, $pks, Criteria::IN);
+			$objs = MemberApplicationPeer::doSelect($criteria, $con);
 		}
 		return $objs;
 	}
@@ -803,10 +803,10 @@ abstract class BaseMemberApplicationsPeer {
 } 
 if (Propel::isInit()) {
 			try {
-		BaseMemberApplicationsPeer::getMapBuilder();
+		BaseMemberApplicationPeer::getMapBuilder();
 	} catch (Exception $e) {
 		Propel::log('Could not initialize Peer: ' . $e->getMessage(), Propel::LOG_ERR);
 	}
 } else {
-			Propel::registerMapBuilder('plugins.opOpenSocialPlugin.lib.model.map.MemberApplicationsMapBuilder');
+			Propel::registerMapBuilder('plugins.opOpenSocialPlugin.lib.model.map.MemberApplicationMapBuilder');
 }

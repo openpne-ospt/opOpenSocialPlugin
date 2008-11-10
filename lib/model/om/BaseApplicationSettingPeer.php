@@ -1,16 +1,16 @@
 <?php
 
 
-abstract class BaseApplicationSettingsPeer {
+abstract class BaseApplicationSettingPeer {
 
 	
 	const DATABASE_NAME = 'propel';
 
 	
-	const TABLE_NAME = 'application_settings';
+	const TABLE_NAME = 'application_setting';
 
 	
-	const CLASS_DEFAULT = 'plugins.opOpenSocialPlugin.lib.model.ApplicationSettings';
+	const CLASS_DEFAULT = 'plugins.opOpenSocialPlugin.lib.model.ApplicationSetting';
 
 	
 	const NUM_COLUMNS = 5;
@@ -20,19 +20,19 @@ abstract class BaseApplicationSettingsPeer {
 
 
 	
-	const APPLICATIONS_ID = 'application_settings.APPLICATIONS_ID';
+	const ID = 'application_setting.ID';
 
 	
-	const MEMBER_ID = 'application_settings.MEMBER_ID';
+	const APPLICATION_ID = 'application_setting.APPLICATION_ID';
 
 	
-	const NAME = 'application_settings.NAME';
+	const MEMBER_ID = 'application_setting.MEMBER_ID';
 
 	
-	const VALUE = 'application_settings.VALUE';
+	const NAME = 'application_setting.NAME';
 
 	
-	const ID = 'application_settings.ID';
+	const VALUE = 'application_setting.VALUE';
 
 	
 	private static $phpNameMap = null;
@@ -40,30 +40,30 @@ abstract class BaseApplicationSettingsPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('ApplicationsId', 'MemberId', 'Name', 'Value', 'Id', ),
-		BasePeer::TYPE_COLNAME => array (ApplicationSettingsPeer::APPLICATIONS_ID, ApplicationSettingsPeer::MEMBER_ID, ApplicationSettingsPeer::NAME, ApplicationSettingsPeer::VALUE, ApplicationSettingsPeer::ID, ),
-		BasePeer::TYPE_FIELDNAME => array ('applications_id', 'member_id', 'name', 'value', 'id', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'ApplicationId', 'MemberId', 'Name', 'Value', ),
+		BasePeer::TYPE_COLNAME => array (ApplicationSettingPeer::ID, ApplicationSettingPeer::APPLICATION_ID, ApplicationSettingPeer::MEMBER_ID, ApplicationSettingPeer::NAME, ApplicationSettingPeer::VALUE, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'application_id', 'member_id', 'name', 'value', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('ApplicationsId' => 0, 'MemberId' => 1, 'Name' => 2, 'Value' => 3, 'Id' => 4, ),
-		BasePeer::TYPE_COLNAME => array (ApplicationSettingsPeer::APPLICATIONS_ID => 0, ApplicationSettingsPeer::MEMBER_ID => 1, ApplicationSettingsPeer::NAME => 2, ApplicationSettingsPeer::VALUE => 3, ApplicationSettingsPeer::ID => 4, ),
-		BasePeer::TYPE_FIELDNAME => array ('applications_id' => 0, 'member_id' => 1, 'name' => 2, 'value' => 3, 'id' => 4, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'ApplicationId' => 1, 'MemberId' => 2, 'Name' => 3, 'Value' => 4, ),
+		BasePeer::TYPE_COLNAME => array (ApplicationSettingPeer::ID => 0, ApplicationSettingPeer::APPLICATION_ID => 1, ApplicationSettingPeer::MEMBER_ID => 2, ApplicationSettingPeer::NAME => 3, ApplicationSettingPeer::VALUE => 4, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'application_id' => 1, 'member_id' => 2, 'name' => 3, 'value' => 4, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
 	);
 
 	
 	public static function getMapBuilder()
 	{
-		return BasePeer::getMapBuilder('plugins.opOpenSocialPlugin.lib.model.map.ApplicationSettingsMapBuilder');
+		return BasePeer::getMapBuilder('plugins.opOpenSocialPlugin.lib.model.map.ApplicationSettingMapBuilder');
 	}
 	
 	public static function getPhpNameMap()
 	{
 		if (self::$phpNameMap === null) {
-			$map = ApplicationSettingsPeer::getTableMap();
+			$map = ApplicationSettingPeer::getTableMap();
 			$columns = $map->getColumns();
 			$nameMap = array();
 			foreach ($columns as $column) {
@@ -97,27 +97,27 @@ abstract class BaseApplicationSettingsPeer {
 	
 	public static function alias($alias, $column)
 	{
-		return str_replace(ApplicationSettingsPeer::TABLE_NAME.'.', $alias.'.', $column);
+		return str_replace(ApplicationSettingPeer::TABLE_NAME.'.', $alias.'.', $column);
 	}
 
 	
 	public static function addSelectColumns(Criteria $criteria)
 	{
 
-		$criteria->addSelectColumn(ApplicationSettingsPeer::APPLICATIONS_ID);
+		$criteria->addSelectColumn(ApplicationSettingPeer::ID);
 
-		$criteria->addSelectColumn(ApplicationSettingsPeer::MEMBER_ID);
+		$criteria->addSelectColumn(ApplicationSettingPeer::APPLICATION_ID);
 
-		$criteria->addSelectColumn(ApplicationSettingsPeer::NAME);
+		$criteria->addSelectColumn(ApplicationSettingPeer::MEMBER_ID);
 
-		$criteria->addSelectColumn(ApplicationSettingsPeer::VALUE);
+		$criteria->addSelectColumn(ApplicationSettingPeer::NAME);
 
-		$criteria->addSelectColumn(ApplicationSettingsPeer::ID);
+		$criteria->addSelectColumn(ApplicationSettingPeer::VALUE);
 
 	}
 
-	const COUNT = 'COUNT(application_settings.ID)';
-	const COUNT_DISTINCT = 'COUNT(DISTINCT application_settings.ID)';
+	const COUNT = 'COUNT(application_setting.ID)';
+	const COUNT_DISTINCT = 'COUNT(DISTINCT application_setting.ID)';
 
 	
 	public static function doCount(Criteria $criteria, $distinct = false, $con = null)
@@ -126,9 +126,9 @@ abstract class BaseApplicationSettingsPeer {
 
 				$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(ApplicationSettingsPeer::COUNT_DISTINCT);
+			$criteria->addSelectColumn(ApplicationSettingPeer::COUNT_DISTINCT);
 		} else {
-			$criteria->addSelectColumn(ApplicationSettingsPeer::COUNT);
+			$criteria->addSelectColumn(ApplicationSettingPeer::COUNT);
 		}
 
 				foreach($criteria->getGroupByColumns() as $column)
@@ -136,7 +136,7 @@ abstract class BaseApplicationSettingsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$rs = ApplicationSettingsPeer::doSelectRS($criteria, $con);
+		$rs = ApplicationSettingPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
 			return $rs->getInt(1);
 		} else {
@@ -148,7 +148,7 @@ abstract class BaseApplicationSettingsPeer {
 	{
 		$critcopy = clone $criteria;
 		$critcopy->setLimit(1);
-		$objects = ApplicationSettingsPeer::doSelect($critcopy, $con);
+		$objects = ApplicationSettingPeer::doSelect($critcopy, $con);
 		if ($objects) {
 			return $objects[0];
 		}
@@ -157,7 +157,7 @@ abstract class BaseApplicationSettingsPeer {
 	
 	public static function doSelect(Criteria $criteria, $con = null)
 	{
-		return ApplicationSettingsPeer::populateObjects(ApplicationSettingsPeer::doSelectRS($criteria, $con));
+		return ApplicationSettingPeer::populateObjects(ApplicationSettingPeer::doSelectRS($criteria, $con));
 	}
 	
 	public static function doSelectRS(Criteria $criteria, $con = null)
@@ -168,7 +168,7 @@ abstract class BaseApplicationSettingsPeer {
 
 		if (!$criteria->getSelectColumns()) {
 			$criteria = clone $criteria;
-			ApplicationSettingsPeer::addSelectColumns($criteria);
+			ApplicationSettingPeer::addSelectColumns($criteria);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -180,7 +180,7 @@ abstract class BaseApplicationSettingsPeer {
 	{
 		$results = array();
 	
-				$cls = ApplicationSettingsPeer::getOMClass();
+				$cls = ApplicationSettingPeer::getOMClass();
 		$cls = sfPropel::import($cls);
 				while($rs->next()) {
 		
@@ -193,15 +193,15 @@ abstract class BaseApplicationSettingsPeer {
 	}
 
 	
-	public static function doCountJoinApplications(Criteria $criteria, $distinct = false, $con = null)
+	public static function doCountJoinApplication(Criteria $criteria, $distinct = false, $con = null)
 	{
 				$criteria = clone $criteria;
 
 				$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(ApplicationSettingsPeer::COUNT_DISTINCT);
+			$criteria->addSelectColumn(ApplicationSettingPeer::COUNT_DISTINCT);
 		} else {
-			$criteria->addSelectColumn(ApplicationSettingsPeer::COUNT);
+			$criteria->addSelectColumn(ApplicationSettingPeer::COUNT);
 		}
 
 				foreach($criteria->getGroupByColumns() as $column)
@@ -209,9 +209,9 @@ abstract class BaseApplicationSettingsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(ApplicationSettingsPeer::APPLICATIONS_ID, ApplicationsPeer::ID);
+		$criteria->addJoin(ApplicationSettingPeer::APPLICATION_ID, ApplicationPeer::ID);
 
-		$rs = ApplicationSettingsPeer::doSelectRS($criteria, $con);
+		$rs = ApplicationSettingPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
 			return $rs->getInt(1);
 		} else {
@@ -227,9 +227,9 @@ abstract class BaseApplicationSettingsPeer {
 
 				$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(ApplicationSettingsPeer::COUNT_DISTINCT);
+			$criteria->addSelectColumn(ApplicationSettingPeer::COUNT_DISTINCT);
 		} else {
-			$criteria->addSelectColumn(ApplicationSettingsPeer::COUNT);
+			$criteria->addSelectColumn(ApplicationSettingPeer::COUNT);
 		}
 
 				foreach($criteria->getGroupByColumns() as $column)
@@ -237,9 +237,9 @@ abstract class BaseApplicationSettingsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(ApplicationSettingsPeer::MEMBER_ID, MemberPeer::ID);
+		$criteria->addJoin(ApplicationSettingPeer::MEMBER_ID, MemberPeer::ID);
 
-		$rs = ApplicationSettingsPeer::doSelectRS($criteria, $con);
+		$rs = ApplicationSettingPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
 			return $rs->getInt(1);
 		} else {
@@ -249,7 +249,7 @@ abstract class BaseApplicationSettingsPeer {
 
 
 	
-	public static function doSelectJoinApplications(Criteria $c, $con = null)
+	public static function doSelectJoinApplication(Criteria $c, $con = null)
 	{
 		$c = clone $c;
 
@@ -257,23 +257,23 @@ abstract class BaseApplicationSettingsPeer {
 			$c->setDbName(self::DATABASE_NAME);
 		}
 
-		ApplicationSettingsPeer::addSelectColumns($c);
-		$startcol = (ApplicationSettingsPeer::NUM_COLUMNS - ApplicationSettingsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		ApplicationsPeer::addSelectColumns($c);
+		ApplicationSettingPeer::addSelectColumns($c);
+		$startcol = (ApplicationSettingPeer::NUM_COLUMNS - ApplicationSettingPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		ApplicationPeer::addSelectColumns($c);
 
-		$c->addJoin(ApplicationSettingsPeer::APPLICATIONS_ID, ApplicationsPeer::ID);
+		$c->addJoin(ApplicationSettingPeer::APPLICATION_ID, ApplicationPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
 		while($rs->next()) {
 
-			$omClass = ApplicationSettingsPeer::getOMClass();
+			$omClass = ApplicationSettingPeer::getOMClass();
 
 			$cls = sfPropel::import($omClass);
 			$obj1 = new $cls();
 			$obj1->hydrate($rs);
 
-			$omClass = ApplicationsPeer::getOMClass();
+			$omClass = ApplicationPeer::getOMClass();
 
 			$cls = sfPropel::import($omClass);
 			$obj2 = new $cls();
@@ -281,14 +281,14 @@ abstract class BaseApplicationSettingsPeer {
 
 			$newObject = true;
 			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getApplications(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+				$temp_obj2 = $temp_obj1->getApplication(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-										$temp_obj2->addApplicationSettings($obj1); 					break;
+										$temp_obj2->addApplicationSetting($obj1); 					break;
 				}
 			}
 			if ($newObject) {
-				$obj2->initApplicationSettingss();
-				$obj2->addApplicationSettings($obj1); 			}
+				$obj2->initApplicationSettings();
+				$obj2->addApplicationSetting($obj1); 			}
 			$results[] = $obj1;
 		}
 		return $results;
@@ -304,17 +304,17 @@ abstract class BaseApplicationSettingsPeer {
 			$c->setDbName(self::DATABASE_NAME);
 		}
 
-		ApplicationSettingsPeer::addSelectColumns($c);
-		$startcol = (ApplicationSettingsPeer::NUM_COLUMNS - ApplicationSettingsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		ApplicationSettingPeer::addSelectColumns($c);
+		$startcol = (ApplicationSettingPeer::NUM_COLUMNS - ApplicationSettingPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 		MemberPeer::addSelectColumns($c);
 
-		$c->addJoin(ApplicationSettingsPeer::MEMBER_ID, MemberPeer::ID);
+		$c->addJoin(ApplicationSettingPeer::MEMBER_ID, MemberPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
 		while($rs->next()) {
 
-			$omClass = ApplicationSettingsPeer::getOMClass();
+			$omClass = ApplicationSettingPeer::getOMClass();
 
 			$cls = sfPropel::import($omClass);
 			$obj1 = new $cls();
@@ -330,12 +330,12 @@ abstract class BaseApplicationSettingsPeer {
 			foreach($results as $temp_obj1) {
 				$temp_obj2 = $temp_obj1->getMember(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-										$temp_obj2->addApplicationSettings($obj1); 					break;
+										$temp_obj2->addApplicationSetting($obj1); 					break;
 				}
 			}
 			if ($newObject) {
-				$obj2->initApplicationSettingss();
-				$obj2->addApplicationSettings($obj1); 			}
+				$obj2->initApplicationSettings();
+				$obj2->addApplicationSetting($obj1); 			}
 			$results[] = $obj1;
 		}
 		return $results;
@@ -349,9 +349,9 @@ abstract class BaseApplicationSettingsPeer {
 
 				$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(ApplicationSettingsPeer::COUNT_DISTINCT);
+			$criteria->addSelectColumn(ApplicationSettingPeer::COUNT_DISTINCT);
 		} else {
-			$criteria->addSelectColumn(ApplicationSettingsPeer::COUNT);
+			$criteria->addSelectColumn(ApplicationSettingPeer::COUNT);
 		}
 
 				foreach($criteria->getGroupByColumns() as $column)
@@ -359,11 +359,11 @@ abstract class BaseApplicationSettingsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(ApplicationSettingsPeer::APPLICATIONS_ID, ApplicationsPeer::ID);
+		$criteria->addJoin(ApplicationSettingPeer::APPLICATION_ID, ApplicationPeer::ID);
 
-		$criteria->addJoin(ApplicationSettingsPeer::MEMBER_ID, MemberPeer::ID);
+		$criteria->addJoin(ApplicationSettingPeer::MEMBER_ID, MemberPeer::ID);
 
-		$rs = ApplicationSettingsPeer::doSelectRS($criteria, $con);
+		$rs = ApplicationSettingPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
 			return $rs->getInt(1);
 		} else {
@@ -381,25 +381,25 @@ abstract class BaseApplicationSettingsPeer {
 			$c->setDbName(self::DATABASE_NAME);
 		}
 
-		ApplicationSettingsPeer::addSelectColumns($c);
-		$startcol2 = (ApplicationSettingsPeer::NUM_COLUMNS - ApplicationSettingsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		ApplicationSettingPeer::addSelectColumns($c);
+		$startcol2 = (ApplicationSettingPeer::NUM_COLUMNS - ApplicationSettingPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 
-		ApplicationsPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + ApplicationsPeer::NUM_COLUMNS;
+		ApplicationPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + ApplicationPeer::NUM_COLUMNS;
 
 		MemberPeer::addSelectColumns($c);
 		$startcol4 = $startcol3 + MemberPeer::NUM_COLUMNS;
 
-		$c->addJoin(ApplicationSettingsPeer::APPLICATIONS_ID, ApplicationsPeer::ID);
+		$c->addJoin(ApplicationSettingPeer::APPLICATION_ID, ApplicationPeer::ID);
 
-		$c->addJoin(ApplicationSettingsPeer::MEMBER_ID, MemberPeer::ID);
+		$c->addJoin(ApplicationSettingPeer::MEMBER_ID, MemberPeer::ID);
 
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
 		while($rs->next()) {
 
-			$omClass = ApplicationSettingsPeer::getOMClass();
+			$omClass = ApplicationSettingPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -408,7 +408,7 @@ abstract class BaseApplicationSettingsPeer {
 
 
 					
-			$omClass = ApplicationsPeer::getOMClass();
+			$omClass = ApplicationPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -418,15 +418,15 @@ abstract class BaseApplicationSettingsPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getApplications(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+				$temp_obj2 = $temp_obj1->getApplication(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-					$temp_obj2->addApplicationSettings($obj1); 					break;
+					$temp_obj2->addApplicationSetting($obj1); 					break;
 				}
 			}
 
 			if ($newObject) {
-				$obj2->initApplicationSettingss();
-				$obj2->addApplicationSettings($obj1);
+				$obj2->initApplicationSettings();
+				$obj2->addApplicationSetting($obj1);
 			}
 
 
@@ -443,13 +443,13 @@ abstract class BaseApplicationSettingsPeer {
 				$temp_obj1 = $results[$j];
 				$temp_obj3 = $temp_obj1->getMember(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
 					$newObject = false;
-					$temp_obj3->addApplicationSettings($obj1); 					break;
+					$temp_obj3->addApplicationSetting($obj1); 					break;
 				}
 			}
 
 			if ($newObject) {
-				$obj3->initApplicationSettingss();
-				$obj3->addApplicationSettings($obj1);
+				$obj3->initApplicationSettings();
+				$obj3->addApplicationSetting($obj1);
 			}
 
 			$results[] = $obj1;
@@ -459,15 +459,15 @@ abstract class BaseApplicationSettingsPeer {
 
 
 	
-	public static function doCountJoinAllExceptApplications(Criteria $criteria, $distinct = false, $con = null)
+	public static function doCountJoinAllExceptApplication(Criteria $criteria, $distinct = false, $con = null)
 	{
 				$criteria = clone $criteria;
 
 				$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(ApplicationSettingsPeer::COUNT_DISTINCT);
+			$criteria->addSelectColumn(ApplicationSettingPeer::COUNT_DISTINCT);
 		} else {
-			$criteria->addSelectColumn(ApplicationSettingsPeer::COUNT);
+			$criteria->addSelectColumn(ApplicationSettingPeer::COUNT);
 		}
 
 				foreach($criteria->getGroupByColumns() as $column)
@@ -475,9 +475,9 @@ abstract class BaseApplicationSettingsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(ApplicationSettingsPeer::MEMBER_ID, MemberPeer::ID);
+		$criteria->addJoin(ApplicationSettingPeer::MEMBER_ID, MemberPeer::ID);
 
-		$rs = ApplicationSettingsPeer::doSelectRS($criteria, $con);
+		$rs = ApplicationSettingPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
 			return $rs->getInt(1);
 		} else {
@@ -493,9 +493,9 @@ abstract class BaseApplicationSettingsPeer {
 
 				$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(ApplicationSettingsPeer::COUNT_DISTINCT);
+			$criteria->addSelectColumn(ApplicationSettingPeer::COUNT_DISTINCT);
 		} else {
-			$criteria->addSelectColumn(ApplicationSettingsPeer::COUNT);
+			$criteria->addSelectColumn(ApplicationSettingPeer::COUNT);
 		}
 
 				foreach($criteria->getGroupByColumns() as $column)
@@ -503,9 +503,9 @@ abstract class BaseApplicationSettingsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(ApplicationSettingsPeer::APPLICATIONS_ID, ApplicationsPeer::ID);
+		$criteria->addJoin(ApplicationSettingPeer::APPLICATION_ID, ApplicationPeer::ID);
 
-		$rs = ApplicationSettingsPeer::doSelectRS($criteria, $con);
+		$rs = ApplicationSettingPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
 			return $rs->getInt(1);
 		} else {
@@ -515,7 +515,7 @@ abstract class BaseApplicationSettingsPeer {
 
 
 	
-	public static function doSelectJoinAllExceptApplications(Criteria $c, $con = null)
+	public static function doSelectJoinAllExceptApplication(Criteria $c, $con = null)
 	{
 		$c = clone $c;
 
@@ -523,13 +523,13 @@ abstract class BaseApplicationSettingsPeer {
 			$c->setDbName(self::DATABASE_NAME);
 		}
 
-		ApplicationSettingsPeer::addSelectColumns($c);
-		$startcol2 = (ApplicationSettingsPeer::NUM_COLUMNS - ApplicationSettingsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		ApplicationSettingPeer::addSelectColumns($c);
+		$startcol2 = (ApplicationSettingPeer::NUM_COLUMNS - ApplicationSettingPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 
 		MemberPeer::addSelectColumns($c);
 		$startcol3 = $startcol2 + MemberPeer::NUM_COLUMNS;
 
-		$c->addJoin(ApplicationSettingsPeer::MEMBER_ID, MemberPeer::ID);
+		$c->addJoin(ApplicationSettingPeer::MEMBER_ID, MemberPeer::ID);
 
 
 		$rs = BasePeer::doSelect($c, $con);
@@ -537,7 +537,7 @@ abstract class BaseApplicationSettingsPeer {
 
 		while($rs->next()) {
 
-			$omClass = ApplicationSettingsPeer::getOMClass();
+			$omClass = ApplicationSettingPeer::getOMClass();
 
 			$cls = sfPropel::import($omClass);
 			$obj1 = new $cls();
@@ -555,14 +555,14 @@ abstract class BaseApplicationSettingsPeer {
 				$temp_obj1 = $results[$j];
 				$temp_obj2 = $temp_obj1->getMember(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-					$temp_obj2->addApplicationSettings($obj1);
+					$temp_obj2->addApplicationSetting($obj1);
 					break;
 				}
 			}
 
 			if ($newObject) {
-				$obj2->initApplicationSettingss();
-				$obj2->addApplicationSettings($obj1);
+				$obj2->initApplicationSettings();
+				$obj2->addApplicationSetting($obj1);
 			}
 
 			$results[] = $obj1;
@@ -580,13 +580,13 @@ abstract class BaseApplicationSettingsPeer {
 			$c->setDbName(self::DATABASE_NAME);
 		}
 
-		ApplicationSettingsPeer::addSelectColumns($c);
-		$startcol2 = (ApplicationSettingsPeer::NUM_COLUMNS - ApplicationSettingsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		ApplicationSettingPeer::addSelectColumns($c);
+		$startcol2 = (ApplicationSettingPeer::NUM_COLUMNS - ApplicationSettingPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 
-		ApplicationsPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + ApplicationsPeer::NUM_COLUMNS;
+		ApplicationPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + ApplicationPeer::NUM_COLUMNS;
 
-		$c->addJoin(ApplicationSettingsPeer::APPLICATIONS_ID, ApplicationsPeer::ID);
+		$c->addJoin(ApplicationSettingPeer::APPLICATION_ID, ApplicationPeer::ID);
 
 
 		$rs = BasePeer::doSelect($c, $con);
@@ -594,13 +594,13 @@ abstract class BaseApplicationSettingsPeer {
 
 		while($rs->next()) {
 
-			$omClass = ApplicationSettingsPeer::getOMClass();
+			$omClass = ApplicationSettingPeer::getOMClass();
 
 			$cls = sfPropel::import($omClass);
 			$obj1 = new $cls();
 			$obj1->hydrate($rs);
 
-			$omClass = ApplicationsPeer::getOMClass();
+			$omClass = ApplicationPeer::getOMClass();
 
 
 			$cls = sfPropel::import($omClass);
@@ -610,16 +610,16 @@ abstract class BaseApplicationSettingsPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getApplications(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+				$temp_obj2 = $temp_obj1->getApplication(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
-					$temp_obj2->addApplicationSettings($obj1);
+					$temp_obj2->addApplicationSetting($obj1);
 					break;
 				}
 			}
 
 			if ($newObject) {
-				$obj2->initApplicationSettingss();
-				$obj2->addApplicationSettings($obj1);
+				$obj2->initApplicationSettings();
+				$obj2->addApplicationSetting($obj1);
 			}
 
 			$results[] = $obj1;
@@ -641,7 +641,7 @@ abstract class BaseApplicationSettingsPeer {
 	
 	public static function getOMClass()
 	{
-		return ApplicationSettingsPeer::CLASS_DEFAULT;
+		return ApplicationSettingPeer::CLASS_DEFAULT;
 	}
 
 	
@@ -655,7 +655,7 @@ abstract class BaseApplicationSettingsPeer {
 			$criteria = clone $values; 		} else {
 			$criteria = $values->buildCriteria(); 		}
 
-		$criteria->remove(ApplicationSettingsPeer::ID); 
+		$criteria->remove(ApplicationSettingPeer::ID); 
 
 				$criteria->setDbName(self::DATABASE_NAME);
 
@@ -682,8 +682,8 @@ abstract class BaseApplicationSettingsPeer {
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; 
-			$comparison = $criteria->getComparison(ApplicationSettingsPeer::ID);
-			$selectCriteria->add(ApplicationSettingsPeer::ID, $criteria->remove(ApplicationSettingsPeer::ID), $comparison);
+			$comparison = $criteria->getComparison(ApplicationSettingPeer::ID);
+			$selectCriteria->add(ApplicationSettingPeer::ID, $criteria->remove(ApplicationSettingPeer::ID), $comparison);
 
 		} else { 			$criteria = $values->buildCriteria(); 			$selectCriteria = $values->buildPkeyCriteria(); 		}
 
@@ -700,7 +700,7 @@ abstract class BaseApplicationSettingsPeer {
 		}
 		$affectedRows = 0; 		try {
 									$con->begin();
-			$affectedRows += BasePeer::doDeleteAll(ApplicationSettingsPeer::TABLE_NAME, $con);
+			$affectedRows += BasePeer::doDeleteAll(ApplicationSettingPeer::TABLE_NAME, $con);
 			$con->commit();
 			return $affectedRows;
 		} catch (PropelException $e) {
@@ -713,16 +713,16 @@ abstract class BaseApplicationSettingsPeer {
 	 public static function doDelete($values, $con = null)
 	 {
 		if ($con === null) {
-			$con = Propel::getConnection(ApplicationSettingsPeer::DATABASE_NAME);
+			$con = Propel::getConnection(ApplicationSettingPeer::DATABASE_NAME);
 		}
 
 		if ($values instanceof Criteria) {
-			$criteria = clone $values; 		} elseif ($values instanceof ApplicationSettings) {
+			$criteria = clone $values; 		} elseif ($values instanceof ApplicationSetting) {
 
 			$criteria = $values->buildPkeyCriteria();
 		} else {
 						$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(ApplicationSettingsPeer::ID, (array) $values, Criteria::IN);
+			$criteria->add(ApplicationSettingPeer::ID, (array) $values, Criteria::IN);
 		}
 
 				$criteria->setDbName(self::DATABASE_NAME);
@@ -741,13 +741,13 @@ abstract class BaseApplicationSettingsPeer {
 	}
 
 	
-	public static function doValidate(ApplicationSettings $obj, $cols = null)
+	public static function doValidate(ApplicationSetting $obj, $cols = null)
 	{
 		$columns = array();
 
 		if ($cols) {
-			$dbMap = Propel::getDatabaseMap(ApplicationSettingsPeer::DATABASE_NAME);
-			$tableMap = $dbMap->getTable(ApplicationSettingsPeer::TABLE_NAME);
+			$dbMap = Propel::getDatabaseMap(ApplicationSettingPeer::DATABASE_NAME);
+			$tableMap = $dbMap->getTable(ApplicationSettingPeer::TABLE_NAME);
 
 			if (! is_array($cols)) {
 				$cols = array($cols);
@@ -763,11 +763,11 @@ abstract class BaseApplicationSettingsPeer {
 
 		}
 
-		$res =  BasePeer::doValidate(ApplicationSettingsPeer::DATABASE_NAME, ApplicationSettingsPeer::TABLE_NAME, $columns);
+		$res =  BasePeer::doValidate(ApplicationSettingPeer::DATABASE_NAME, ApplicationSettingPeer::TABLE_NAME, $columns);
     if ($res !== true) {
         $request = sfContext::getInstance()->getRequest();
         foreach ($res as $failed) {
-            $col = ApplicationSettingsPeer::translateFieldname($failed->getColumn(), BasePeer::TYPE_COLNAME, BasePeer::TYPE_PHPNAME);
+            $col = ApplicationSettingPeer::translateFieldname($failed->getColumn(), BasePeer::TYPE_COLNAME, BasePeer::TYPE_PHPNAME);
             $request->setError($col, $failed->getMessage());
         }
     }
@@ -782,12 +782,12 @@ abstract class BaseApplicationSettingsPeer {
 			$con = Propel::getConnection(self::DATABASE_NAME);
 		}
 
-		$criteria = new Criteria(ApplicationSettingsPeer::DATABASE_NAME);
+		$criteria = new Criteria(ApplicationSettingPeer::DATABASE_NAME);
 
-		$criteria->add(ApplicationSettingsPeer::ID, $pk);
+		$criteria->add(ApplicationSettingPeer::ID, $pk);
 
 
-		$v = ApplicationSettingsPeer::doSelect($criteria, $con);
+		$v = ApplicationSettingPeer::doSelect($criteria, $con);
 
 		return !empty($v) > 0 ? $v[0] : null;
 	}
@@ -804,8 +804,8 @@ abstract class BaseApplicationSettingsPeer {
 			$objs = array();
 		} else {
 			$criteria = new Criteria();
-			$criteria->add(ApplicationSettingsPeer::ID, $pks, Criteria::IN);
-			$objs = ApplicationSettingsPeer::doSelect($criteria, $con);
+			$criteria->add(ApplicationSettingPeer::ID, $pks, Criteria::IN);
+			$objs = ApplicationSettingPeer::doSelect($criteria, $con);
 		}
 		return $objs;
 	}
@@ -813,10 +813,10 @@ abstract class BaseApplicationSettingsPeer {
 } 
 if (Propel::isInit()) {
 			try {
-		BaseApplicationSettingsPeer::getMapBuilder();
+		BaseApplicationSettingPeer::getMapBuilder();
 	} catch (Exception $e) {
 		Propel::log('Could not initialize Peer: ' . $e->getMessage(), Propel::LOG_ERR);
 	}
 } else {
-			Propel::registerMapBuilder('plugins.opOpenSocialPlugin.lib.model.map.ApplicationSettingsMapBuilder');
+			Propel::registerMapBuilder('plugins.opOpenSocialPlugin.lib.model.map.ApplicationSettingMapBuilder');
 }
