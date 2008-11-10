@@ -1,9 +1,10 @@
 propel:
   _attributes: { package: plugins.opOpenSocialPlugin.lib.model }
 
-  applications:
+  application:
     id: ~
-    url: { type: varchar(128), require: true }
+    url: { type: varchar(128), required: true }
+    culture: { type: varchar(7), required: true }
     title: { type: varchar(128) }
     directory_title : { type: varchar(128) }
     screenshot: { type: varchar(128) }
@@ -13,18 +14,19 @@ propel:
     description: { type: longvarchar }
     settings: { type: longvarchar }
     views: { type: longvarchar }
-    version: { type: varchar(64), require: true }
-    height: { type: integer, require: true }
-    scrolling: { type: integer, require: true }
-    modified: { type: integer, require: true }
+    version: { type: varchar(64), required: true }
+    height: { type: integer, required: true }
+    scrolling: { type: integer, required: true }
+    modified: { type: integer, required: true }
 
-  application_settings:
-    applications_id: ~
+  application_setting:
+    id: ~
+    application_id: ~
     member_id: { type: integer, foreignTable: member, foreignReference: id }
-    name: { type: varchar(128), require: true }
-    value: { type: varchar(255), require: true }
+    name: { type: varchar(128), required: true }
+    value: { type: varchar(255), required: true }
 
-  member_applications:
+  member_application:
     id: ~
     member_id: { type: integer, foreignTable: member, foreignReference: id }
-    applications_id: ~
+    application_id: ~
