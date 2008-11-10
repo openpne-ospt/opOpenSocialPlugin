@@ -62,7 +62,7 @@ class ApplicationMapBuilder {
 
 		$tMap->addColumn('SCROLLING', 'Scrolling', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addColumn('MODIFIED', 'Modified', 'int', CreoleTypes::INTEGER, true, null);
+		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 
 	} 
 } 

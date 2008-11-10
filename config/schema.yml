@@ -17,7 +17,7 @@ propel:
     version: { type: varchar(64), required: true }
     height: { type: integer, required: true }
     scrolling: { type: integer, required: true }
-    modified: { type: integer, required: true }
+    updated_at: ~
 
   application_setting:
     id: ~

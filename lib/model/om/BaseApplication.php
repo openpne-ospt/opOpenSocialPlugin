@@ -69,7 +69,7 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 
 
 	
-	protected $modified;
+	protected $updated_at;
 
 	
 	protected $collApplicationSettings;
@@ -195,10 +195,25 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 	}
 
 	
-	public function getModified()
+	public function getUpdatedAt($format = 'Y-m-d H:i:s')
 	{
 
-		return $this->modified;
+		if ($this->updated_at === null || $this->updated_at === '') {
+			return null;
+		} elseif (!is_int($this->updated_at)) {
+						$ts = strtotime($this->updated_at);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [updated_at] as date/time value: " . var_export($this->updated_at, true));
+			}
+		} else {
+			$ts = $this->updated_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
 	}
 
 	
@@ -412,16 +427,19 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 
 	} 
 	
-	public function setModified($v)
+	public function setUpdatedAt($v)
 	{
 
-						if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [updated_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
 		}
-
-		if ($this->modified !== $v) {
-			$this->modified = $v;
-			$this->modifiedColumns[] = ApplicationPeer::MODIFIED;
+		if ($this->updated_at !== $ts) {
+			$this->updated_at = $ts;
+			$this->modifiedColumns[] = ApplicationPeer::UPDATED_AT;
 		}
 
 	} 
@@ -460,7 +478,7 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 
 			$this->scrolling = $rs->getInt($startcol + 14);
 
-			$this->modified = $rs->getInt($startcol + 15);
+			$this->updated_at = $rs->getTimestamp($startcol + 15, null);
 
 			$this->resetModified();
 
@@ -497,6 +515,11 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 	
 	public function save($con = null)
 	{
+    if ($this->isModified() && !$this->isColumnModified(ApplicationPeer::UPDATED_AT))
+    {
+      $this->setUpdatedAt(time());
+    }
+
 		if ($this->isDeleted()) {
 			throw new PropelException("You cannot save an object that has been deleted.");
 		}
@@ -671,7 +694,7 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 				return $this->getScrolling();
 				break;
 			case 15:
-				return $this->getModified();
+				return $this->getUpdatedAt();
 				break;
 			default:
 				return null;
@@ -698,7 +721,7 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 			$keys[12] => $this->getVersion(),
 			$keys[13] => $this->getHeight(),
 			$keys[14] => $this->getScrolling(),
-			$keys[15] => $this->getModified(),
+			$keys[15] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -760,7 +783,7 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 				$this->setScrolling($value);
 				break;
 			case 15:
-				$this->setModified($value);
+				$this->setUpdatedAt($value);
 				break;
 		} 	}
 
@@ -784,7 +807,7 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[12], $arr)) $this->setVersion($arr[$keys[12]]);
 		if (array_key_exists($keys[13], $arr)) $this->setHeight($arr[$keys[13]]);
 		if (array_key_exists($keys[14], $arr)) $this->setScrolling($arr[$keys[14]]);
-		if (array_key_exists($keys[15], $arr)) $this->setModified($arr[$keys[15]]);
+		if (array_key_exists($keys[15], $arr)) $this->setUpdatedAt($arr[$keys[15]]);
 	}
 
 	
@@ -807,7 +830,7 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(ApplicationPeer::VERSION)) $criteria->add(ApplicationPeer::VERSION, $this->version);
 		if ($this->isColumnModified(ApplicationPeer::HEIGHT)) $criteria->add(ApplicationPeer::HEIGHT, $this->height);
 		if ($this->isColumnModified(ApplicationPeer::SCROLLING)) $criteria->add(ApplicationPeer::SCROLLING, $this->scrolling);
-		if ($this->isColumnModified(ApplicationPeer::MODIFIED)) $criteria->add(ApplicationPeer::MODIFIED, $this->modified);
+		if ($this->isColumnModified(ApplicationPeer::UPDATED_AT)) $criteria->add(ApplicationPeer::UPDATED_AT, $this->updated_at);
 
 		return $criteria;
 	}
@@ -866,7 +889,7 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 
 		$copyObj->setScrolling($this->scrolling);
 
-		$copyObj->setModified($this->modified);
+		$copyObj->setUpdatedAt($this->updated_at);
 
 
 		if ($deepCopy) {

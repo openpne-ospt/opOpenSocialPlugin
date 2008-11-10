@@ -65,7 +65,7 @@ abstract class BaseApplicationPeer {
 	const SCROLLING = 'application.SCROLLING';
 
 	
-	const MODIFIED = 'application.MODIFIED';
+	const UPDATED_AT = 'application.UPDATED_AT';
 
 	
 	private static $phpNameMap = null;
@@ -73,17 +73,17 @@ abstract class BaseApplicationPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Url', 'Culture', 'Title', 'DirectoryTitle', 'Screenshot', 'Thumbnail', 'Author', 'AuthorEmail', 'Description', 'Settings', 'Views', 'Version', 'Height', 'Scrolling', 'Modified', ),
-		BasePeer::TYPE_COLNAME => array (ApplicationPeer::ID, ApplicationPeer::URL, ApplicationPeer::CULTURE, ApplicationPeer::TITLE, ApplicationPeer::DIRECTORY_TITLE, ApplicationPeer::SCREENSHOT, ApplicationPeer::THUMBNAIL, ApplicationPeer::AUTHOR, ApplicationPeer::AUTHOR_EMAIL, ApplicationPeer::DESCRIPTION, ApplicationPeer::SETTINGS, ApplicationPeer::VIEWS, ApplicationPeer::VERSION, ApplicationPeer::HEIGHT, ApplicationPeer::SCROLLING, ApplicationPeer::MODIFIED, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'url', 'culture', 'title', 'directory_title', 'screenshot', 'thumbnail', 'author', 'author_email', 'description', 'settings', 'views', 'version', 'height', 'scrolling', 'modified', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Url', 'Culture', 'Title', 'DirectoryTitle', 'Screenshot', 'Thumbnail', 'Author', 'AuthorEmail', 'Description', 'Settings', 'Views', 'Version', 'Height', 'Scrolling', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (ApplicationPeer::ID, ApplicationPeer::URL, ApplicationPeer::CULTURE, ApplicationPeer::TITLE, ApplicationPeer::DIRECTORY_TITLE, ApplicationPeer::SCREENSHOT, ApplicationPeer::THUMBNAIL, ApplicationPeer::AUTHOR, ApplicationPeer::AUTHOR_EMAIL, ApplicationPeer::DESCRIPTION, ApplicationPeer::SETTINGS, ApplicationPeer::VIEWS, ApplicationPeer::VERSION, ApplicationPeer::HEIGHT, ApplicationPeer::SCROLLING, ApplicationPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'url', 'culture', 'title', 'directory_title', 'screenshot', 'thumbnail', 'author', 'author_email', 'description', 'settings', 'views', 'version', 'height', 'scrolling', 'updated_at', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Url' => 1, 'Culture' => 2, 'Title' => 3, 'DirectoryTitle' => 4, 'Screenshot' => 5, 'Thumbnail' => 6, 'Author' => 7, 'AuthorEmail' => 8, 'Description' => 9, 'Settings' => 10, 'Views' => 11, 'Version' => 12, 'Height' => 13, 'Scrolling' => 14, 'Modified' => 15, ),
-		BasePeer::TYPE_COLNAME => array (ApplicationPeer::ID => 0, ApplicationPeer::URL => 1, ApplicationPeer::CULTURE => 2, ApplicationPeer::TITLE => 3, ApplicationPeer::DIRECTORY_TITLE => 4, ApplicationPeer::SCREENSHOT => 5, ApplicationPeer::THUMBNAIL => 6, ApplicationPeer::AUTHOR => 7, ApplicationPeer::AUTHOR_EMAIL => 8, ApplicationPeer::DESCRIPTION => 9, ApplicationPeer::SETTINGS => 10, ApplicationPeer::VIEWS => 11, ApplicationPeer::VERSION => 12, ApplicationPeer::HEIGHT => 13, ApplicationPeer::SCROLLING => 14, ApplicationPeer::MODIFIED => 15, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'url' => 1, 'culture' => 2, 'title' => 3, 'directory_title' => 4, 'screenshot' => 5, 'thumbnail' => 6, 'author' => 7, 'author_email' => 8, 'description' => 9, 'settings' => 10, 'views' => 11, 'version' => 12, 'height' => 13, 'scrolling' => 14, 'modified' => 15, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Url' => 1, 'Culture' => 2, 'Title' => 3, 'DirectoryTitle' => 4, 'Screenshot' => 5, 'Thumbnail' => 6, 'Author' => 7, 'AuthorEmail' => 8, 'Description' => 9, 'Settings' => 10, 'Views' => 11, 'Version' => 12, 'Height' => 13, 'Scrolling' => 14, 'UpdatedAt' => 15, ),
+		BasePeer::TYPE_COLNAME => array (ApplicationPeer::ID => 0, ApplicationPeer::URL => 1, ApplicationPeer::CULTURE => 2, ApplicationPeer::TITLE => 3, ApplicationPeer::DIRECTORY_TITLE => 4, ApplicationPeer::SCREENSHOT => 5, ApplicationPeer::THUMBNAIL => 6, ApplicationPeer::AUTHOR => 7, ApplicationPeer::AUTHOR_EMAIL => 8, ApplicationPeer::DESCRIPTION => 9, ApplicationPeer::SETTINGS => 10, ApplicationPeer::VIEWS => 11, ApplicationPeer::VERSION => 12, ApplicationPeer::HEIGHT => 13, ApplicationPeer::SCROLLING => 14, ApplicationPeer::UPDATED_AT => 15, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'url' => 1, 'culture' => 2, 'title' => 3, 'directory_title' => 4, 'screenshot' => 5, 'thumbnail' => 6, 'author' => 7, 'author_email' => 8, 'description' => 9, 'settings' => 10, 'views' => 11, 'version' => 12, 'height' => 13, 'scrolling' => 14, 'updated_at' => 15, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
 	);
 
@@ -167,7 +167,7 @@ abstract class BaseApplicationPeer {
 
 		$criteria->addSelectColumn(ApplicationPeer::SCROLLING);
 
-		$criteria->addSelectColumn(ApplicationPeer::MODIFIED);
+		$criteria->addSelectColumn(ApplicationPeer::UPDATED_AT);
 
 	}
 

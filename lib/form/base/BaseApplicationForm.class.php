@@ -27,7 +27,7 @@ class BaseApplicationForm extends BaseFormPropel
       'version'         => new sfWidgetFormInput(),
       'height'          => new sfWidgetFormInput(),
       'scrolling'       => new sfWidgetFormInput(),
-      'modified'        => new sfWidgetFormInput(),
+      'updated_at'      => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -46,7 +46,7 @@ class BaseApplicationForm extends BaseFormPropel
       'version'         => new sfValidatorString(array('max_length' => 64)),
       'height'          => new sfValidatorInteger(),
       'scrolling'       => new sfValidatorInteger(),
-      'modified'        => new sfValidatorInteger(),
+      'updated_at'      => new sfValidatorDateTime(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('application[%s]');
