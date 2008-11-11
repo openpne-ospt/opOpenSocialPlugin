@@ -13,7 +13,7 @@ abstract class BaseApplicationPeer {
 	const CLASS_DEFAULT = 'plugins.opOpenSocialPlugin.lib.model.Application';
 
 	
-	const NUM_COLUMNS = 16;
+	const NUM_COLUMNS = 4;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -26,46 +26,10 @@ abstract class BaseApplicationPeer {
 	const URL = 'application.URL';
 
 	
-	const CULTURE = 'application.CULTURE';
-
-	
-	const TITLE = 'application.TITLE';
-
-	
-	const DIRECTORY_TITLE = 'application.DIRECTORY_TITLE';
-
-	
-	const SCREENSHOT = 'application.SCREENSHOT';
-
-	
-	const THUMBNAIL = 'application.THUMBNAIL';
-
-	
-	const AUTHOR = 'application.AUTHOR';
-
-	
-	const AUTHOR_EMAIL = 'application.AUTHOR_EMAIL';
-
-	
-	const DESCRIPTION = 'application.DESCRIPTION';
-
-	
-	const SETTINGS = 'application.SETTINGS';
-
-	
-	const VIEWS = 'application.VIEWS';
-
-	
-	const VERSION = 'application.VERSION';
-
-	
 	const HEIGHT = 'application.HEIGHT';
 
 	
 	const SCROLLING = 'application.SCROLLING';
-
-	
-	const UPDATED_AT = 'application.UPDATED_AT';
 
 	
 	private static $phpNameMap = null;
@@ -73,18 +37,18 @@ abstract class BaseApplicationPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Url', 'Culture', 'Title', 'DirectoryTitle', 'Screenshot', 'Thumbnail', 'Author', 'AuthorEmail', 'Description', 'Settings', 'Views', 'Version', 'Height', 'Scrolling', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (ApplicationPeer::ID, ApplicationPeer::URL, ApplicationPeer::CULTURE, ApplicationPeer::TITLE, ApplicationPeer::DIRECTORY_TITLE, ApplicationPeer::SCREENSHOT, ApplicationPeer::THUMBNAIL, ApplicationPeer::AUTHOR, ApplicationPeer::AUTHOR_EMAIL, ApplicationPeer::DESCRIPTION, ApplicationPeer::SETTINGS, ApplicationPeer::VIEWS, ApplicationPeer::VERSION, ApplicationPeer::HEIGHT, ApplicationPeer::SCROLLING, ApplicationPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'url', 'culture', 'title', 'directory_title', 'screenshot', 'thumbnail', 'author', 'author_email', 'description', 'settings', 'views', 'version', 'height', 'scrolling', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Url', 'Height', 'Scrolling', ),
+		BasePeer::TYPE_COLNAME => array (ApplicationPeer::ID, ApplicationPeer::URL, ApplicationPeer::HEIGHT, ApplicationPeer::SCROLLING, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'url', 'height', 'scrolling', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Url' => 1, 'Culture' => 2, 'Title' => 3, 'DirectoryTitle' => 4, 'Screenshot' => 5, 'Thumbnail' => 6, 'Author' => 7, 'AuthorEmail' => 8, 'Description' => 9, 'Settings' => 10, 'Views' => 11, 'Version' => 12, 'Height' => 13, 'Scrolling' => 14, 'UpdatedAt' => 15, ),
-		BasePeer::TYPE_COLNAME => array (ApplicationPeer::ID => 0, ApplicationPeer::URL => 1, ApplicationPeer::CULTURE => 2, ApplicationPeer::TITLE => 3, ApplicationPeer::DIRECTORY_TITLE => 4, ApplicationPeer::SCREENSHOT => 5, ApplicationPeer::THUMBNAIL => 6, ApplicationPeer::AUTHOR => 7, ApplicationPeer::AUTHOR_EMAIL => 8, ApplicationPeer::DESCRIPTION => 9, ApplicationPeer::SETTINGS => 10, ApplicationPeer::VIEWS => 11, ApplicationPeer::VERSION => 12, ApplicationPeer::HEIGHT => 13, ApplicationPeer::SCROLLING => 14, ApplicationPeer::UPDATED_AT => 15, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'url' => 1, 'culture' => 2, 'title' => 3, 'directory_title' => 4, 'screenshot' => 5, 'thumbnail' => 6, 'author' => 7, 'author_email' => 8, 'description' => 9, 'settings' => 10, 'views' => 11, 'version' => 12, 'height' => 13, 'scrolling' => 14, 'updated_at' => 15, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Url' => 1, 'Height' => 2, 'Scrolling' => 3, ),
+		BasePeer::TYPE_COLNAME => array (ApplicationPeer::ID => 0, ApplicationPeer::URL => 1, ApplicationPeer::HEIGHT => 2, ApplicationPeer::SCROLLING => 3, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'url' => 1, 'height' => 2, 'scrolling' => 3, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	
@@ -141,33 +105,9 @@ abstract class BaseApplicationPeer {
 
 		$criteria->addSelectColumn(ApplicationPeer::URL);
 
-		$criteria->addSelectColumn(ApplicationPeer::CULTURE);
-
-		$criteria->addSelectColumn(ApplicationPeer::TITLE);
-
-		$criteria->addSelectColumn(ApplicationPeer::DIRECTORY_TITLE);
-
-		$criteria->addSelectColumn(ApplicationPeer::SCREENSHOT);
-
-		$criteria->addSelectColumn(ApplicationPeer::THUMBNAIL);
-
-		$criteria->addSelectColumn(ApplicationPeer::AUTHOR);
-
-		$criteria->addSelectColumn(ApplicationPeer::AUTHOR_EMAIL);
-
-		$criteria->addSelectColumn(ApplicationPeer::DESCRIPTION);
-
-		$criteria->addSelectColumn(ApplicationPeer::SETTINGS);
-
-		$criteria->addSelectColumn(ApplicationPeer::VIEWS);
-
-		$criteria->addSelectColumn(ApplicationPeer::VERSION);
-
 		$criteria->addSelectColumn(ApplicationPeer::HEIGHT);
 
 		$criteria->addSelectColumn(ApplicationPeer::SCROLLING);
-
-		$criteria->addSelectColumn(ApplicationPeer::UPDATED_AT);
 
 	}
 
@@ -246,6 +186,61 @@ abstract class BaseApplicationPeer {
 		}
 		return $results;
 	}
+
+  
+  public static function doSelectWithI18n(Criteria $c, $culture = null, $con = null)
+  {
+    if ($culture === null)
+    {
+      $culture = sfPropel::getDefaultCulture();
+    }
+
+        if ($c->getDbName() == Propel::getDefaultDB())
+    {
+      $c->setDbName(self::DATABASE_NAME);
+    }
+
+    ApplicationPeer::addSelectColumns($c);
+    $startcol = (ApplicationPeer::NUM_COLUMNS - ApplicationPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+    ApplicationI18nPeer::addSelectColumns($c);
+
+    $c->addJoin(ApplicationPeer::ID, ApplicationI18nPeer::ID);
+    $c->add(ApplicationI18nPeer::CULTURE, $culture);
+
+    $rs = BasePeer::doSelect($c, $con);
+    $results = array();
+
+    while($rs->next()) {
+
+      $omClass = ApplicationPeer::getOMClass();
+
+      $cls = sfPropel::import($omClass);
+      $obj1 = new $cls();
+      $obj1->hydrate($rs);
+      $obj1->setCulture($culture);
+
+      $omClass = ApplicationI18nPeer::getOMClass($rs, $startcol);
+
+      $cls = sfPropel::import($omClass);
+      $obj2 = new $cls();
+      $obj2->hydrate($rs, $startcol);
+
+      $obj1->setApplicationI18nForCulture($obj2, $culture);
+      $obj2->setApplication($obj1);
+
+      $results[] = $obj1;
+    }
+    return $results;
+  }
+
+
+  
+  public static function getI18nModel()
+  {
+    return 'ApplicationI18n';
+  }
+
 
   static public function getUniqueColumnNames()
   {

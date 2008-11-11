@@ -4,7 +4,10 @@ propel:
   application:
     id: ~
     url: { type: varchar(128), required: true }
-    culture: { type: varchar(7), required: true }
+    height: { type: integer, required: true }
+    scrolling: { type: integer, required: true }
+
+  application_i18n:
     title: { type: varchar(128) }
     directory_title : { type: varchar(128) }
     screenshot: { type: varchar(128) }
@@ -15,8 +18,6 @@ propel:
     settings: { type: longvarchar }
     views: { type: longvarchar }
     version: { type: varchar(64), required: true }
-    height: { type: integer, required: true }
-    scrolling: { type: integer, required: true }
     updated_at: ~
 
   application_setting:

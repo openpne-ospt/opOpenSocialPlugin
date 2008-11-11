@@ -17,59 +17,17 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 
 
 	
-	protected $culture;
-
-
-	
-	protected $title;
-
-
-	
-	protected $directory_title;
-
-
-	
-	protected $screenshot;
-
-
-	
-	protected $thumbnail;
-
-
-	
-	protected $author;
-
-
-	
-	protected $author_email;
-
-
-	
-	protected $description;
-
-
-	
-	protected $settings;
-
-
-	
-	protected $views;
-
-
-	
-	protected $version;
-
-
-	
 	protected $height;
 
 
 	
 	protected $scrolling;
 
+	
+	protected $collApplicationI18ns;
 
 	
-	protected $updated_at;
+	protected $lastApplicationI18nCriteria = null;
 
 	
 	protected $collApplicationSettings;
@@ -89,6 +47,9 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 	
 	protected $alreadyInValidation = false;
 
+  
+  protected $culture;
+
 	
 	public function getId()
 	{
@@ -104,83 +65,6 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 	}
 
 	
-	public function getCulture()
-	{
-
-		return $this->culture;
-	}
-
-	
-	public function getTitle()
-	{
-
-		return $this->title;
-	}
-
-	
-	public function getDirectoryTitle()
-	{
-
-		return $this->directory_title;
-	}
-
-	
-	public function getScreenshot()
-	{
-
-		return $this->screenshot;
-	}
-
-	
-	public function getThumbnail()
-	{
-
-		return $this->thumbnail;
-	}
-
-	
-	public function getAuthor()
-	{
-
-		return $this->author;
-	}
-
-	
-	public function getAuthorEmail()
-	{
-
-		return $this->author_email;
-	}
-
-	
-	public function getDescription()
-	{
-
-		return $this->description;
-	}
-
-	
-	public function getSettings()
-	{
-
-		return $this->settings;
-	}
-
-	
-	public function getViews()
-	{
-
-		return $this->views;
-	}
-
-	
-	public function getVersion()
-	{
-
-		return $this->version;
-	}
-
-	
 	public function getHeight()
 	{
 
@@ -192,28 +76,6 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 	{
 
 		return $this->scrolling;
-	}
-
-	
-	public function getUpdatedAt($format = 'Y-m-d H:i:s')
-	{
-
-		if ($this->updated_at === null || $this->updated_at === '') {
-			return null;
-		} elseif (!is_int($this->updated_at)) {
-						$ts = strtotime($this->updated_at);
-			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse value of [updated_at] as date/time value: " . var_export($this->updated_at, true));
-			}
-		} else {
-			$ts = $this->updated_at;
-		}
-		if ($format === null) {
-			return $ts;
-		} elseif (strpos($format, '%') !== false) {
-			return strftime($format, $ts);
-		} else {
-			return date($format, $ts);
-		}
 	}
 
 	
@@ -241,160 +103,6 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 		if ($this->url !== $v) {
 			$this->url = $v;
 			$this->modifiedColumns[] = ApplicationPeer::URL;
-		}
-
-	} 
-	
-	public function setCulture($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->culture !== $v) {
-			$this->culture = $v;
-			$this->modifiedColumns[] = ApplicationPeer::CULTURE;
-		}
-
-	} 
-	
-	public function setTitle($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->title !== $v) {
-			$this->title = $v;
-			$this->modifiedColumns[] = ApplicationPeer::TITLE;
-		}
-
-	} 
-	
-	public function setDirectoryTitle($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->directory_title !== $v) {
-			$this->directory_title = $v;
-			$this->modifiedColumns[] = ApplicationPeer::DIRECTORY_TITLE;
-		}
-
-	} 
-	
-	public function setScreenshot($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->screenshot !== $v) {
-			$this->screenshot = $v;
-			$this->modifiedColumns[] = ApplicationPeer::SCREENSHOT;
-		}
-
-	} 
-	
-	public function setThumbnail($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->thumbnail !== $v) {
-			$this->thumbnail = $v;
-			$this->modifiedColumns[] = ApplicationPeer::THUMBNAIL;
-		}
-
-	} 
-	
-	public function setAuthor($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->author !== $v) {
-			$this->author = $v;
-			$this->modifiedColumns[] = ApplicationPeer::AUTHOR;
-		}
-
-	} 
-	
-	public function setAuthorEmail($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->author_email !== $v) {
-			$this->author_email = $v;
-			$this->modifiedColumns[] = ApplicationPeer::AUTHOR_EMAIL;
-		}
-
-	} 
-	
-	public function setDescription($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->description !== $v) {
-			$this->description = $v;
-			$this->modifiedColumns[] = ApplicationPeer::DESCRIPTION;
-		}
-
-	} 
-	
-	public function setSettings($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->settings !== $v) {
-			$this->settings = $v;
-			$this->modifiedColumns[] = ApplicationPeer::SETTINGS;
-		}
-
-	} 
-	
-	public function setViews($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->views !== $v) {
-			$this->views = $v;
-			$this->modifiedColumns[] = ApplicationPeer::VIEWS;
-		}
-
-	} 
-	
-	public function setVersion($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->version !== $v) {
-			$this->version = $v;
-			$this->modifiedColumns[] = ApplicationPeer::VERSION;
 		}
 
 	} 
@@ -427,23 +135,6 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 
 	} 
 	
-	public function setUpdatedAt($v)
-	{
-
-		if ($v !== null && !is_int($v)) {
-			$ts = strtotime($v);
-			if ($ts === -1 || $ts === false) { 				throw new PropelException("Unable to parse date/time value for [updated_at] from input: " . var_export($v, true));
-			}
-		} else {
-			$ts = $v;
-		}
-		if ($this->updated_at !== $ts) {
-			$this->updated_at = $ts;
-			$this->modifiedColumns[] = ApplicationPeer::UPDATED_AT;
-		}
-
-	} 
-	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
@@ -452,39 +143,15 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 
 			$this->url = $rs->getString($startcol + 1);
 
-			$this->culture = $rs->getString($startcol + 2);
+			$this->height = $rs->getInt($startcol + 2);
 
-			$this->title = $rs->getString($startcol + 3);
-
-			$this->directory_title = $rs->getString($startcol + 4);
-
-			$this->screenshot = $rs->getString($startcol + 5);
-
-			$this->thumbnail = $rs->getString($startcol + 6);
-
-			$this->author = $rs->getString($startcol + 7);
-
-			$this->author_email = $rs->getString($startcol + 8);
-
-			$this->description = $rs->getString($startcol + 9);
-
-			$this->settings = $rs->getString($startcol + 10);
-
-			$this->views = $rs->getString($startcol + 11);
-
-			$this->version = $rs->getString($startcol + 12);
-
-			$this->height = $rs->getInt($startcol + 13);
-
-			$this->scrolling = $rs->getInt($startcol + 14);
-
-			$this->updated_at = $rs->getTimestamp($startcol + 15, null);
+			$this->scrolling = $rs->getInt($startcol + 3);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 16; 
+						return $startcol + 4; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Application object", $e);
 		}
@@ -515,11 +182,6 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 	
 	public function save($con = null)
 	{
-    if ($this->isModified() && !$this->isColumnModified(ApplicationPeer::UPDATED_AT))
-    {
-      $this->setUpdatedAt(time());
-    }
-
 		if ($this->isDeleted()) {
 			throw new PropelException("You cannot save an object that has been deleted.");
 		}
@@ -556,6 +218,14 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 					$affectedRows += ApplicationPeer::doUpdate($this, $con);
 				}
 				$this->resetModified(); 			}
+
+			if ($this->collApplicationI18ns !== null) {
+				foreach($this->collApplicationI18ns as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
 
 			if ($this->collApplicationSettings !== null) {
 				foreach($this->collApplicationSettings as $referrerFK) {
@@ -614,6 +284,14 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 			}
 
 
+				if ($this->collApplicationI18ns !== null) {
+					foreach($this->collApplicationI18ns as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
 				if ($this->collApplicationSettings !== null) {
 					foreach($this->collApplicationSettings as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
@@ -655,46 +333,10 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 				return $this->getUrl();
 				break;
 			case 2:
-				return $this->getCulture();
-				break;
-			case 3:
-				return $this->getTitle();
-				break;
-			case 4:
-				return $this->getDirectoryTitle();
-				break;
-			case 5:
-				return $this->getScreenshot();
-				break;
-			case 6:
-				return $this->getThumbnail();
-				break;
-			case 7:
-				return $this->getAuthor();
-				break;
-			case 8:
-				return $this->getAuthorEmail();
-				break;
-			case 9:
-				return $this->getDescription();
-				break;
-			case 10:
-				return $this->getSettings();
-				break;
-			case 11:
-				return $this->getViews();
-				break;
-			case 12:
-				return $this->getVersion();
-				break;
-			case 13:
 				return $this->getHeight();
 				break;
-			case 14:
+			case 3:
 				return $this->getScrolling();
-				break;
-			case 15:
-				return $this->getUpdatedAt();
 				break;
 			default:
 				return null;
@@ -708,20 +350,8 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getUrl(),
-			$keys[2] => $this->getCulture(),
-			$keys[3] => $this->getTitle(),
-			$keys[4] => $this->getDirectoryTitle(),
-			$keys[5] => $this->getScreenshot(),
-			$keys[6] => $this->getThumbnail(),
-			$keys[7] => $this->getAuthor(),
-			$keys[8] => $this->getAuthorEmail(),
-			$keys[9] => $this->getDescription(),
-			$keys[10] => $this->getSettings(),
-			$keys[11] => $this->getViews(),
-			$keys[12] => $this->getVersion(),
-			$keys[13] => $this->getHeight(),
-			$keys[14] => $this->getScrolling(),
-			$keys[15] => $this->getUpdatedAt(),
+			$keys[2] => $this->getHeight(),
+			$keys[3] => $this->getScrolling(),
 		);
 		return $result;
 	}
@@ -744,46 +374,10 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 				$this->setUrl($value);
 				break;
 			case 2:
-				$this->setCulture($value);
-				break;
-			case 3:
-				$this->setTitle($value);
-				break;
-			case 4:
-				$this->setDirectoryTitle($value);
-				break;
-			case 5:
-				$this->setScreenshot($value);
-				break;
-			case 6:
-				$this->setThumbnail($value);
-				break;
-			case 7:
-				$this->setAuthor($value);
-				break;
-			case 8:
-				$this->setAuthorEmail($value);
-				break;
-			case 9:
-				$this->setDescription($value);
-				break;
-			case 10:
-				$this->setSettings($value);
-				break;
-			case 11:
-				$this->setViews($value);
-				break;
-			case 12:
-				$this->setVersion($value);
-				break;
-			case 13:
 				$this->setHeight($value);
 				break;
-			case 14:
+			case 3:
 				$this->setScrolling($value);
-				break;
-			case 15:
-				$this->setUpdatedAt($value);
 				break;
 		} 	}
 
@@ -794,20 +388,8 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setUrl($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setCulture($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setTitle($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setDirectoryTitle($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setScreenshot($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setThumbnail($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setAuthor($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setAuthorEmail($arr[$keys[8]]);
-		if (array_key_exists($keys[9], $arr)) $this->setDescription($arr[$keys[9]]);
-		if (array_key_exists($keys[10], $arr)) $this->setSettings($arr[$keys[10]]);
-		if (array_key_exists($keys[11], $arr)) $this->setViews($arr[$keys[11]]);
-		if (array_key_exists($keys[12], $arr)) $this->setVersion($arr[$keys[12]]);
-		if (array_key_exists($keys[13], $arr)) $this->setHeight($arr[$keys[13]]);
-		if (array_key_exists($keys[14], $arr)) $this->setScrolling($arr[$keys[14]]);
-		if (array_key_exists($keys[15], $arr)) $this->setUpdatedAt($arr[$keys[15]]);
+		if (array_key_exists($keys[2], $arr)) $this->setHeight($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setScrolling($arr[$keys[3]]);
 	}
 
 	
@@ -817,20 +399,8 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 
 		if ($this->isColumnModified(ApplicationPeer::ID)) $criteria->add(ApplicationPeer::ID, $this->id);
 		if ($this->isColumnModified(ApplicationPeer::URL)) $criteria->add(ApplicationPeer::URL, $this->url);
-		if ($this->isColumnModified(ApplicationPeer::CULTURE)) $criteria->add(ApplicationPeer::CULTURE, $this->culture);
-		if ($this->isColumnModified(ApplicationPeer::TITLE)) $criteria->add(ApplicationPeer::TITLE, $this->title);
-		if ($this->isColumnModified(ApplicationPeer::DIRECTORY_TITLE)) $criteria->add(ApplicationPeer::DIRECTORY_TITLE, $this->directory_title);
-		if ($this->isColumnModified(ApplicationPeer::SCREENSHOT)) $criteria->add(ApplicationPeer::SCREENSHOT, $this->screenshot);
-		if ($this->isColumnModified(ApplicationPeer::THUMBNAIL)) $criteria->add(ApplicationPeer::THUMBNAIL, $this->thumbnail);
-		if ($this->isColumnModified(ApplicationPeer::AUTHOR)) $criteria->add(ApplicationPeer::AUTHOR, $this->author);
-		if ($this->isColumnModified(ApplicationPeer::AUTHOR_EMAIL)) $criteria->add(ApplicationPeer::AUTHOR_EMAIL, $this->author_email);
-		if ($this->isColumnModified(ApplicationPeer::DESCRIPTION)) $criteria->add(ApplicationPeer::DESCRIPTION, $this->description);
-		if ($this->isColumnModified(ApplicationPeer::SETTINGS)) $criteria->add(ApplicationPeer::SETTINGS, $this->settings);
-		if ($this->isColumnModified(ApplicationPeer::VIEWS)) $criteria->add(ApplicationPeer::VIEWS, $this->views);
-		if ($this->isColumnModified(ApplicationPeer::VERSION)) $criteria->add(ApplicationPeer::VERSION, $this->version);
 		if ($this->isColumnModified(ApplicationPeer::HEIGHT)) $criteria->add(ApplicationPeer::HEIGHT, $this->height);
 		if ($this->isColumnModified(ApplicationPeer::SCROLLING)) $criteria->add(ApplicationPeer::SCROLLING, $this->scrolling);
-		if ($this->isColumnModified(ApplicationPeer::UPDATED_AT)) $criteria->add(ApplicationPeer::UPDATED_AT, $this->updated_at);
 
 		return $criteria;
 	}
@@ -863,37 +433,17 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 
 		$copyObj->setUrl($this->url);
 
-		$copyObj->setCulture($this->culture);
-
-		$copyObj->setTitle($this->title);
-
-		$copyObj->setDirectoryTitle($this->directory_title);
-
-		$copyObj->setScreenshot($this->screenshot);
-
-		$copyObj->setThumbnail($this->thumbnail);
-
-		$copyObj->setAuthor($this->author);
-
-		$copyObj->setAuthorEmail($this->author_email);
-
-		$copyObj->setDescription($this->description);
-
-		$copyObj->setSettings($this->settings);
-
-		$copyObj->setViews($this->views);
-
-		$copyObj->setVersion($this->version);
-
 		$copyObj->setHeight($this->height);
 
 		$copyObj->setScrolling($this->scrolling);
 
-		$copyObj->setUpdatedAt($this->updated_at);
-
 
 		if ($deepCopy) {
 									$copyObj->setNew(false);
+
+			foreach($this->getApplicationI18ns() as $relObj) {
+				$copyObj->addApplicationI18n($relObj->copy($deepCopy));
+			}
 
 			foreach($this->getApplicationSettings() as $relObj) {
 				$copyObj->addApplicationSetting($relObj->copy($deepCopy));
@@ -926,6 +476,74 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 			self::$peer = new ApplicationPeer();
 		}
 		return self::$peer;
+	}
+
+	
+	public function initApplicationI18ns()
+	{
+		if ($this->collApplicationI18ns === null) {
+			$this->collApplicationI18ns = array();
+		}
+	}
+
+	
+	public function getApplicationI18ns($criteria = null, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collApplicationI18ns === null) {
+			if ($this->isNew()) {
+			   $this->collApplicationI18ns = array();
+			} else {
+
+				$criteria->add(ApplicationI18nPeer::ID, $this->getId());
+
+				ApplicationI18nPeer::addSelectColumns($criteria);
+				$this->collApplicationI18ns = ApplicationI18nPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(ApplicationI18nPeer::ID, $this->getId());
+
+				ApplicationI18nPeer::addSelectColumns($criteria);
+				if (!isset($this->lastApplicationI18nCriteria) || !$this->lastApplicationI18nCriteria->equals($criteria)) {
+					$this->collApplicationI18ns = ApplicationI18nPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastApplicationI18nCriteria = $criteria;
+		return $this->collApplicationI18ns;
+	}
+
+	
+	public function countApplicationI18ns($criteria = null, $distinct = false, $con = null)
+	{
+				if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(ApplicationI18nPeer::ID, $this->getId());
+
+		return ApplicationI18nPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addApplicationI18n(ApplicationI18n $l)
+	{
+		$this->collApplicationI18ns[] = $l;
+		$l->setApplication($this);
 	}
 
 	
@@ -1131,5 +749,157 @@ abstract class BaseApplication extends BaseObject  implements Persistent {
 
 		return $this->collMemberApplications;
 	}
+
+  public function getCulture()
+  {
+    return $this->culture;
+  }
+
+  public function setCulture($culture)
+  {
+    $this->culture = $culture;
+  }
+
+  public function getTitle($culture = null)
+  {
+    return $this->getCurrentApplicationI18n($culture)->getTitle();
+  }
+
+  public function setTitle($value, $culture = null)
+  {
+    $this->getCurrentApplicationI18n($culture)->setTitle($value);
+  }
+
+  public function getDirectoryTitle($culture = null)
+  {
+    return $this->getCurrentApplicationI18n($culture)->getDirectoryTitle();
+  }
+
+  public function setDirectoryTitle($value, $culture = null)
+  {
+    $this->getCurrentApplicationI18n($culture)->setDirectoryTitle($value);
+  }
+
+  public function getScreenshot($culture = null)
+  {
+    return $this->getCurrentApplicationI18n($culture)->getScreenshot();
+  }
+
+  public function setScreenshot($value, $culture = null)
+  {
+    $this->getCurrentApplicationI18n($culture)->setScreenshot($value);
+  }
+
+  public function getThumbnail($culture = null)
+  {
+    return $this->getCurrentApplicationI18n($culture)->getThumbnail();
+  }
+
+  public function setThumbnail($value, $culture = null)
+  {
+    $this->getCurrentApplicationI18n($culture)->setThumbnail($value);
+  }
+
+  public function getAuthor($culture = null)
+  {
+    return $this->getCurrentApplicationI18n($culture)->getAuthor();
+  }
+
+  public function setAuthor($value, $culture = null)
+  {
+    $this->getCurrentApplicationI18n($culture)->setAuthor($value);
+  }
+
+  public function getAuthorEmail($culture = null)
+  {
+    return $this->getCurrentApplicationI18n($culture)->getAuthorEmail();
+  }
+
+  public function setAuthorEmail($value, $culture = null)
+  {
+    $this->getCurrentApplicationI18n($culture)->setAuthorEmail($value);
+  }
+
+  public function getDescription($culture = null)
+  {
+    return $this->getCurrentApplicationI18n($culture)->getDescription();
+  }
+
+  public function setDescription($value, $culture = null)
+  {
+    $this->getCurrentApplicationI18n($culture)->setDescription($value);
+  }
+
+  public function getSettings($culture = null)
+  {
+    return $this->getCurrentApplicationI18n($culture)->getSettings();
+  }
+
+  public function setSettings($value, $culture = null)
+  {
+    $this->getCurrentApplicationI18n($culture)->setSettings($value);
+  }
+
+  public function getViews($culture = null)
+  {
+    return $this->getCurrentApplicationI18n($culture)->getViews();
+  }
+
+  public function setViews($value, $culture = null)
+  {
+    $this->getCurrentApplicationI18n($culture)->setViews($value);
+  }
+
+  public function getVersion($culture = null)
+  {
+    return $this->getCurrentApplicationI18n($culture)->getVersion();
+  }
+
+  public function setVersion($value, $culture = null)
+  {
+    $this->getCurrentApplicationI18n($culture)->setVersion($value);
+  }
+
+  public function getUpdatedAt($culture = null)
+  {
+    return $this->getCurrentApplicationI18n($culture)->getUpdatedAt();
+  }
+
+  public function setUpdatedAt($value, $culture = null)
+  {
+    $this->getCurrentApplicationI18n($culture)->setUpdatedAt($value);
+  }
+
+  protected $current_i18n = array();
+
+  public function getCurrentApplicationI18n($culture = null)
+  {
+    if (is_null($culture))
+    {
+      $culture = is_null($this->culture) ? sfPropel::getDefaultCulture() : $this->culture;
+    }
+
+    if (!isset($this->current_i18n[$culture]))
+    {
+      $obj = ApplicationI18nPeer::retrieveByPK($this->getId(), $culture);
+      if ($obj)
+      {
+        $this->setApplicationI18nForCulture($obj, $culture);
+      }
+      else
+      {
+        $this->setApplicationI18nForCulture(new ApplicationI18n(), $culture);
+        $this->current_i18n[$culture]->setCulture($culture);
+      }
+    }
+
+    return $this->current_i18n[$culture];
+  }
+
+  public function setApplicationI18nForCulture($object, $culture)
+  {
+    $this->current_i18n[$culture] = $object;
+    $this->addApplicationI18n($object);
+  }
 
 } 

@@ -12,41 +12,17 @@ class BaseApplicationForm extends BaseFormPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'id'              => new sfWidgetFormInputHidden(),
-      'url'             => new sfWidgetFormInput(),
-      'culture'         => new sfWidgetFormInput(),
-      'title'           => new sfWidgetFormInput(),
-      'directory_title' => new sfWidgetFormInput(),
-      'screenshot'      => new sfWidgetFormInput(),
-      'thumbnail'       => new sfWidgetFormInput(),
-      'author'          => new sfWidgetFormInput(),
-      'author_email'    => new sfWidgetFormInput(),
-      'description'     => new sfWidgetFormTextarea(),
-      'settings'        => new sfWidgetFormTextarea(),
-      'views'           => new sfWidgetFormTextarea(),
-      'version'         => new sfWidgetFormInput(),
-      'height'          => new sfWidgetFormInput(),
-      'scrolling'       => new sfWidgetFormInput(),
-      'updated_at'      => new sfWidgetFormDateTime(),
+      'id'        => new sfWidgetFormInputHidden(),
+      'url'       => new sfWidgetFormInput(),
+      'height'    => new sfWidgetFormInput(),
+      'scrolling' => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
-      'id'              => new sfValidatorPropelChoice(array('model' => 'Application', 'column' => 'id', 'required' => false)),
-      'url'             => new sfValidatorString(array('max_length' => 128)),
-      'culture'         => new sfValidatorString(array('max_length' => 7)),
-      'title'           => new sfValidatorString(array('max_length' => 128, 'required' => false)),
-      'directory_title' => new sfValidatorString(array('max_length' => 128, 'required' => false)),
-      'screenshot'      => new sfValidatorString(array('max_length' => 128, 'required' => false)),
-      'thumbnail'       => new sfValidatorString(array('max_length' => 128, 'required' => false)),
-      'author'          => new sfValidatorString(array('max_length' => 128, 'required' => false)),
-      'author_email'    => new sfValidatorString(array('max_length' => 128, 'required' => false)),
-      'description'     => new sfValidatorString(array('required' => false)),
-      'settings'        => new sfValidatorString(array('required' => false)),
-      'views'           => new sfValidatorString(array('required' => false)),
-      'version'         => new sfValidatorString(array('max_length' => 64)),
-      'height'          => new sfValidatorInteger(),
-      'scrolling'       => new sfValidatorInteger(),
-      'updated_at'      => new sfValidatorDateTime(array('required' => false)),
+      'id'        => new sfValidatorPropelChoice(array('model' => 'Application', 'column' => 'id', 'required' => false)),
+      'url'       => new sfValidatorString(array('max_length' => 128)),
+      'height'    => new sfValidatorInteger(),
+      'scrolling' => new sfValidatorInteger(),
     ));
 
     $this->widgetSchema->setNameFormat('application[%s]');
@@ -61,5 +37,14 @@ class BaseApplicationForm extends BaseFormPropel
     return 'Application';
   }
 
+  public function getI18nModelName()
+  {
+    return 'ApplicationI18n';
+  }
+
+  public function getI18nFormClass()
+  {
+    return 'ApplicationI18nForm';
+  }
 
 }

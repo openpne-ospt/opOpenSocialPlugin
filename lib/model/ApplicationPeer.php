@@ -27,21 +27,25 @@ class ApplicationPeer extends BaseApplicationPeer
     return (object)$array;
   }
   /**
-   * add application
+   * add or update application
    *
    * @param string $url     gadget url
    * @param string $culture culture 
-   * @param bool   $update  
+   * @param bool   $update
+   * @return Application application object  
    */
   public static function addApplication($url, $culture = 'en_US', $update = false)
   {
-    $criteria = new Criteria(ApplicationPeer::DATABASE_NAME);
-    $criteria->add(ApplicationPeer::URL, $url);
-    $criteria->add(ApplicationPeer::CULTURE, $culture);
-    $app = ApplicationPeer::doSelectOne($criteria);
+    $criteria = new Criteria(self::DATABASE_NAME);
+    $criteria->add(self::URL, $url);
+    $app = self::doSelectOne($criteria);
     if (!empty($app) && !$update)
     {
-      return $app->getId();
+      $ca = $app->getUpdatedAt();
+      if (!empty($ca))
+        {
+          return $app;
+        }
     }
     $cul = split('_',$culture);
     $req = self::arrayToObject(array(
@@ -55,9 +59,13 @@ class ApplicationPeer extends BaseApplicationPeer
     ));
     $handler = new MetadataHandler();
     $response = $handler->process($req);
-    if (!is_array($response) || count($response) <= 0 || isset($response[0]['errors']))
+    if (!is_array($response) || count($response) <= 0)
     {
-      return false;
+      throw new Exception('No data');
+    }
+    if (isset($response[0]['errors']))
+    {
+      throw new Exception($response[0]['errors'][0]);
     }
     $default_gadget = array(
       'url'             => '',
@@ -70,19 +78,26 @@ class ApplicationPeer extends BaseApplicationPeer
       'description'     => ''
     );
     $gadget = $response[0];
+    if (isset($gadget['authorEmail']))
+    {
+      $gadget['author_email'] = $gadget['authorEmail'];
+    }
+    if (isset($gadget['directoryTitle']))
+    {
+      $gadget['directory_title'] = $gadget['directoryTitle'];
+    }
     $gadget = array_merge($default_gadget,$gadget);
     if (empty($app))
     {
       $app = new Application();
     }
     $app->setUrl($gadget['url']);
-    $app->setCulture($culture); 
     $app->setTitle($gadget['title']);
     $app->setDirectoryTitle($gadget['directory_title']);
     $app->setScreenshot($gadget['screenshot']);
     $app->setThumbnail($gadget['thumbnail']);
     $app->setAuthor($gadget['author']);
-    $app->setAuthorEmail($gadget['author_email']);
+    $app->setAuthorEmail($gadget['authorEmail']);
     $app->setDescription($gadget['description']);
     $app->setSettings(isset($gadget['userPrefs']) ? serialize($gadget['userPrefs']) : '');
     $app->setViews(isset($gadget['views']) ? serialize($gadget['views']) : '');
@@ -97,6 +112,6 @@ class ApplicationPeer extends BaseApplicationPeer
     parse_str($iframe_url, $iframe_params);
     $app->setVersion(isset($iframe_params['v']) ? $iframe_params['v'] : '');
     $app->save();
-    return $app->getId();
+    return $app;
   }
 }

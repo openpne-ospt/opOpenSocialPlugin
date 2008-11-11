@@ -230,7 +230,7 @@ abstract class BaseApplicationSetting extends BaseObject  implements Persistent 
 
 												
 			if ($this->aApplication !== null) {
-				if ($this->aApplication->isModified()) {
+				if ($this->aApplication->isModified() || ($this->aApplication->getCulture() && $this->aApplication->getCurrentApplicationI18n()->isModified())) {
 					$affectedRows += $this->aApplication->save($con);
 				}
 				$this->setApplication($this->aApplication);
