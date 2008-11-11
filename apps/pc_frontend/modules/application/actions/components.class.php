@@ -23,7 +23,6 @@ class applicationComponents extends sfComponents
     $culture = $this->getUser()->getCulture();
     $culture = split("_",$culture);    
 
-    //$url = 'http://localhost/feed_reader_api/feed_reader.xml';
     $viewer_id = $this->getUser()->getMemberId();
     $securityToken = BasicSecurityToken::createFromValues(
       $owner_id,  // owner
