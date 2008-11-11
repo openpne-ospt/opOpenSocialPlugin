@@ -4,6 +4,6 @@
 <span id="remote_iframe_<?php echo $mid ?>_title" class="gadgets-gadget-title"><?php echo $title ?></span>
 </div>
 <div class="gadget-gadget-content">
-<iframe width="<?php echo ($width) ?>" scrolling="on" height="200" frameborder="no" src="<? echo $iframe_url ?>" class="gadgets-gadget" name="remote_iframe_<?php echo $mid ?>" id="remote_iframe_<?php echo $mid ?>"></iframe>
+<iframe width="<?php echo ($width) ?>" scrolling="on" height="<?php echo ($height) ?>" frameborder="no" src="<? echo $iframe_url ?>" class="gadgets-gadget" name="remote_iframe_<?php echo $mid ?>" id="remote_iframe_<?php echo $mid ?>"></iframe>
 </div>
 </div>

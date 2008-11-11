@@ -77,6 +77,7 @@ class applicationActions extends sfActions
     catch (Exception $e)
     {
       //TODO : add error action
+      return $this->pager->getNbResults() ? sfView::SUCCESS : sfView::ERROR;
     }
     $criteria = new Criteria(MemberApplicationPeer::DATABASE_NAME);
     $criteria->add(MemberApplicationPeer::MEMBER_ID,$memberId);

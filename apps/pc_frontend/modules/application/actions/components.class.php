@@ -21,7 +21,8 @@ class applicationComponents extends sfComponents
     $app_id   = $app->getId();
     $url      = $app->getUrl();
     $culture = $this->getUser()->getCulture();
-    $culture = split("_",$culture);    
+    $culture = split("_",$culture);
+    $this->height  = $app->getHeight() ? $app->getHeight() : 200;
 
     $viewer_id = $this->getUser()->getMemberId();
     $securityToken = BasicSecurityToken::createFromValues(
