@@ -58,20 +58,16 @@ class applicationActions extends sfActions
     $this->pager->setPage($request->getParameter('page', 1));
     $this->pager->init();
 
-    if (!$this->pager->getNbResults())
-    {
-      return sfView::ERROR;
-    }
     if (!$request->isMethod('post'))
     {
-      return sfView::SUCCESS;
+      return $this->pager->getNbResults() ? sfView::SUCCESS : sfView::ERROR;
     }
 
     $contact = $request->getParameter('contact');
     $this->form->bind($contact);
     if (!$this->form->isValid())
     {
-      return sfView::SUCCESS;
+      return $this->pager->getNbResults() ? sfView::SUCCESS : sfView::ERROR;
     }
     $contact = $this->form->getValues();
     try
