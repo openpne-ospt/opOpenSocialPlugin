@@ -61,13 +61,12 @@ class Config
       'security_token' => 'BasicSecurityToken', 
       // Caching back-end to use. Shindig ships with CacheFile and CacheMemcache out of the box
       'data_cache' => 'CacheFile',
-      // Old-style wire format data handler, this is being depreciated 
-      'handlers' => '',
+
       // New RESTful API data service classes to use
-      'person_service'   => 'JsonDbOpensocialService',
-      'activity_service' => 'JsonDbOpensocialService',
-      'app_data_service' => 'JsonDbOpensocialService',
-      'messages_service' => 'JsonDbOpensocialService',
+      'person_service'   => 'opJsonDbOpensocialService',
+      'activity_service' => 'opJsonDbOpensocialService',
+      'app_data_service' => 'opJsonDbOpensocialService',
+      'messages_service' => 'opJsonDbOpensocialService',
       // Also scan these directories when looking for <Class>.php files. You can include multiple paths by seperating them with a , 
       'extension_class_paths' => '',
       
@@ -80,6 +79,10 @@ class Config
       'cache_time' => 24 * 60 * 60,
       // If you use CacheFile as caching backend, this is the directory where it stores the temporary files
       'cache_root' => sfConfig::get('sf_app_cache_dir').'/plugins/opOpenSocialPlugin',
+
+      // connection timeout setting for all curl requests, set this time something low if you want errors reported
+      // quicker to the end user, and high (between 10 and 20) if your on a slow connection
+      'curl_connection_timeout' => '10',
 
       // If your development server is behind a proxy, enter the proxy details here in 'proxy.host.com:port' format.
       'proxy' => ''
