@@ -44,9 +44,18 @@ class applicationComponents extends sfComponents
       'country'   => isset($culture[1]) ? $culture[1] : 'US',
       'lang'      => $culture[0],
       'view'      => $this->view,
+      //'parent'  => '',
       'st'        => base64_encode($securityToken->toSerialForm()),
       'url'       => $url,
     );
-    $this->iframe_url = $_SERVER['SCRIPT_NAME'].'/gadgets/ifr?'.http_build_query($getParams);
+    $criteria = new Criteria();
+    $criteria->add(ApplicationSettingPeer::APPLICATION_ID, $app_id);
+    $criteria->add(ApplicationSettingPeer::MEMBER_ID, $owner_id);
+    $app_settings = ApplicationSettingPeer::doSelect($criteria);
+    foreach ($app_settings as $app_setting)
+    {
+      $getParams['up_'.$app_setting->getName()] = $app_setting->getValue();
+    }
+    $this->iframe_url = $_SERVER['SCRIPT_NAME'].'/gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
   }
 }

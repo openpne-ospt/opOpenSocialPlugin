@@ -51,7 +51,7 @@ class applicationActions extends sfActions
       sfConfig::set('sf_navi_type', 'friend');
     }
 
-    $criteria = new Criteria(MemberApplicationPeer::DATABASE_NAME);
+    $criteria = new Criteria();
     $criteria->add(MemberApplicationPeer::MEMBER_ID, $ownerId);
     $this->pager = new sfPropelPager('MemberApplication',20);
     $this->pager->setCriteria($criteria);
@@ -79,7 +79,7 @@ class applicationActions extends sfActions
       //TODO : add error action
       return $this->pager->getNbResults() ? sfView::SUCCESS : sfView::ERROR;
     }
-    $criteria = new Criteria(MemberApplicationPeer::DATABASE_NAME);
+    $criteria = new Criteria();
     $criteria->add(MemberApplicationPeer::MEMBER_ID,$memberId);
     $criteria->add(MemberApplicationPeer::APPLICATION_ID,$app->getId());
     $member_app = MemberApplicationPeer::doSelectOne($criteria);
