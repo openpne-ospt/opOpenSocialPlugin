@@ -1,3 +1,7 @@
+if (!web_prefix)
+{
+  var web_prefix = "/";
+}
 var Container = Class.create();
 Container.prototype = {
 	maxHeight: 4096,
@@ -42,7 +46,12 @@ Container.prototype = {
 		if ($(this.f) != undefined) {
 			var params = gadgets.container._parseIframeUrl($(this.f).src);
 			//TODO use params.st to make the store request, it holds the owner / viewer / app id / mod id required
-			new Ajax.Request('/prefs/set', {method: 'get', parameters: { name: name, value: value, st: params.st }});
+			var url = '/prefs/set';
+			if (web_prefix)
+			{
+			  url = web_prefix + 'prefs/set';
+			}
+			new Ajax.Request(url, {method: 'get', parameters: { name: name, value: value, st: params.st }});
 		}
 	},
 	
@@ -56,11 +65,11 @@ Container.prototype = {
 	
 	_getUrlForView: function(view, person, app, mod) {
 		if (view === 'home') {
-			return '/home';
+			return web_prefix;
 		} else if (view === 'profile') {
-			return '/profile/'+person;
+			return web_prefix + 'member/' + person;
 		} else if (view === 'canvas') {
-			return '/profile/application/'+person+'/'+app+'/'+mod;
+			return web_prefix + 'application/canvas/mid/' + mod;
 		} else {
 			return null;
 		}
