@@ -1,8 +1,13 @@
 canvasSuccess:
   javascripts:
+    - /application/js
     - /gadgets/js/rpc.js?c=1
     - http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js
     - /plugins/opOpenSocialPlugin/js/tabs-min
     - /plugins/opOpenSocialPlugin/js/container
   stylesheets:
     - /plugins/opOpenSocialPlugin/css/opensocial
+
+jsSuccess:
+  has_layout:     off
+  web_debug:      off

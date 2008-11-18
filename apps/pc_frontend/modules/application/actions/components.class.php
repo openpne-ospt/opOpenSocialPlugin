@@ -56,6 +56,6 @@ class applicationComponents extends sfComponents
     {
       $getParams['up_'.$app_setting->getName()] = $app_setting->getValue();
     }
-    $this->iframe_url = $_SERVER['SCRIPT_NAME'].'/gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+    $this->iframe_url = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
   }
 }

@@ -95,4 +95,13 @@ class applicationActions extends sfActions
     //TODO : redirect application page
     return sfView::SUCCESS;
   }
+  /**
+   * Executes js action
+   *
+   * @param sfRequest $request A request object
+   */
+  public function executeJs($request)
+  {
+    return sfView::SUCCESS;
+  }
 }
