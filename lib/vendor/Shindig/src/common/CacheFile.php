@@ -40,12 +40,14 @@ class CacheFile extends Cache {
 	{
 		$cacheDir = dirname($cacheFile);
 		if (! is_dir($cacheDir)) {
-			if (! @mkdir($cacheDir, 0755, true)) {
+			$old = umask(0);
+			if (! @mkdir($cacheDir, 0777, true)) {
 				// make sure the failure isn't because of a concurency issue
 				if (! is_dir($cacheDir)) {
 					throw new CacheException("Could not create cache directory");
 				}
 			}
+			umask($old);
 		}
 		@touch($cacheFile . '.lock');
 	}
@@ -121,9 +123,11 @@ class CacheFile extends Cache {
 			$this->waitForLock($cacheFile);
 		}
 		if (! is_dir($cacheDir)) {
-			if (! @mkdir($cacheDir, 0755, true)) {
+			$old = umask(0);
+			if (! @mkdir($cacheDir, 0777, true)) {
 				throw new CacheException("Could not create cache directory");
 			}
+			umask($old);
 		}
 		// we serialize the whole request object, since we don't only want the
 		// responseContent but also the postBody used, headers, size, etc
