@@ -7,6 +7,8 @@ class Config
   static private $config = false;
   static private function loadConfig()
   {
+    $webprefix = sfContext::getInstance()->getController()->genUrl('@homepage');
+    $webprefix = preg_replace('/(.+)\/$/', "$1", $webprefix);
     $shindigConfig = array(
       // Show debug backtrace's. Disable this on a production site
       'debug' => false,
@@ -16,10 +18,10 @@ class Config
       'compress_javascript' => true, 
 
       // The URL Prefix under which shindig lives ie if you have http://myhost.com/shindig/php set web_prefix to /shindig/php
-      'web_prefix' => $_SERVER['SCRIPT_NAME'], 
+      'web_prefix' => $webprefix, 
       // If you changed the web prefix, add the prefix to these too
-      'default_js_prefix' => $_SERVER['SCRIPT_NAME'].'/gadgets/js/', 
-      'default_iframe_prefix' => $_SERVER['SCRIPT_NAME'].'/gadgets/ifr?', 
+      'default_js_prefix' => $webprefix.'/gadgets/js/', 
+      'default_iframe_prefix' => $webprefix.'/gadgets/ifr?', 
 
       // The X-XRDS-Location value for your implementing container, if any, see http://code.google.com/p/partuza/source/browse/trunk/Library/XRDS.php for an example
       'xrds_location' => '',
@@ -48,7 +50,7 @@ class Config
       // The OAuth SSL certificates to use, and the pass phrase for the private key  
       'private_key_file' => realpath(dirname(__FILE__) . '/../vendor/Shindig/certs').'/private.key', 
       'public_key_file' => realpath(dirname(__FILE__) . '/../vendor/Shindig/certs').'/public.crt', 
-      'private_key_phrase' => 'partuza', 
+      'private_key_phrase' => 'openpne3', 
       'jsondb_path' => realpath(dirname(__FILE__) . '/../vendor/Shindig/javascript/sampledata').'/canonicaldb.json',
 
       // Force these libraries to be external (included through <script src="..."> tags), this way they could be cached by the browser
