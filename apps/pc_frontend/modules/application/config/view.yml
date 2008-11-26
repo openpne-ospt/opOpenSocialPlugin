@@ -9,5 +9,4 @@ canvasSuccess:
     - /plugins/opOpenSocialPlugin/css/opensocial
 
 jsSuccess:
-  has_layout:     off
-  web_debug:      off
+  has_layout: off
