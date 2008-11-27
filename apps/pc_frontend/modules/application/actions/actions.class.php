@@ -96,6 +96,24 @@ class applicationActions extends sfActions
     return sfView::SUCCESS;
   }
   /**
+   * Executes setting action
+   *
+   * @param sfRequest $request A request object
+   */
+  public function executeSetting($request)
+  {
+    if (!$request->hasParameter('mid'))
+    {
+      return sfView::ERROR;
+    }
+    $this->appsettingForm = new ApplicationSettingForm();
+    if (!$this->appsettingForm->setConfigWidgets($request->getParameter('mid')))
+    {
+      return sfView::ERROR;
+    }
+    return sfView::SUCCESS;
+  }
+  /**
    * Executes js action
    *
    * @param sfRequest $request A request object

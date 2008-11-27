@@ -114,4 +114,20 @@ class ApplicationPeer extends BaseApplicationPeer
     $app->save();
     return $app;
   }
+
+  /**
+   * has settings
+   *
+   * @param integer $modId
+   * @return boolean
+   */
+  public static function hasSetting($modId)
+  {
+    $app = self::retrieveByPk($modId);
+    if (!$app)
+    {
+      return false;
+    }
+    return $app->hasSettings();
+  }
 }
