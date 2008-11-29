@@ -25,6 +25,14 @@ class applicationComponents extends sfComponents
     $this->height  = $app->getHeight() ? $app->getHeight() : 200;
 
     $viewer_id = $this->getUser()->getMemberId();
+
+    $this->isViewer = false;
+    if ($owner_id == $viewer_id)
+    {
+      $this->isViewer = true;
+      $this->hasSettings = $app->hasSettings();
+    }
+
     $securityToken = BasicSecurityToken::createFromValues(
       $owner_id,  // owner
       $viewer_id, // viewer

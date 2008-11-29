@@ -32,6 +32,7 @@ class applicationActions extends sfActions
     }
     return sfView::SUCCESS;
   }
+
   /**
    * Executes list action
    *
@@ -95,6 +96,7 @@ class applicationActions extends sfActions
     //TODO : redirect application page
     return sfView::SUCCESS;
   }
+
   /**
    * Executes setting action
    *
@@ -106,13 +108,33 @@ class applicationActions extends sfActions
     {
       return sfView::ERROR;
     }
+
     $this->appsettingForm = new ApplicationSettingForm();
-    if (!$this->appsettingForm->setConfigWidgets($request->getParameter('mid')))
+    $memberId = $this->getUser()->getMember()->getId();
+    $modId = $request->getParameter('mid');
+    if (!$this->appsettingForm->setConfigWidgets($memberId,$modId))
     {
       return sfView::ERROR;
     }
+
+    $memberApp = MemberApplicationPeer::retrieveByPk($modId);
+    $this->appName = $memberApp->getApplication()->getTitle();
+
+    if (!$request->isMethod('post'))
+    {
+      return sfView::SUCCESS;
+    }
+
+    $this->appsettingForm->bind($request->getParameter('setting'));
+
+    if ($this->appsettingForm->isValid())
+    {
+      $this->appsettingForm->save($modId);
+      $this->redirect('application/canvas?mid='.$modId);
+    }
     return sfView::SUCCESS;
   }
+
   /**
    * Executes js action
    *

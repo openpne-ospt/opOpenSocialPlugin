@@ -9,4 +9,11 @@
  */ 
 class ApplicationSettingPeer extends BaseApplicationSettingPeer
 {
+  public static function retrieveByMemberApplicationIdAndName($memberApplicationId, $name)
+  {
+    $criteria = new Criteria();
+    $criteria->add(self::MEMBER_APPLICATION_ID, $memberApplicationId);
+    $criteria->add(self::NAME, $name);
+    return self::doSelectOne($criteria);
+  }
 }
