@@ -142,6 +142,8 @@ class applicationActions extends sfActions
    */
   public function executeJs($request)
   {
+    $response = $this->getResponse();
+    $response->setContentType('text/javascript');
     return sfView::SUCCESS;
   }
 }
