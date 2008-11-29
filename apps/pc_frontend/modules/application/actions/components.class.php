@@ -49,8 +49,7 @@ class applicationComponents extends sfComponents
       'url'       => $url,
     );
     $criteria = new Criteria();
-    $criteria->add(ApplicationSettingPeer::APPLICATION_ID, $app_id);
-    $criteria->add(ApplicationSettingPeer::MEMBER_ID, $owner_id);
+    $criteria->add(ApplicationSettingPeer::MEMBER_APPLICATION_ID, $mod_id);
     $app_settings = ApplicationSettingPeer::doSelect($criteria);
     foreach ($app_settings as $app_setting)
     {

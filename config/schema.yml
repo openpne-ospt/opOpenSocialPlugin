@@ -22,8 +22,7 @@ propel:
 
   application_setting:
     id: ~
-    application_id: ~
-    member_id: { type: integer, foreignTable: member, foreignReference: id }
+    member_application_id: ~
     name: { type: varchar(128), required: true }
     value: { type: varchar(255), required: true }
 

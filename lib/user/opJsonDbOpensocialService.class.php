@@ -80,8 +80,9 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
   {
     $ids = $this->getIdSet($userId, $groupId, $token);
     $criteria = new Criteria();
-    $criteria->add(ApplicationSettingPeer::APPLICATION_ID, $appId);
-    $criteria->add(ApplicationSettingPeer::MEMBER_ID, $ids, Criteria::IN);
+    $criteria->addJoin(ApplicationSettingPeer::MEMBER_APPLICATION_ID, MemberApplicationPeer::ID);
+    $criteria->add(MemberApplicationPeer::APPLICATION_ID, $appId);
+    $criteria->add(MemberApplicationPeer::MEMBER_ID, $ids, Criteria::IN);
     $app_settings = ApplicationSettingPeer::doSelect($criteria);
     if (!count($app_settings))
     {
@@ -90,7 +91,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     $data = array();
     foreach($app_settings as $app_setting)
     {
-      $data[$app_setting->getMemberId()][$app_setting->getName()] = $app_setting->getValue();
+      $data[$app_setting->getMemberApplication()->getMemberId()][$app_setting->getName()] = $app_setting->getValue();
     }
     return new DataCollection($data);
   }

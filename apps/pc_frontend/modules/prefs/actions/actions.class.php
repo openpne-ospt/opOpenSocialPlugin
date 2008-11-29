@@ -29,18 +29,16 @@ class prefsActions extends sfActions
       $key   = $request->getParameter('name');
       $value = $request->getParameter('value');
       $token = BasicSecurityToken::createFromToken($st, 60);
-      $app_id = $token->getAppId();
+      $mod_id = $token->getModuleId();
       $viewer = $token->getViewerId();
       $criteria = new Criteria(ApplicationSettingPeer::DATABASE_NAME);
-      $criteria->add(ApplicationSettingPeer::APPLICATION_ID,$app_id);
-      $criteria->add(ApplicationSettingPeer::MEMBER_ID,$viewer);
+      $criteria->add(ApplicationSettingPeer::MEMBER_APPLICATION_ID,$mod_id);
       $criteria->add(ApplicationSettingPeer::NAME,$key);
       $app_setting = ApplicationSettingPeer::doSelectOne($criteria);
       if (empty($app_setting))
       {
         $app_setting = new ApplicationSetting();
-        $app_setting->setApplicationId($app_id);
-        $app_setting->setMemberId($viewer);
+        $app_setting->setMemberApplicationId($mod_id);
         $app_setting->setName($key);
       }
       $app_setting->setValue($value);
