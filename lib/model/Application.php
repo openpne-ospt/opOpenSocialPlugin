@@ -33,11 +33,12 @@ class Application extends BaseApplication
 
   /**
    * getSettings 
-   *
+   * 
+   * @param string $culture
    * @return array
    */
-  public function getSettings()
+  public function getSettings($culture = null)
   {
-    return unserialize(parent::getSettings());
+    return unserialize(parent::getSettings($culture));
   }
 }
