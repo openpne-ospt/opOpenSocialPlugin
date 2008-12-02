@@ -1,4 +1,4 @@
-<?php echo include_component('application','gadget',
+<?php include_component('application','gadget',
   array(
     'width'      => 960,
     'view'       => 'canvas',

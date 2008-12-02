@@ -22,7 +22,8 @@ class applicationComponents extends sfComponents
     $url      = $app->getUrl();
     $culture = $this->getUser()->getCulture();
     $culture = split("_",$culture);
-    $this->height  = $app->getHeight() ? $app->getHeight() : 200;
+    $this->height    = $app->getHeight() ? $app->getHeight() : 200;
+    $this->scrolling = $app->getScrolling();
 
     $viewer_id = $this->getUser()->getMemberId();
 

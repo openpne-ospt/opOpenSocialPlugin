@@ -1,6 +1,6 @@
-<div class="gadgets-gadget-chrome" style="width:<?php echo $width ?>px;">
-<div id="gadgets-gadget-title-bar-<?php echo $mid ?>" class ="gadgets-gadget-title-bar partsHeading">
-<div class="gadgets-gadget-title-button-bar"><?php 
+<div class="dparts box" style="width:<?php echo $width ?>px;"><div class="parts">
+<div id="gadgets-gadget-title-bar-<?php echo $mid ?>" class="partsHeading">
+<p class="link"><?php 
 if ($isViewer)
 {
   if ($hasSettings)
@@ -12,10 +12,19 @@ else
 {
   echo "add this application";
 }
-?></div>
-<span id="remote_iframe_<?php echo $mid ?>_title" class="gadgets-gadget-title"><?php echo $title ?></span>
+?></p>
+<h3 id="remote_iframe_<?php echo $mid ?>_title"><?php echo $title ?></h3>
 </div>
-<div class="gadget-gadget-content">
-<iframe width="<?php echo ($width) ?>" scrolling="on" height="<?php echo ($height) ?>" frameborder="no" src="<? echo $iframe_url ?>" class="gadgets-gadget" name="remote_iframe_<?php echo $mid ?>" id="remote_iframe_<?php echo $mid ?>"></iframe>
+<div class="block">
+<iframe width="<?php echo ($width) ?>" scrolling="<?php
+if ($scrolling)
+{
+  echo "on";
+}
+else
+{
+  echo "off";
+}
+?>" height="<?php echo ($height) ?>" frameborder="no" src="<? echo $iframe_url ?>" class="gadgets-gadget" name="remote_iframe_<?php echo $mid ?>" id="remote_iframe_<?php echo $mid ?>"></iframe>
 </div>
-</div>
+</div></div>
