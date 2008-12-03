@@ -110,7 +110,41 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
 
   public function updatePersonData(UserId $userId, GroupId $groupId, $appId, $fields, $values, SecurityToken $token)
   {
-    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+    if ($userId->getUserId($token) == null)
+    {
+      throw new SocialSpiException("Unknown person id.", ResponseError::$NOT_FOUND);
+    }
+
+    foreach ($fields as $key)
+    {
+      if (!preg_match('/[\w\-\.]+/',$key))
+      {
+        throw new SocialSpiException("The person app data key had invalid characters", ResponseError::$BAD_REQUEST);
+      }
+    }
+    switch ($groupId->getType())
+    {
+      case 'self':
+        foreach ($fields as $key)
+        {
+          $value = isset($values[$key]) ? $values[$key] : null;
+          $criteria = new Criteria();
+          $criteria->add(ApplicationSettingPeer::MEMBER_APPLICATION_ID, $token->getModuleId());
+          $criteria->add(ApplicationSettingPeer::NAME, $key);
+          $app_setting = ApplicationSettingPeer::doSelectOne($criteria);
+          if (!$app_setting)
+          {
+            $app_setting = new ApplicationSetting();
+            $app_setting->setMemberApplicationId($token->getModuleId());
+            $app_setting->setName($key);
+          }
+          $app_setting->setValue($value);
+          $app_setting->save();
+        }
+        break;
+      default:
+        throw new SocialSpiException("We don't support updating data in batches yet", ResponseError::$NOT_IMPLEMENTED);
+    }
   }
 
   public function createMessage($userId, $appId, $message, $optionalMessageId, SecurityToken $token)
