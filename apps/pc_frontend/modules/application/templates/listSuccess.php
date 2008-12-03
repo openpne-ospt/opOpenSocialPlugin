@@ -1,4 +1,5 @@
-<?php use_helper('Pagination') ?>
+<?php use_helper('Javascript') ?>
+<?php use_helper('OpenSocial') ?>
 <?php if (isset($form)) : ?>
 <?php include_box('form','アプリケーション追加','',array(
   'form' => array($form),
@@ -6,10 +7,19 @@
   'button' => 'add'
 )) ?>
 <?php endif ?>
-<?php echo pager_navigation($pager, 'application/list?page=%d') ?>
-<ul>
-<?php foreach ($pager->getResults() as $app) : ?>
-<li><?php echo link_to($app->getApplication()->getTitle(), 'application/canvas?mid='.$app->getId()) ?></li>
+<div id="order">
+<?php foreach ($apps as $app) : ?>
+<?php include_application_information_box(
+  'item_'.$app->getApplication()->getId(),
+  $app->getId(),
+  $app->getApplication()->getTitle(),
+  $app->getAPplication()->getDescription(),
+  $app->getApplication()->getThumbnail(),
+  $app->getApplication()->getAuthor(),
+  $app->getApplication()->getAuthorEmail()
+) ?>
 <?php endforeach ?>
-</ul>
-<?php echo pager_navigation($pager, 'application/list?page-%d') ?>
+</div>
+<?php echo sortable_element('order', array(
+  'tag'    => 'div',
+)) ?>

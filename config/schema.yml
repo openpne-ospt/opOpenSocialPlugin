@@ -29,4 +29,5 @@ propel:
   member_application:
     id: ~
     member_id: { type: integer, foreignTable: member, foreignReference: id }
-    application_id: ~
+    application_id: 
+    sort_order: { type: integer }

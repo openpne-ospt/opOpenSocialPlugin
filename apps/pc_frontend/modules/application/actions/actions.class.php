@@ -54,21 +54,18 @@ class applicationActions extends sfActions
 
     $criteria = new Criteria();
     $criteria->add(MemberApplicationPeer::MEMBER_ID, $ownerId);
-    $this->pager = new sfPropelPager('MemberApplication',20);
-    $this->pager->setCriteria($criteria);
-    $this->pager->setPage($request->getParameter('page', 1));
-    $this->pager->init();
+    $this->apps = MemberApplicationPeer::doSelect($criteria);
 
     if (!$request->isMethod('post'))
     {
-      return $this->pager->getNbResults() ? sfView::SUCCESS : sfView::ERROR;
+      return $this->apps ? sfView::SUCCESS : sfView::ERROR;
     }
 
     $contact = $request->getParameter('contact');
     $this->form->bind($contact);
     if (!$this->form->isValid())
     {
-      return $this->pager->getNbResults() ? sfView::SUCCESS : sfView::ERROR;
+      return $this->apps ? sfView::SUCCESS : sfView::ERROR;
     }
     $contact = $this->form->getValues();
     try
@@ -78,7 +75,7 @@ class applicationActions extends sfActions
     catch (Exception $e)
     {
       //TODO : add error action
-      return $this->pager->getNbResults() ? sfView::SUCCESS : sfView::ERROR;
+      return $this->apps ? sfView::SUCCESS : sfView::ERROR;
     }
     $criteria = new Criteria();
     $criteria->add(MemberApplicationPeer::MEMBER_ID,$memberId);
