@@ -69,6 +69,7 @@ class ProxyServlet extends HttpServlet {
 			// catch all exceptions and give a 500 server error
 			header("HTTP/1.0 500 Internal Server Error");
 			echo "<h1>Internal server error</h1><p>" . $e->getMessage() . "</p>";
+			exit;
 		}
 	}
 
