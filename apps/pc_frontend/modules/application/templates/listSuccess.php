@@ -1,6 +1,6 @@
 <?php use_helper('Javascript') ?>
 <?php use_helper('OpenSocial') ?>
-<?php if (isset($form)) : ?>
+<?php if ($isOwner) : ?>
 <?php include_box('form','アプリケーション追加','',array(
   'form' => array($form),
   'url' => 'application/list',
@@ -12,6 +12,7 @@
 <?php include_application_information_box(
   'item_'.$app->getApplication()->getId(),
   $app->getId(),
+  $isOwner,
   $app->getApplication()->getTitle(),
   $app->getAPplication()->getDescription(),
   $app->getApplication()->getThumbnail(),
@@ -20,6 +21,12 @@
 ) ?>
 <?php endforeach ?>
 </div>
-<?php echo sortable_element('order', array(
+<?php 
+if ($isOwner)
+{
+echo sortable_element('order', array(
+  'url'    => 'application/sortApplication',
   'tag'    => 'div',
-)) ?>
+  'only'   => 'sortable'
+));
+} ?>

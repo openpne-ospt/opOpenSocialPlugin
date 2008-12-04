@@ -1,4 +1,9 @@
-<div id="<?php echo $id ?>" class="dparts box"><div class="parts">
+<div id="<?php echo $id ?>" class="dparts box<?php
+if ($is_owner)
+{
+  echo " sortable";
+}
+?>"><div class="parts">
 
 <div class="partsHeading">
 <h3><?php echo link_to($title, 'application/canvas?mid='.$mid) ?></h3>

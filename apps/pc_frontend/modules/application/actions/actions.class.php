@@ -43,8 +43,10 @@ class applicationActions extends sfActions
     $memberId = $this->getUser()->getMemberId();
     $ownerId  = $request->hasParameter('id') ? $request->getParameter('id') : $memberId;
 
+    $this->isOwner = false;
     if ($memberId == $ownerId)
     {
+      $this->isOwner = true;
       $this->form = new AddApplicationForm();
     }
     else
@@ -54,6 +56,7 @@ class applicationActions extends sfActions
 
     $criteria = new Criteria();
     $criteria->add(MemberApplicationPeer::MEMBER_ID, $ownerId);
+    $criteria->addAscendingOrderByColumn(MemberApplicationPeer::SORT_ORDER);
     $this->apps = MemberApplicationPeer::doSelect($criteria);
 
     if (!$request->isMethod('post'))
@@ -83,15 +86,13 @@ class applicationActions extends sfActions
     $member_app = MemberApplicationPeer::doSelectOne($criteria);
     if (!empty($member_app))
     {
-      //TODO : redirect application page
-      return sfView::SUCCESS;
+      return $this->redirect('application/canvas?mid='.$member_app->getId());
     }
     $member_app = new MemberApplication();
     $member_app->setMemberId($memberId);
     $member_app->setApplicationId($app->getId());
     $member_app->save();
-    //TODO : redirect application page
-    return sfView::SUCCESS;
+    return $this->redirect('application/canvas?mid=',$member_app->getId());
   }
 
   /**
@@ -142,5 +143,29 @@ class applicationActions extends sfActions
     $response = $this->getResponse();
     $response->setContentType('text/javascript');
     return sfView::SUCCESS;
+  }
+
+  /**
+   * Executes sort application
+   * 
+   * @param sfRequest $request A request object
+   */
+  public function executeSortApplication($request)
+  {
+    if ($this->getRequest()->isXmlHttpRequest())
+    {
+      $memberId = $this->getUser()->getMember()->getId();
+      $order = $request->getParameter('order');
+      for ($i = 0; $i < count($order); $i++)
+      {
+        $memberApp = MemberApplicationPeer::retrieveByPk($order[$i]);
+        if ($memberApp && $memberApp->getMemberId() == $memberId)
+        {
+          $memberApp->setSortOrder($i);
+          $memberApp->save();
+        }
+      }
+    }
+    return sfView::NONE;
   }
 }

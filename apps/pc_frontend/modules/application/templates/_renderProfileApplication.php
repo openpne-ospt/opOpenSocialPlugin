@@ -1,6 +1,7 @@
 <?php
 $c = new Criteria();
 $c->add(MemberApplicationPeer::MEMBER_ID, $memberId);
+$c->addAscendingOrderByColumn(MemberApplicationPeer::SORT_ORDER);
 $c->setLimit(3);
 $member_apps = MemberApplicationPeer::doSelect($c);
 
