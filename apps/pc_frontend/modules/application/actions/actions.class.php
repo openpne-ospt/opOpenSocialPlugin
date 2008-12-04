@@ -92,7 +92,7 @@ class applicationActions extends sfActions
     $member_app->setMemberId($memberId);
     $member_app->setApplicationId($app->getId());
     $member_app->save();
-    return $this->redirect('application/canvas?mid=',$member_app->getId());
+    return $this->redirect('application/canvas?mid='.$member_app->getId());
   }
 
   /**
