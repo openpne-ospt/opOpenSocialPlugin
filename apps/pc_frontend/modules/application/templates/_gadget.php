@@ -1,12 +1,9 @@
-<div class="dparts box" style="width:<?php echo $width ?>px;"><div class="parts">
+<div class="dparts box"><div class="parts">
 <div id="gadgets-gadget-title-bar-<?php echo $mid ?>" class="partsHeading">
 <p class="link"><?php 
 if ($isViewer)
 {
-  if ($hasSettings)
-  {
-    echo link_to("Settings","application/setting?mid=".$mid);
-  }
+  echo link_to("Settings","application/setting?mid=".$mid);
 }
 else
 {
@@ -16,7 +13,7 @@ else
 <h3 id="remote_iframe_<?php echo $mid ?>_title"><?php echo $title ?></h3>
 </div>
 <div class="block">
-<iframe width="<?php echo ($width) ?>" scrolling="<?php
+<iframe width="100%" scrolling="<?php
 if ($scrolling)
 {
   echo "on";

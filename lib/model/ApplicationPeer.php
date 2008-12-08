@@ -43,9 +43,9 @@ class ApplicationPeer extends BaseApplicationPeer
     {
       $ca = $app->getUpdatedAt();
       if (!empty($ca))
-        {
-          return $app;
-        }
+      {
+        return $app;
+      }
     }
     $cul = split('_',$culture);
     $req = self::arrayToObject(array(

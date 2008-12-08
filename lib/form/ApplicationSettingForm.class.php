@@ -49,6 +49,7 @@ class ApplicationSettingForm extends OpenPNEFormAutoGenerate
     {
       $param   = array();
       $choices = array();
+      $param['IsRequired'] = false;
       $param['Caption'] = $setting['displayName'];
       switch ($setting['type'])
       {

@@ -30,4 +30,6 @@ propel:
     id: ~
     member_id: { type: integer, foreignTable: member, foreignReference: id }
     application_id: 
+    is_disp_other: { type: boolean }
+    is_disp_home: { type: boolean }
     sort_order: { type: integer }

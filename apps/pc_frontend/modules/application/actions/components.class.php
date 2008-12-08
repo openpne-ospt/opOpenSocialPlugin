@@ -31,7 +31,6 @@ class applicationComponents extends sfComponents
     if ($owner_id == $viewer_id)
     {
       $this->isViewer = true;
-      $this->hasSettings = $app->hasSettings();
     }
 
     $securityToken = BasicSecurityToken::createFromValues(

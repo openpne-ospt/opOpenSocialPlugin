@@ -25,8 +25,12 @@ class applicationActions extends sfActions
     {
       return sfView::ERROR; 
     }
-    if($this->getUser()->getMemberId() != $this->member_app->getMemberId())
+    if ($this->getUser()->getMemberId() != $this->member_app->getMemberId())
     {
+      if (!$this->member_app->getIsDispOther())
+      {
+        return sfView::ERROR;
+      }
       $request->setParameter('id', $this->member_app->getMemberId());
       sfConfig::set('sf_navi_type', 'friend');
     }
@@ -44,6 +48,10 @@ class applicationActions extends sfActions
     $ownerId  = $request->hasParameter('id') ? $request->getParameter('id') : $memberId;
 
     $this->isOwner = false;
+    $criteria = new Criteria();
+    $criteria->add(MemberApplicationPeer::MEMBER_ID, $ownerId);
+    $criteria->addAscendingOrderByColumn(MemberApplicationPeer::SORT_ORDER);
+
     if ($memberId == $ownerId)
     {
       $this->isOwner = true;
@@ -51,12 +59,10 @@ class applicationActions extends sfActions
     }
     else
     {
+      $criteria->add(MemberApplicationPeer::IS_DISP_OTHER, true);
       sfConfig::set('sf_navi_type', 'friend');
     }
 
-    $criteria = new Criteria();
-    $criteria->add(MemberApplicationPeer::MEMBER_ID, $ownerId);
-    $criteria->addAscendingOrderByColumn(MemberApplicationPeer::SORT_ORDER);
     $this->apps = MemberApplicationPeer::doSelect($criteria);
 
     if (!$request->isMethod('post'))
@@ -91,6 +97,8 @@ class applicationActions extends sfActions
     $member_app = new MemberApplication();
     $member_app->setMemberId($memberId);
     $member_app->setApplicationId($app->getId());
+    $member_app->setIsDispOther(true);
+    $member_app->setIsDispHome(true);
     $member_app->save();
     return $this->redirect('application/canvas?mid='.$member_app->getId());
   }
@@ -107,27 +115,34 @@ class applicationActions extends sfActions
       return sfView::ERROR;
     }
 
-    $this->appsettingForm = new ApplicationSettingForm();
+    $this->applicationSettingForm = new ApplicationSettingForm();
     $memberId = $this->getUser()->getMember()->getId();
     $modId = $request->getParameter('mid');
-    if (!$this->appsettingForm->setConfigWidgets($memberId,$modId))
-    {
-      return sfView::ERROR;
-    }
+    $this->applicationSettingForm->setConfigWidgets($memberId,$modId);
 
     $memberApp = MemberApplicationPeer::retrieveByPk($modId);
     $this->appName = $memberApp->getApplication()->getTitle();
+
+    $this->memberApplicationSettingForm = new MemberApplicationSettingForm();
+    $isDispOther = $memberApp->getIsDispOther();
+    $isDispHome  = $memberApp->getIsDispHome();
+        $this->memberApplicationSettingForm->setDefaults(array(
+      'is_disp_other' => $isDispOther,
+      'is_disp_home'  => $isDispHome,
+    ));
 
     if (!$request->isMethod('post'))
     {
       return sfView::SUCCESS;
     }
+    
+    $this->memberApplicationSettingForm->bind($request->getParameter('member_app_setting'));
+    $this->applicationSettingForm->bind($request->getParameter('setting'));
 
-    $this->appsettingForm->bind($request->getParameter('setting'));
-
-    if ($this->appsettingForm->isValid())
+    if ($this->applicationSettingForm->isValid() && $this->memberApplicationSettingForm->isValid())
     {
-      $this->appsettingForm->save($modId);
+      $this->applicationSettingForm->save($modId);
+      $this->memberApplicationSettingForm->save($modId);
       $this->redirect('application/canvas?mid='.$modId);
     }
     return sfView::SUCCESS;
