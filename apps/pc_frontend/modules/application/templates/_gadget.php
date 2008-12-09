@@ -3,11 +3,11 @@
 <p class="link"><?php 
 if ($isViewer)
 {
-  echo link_to("Settings","application/setting?mid=".$mid);
+  echo link_to(__('Settings'),"application/setting?mid=".$mid);
 }
 else
 {
-  echo "add this application";
+  echo link_to(__('Add this application'),"application/add?id=".$aid);
 }
 ?></p>
 <h3 id="remote_iframe_<?php echo $mid ?>_title"><?php echo $title ?></h3>

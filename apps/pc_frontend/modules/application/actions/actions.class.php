@@ -37,11 +37,11 @@ class applicationActions extends sfActions
     return sfView::SUCCESS;
   }
 
-  /**
-   * Executes list action
-   *
-   * @param sfRequest $request A request object
-   */
+ /**
+  * Executes list action
+  *
+  * @param sfRequest $request A request object
+  */
   public function executeList($request)
   {
     $memberId = $this->getUser()->getMemberId();
@@ -67,14 +67,14 @@ class applicationActions extends sfActions
 
     if (!$request->isMethod('post'))
     {
-      return $this->apps ? sfView::SUCCESS : sfView::ERROR;
+      return sfView::SUCCESS;
     }
 
     $contact = $request->getParameter('contact');
     $this->form->bind($contact);
     if (!$this->form->isValid())
     {
-      return $this->apps ? sfView::SUCCESS : sfView::ERROR;
+      return sfView::SUCCESS;
     }
     $contact = $this->form->getValues();
     try
@@ -84,7 +84,7 @@ class applicationActions extends sfActions
     catch (Exception $e)
     {
       //TODO : add error action
-      return $this->apps ? sfView::SUCCESS : sfView::ERROR;
+      return sfView::SUCCESS;
     }
     $criteria = new Criteria();
     $criteria->add(MemberApplicationPeer::MEMBER_ID,$memberId);
@@ -103,11 +103,11 @@ class applicationActions extends sfActions
     return $this->redirect('application/canvas?mid='.$member_app->getId());
   }
 
-  /**
-   * Executes setting action
-   *
-   * @param sfRequest $request A request object
-   */
+ /**
+  * Executes setting action
+  *
+  * @param sfRequest $request A request object
+  */
   public function executeSetting($request)
   {
     if (!$request->hasParameter('mid'))
@@ -148,11 +148,28 @@ class applicationActions extends sfActions
     return sfView::SUCCESS;
   }
 
-  /**
-   * Executes js action
-   *
-   * @param sfRequest $request A request object
-   */
+ /**
+  * Executes gallery action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeGallery($request)
+  {
+    $criteria = new Criteria();
+    $criteria->addDescendingOrderByColumn(ApplicationPeer::ID);
+    $this->pager = new sfPropelPager('Application', 10);
+    $this->pager->setCriteria($criteria);
+    $this->pager->setPage($request->getParameter('page',1));
+    $this->pager->init();
+
+    return sfView::SUCCESS;
+  }
+
+ /**
+  * Executes js action
+  *
+  * @param sfRequest $request A request object
+  */
   public function executeJs($request)
   {
     $response = $this->getResponse();
@@ -160,11 +177,11 @@ class applicationActions extends sfActions
     return sfView::SUCCESS;
   }
 
-  /**
-   * Executes sort application
-   * 
-   * @param sfRequest $request A request object
-   */
+ /**
+  * Executes sort application
+  * 
+  * @param sfRequest $request A request object
+  */
   public function executeSortApplication($request)
   {
     if ($this->getRequest()->isXmlHttpRequest())

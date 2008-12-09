@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="ja_JP" datatype="plaintext">
+    <body>
+      <trans-unit id="1">
+        <source>Settings</source>
+        <target>設定</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Remove</source>
+        <target>削除</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Add this application</source>
+        <target>このアプリを追加</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Application Gallery</source>
+        <target>アプリケーションギャラリー</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
