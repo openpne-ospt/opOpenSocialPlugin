@@ -9,11 +9,11 @@
  */ 
 class Application extends BaseApplication
 {
-  /**
-   * hasSettings
-   *
-   * @return boolean
-   */
+ /**
+  * hasSettings
+  *
+  * @return boolean
+  */
   public function hasSettings()
   {
     $settings = $this->getSettings();
@@ -31,14 +31,27 @@ class Application extends BaseApplication
     return false;
   }
 
-  /**
-   * getSettings 
-   * 
-   * @param string $culture
-   * @return array
-   */
+ /**
+  * getSettings 
+  * 
+  * @param string $culture
+  * @return array
+  */
   public function getSettings($culture = null)
   {
     return unserialize(parent::getSettings($culture));
+  }
+
+ /**
+  * count installed member 
+  *
+  * @param number $module_id
+  * @return number
+  */
+  public function countInstalledMember()
+  {
+    $criteria = new Criteria();
+    $criteria->add(MemberApplicationPeer::APPLICATION_ID, parent::getId());
+    return MemberApplicationPeer::doCount($criteria);
   }
 }

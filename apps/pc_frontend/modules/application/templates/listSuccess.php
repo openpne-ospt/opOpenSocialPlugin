@@ -1,6 +1,6 @@
 <?php use_helper('Javascript') ?>
 <?php use_helper('OpenSocial') ?>
-<?php if ($isOwner) : ?>
+<?php if ($is_owner) : ?>
 <?php echo link_to(__('Application Gallery'), 'application/gallery') ?>
 <?php include_box('form','アプリケーション追加','',array(
   'form' => array($form),
@@ -8,24 +8,24 @@
   'button' => 'add'
 )) ?>
 <?php endif ?>
-<?php if (isset($apps) && count($apps)) : ?>
+<?php if (isset($member_apps) && count($member_apps)) : ?>
 <div id="order">
-<?php foreach ($apps as $app) : ?>
+<?php foreach ($member_apps as $member_app) : ?>
 <?php include_application_information_box(
-  'item_'.$app->getApplication()->getId(),
-  $app->getApplication()->getId(),
-  $app->getId(),
-  $isOwner,
-  $app->getApplication()->getTitle(),
-  $app->getAPplication()->getDescription(),
-  $app->getApplication()->getThumbnail(),
-  $app->getApplication()->getAuthor(),
-  $app->getApplication()->getAuthorEmail()
+  'item_'.$member_app->getId(),
+  $member_app->getApplication()->getId(),
+  $member_app->getId(),
+  $is_owner,
+  $member_app->getApplication()->getTitle(),
+  $member_app->getAPplication()->getDescription(),
+  $member_app->getApplication()->getThumbnail(),
+  $member_app->getApplication()->getAuthor(),
+  $member_app->getApplication()->getAuthorEmail()
 ) ?>
 <?php endforeach ?>
 </div>
 <?php 
-if ($isOwner)
+if ($is_owner)
 {
 echo sortable_element('order', array(
   'url'    => 'application/sortApplication',

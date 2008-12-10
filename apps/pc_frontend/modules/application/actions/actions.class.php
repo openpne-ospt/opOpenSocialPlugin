@@ -10,6 +10,42 @@
 class applicationActions extends sfActions
 {
  /**
+  * add application to member
+  *
+  * @param number      $member_id   A member id
+  * @param Application $application A application object
+  */
+  protected function addApplicationToMember($member_id, $application)
+  {
+    $criteria = new Criteria();
+    $criteria->add(MemberApplicationPeer::MEMBER_ID, $member_id);
+    $criteria->add(MemberApplicationPeer::APPLICATION_ID, $application->getId());
+    $member_app = MemberApplicationPeer::doSelectOne($criteria);
+    if (!empty($member_app))
+    {
+      return $member_app;
+    }
+
+    $member_app = new MemberApplication();
+    $member_app->setMemberId($member_id);
+    $member_app->setApplicationId($application->getId());
+    $member_app->setIsDispOther(true);
+    $member_app->setIsDispHome(true);
+    $member_app->save();
+    return $member_app;
+  }
+
+ /**
+  * Executes index action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeIndex($request)
+  {
+    return $this->redirect('application/list');
+  }
+
+ /**
   * Executes canvas action
   *
   * @param sfRequest $request A request object
@@ -25,7 +61,7 @@ class applicationActions extends sfActions
     {
       return sfView::ERROR; 
     }
-    if ($this->getUser()->getMemberId() != $this->member_app->getMemberId())
+    if ($this->getUser()->getMember()->getId() != $this->member_app->getMemberId())
     {
       if (!$this->member_app->getIsDispOther())
       {
@@ -44,26 +80,30 @@ class applicationActions extends sfActions
   */
   public function executeList($request)
   {
-    $memberId = $this->getUser()->getMemberId();
-    $ownerId  = $request->hasParameter('id') ? $request->getParameter('id') : $memberId;
+    $member_id = $this->getUser()->getMemberId();
+    $owner_id  = $request->hasParameter('id') ? $request->getParameter('id') : $member_id;
 
-    $this->isOwner = false;
+    $this->is_owner = false;
     $criteria = new Criteria();
-    $criteria->add(MemberApplicationPeer::MEMBER_ID, $ownerId);
+    $criteria->add(MemberApplicationPeer::MEMBER_ID, $owner_id);
     $criteria->addAscendingOrderByColumn(MemberApplicationPeer::SORT_ORDER);
 
-    if ($memberId == $ownerId)
+    if ($member_id == $owner_id)
     {
-      $this->isOwner = true;
+      $this->is_owner = true;
       $this->form = new AddApplicationForm();
     }
     else
     {
       $criteria->add(MemberApplicationPeer::IS_DISP_OTHER, true);
-      sfConfig::set('sf_navi_type', 'friend');
     }
 
-    $this->apps = MemberApplicationPeer::doSelect($criteria);
+    $this->member_apps = MemberApplicationPeer::doSelect($criteria);
+
+    if (!empty($this->member_apps) && $member_id != $owner_id)
+    {
+      sfConfig::set('sf_navi_type', 'friend');
+    }
 
     if (!$request->isMethod('post'))
     {
@@ -79,27 +119,13 @@ class applicationActions extends sfActions
     $contact = $this->form->getValues();
     try
     {
-      $app = ApplicationPeer::addApplication($contact['application_url'],$this->getUser()->getCulture());
+      $application = ApplicationPeer::addApplication($contact['application_url'],$this->getUser()->getCulture());
     }
     catch (Exception $e)
     {
-      //TODO : add error action
-      return sfView::SUCCESS;
+      return sfView::ERROR;
     }
-    $criteria = new Criteria();
-    $criteria->add(MemberApplicationPeer::MEMBER_ID,$memberId);
-    $criteria->add(MemberApplicationPeer::APPLICATION_ID,$app->getId());
-    $member_app = MemberApplicationPeer::doSelectOne($criteria);
-    if (!empty($member_app))
-    {
-      return $this->redirect('application/canvas?mid='.$member_app->getId());
-    }
-    $member_app = new MemberApplication();
-    $member_app->setMemberId($memberId);
-    $member_app->setApplicationId($app->getId());
-    $member_app->setIsDispOther(true);
-    $member_app->setIsDispHome(true);
-    $member_app->save();
+    $member_app = self::addApplicationToMember($member_id, $application);
     return $this->redirect('application/canvas?mid='.$member_app->getId());
   }
 
@@ -116,16 +142,16 @@ class applicationActions extends sfActions
     }
 
     $this->applicationSettingForm = new ApplicationSettingForm();
-    $memberId = $this->getUser()->getMember()->getId();
+    $member_id = $this->getUser()->getMember()->getId();
     $modId = $request->getParameter('mid');
-    $this->applicationSettingForm->setConfigWidgets($memberId,$modId);
+    $this->applicationSettingForm->setConfigWidgets($member_id, $modId);
 
-    $memberApp = MemberApplicationPeer::retrieveByPk($modId);
-    $this->appName = $memberApp->getApplication()->getTitle();
+    $member_app = MemberApplicationPeer::retrieveByPK($modId);
+    $this->appName = $member_app->getApplication()->getTitle();
 
     $this->memberApplicationSettingForm = new MemberApplicationSettingForm();
-    $isDispOther = $memberApp->getIsDispOther();
-    $isDispHome  = $memberApp->getIsDispHome();
+    $isDispOther = $member_app->getIsDispOther();
+    $isDispHome  = $member_app->getIsDispHome();
         $this->memberApplicationSettingForm->setDefaults(array(
       'is_disp_other' => $isDispOther,
       'is_disp_home'  => $isDispHome,
@@ -166,6 +192,50 @@ class applicationActions extends sfActions
   }
 
  /**
+  * Executes add action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeAdd($request)
+  {
+    $app_id = $request->getParameter('id');
+    $application = ApplicationPeer::retrieveByPK($app_id);
+    if (!$application)
+    {
+      return sfView::ERROR;
+    }
+
+    $member_id = $this->getUser()->getMemberId();
+
+    $member_app = self::addApplicationToMember($member_id, $application);
+    return $this->redirect('application/canvas?mid='.$member_app->getId());
+  }
+
+ /**
+  * Executes remove action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeRemove($request)
+  {
+    $mod_id = $request->getParameter('mid');
+    $member_app = MemberApplicationPeer::retrieveByPK($mod_id);
+    if (!$member_app)
+    {
+      return sfView::ERROR;
+    }
+
+    $member_id = $this->getUser()->getMember()->getId();
+    if ($member_id != $member_app->getMember()->getId())
+    {
+      return sfView::ERROR;
+    }
+
+    $member_app->delete();
+    return $this->redirect('application/list');
+  }
+
+ /**
   * Executes js action
   *
   * @param sfRequest $request A request object
@@ -186,15 +256,15 @@ class applicationActions extends sfActions
   {
     if ($this->getRequest()->isXmlHttpRequest())
     {
-      $memberId = $this->getUser()->getMember()->getId();
+      $member_id = $this->getUser()->getMember()->getId();
       $order = $request->getParameter('order');
       for ($i = 0; $i < count($order); $i++)
       {
-        $memberApp = MemberApplicationPeer::retrieveByPk($order[$i]);
-        if ($memberApp && $memberApp->getMemberId() == $memberId)
+        $member_app = MemberApplicationPeer::retrieveByPK($order[$i]);
+        if ($member_app && $member_app->getMemberId() == $member_id)
         {
-          $memberApp->setSortOrder($i);
-          $memberApp->save();
+          $member_app->setSortOrder($i);
+          $member_app->save();
         }
       }
     }

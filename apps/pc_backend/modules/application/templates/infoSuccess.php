@@ -6,5 +6,6 @@
 <table>
 <tr><th>アプリケーション名</th><td><?php echo $application->getTitle() ?></td></tr>
 <tr><th>アプリケーションURL</th><td><?php echo $application->getUrl() ?></td></tr>
+<tr><th>インストールしているユーザ</th><td><?php echo $application->countInstalledMember() ?></td></tr>
 </table>
 
