@@ -22,14 +22,14 @@ propel:
 
   application_setting:
     id: ~
-    member_application_id: ~
+    member_application_id: { type: integer, foreignTable: member_application, foreignReference: id, onDelete: cascade }
     name: { type: varchar(128), required: true }
     value: { type: varchar(255), required: true }
 
   member_application:
     id: ~
-    member_id: { type: integer, foreignTable: member, foreignReference: id }
-    application_id: 
+    member_id: { type: integer, foreignTable: member, foreignReference: id, onDelete: cascade }
+    application_id: { type: integer, foreignTable: application, foreignReference: id, onDelete: cascade }
     is_disp_other: { type: boolean }
     is_disp_home: { type: boolean }
     sort_order: { type: integer }
