@@ -2,7 +2,7 @@ homeSuccess:
   customize:
     homeApplication:
       template: [application, homeApplication]
-      parts:    [information]
+      parts:    [homeTopSampleBox]
       target:   [after]
   javascripts:
     - /application/js
