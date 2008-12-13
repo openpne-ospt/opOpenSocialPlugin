@@ -33,3 +33,7 @@ propel:
     is_disp_other: { type: boolean }
     is_disp_home: { type: boolean }
     sort_order: { type: integer }
+
+  opensocial_person_field:
+    profile_id: { type: integer, primaryKey: true, foreignTable: profile, foreignReference: id, onDelete: cascade }
+    field_name: { type: varchar(128), index: unique }
