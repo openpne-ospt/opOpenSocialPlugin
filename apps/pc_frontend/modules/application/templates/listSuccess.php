@@ -2,11 +2,13 @@
 <?php use_helper('OpenSocial') ?>
 <?php if ($is_owner) : ?>
 <?php echo link_to(__('Application Gallery'), 'application/gallery') ?>
+<?php if ($is_add_application) : ?>
 <?php include_box('form','アプリケーション追加','',array(
   'form' => array($form),
   'url' => 'application/list',
   'button' => 'add'
 )) ?>
+<?php endif ?>
 <?php endif ?>
 <?php if (isset($member_apps) && count($member_apps)) : ?>
 <div id="order">

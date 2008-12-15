@@ -105,7 +105,14 @@ class applicationActions extends sfActions
       sfConfig::set('sf_navi_type', 'friend');
     }
 
-    if (!$request->isMethod('post'))
+    $this->is_add_application = false;
+    $snsConfig = SnsConfigPeer::retrieveByName('is_add_application');
+    if ($snsConfig && $snsConfig->getValue())
+    {
+      $this->is_add_application = true;
+    }
+
+    if (!$request->isMethod('post') || !$this->is_add_application)
     {
       return sfView::SUCCESS;
     }
@@ -141,34 +148,28 @@ class applicationActions extends sfActions
       return sfView::ERROR;
     }
 
-    $this->applicationSettingForm = new ApplicationSettingForm();
-    $member_id = $this->getUser()->getMember()->getId();
     $modId = $request->getParameter('mid');
-    $this->applicationSettingForm->setConfigWidgets($member_id, $modId);
-
     $member_app = MemberApplicationPeer::retrieveByPK($modId);
     $this->appName = $member_app->getApplication()->getTitle();
 
-    $this->memberApplicationSettingForm = new MemberApplicationSettingForm();
-    $isDispOther = $member_app->getIsDispOther();
-    $isDispHome  = $member_app->getIsDispHome();
-        $this->memberApplicationSettingForm->setDefaults(array(
-      'is_disp_other' => $isDispOther,
-      'is_disp_home'  => $isDispHome,
-    ));
+    $this->applicationSettingForm = new ApplicationSettingForm();
+    $member_id = $this->getUser()->getMember()->getId();
+    $this->applicationSettingForm->setConfigWidgets($member_id, $modId);
+
+    $this->memberApplicationSettingForm = new MemberApplicationSettingForm($member_app);
 
     if (!$request->isMethod('post'))
     {
       return sfView::SUCCESS;
     }
-    
+
     $this->memberApplicationSettingForm->bind($request->getParameter('member_app_setting'));
     $this->applicationSettingForm->bind($request->getParameter('setting'));
 
     if ($this->applicationSettingForm->isValid() && $this->memberApplicationSettingForm->isValid())
     {
       $this->applicationSettingForm->save($modId);
-      $this->memberApplicationSettingForm->save($modId);
+      $this->memberApplicationSettingForm->save();
       $this->redirect('application/canvas?mid='.$modId);
     }
     return sfView::SUCCESS;

@@ -28,6 +28,8 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
 
   public function getPeople($userId, $groupId, CollectionOptions $options, $fields, SecurityToken $token)
   {
+    sfLoader::loadHelpers("Asset");
+    sfLoader::loadHelpers("sfImage");
     $ids = $this->getIdSet($userId, $groupId, $token);
     $first = $options->getStartIndex();
     $max   = $options->getCount();
@@ -48,7 +50,39 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       $p = array();
       $p['isOwner']    =  (!$token->isAnonymous() && $member->getId() == $token->getOwnerId()) ? true : false;
       $p['isViewer']   =  (!$token->isAnonymous() && $member->getId() == $token->getViewerId()) ? true : false;
-      $p['displayName'] = $member->getName();
+      $p['id']           = $member->getId();
+      $p['displayName']  = $member->getName();
+      $p['thumbnailUrl'] = "";
+      if ($member->getImage())
+      {
+        $p['thumbnailUrl'] = sf_image_path($member->getImage()->getFile()->getName(),
+          array('size' => '180x180'), true);
+      }
+      $p['profileUrl']   = sfContext::getInstance()->getController()->genUrl("@member_profile?id=".$member->getId(),true);
+      $memberProfiles = MemberProfilePeer::getProfileListByMemberId($member->getId());
+      foreach ($memberProfiles as $memberProfile)
+      {
+        $osPersonField = $memberProfile->getProfile()->getOpensocialPersonField();
+        if ($osPersonField)
+        {
+          $fieldName = $osPersonField->getFieldName();
+          $fieldNames = explode("_",$fieldName);
+          $fieldNames[0] = strtolower($fieldNames[0]);
+          for ($i = 1;$i < count($fieldNames);$i++)
+          {
+            $fieldNames[$i] = ucfirst(strtolower($fieldNames[$i]));
+          }
+          $fieldName = implode("",$fieldNames);
+          switch ($memberProfile->getProfile()->getFormType())
+          {
+            case "date":
+              $p[$fieldName] = date("Y/m/d",strtotime($memberProfile->getValue()));
+              break;
+            default:
+              $p[$fieldName] = $memberProfile->getValue();
+          }
+        }
+      }
       $people[] = $p;
     }
     $collection = new RestfulCollection($people, $options->getStartIndex(), $totalSize);

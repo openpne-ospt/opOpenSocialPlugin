@@ -17,6 +17,28 @@ class applicationActions extends sfActions
   */
   public function executeIndex($request)
   {
+    return $this->redirect('application/applicationConfig');
+  }
+
+ /**
+  * Executes applicationConfig action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeApplicationConfig($request)
+  {
+    $this->applicationConfigForm = new ApplicationConfigForm();
+
+    if (!$request->isMethod('post'))
+    {
+      return sfView::SUCCESS;
+    }
+
+    $this->applicationConfigForm->bind($request->getParameter('application_config'));
+    if ($this->applicationConfigForm->isValid())
+    {
+      $this->applicationConfigForm->save();
+    }
     return sfView::SUCCESS;
   }
 
@@ -49,13 +71,13 @@ class applicationActions extends sfActions
     $contact = $this->addform->getValues();
     try
     {
-      $app = ApplicationPeer::addApplication($contact['application_url'], $this->getUser()->getCulture());      
+      $application = ApplicationPeer::addApplication($contact['application_url'], $this->getUser()->getCulture(),true);      
     }
     catch (Exception $e)
     {
-      //TODO : add error action
-      return sfView::SUCCESS;
+      return sfView::ERROR;
     }
+    return $this->redirect('application/info?id='.$application->getId());
   }
 
  /**
@@ -88,7 +110,7 @@ class applicationActions extends sfActions
   */
   public function executeProfileSetting($request)
   {
-
+    $this->profileConfigForm = new OpenSocialPersonFieldConfigForm();
     return sfView::SUCCESS;
   }
 }
