@@ -33,6 +33,7 @@ class BasicRemoteContentFetcher extends RemoteContentFetcher {
     $request->setContentType($browser->getResponseHeader('Content-Type'));
     $request->setResponseHeaders($browser->getResponseHeaders());
     $request->setResponseContent($browser->getResponseText());
+    $request->setResponseSize(strlen($browser->getResponseText()));
     return $request;
   }
 
