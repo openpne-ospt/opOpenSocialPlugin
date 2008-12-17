@@ -94,7 +94,7 @@ class Config
       self::$config = $shindigConfig;
     }
   }
-  static function get($key)
+  static function get($key, $default = null)
   {
     if (!self::$config) {
       self::loadConfig();
@@ -105,6 +105,10 @@ class Config
     }
     else
     {
+      if ($default)
+      {
+        return $default;
+      }
       throw new ConfigException("Invalid Config Key");
     }
   }
