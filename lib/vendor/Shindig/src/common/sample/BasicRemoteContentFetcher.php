@@ -7,12 +7,28 @@ class BasicRemoteContentFetcher extends RemoteContentFetcher {
 
   public function fetchRequest($request)
   {
-    $headers = array();
+    $outHeaders = array();
     if ($request->hasHeaders())
     {
-      $headers = $request->getHeaders();
+      $headers = explode("\n", $request->getHeaders());
+      foreach ($headers as $header)
+      {
+        if (strpos($header, ':'))
+        {
+          $key = trim(substr($header, 0, strpos($header, ':')));
+          $val = trim(substr($header, strpos($header, ':') + 1));
+          if (strcmp($key, "User-Agent") != 0 && 
+            strcasecmp($key, "Transfer-Encoding") != 0 && 
+            strcasecmp($key, "Cache-Control") != 0 && 
+            strcasecmp($key, "Expries") != 0 && 
+            strcasecmp($key, "Content-Length") != 0)
+          {
+            $outHeaders[$key] = $val;
+          }
+        }
+      }
     }
-    $headers[] = "User-Agent: Shindig PHP";
+    $outHeaders['User-Agent'] = "Shindig PHP";
     $options = array();
     $options['Timeout'] = Config::get('curl_connection_timeout', 15);
     $proxy   = Config::get('proxy',null);
@@ -20,10 +36,20 @@ class BasicRemoteContentFetcher extends RemoteContentFetcher {
     {
       $options['Proxy'] = $proxy;
     }
-    $browser = new sfWebBrowser($headers, null, $options);
+    $browser = new sfWebBrowser($outHeaders, null, $options);
     if ($request->isPost())
     {
-      $browser->post($request->getUrl(), $request->getPostBody());
+      $outPostBody = array();
+      $postBodys = explode('&',$request->getPostBody());
+      foreach ($postBodys as $postBody)
+      {
+        $pb = explode("=",urldecode($postBody));
+        if (count($pb) == 2)
+        {
+          $outPostBody[$pb[0]] = $pb[1];
+        }
+      }
+      $browser->post($request->getUrl(), $outPostBody);
     }
     else
     {
@@ -31,7 +57,16 @@ class BasicRemoteContentFetcher extends RemoteContentFetcher {
     }
     $request->setHttpCode($browser->getResponseCode());
     $request->setContentType($browser->getResponseHeader('Content-Type'));
-    $request->setResponseHeaders($browser->getResponseHeaders());
+    $responseHeaders = $browser->getResponseHeaders();
+    $resHeaders = array();
+    foreach ($responseHeaders as $key => $val)
+    {
+      if (strcasecmp($key, 'Content-Encoding') != 0)
+      {
+        $resHeaders[] = $key.": ".$val;
+      }
+    }
+    $request->setResponseHeaders(implode("\n", $resHeaders));
     $request->setResponseContent($browser->getResponseText());
     $request->setResponseSize(strlen($browser->getResponseText()));
     return $request;
