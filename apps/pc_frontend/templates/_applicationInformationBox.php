@@ -16,13 +16,13 @@ if ($is_owner)
 </div>
 
 <div class="body">
-<div class="app_thumbnail" style="overflow: hidden;float:left;width:120px;height:60px;">
+<div class="app_thumbnail">
 <?php if (!empty($thumbnail)) : ?>
 <img src="<?php echo $thumbnail ?>" alt="<?php echo $title ?>" />
 <?php endif; ?>
 </div>
 
-<div class="app_info" style="width:60%;float:left;padding:0px 5px;">
+<div class="app_info">
 <div class="app_description">
 <?php echo $description ?>
 </div>
@@ -39,7 +39,7 @@ if ($is_owner)
 </div>
 </div>
 
-<div class="app_option" style="float:right;padding-right:5px;">
+<div class="app_option">
 <ul>
 <?php if($is_owner) : ?>
 <li><?php echo link_to(__('Settings'), 'application/setting?mid='.$mid); ?></li>
@@ -49,6 +49,6 @@ if ($is_owner)
 <?php endif ?>
 </div>
 
-<div style="clear:both">&nbsp;</div>
+<div style="clear:both;">&nbsp;</div>
 
 </div></div>

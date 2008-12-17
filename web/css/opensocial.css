@@ -1,0 +1,21 @@
+.app_thumbnail
+{
+  overflow: hidden;
+  float:    left;
+  width:    120px;
+  height:   60px;
+}
+
+.app_info
+{
+  width:   60%;
+  float:   left;
+  padding: 0px 5px;
+}
+
+.app_option
+{
+  width:         60px;
+  float:         right;
+  padding-right: 5px;
+}

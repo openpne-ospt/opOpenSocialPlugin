@@ -1,3 +1,7 @@
+listSuccess:
+  stylesheets:
+    - /plugins/opOpenSocialPlugin/css/opensocial
+
 canvasSuccess:
   javascripts:
     - /application/js
