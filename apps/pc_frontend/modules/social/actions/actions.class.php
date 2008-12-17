@@ -7,30 +7,8 @@
  * @subpackage saOpenSocialPlugin
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
-class socialActions extends sfActions
+class socialActions extends opOpenSocialServletActions
 {
- /**
-  * ex
-  * 
-  * @param sfRequest $request A request object
-  * @param HttpServlet $servlet A servlet object
-  */
-  protected function ex($request, $servlet)
-  {
-    $method = "";
-    switch($request->getMethod())
-    {
-      case sfRequest::GET  : $method = 'doGet';  break;
-      case sfRequest::POST : $method = 'doPost'; break;
-    }
-    if (is_callable(array($servlet, $method)))
-    {
-      $servlet->$method();
-    }else
-    {
-      header("HTTP/1.0 405 Method Not Allowed");
-      echo "<html><body><h1>405 Method Not Allowed</h1></body></html>";    }
-  }
  /**
   * Executes rpc action
   *
@@ -38,10 +16,11 @@ class socialActions extends sfActions
   */
   public function executeRpc($request)
   {
+    sfConfig::set('sf_web_debug',false);
     $class = new JsonRpcServlet();
-
     try{
-      self::ex($request, $class);
+      error_reporting(0);
+      self::servletExecute($class);
     }
     catch (SocialSpiException $e)
     {

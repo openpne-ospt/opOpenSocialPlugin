@@ -7,32 +7,8 @@
  * @subpackage saOpenSocialPlugin
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
-class gadgetsActions extends sfActions
+class gadgetsActions extends opOpenSocialServletActions
 {
-  /**
-   * ex
-   *
-   * @param sfRequest $request A request object
-   * @param HttpServlet $servlet A servlet object
-   */
-  protected function ex($request, $servlet)
-  {
-    $method = "";
-    switch($request->getMethod())
-    {
-      case sfRequest::GET  : $method = 'doGet';  break;
-      case sfRequest::POST : $method = 'doPost'; break;
-    }
-    if (is_callable(array($servlet, $method)))
-    {
-      $servlet->$method();
-    }
-    else
-    {
-      header("HTTP/1.0 405 Method Not Allowed");
-      echo "<html><body><h1>405 Method Not Allowed</h1></body></html>";
-    }
-  }
   /**
    * Execute files action
    *
@@ -41,7 +17,7 @@ class gadgetsActions extends sfActions
   public function executeFiles($request)
   {
     $class = new FilesServlet();
-    self::ex($request, $class);
+    self::servletExecute($class);
   }
 
   /**
@@ -52,7 +28,7 @@ class gadgetsActions extends sfActions
   public function executeJs($request)
   {
     $class = new JsServlet();
-    self::ex($request, $class);
+    self::servletExecute($class);
   }
 
   /**
@@ -63,7 +39,7 @@ class gadgetsActions extends sfActions
   public function executeProxy($request)
   {
     $class = new ProxyServlet();
-    self::ex($request, $class);
+    self::servletExecute($class);
   }
 
   /**
@@ -75,7 +51,7 @@ class gadgetsActions extends sfActions
   {
     $_GET['output'] = 'js';
     $class = new ProxyServlet();
-    self::ex($request, $class);
+    self::servletExecute($class);
   }
 
  /**
@@ -86,7 +62,7 @@ class gadgetsActions extends sfActions
   public function executeIfr($request)
   {
     $class = new GadgetRenderingServlet();
-    self::ex($request, $class);
+    self::servletExecute($class);
   }
 
   /**
@@ -97,6 +73,6 @@ class gadgetsActions extends sfActions
   public function executeMetadata($request)
   {
     $class = new MetadataServlet();
-    self::ex($request, $class);
+    self::servletExecute($class);
   }
 }
