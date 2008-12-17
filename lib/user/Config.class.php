@@ -57,10 +57,10 @@ class Config
       'focedJsLibs' => '', 
 
       // Configurable classes. Change these to the class name to use, and make sure the auto-loader can find them
-      'blacklist_class' => 'BasicGadgetBlacklist', 
-      'remote_content' => 'BasicRemoteContent', 
+      'blacklist_class'       => 'BasicGadgetBlacklist', 
+      'remote_content'        => 'opBasicRemoteContent', 
       'security_token_signer' => 'BasicSecurityTokenDecoder', 
-      'security_token' => 'BasicSecurityToken', 
+      'security_token'        => 'BasicSecurityToken', 
       // Caching back-end to use. Shindig ships with CacheFile and CacheMemcache out of the box
       'data_cache' => 'CacheFile',
 
