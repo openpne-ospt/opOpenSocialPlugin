@@ -26,7 +26,8 @@ class RpcRequestItem extends RequestItem {
 	private $data;
 
 	public function __construct($rpc, SecurityToken $token)
-	{
+  {
+    $rpc['method'] = isset($rpc['method']) ? $rpc['method'] : null;
 		parent::__construct($rpc['method'], $rpc['method'], $token);
 		if (isset($rpc->params)) {
 			$this->data = $rpc['params'];
