@@ -3,14 +3,23 @@
 /**
  * ApplicationI18n filter form.
  *
- * @package    ##PROJECT_NAME##
+ * @package    OpenPNE
  * @subpackage filter
- * @author     ##AUTHOR_NAME##
- * @version    SVN: $Id: sfPropelFormFilterTemplate.php 11675 2008-09-19 15:21:38Z fabien $
+ * @author     Shogo Kawahara
  */
 class ApplicationI18nFormFilter extends BaseApplicationI18nFormFilter
 {
   public function configure()
   {
+    $this->setWidgets(array(
+      'title' => new sfWidgetFormFilterInput(array('with_empty' => false)),
+    ));
+
+    $this->setValidators(array(
+      'title' => new sfValidatorPass(),
+    ));
+
+    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+    $this->widgetSchema->setNameFormat('application[%s]');
   }
 }

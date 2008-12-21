@@ -182,8 +182,12 @@ class applicationActions extends sfActions
   */
   public function executeGallery($request)
   {
-    $criteria = new Criteria();
+    $this->filters = new ApplicationI18nFormFilter();
+    $this->filters->bind($request->getParameter('application',array()));
+
+    $criteria = $this->filters->getCriteria();
     $criteria->addDescendingOrderByColumn(ApplicationPeer::ID);
+    
     $this->pager = new sfPropelPager('Application', 10);
     $this->pager->setCriteria($criteria);
     $this->pager->setPage($request->getParameter('page',1));

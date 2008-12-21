@@ -2,6 +2,10 @@ listSuccess:
   stylesheets:
     - /plugins/opOpenSocialPlugin/css/opensocial
 
+gallerySuccess:
+  stylesheets:
+    - /plugins/opOpenSocialPlugin/css/opensocial
+
 canvasSuccess:
   javascripts:
     - /application/js
