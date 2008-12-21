@@ -53,16 +53,17 @@ class applicationComponents extends sfComponents
       'country'   => isset($culture[1]) ? $culture[1] : 'US',
       'lang'      => $culture[0],
       'view'      => $this->view,
-      //'parent'  => '',
+      'parent'    => $this->getRequest()->getUri(),
       'st'        => base64_encode($securityToken->toSerialForm()),
       'url'       => $url,
     );
     $criteria = new Criteria();
     $criteria->add(ApplicationSettingPeer::MEMBER_APPLICATION_ID, $mod_id);
     $app_settings = ApplicationSettingPeer::doSelect($criteria);
+    $userpref_param_prefix = Config::get('userpref_param_prefix','up_');
     foreach ($app_settings as $app_setting)
     {
-      $getParams['up_'.$app_setting->getName()] = $app_setting->getValue();
+      $getParams[$userpref_param_prefix.$app_setting->getName()] = $app_setting->getValue();
     }
     $this->iframe_url = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
   }
