@@ -45,7 +45,7 @@ class opBasicRemoteContent extends RemoteContent {
 	{
 		$cache = Config::get('data_cache');
 		$cache = new $cache();
-		$remoteContentFetcher = new BasicRemoteContentFetcher();
+		$remoteContentFetcher = new opBasicRemoteContentFetcher();
 		
 		$rets = array();
 		$requestsToProc = array();
