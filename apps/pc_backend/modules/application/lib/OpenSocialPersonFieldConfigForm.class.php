@@ -9,63 +9,60 @@
 class OpenSocialPersonFieldConfigForm extends sfForm
 {
   protected static $choices = array(
-    ''           => '-',            
-    'ABOUT_ME'   => 'ABOUT_ME',
-    'ACTIVITIES' => 'ACTIVITIES',
-    //'ADDRESSES'  => 'ADDRESSES',
-    'AGE'        => 'AGE',
-    //'BODY_TYPE'  => 'BODY_TYPE',
-    'BOOKS'      => 'BOOKS',
-    'CARS'       => 'CARS',
-    'CHILDREN'   => 'CHILDREN',
-    //'CURRENT_LOCATION' => 'CURRENT_LOCATION',
-    'DATE_OF_BIRTH' => 'DATE_OF_BIRTH',
-    //'DRINKER'    => 'DRINKER'
-    'EMAILS'     => 'EMAILS',
-    'ETHNICITY'  => 'ETHNICITY',
-    'FASHION'    => 'FASHION',
-    'FOOD'       => 'FOOD',
-    'GENDER'     => 'GENDER',
-    'HAPPIEST_WHEN' => 'HAPPIEST_WHEN',
-    'HEROES'     => 'HEROES',
-    'HUMOR'      => 'HUMOR',
-    'INTERESTS'  => 'INTERESTS',
-    'JOB_INTERESTS' => 'JOB_INTERESTS',
-    //'JOBS'       => 'JOBS',
-    'LANGUAGES_SPOKEN' => 'LANGUAGES_SPOKEN',
-    'LIVING_ARRANGEMENT' => 'LIVING_ARRANGEMENT',
-    'LOOKING_FOR'=> 'LOOKING_FOR',
-    'MOVIES'     => 'MOVIES',
-    'MUSIC'      => 'MUSIC',
-    //'NAME'     => 'NAME',
-    'PETS'       => 'PETS',
-    'PHONE_NUMBERS' => 'PHONE_NUMBERS',
-    'POLITICAL_VIEWS' => 'POLITICAL_VIEWS',
-    'PROFILE_SONG'    => 'PROFILE_SONG',
-    'PROFILE_VIDEO'   => 'PROFILE_VIDEO',
-    'QUOTES'     => 'QUOTES',
-    'RELATIONSHIP_STATUS' => 'RELATIONSHIP_STATUS',
-    'RELIGION'   => 'RELIGION',
-    'ROMANCE'    => 'ROMANCE',
-    'SCARED_OF'  => 'SCARED_OF',
-    //'SCHOOLS'    => 'SCHOOLS',
-    'SEXUAL_ORIENTATION' => 'SEXUAL_ORIENTATION',
-    //'SMOKER'     => 'SMOKER',
-    'STATUS'     => 'STATUS',
-    'TAGS'       => 'TAGS',
-    'TIME_ZONE'  => 'TIME_ZONE',
-    'TURN_OFFS'  => 'TURN_OFFS',
-    'TURN_ONS'   => 'TURN_ONS',
-    'TV_SHOWS'   => 'TV_SHOWS',
-    'URLS'       => 'URLS'
-
+    ''             => '-',            
+    'aboutMe'      => 'ABOUT_ME',
+    'activities'   => 'ACTIVITIES',
+    //'addressed'    => 'ADDRESSES',
+    'age'          => 'AGE',
+    //'bodyType'     => 'BODY_TYPE',
+    'books'        => 'BOOKS',
+    'cars'         => 'CARS',
+    'children'     => 'CHILDREN',
+    //'currentLocation' => 'CURRENT_LOCATION',
+    'dateOfBirth'  => 'DATE_OF_BIRTH',
+    //'drinker'      => 'DRINKER'
+    'emails'       => 'EMAILS',
+    'ethnicity'    => 'ETHNICITY',
+    'fashion'      => 'FASHION',
+    'food'         => 'FOOD',
+    'gender'       => 'GENDER',
+    'happiestWhen' => 'HAPPIEST_WHEN',
+    'heroes'       => 'HEROES',
+    'humor'        => 'HUMOR',
+    'interests'    => 'INTERESTS',
+    'jobInterests' => 'JOB_INTERESTS',
+    //'jobs'       => 'JOBS',
+    'languagesSpoken'   => 'LANGUAGES_SPOKEN',
+    'livingArrangement' => 'LIVING_ARRANGEMENT',
+    'lookingFor'   => 'LOOKING_FOR',
+    'movies'       => 'MOVIES',
+    'music'        => 'MUSIC',
+    'pets'         => 'PETS',
+    'phoneNumbers' => 'PHONE_NUMBERS',
+    'politicalViews' => 'POLITICAL_VIEWS',
+    'profileSong'  => 'PROFILE_SONG',
+    'profileVideo' => 'PROFILE_VIDEO',
+    'quotes'       => 'QUOTES',
+    'relationshipStatus' => 'RELATIONSHIP_STATUS',
+    'religion'     => 'RELIGION',
+    'romance'      => 'ROMANCE',
+    'scaredOf'     => 'SCARED_OF',
+    //'schools'      => 'SCHOOLS',
+    'sexualOrientation' => 'SEXUAL_ORIENTATION',
+    //'smoker'       => 'SMOKER',
+    'status'       => 'STATUS',
+    'tags'         => 'TAGS',
+    'timeZone'     => 'TIME_ZONE',
+    'turnOffs'     => 'TURN_OFFS',
+    'turnOns'      => 'TURN_ONS',
+    'tvShows'      => 'TV_SHOWS',
+    'urls'         => 'URLS'
   );
   public function configure()
   {
-    OpensocialPersonFieldPeer::initialize();
     $profiles = ProfilePeer::doSelect(new Criteria());
     $params = array('choices' => self::$choices);
-    $option = array('choices' => self::$choices, 'required' => true);
+    $option = array('choices' => array_keys(self::$choices), 'required' => false);
     foreach ($profiles as $profile)
     {
       $osPersonField = $profile->getOpensocialPersonField();
@@ -76,10 +73,28 @@ class OpenSocialPersonFieldConfigForm extends sfForm
         $this->setDefault($profile->getName(), $osPersonField->getFieldName());
       }
     }
+    $this->widgetSchema->setNameFormat('opensocial_person_field_config[%s]');
   }
 
   public function save()
   {
+    foreach ($this->getValues() as $key => $value)
+    {
+      $profile = ProfilePeer::retrieveByName($key);
+      if (!$profile)
+      {
+        continue;
+      }
+
+      $osPersonField = $profile->getOpensocialPersonField();
+      if (!$osPersonField)
+      {
+        $osPersonField = new OpensocialPersonField();
+        $osPersonField->setProfile($profile);
+      }
+      $osPersonField->setFieldName($value);
+      $osPersonField->save();
+    }
   }
 }
 

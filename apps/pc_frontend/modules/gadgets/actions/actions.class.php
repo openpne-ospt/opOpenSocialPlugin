@@ -61,7 +61,7 @@ class gadgetsActions extends opOpenSocialServletActions
   */
   public function executeIfr($request)
   {
-    $class = new GadgetRenderingServlet();
+    $class = new opGadgetRenderingServlet();
     self::servletExecute($class);
   }
 

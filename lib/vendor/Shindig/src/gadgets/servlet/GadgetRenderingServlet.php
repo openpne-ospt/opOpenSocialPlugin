@@ -326,7 +326,7 @@ class GadgetRenderingServlet extends HttpServlet {
 		return $buf;
 	}
 
-	private function appendJsConfig($context, $gadget, $hasForcedLibs)
+	protected function appendJsConfig($context, $gadget, $hasForcedLibs)
 	{
 		$container = $context->getContainer();
 		$containerConfig = $context->getContainerConfig();

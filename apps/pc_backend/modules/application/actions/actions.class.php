@@ -81,7 +81,7 @@ class applicationActions extends sfActions
   }
 
  /**
-  * Execute info action
+  * Executes info action
   *
   * @param sfRequest $request A request object
   */
@@ -104,13 +104,23 @@ class applicationActions extends sfActions
   }
 
  /**
-  * Execute profileSetting action
+  * Executes profileSetting action
   *
   * @param sfRequest $request A request object
   */
   public function executeProfileSetting($request)
   {
     $this->profileConfigForm = new OpenSocialPersonFieldConfigForm();
+    if (!$request->isMethod('post'))
+    {
+      return sfView::SUCCESS;
+    }
+    
+    $this->profileConfigForm->bind($request->getParameter('opensocial_person_field_config'));
+    if ($this->profileConfigForm->isValid())
+    {
+      $this->profileConfigForm->save();
+    }
     return sfView::SUCCESS;
   }
 }

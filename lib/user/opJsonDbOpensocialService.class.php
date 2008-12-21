@@ -66,13 +66,6 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
         if ($osPersonField)
         {
           $fieldName = $osPersonField->getFieldName();
-          $fieldNames = explode("_",$fieldName);
-          $fieldNames[0] = strtolower($fieldNames[0]);
-          for ($i = 1;$i < count($fieldNames);$i++)
-          {
-            $fieldNames[$i] = ucfirst(strtolower($fieldNames[$i]));
-          }
-          $fieldName = implode("",$fieldNames);
           switch ($memberProfile->getProfile()->getFormType())
           {
             case "date":
