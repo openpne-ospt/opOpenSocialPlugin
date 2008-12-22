@@ -18,13 +18,15 @@ class socialActions extends opOpenSocialServletActions
   {
     sfConfig::set('sf_web_debug',false);
     $class = new JsonRpcServlet();
+    ob_start();
     try{
-      error_reporting(0);
       self::servletExecute($class);
     }
     catch (SocialSpiException $e)
     {
     }
-    return sfView::NONE;
+    $this->social_data = ob_get_contents();
+    ob_end_clean();
+    return sfView::SUCCESS;
   }
 }
