@@ -186,6 +186,8 @@ class applicationActions extends sfActions
     $this->filters->bind($request->getParameter('application',array()));
 
     $criteria = $this->filters->getCriteria();
+    $criteria->setDistinct();
+    $criteria->addJoin(ApplicationPeer::ID, ApplicationI18nPeer::ID);
     $criteria->addDescendingOrderByColumn(ApplicationPeer::ID);
     
     $this->pager = new sfPropelPager('Application', 10);
