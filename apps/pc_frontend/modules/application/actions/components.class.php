@@ -14,7 +14,6 @@ class applicationComponents extends sfComponents
     $member_app = $this->member_app;
     $mod_id     = $member_app->getId();
     $this->mid  = $mod_id;
-    //TODO: throw exception 
     $app = $member_app->getApplication();
     $this->title = $app->getTitle();
     $owner_id = $member_app->getMemberId();
@@ -66,5 +65,9 @@ class applicationComponents extends sfComponents
       $getParams[$userpref_param_prefix.$app_setting->getName()] = $app_setting->getValue();
     }
     $this->iframe_url = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+  }
+
+  public function executeHomeApplication()
+  {
   }
 }

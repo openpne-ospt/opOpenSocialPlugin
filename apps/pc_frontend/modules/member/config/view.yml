@@ -1,9 +1,4 @@
 homeSuccess:
-  customize:
-    homeApplication:
-      template: [application, homeApplication]
-      parts:    [homeTopSampleBox]
-      target:   [after]
   javascripts:
     - /application/js
     - /gadgets/js/rpc.js?c=1

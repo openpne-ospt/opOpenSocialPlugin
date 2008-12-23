@@ -32,8 +32,8 @@ class Config
 
       // The encryption keys for encrypting the security token, and the expiration of it. Make sure these match the keys used in your container/site
       'token_cipher_key' => 'INSECURE_DEFAULT_KEY',
-      'token_hmac_key' => 'INSECURE_DEFAULT_KEY', 
-      'token_max_age' => 60 * 60, 
+      'token_hmac_key'   => 'INSECURE_DEFAULT_KEY', 
+      'token_max_age'   => SnsConfigPeer::get('application_token_max_age', 60*60), 
        
       // Ability to customize the style thats injected into the gadget document. Don't forget to put the link/etc colors in shindig/config/container.js too!
       'gadget_css' => 'body,td,div,span,p{font-family:arial,sans-serif;} a {color:#0000cc;}a:visited {color:#551a8b;}a:active {color:#ff0000;}body{margin: 0px;padding: 0px;background-color:white;}',
@@ -42,14 +42,14 @@ class Config
       'P3P' => 'CP="CAO PSA OUR"', 
       
       // The locations of the various required components on disk. If you did a normal svn checkout there's no need to change these
-      'base_path' => realpath(dirname(__FILE__).'/../vendor/Shindig').'/',
-      'features_path' => realpath(dirname(__FILE__) . '/../vendor/Shindig/features').'/',
+      'base_path'      => realpath(dirname(__FILE__).'/../vendor/Shindig').'/',
+      'features_path'  => realpath(dirname(__FILE__) . '/../vendor/Shindig/features').'/',
       'container_path' => realpath(dirname(__FILE__) . '/../vendor/Shindig/config').'/',
-      'javascript_path' => realpath(dirname(__FILE__) . '/../vendor/Shindig/javascript').'/',
+      'javascript_path'=> realpath(dirname(__FILE__) . '/../vendor/Shindig/javascript').'/',
 
       // The OAuth SSL certificates to use, and the pass phrase for the private key  
       'private_key_file' => realpath(dirname(__FILE__) . '/../vendor/Shindig/certs').'/private.key', 
-      'public_key_file' => realpath(dirname(__FILE__) . '/../vendor/Shindig/certs').'/public.crt', 
+      'public_key_file'  => realpath(dirname(__FILE__) . '/../vendor/Shindig/certs').'/public.crt', 
       'private_key_phrase' => 'openpne3', 
       'jsondb_path' => realpath(dirname(__FILE__) . '/../vendor/Shindig/javascript/sampledata').'/canonicaldb.json',
 
@@ -78,7 +78,7 @@ class Config
       // If you use CacheMemcache as caching backend, change these to the memcache server settings
       'cache_host' => 'localhost',
       'cache_port' => 11211,       
-      'cache_time' => 24 * 60 * 60,
+      'cache_time' => SnsConfigPeer::get('application_cache_time', 60*60),
       // If you use CacheFile as caching backend, this is the directory where it stores the temporary files
       'cache_root' => sfConfig::get('sf_app_cache_dir').'/plugins/opOpenSocialPlugin',
 

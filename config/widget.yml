@@ -1,0 +1,6 @@
+applicationBox:
+  caption:
+    ja_JP: "アプリケーションボックス"
+  description:
+    ja_JP: "OpenSocialアプリケーションをホームに設置します"
+  component: [application , homeApplication]
