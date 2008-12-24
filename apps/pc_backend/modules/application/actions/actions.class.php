@@ -29,7 +29,7 @@ class applicationActions extends sfActions
   {
     $this->applicationConfigForm = new ApplicationConfigForm();
 
-    if (!$request->isMethod('post'))
+    if (!$request->isMethod(sfRequest::POST))
     {
       return sfView::SUCCESS;
     }
@@ -111,7 +111,7 @@ class applicationActions extends sfActions
   public function executeProfileSetting($request)
   {
     $this->profileConfigForm = new OpenSocialPersonFieldConfigForm();
-    if (!$request->isMethod('post'))
+    if (!$request->isMethod(sfRequest::POST))
     {
       return sfView::SUCCESS;
     }
@@ -122,5 +122,63 @@ class applicationActions extends sfActions
       $this->profileConfigForm->save();
     }
     return sfView::SUCCESS;
+  }
+
+  /**
+   * Executes deleteApplication action
+   *
+   * @param sfRequest $request A request object
+   */
+  public function executeDeleteApplication($request)
+  {
+    $application_id = $request->getParameter('id', false);
+    if (!$application_id)
+    {
+      return $this->redirect('application/list');
+    }
+
+    $application = ApplicationPeer::retrieveByPk($application_id);
+    if (!$application)
+    {
+      return $this->redirect('application/list');
+    }
+
+    if ($request->isMethod(sfRequest::POST))
+    {
+      $application->delete();
+      return $this->redirect('application/list');
+    }
+
+    return sfView::SUCCESS;
+  }
+
+  /**
+   * Executes updateApplication action
+   *
+   * @param sfRequest $request A request object
+   */
+  public function executeUpdateApplication($request)
+  {
+    $application_id = $request->getParameter('id',false);
+    if (!$application_id)
+    {
+      return $this->redirect('application/list');
+    }
+
+    $application = ApplicationPeer::retrieveByPk($application_id);
+    if (!$application)
+    {
+      return $this->redirect('application/list');
+    }
+
+    try
+    {
+      ApplicationPeer::addApplication($application->getUrl(), $this->getUser()->getCulture(),true);
+    }
+    catch (Exception $e)
+    {
+    }
+
+    return $this->redirect('application/info?id='.$application->getId());
   }
 }

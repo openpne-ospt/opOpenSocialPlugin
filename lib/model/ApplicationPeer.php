@@ -57,6 +57,7 @@ class ApplicationPeer extends BaseApplicationPeer
       ),
       'gadgets' => array(array('url' => $url,'moduleId' => 1))
     ));
+    $_GET['nocache'] = 1;
     $handler = new MetadataHandler();
     $response = $handler->process($req);
     if (!is_array($response) || count($response) <= 0)
