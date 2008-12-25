@@ -23,7 +23,7 @@
 <?php endif ?>
 </td></tr>
 <tr><th><?php echo __('詳細') ?></th><td><?php echo $application->getDescription() ?></td></tr>
-<tr><th><?php echo __('インストールしているユーザ数') ?></th><td><?php echo $application->countInstalledMember() ?></td></tr>
+<tr><th><?php echo __('インストールしているメンバ数') ?></th><td><?php echo $application->countInstalledMember() ?></td></tr>
 <tr><th><?php echo __('最終更新日') ?></th><td><?php echo $application->getUpdatedAt() ?></td></tr>
 <tr><th colspan="2"><?php echo __('作成者情報') ?></th></tr>
 <tr><th><?php echo __('作成者') ?></th><td><?php echo $application->getAuthorEmail() ? mail_to($application->getAuthorEmail(), $application->getAuthor(), array('encode' => true)) : $application->getAuthor() ?></td></tr>

@@ -4,7 +4,7 @@ $app_info_list = array(
   __('スクリーンショット')  => $application->getScreenshot() ? image_tag($application->getScreenshot(), array('alt' => $application->getTitle())) : '',
   __('サムネイル')          => $application->getThumbnail() ? image_tag($application->getThumbnail(), array('alt' => $application->getTitle())) : '',
   __('詳細') => $application->getDescription(),
-  __('インストールしているユーザ数') => $application->countInstalledMember(),
+  __('インストールしているメンバ数') => $application->countInstalledMember(),
 );
 $author_info_list = array(
   __('作成者') => $application->getAuthorEmail() ? mail_to($application->getAuthorEmail(), $application->getAuthor(), array('encode' => true)) : $application->getAuthor(),
@@ -16,5 +16,6 @@ $author_info_list = array(
 );
 include_list_box('ApplicationInfoList', $app_info_list, array('title' => __('アプリケーション詳細')));
 include_list_box('AuthorInfoList', $author_info_list, array('title' => __('作成者情報')));
+echo link_to(__('このアプリを追加する'), 'application/add?id='.$application->getId());
 ?>
 

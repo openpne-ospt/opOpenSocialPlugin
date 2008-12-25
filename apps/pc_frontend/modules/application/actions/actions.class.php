@@ -238,8 +238,12 @@ class applicationActions extends sfActions
       return sfView::ERROR;
     }
 
-    $member_app->delete();
-    return $this->redirect('application/list');
+    if ($request->isMethod(sfRequest::POST))
+    {
+      $member_app->delete();
+      return $this->redirect('application/list');
+    }
+    return sfView::SUCCESS;
   }
 
  /**
