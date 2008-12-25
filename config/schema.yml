@@ -4,21 +4,28 @@ propel:
   application:
     id: ~
     url: { type: varchar(128), required: true }
-    height: { type: integer, required: true }
+    height:    { type: integer, required: true }
     scrolling: { type: integer, required: true }
+    singleton: { type: integer, required: true, default: true } 
+    updated_at: ~
 
   application_i18n:
-    title: { type: varchar(128) }
-    directory_title : { type: varchar(128) }
-    screenshot: { type: varchar(128) }
-    thumbnail : { type: varchar(128) }
-    author:  { type: varchar(128) }
-    author_email: { type: varchar(128) }
+    title:       { type: varchar(128) }
+    title_url:   { type: varchar(128) }
     description: { type: longvarchar }
+    directory_title : { type: varchar(128) }
+    screenshot:  { type: varchar(128) }
+    thumbnail :  { type: varchar(128) }
+    author:      { type: varchar(128) }
+    author_aboutme: { type: longvarchar }
+    author_affiliation : { type: varchar(128) }
+    author_email:  { type: varchar(128) }
+    author_photo:  { type: varchar(128) }
+    author_link:   { type: varchar(128) }
+    author_quote:  { type: longvarchar }
     settings: { type: longvarchar }
     views: { type: longvarchar }
     version: { type: varchar(64), required: true }
-    updated_at: ~
 
   application_setting:
     id: ~

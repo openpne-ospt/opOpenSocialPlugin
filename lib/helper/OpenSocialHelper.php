@@ -20,6 +20,6 @@ function include_application_information_box($id, $aid, $mid = 0, $is_owner = fa
     'author'      => $author,
     'author_email'=> $author_email
   );
-  include_partial('global/applicationInformationBox', $params);
+  include_partial('application/informationBox', $params);
 }
 ?>

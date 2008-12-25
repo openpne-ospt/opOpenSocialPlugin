@@ -41,8 +41,8 @@ class ApplicationPeer extends BaseApplicationPeer
     $app = self::doSelectOne($criteria);
     if (!empty($app) && !$update)
     {
-      $ca = $app->getUpdatedAt();
-      if (!empty($ca))
+      $ua = $app->getUpdatedAt('U');
+      if (!empty($ua) && (time() - $ua) <= SnsConfigPeer::get('application_cache_time', 24*60*60))
       {
         return $app;
       }
@@ -68,45 +68,45 @@ class ApplicationPeer extends BaseApplicationPeer
     {
       throw new Exception($response[0]['errors'][0]);
     }
-    $default_gadget = array(
-      'url'             => '',
-      'title'           => '',
-      'directory_title' => '',
-      'screenshot'      => '',
-      'thumbnail'       => '',
-      'author'          => '',
-      'author_email'    => '',
-      'description'     => ''
-    );
     $gadget = $response[0];
-    if (isset($gadget['authorEmail']))
-    {
-      $gadget['author_email'] = $gadget['authorEmail'];
-    }
-    if (isset($gadget['directoryTitle']))
-    {
-      $gadget['directory_title'] = $gadget['directoryTitle'];
-    }
-    $gadget = array_merge($default_gadget,$gadget);
     if (empty($app))
     {
       $app = new Application();
     }
     $app->setUrl($gadget['url']);
+
     $app->setTitle($gadget['title']);
-    $app->setDirectoryTitle($gadget['directory_title']);
+    $app->setTitleUrl($gadget['titleUrl']);
+    $app->setDescription($gadget['description']);
+    $app->setDirectoryTitle($gadget['directoryTitle']);
     $app->setScreenshot($gadget['screenshot']);
     $app->setThumbnail($gadget['thumbnail']);
     $app->setAuthor($gadget['author']);
+    $app->setAuthorAboutme($gadget['authorAboutme']);
+    $app->setAuthorAffiliation($gadget['authorAffiliation']);
     $app->setAuthorEmail($gadget['authorEmail']);
-    $app->setDescription($gadget['description']);
+    $app->setAuthorPhoto($gadget['authorPhoto']);
+    $app->setAuthorLink($gadget['authorLink']);
+    $app->setAuthorQuote($gadget['authorQuote']);
     $app->setSettings(isset($gadget['userPrefs']) ? serialize($gadget['userPrefs']) : '');
     $app->setViews(isset($gadget['views']) ? serialize($gadget['views']) : '');
     if ($gadget['scrolling'] == 'true')
     {
-      $gadget['scrolling'] = 1;
+      $app->setScrolling(true);
     }
-    $app->setScrolling(! empty($gadget['scrolling']) ? $gadget['scrolling'] : '0');
+    else
+    {
+      $app->setScrolling(false);
+    }
+
+    if ($gadget['singleton'] == 'true' || empty($gadget['singleton']))
+    {
+      $app->setSingleton(true);
+    }
+    else
+    {
+      $app->setSingleton(false);
+    }
     $app->setHeight(! empty($gadget['height']) ? $gadget['height'] : '0');
     $iframe_url = $gadget['iframeUrl'];
     $iframe_params = array();

@@ -243,6 +243,23 @@ class applicationActions extends sfActions
   }
 
  /**
+  * Executes info action
+  * 
+  * @param sfRequest $request A request object
+  */ 
+  public function executeInfo($request)
+  {
+    $app_id = $request->getParameter('id',false);
+    $this->application = ApplicationPeer::retrieveByPK($app_id);
+    if (!$this->application)
+    {
+      return sfView::ERROR;
+    }
+
+    return sfView::SUCCESS;
+  }
+
+ /**
   * Executes js action
   *
   * @param sfRequest $request A request object
