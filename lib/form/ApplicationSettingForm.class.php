@@ -3,10 +3,9 @@
 /**
  * ApplicationSetting form.
  *
- * @package    form
- * @subpackage application_setting
+ * @package    OpenPNE
+ * @subpackage form
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
- * @version    SVN: $Id: sfPropelFormTemplate.php 6174 2007-11-27 06:22:40Z fabien $
  */
 class ApplicationSettingForm extends OpenPNEFormAutoGenerate
 {
@@ -51,11 +50,14 @@ class ApplicationSettingForm extends OpenPNEFormAutoGenerate
       $choices = array();
       $param['IsRequired'] = false;
       $param['Caption'] = $setting['displayName'];
+      if (empty($setting['type']) || $setting['type'] == 'HIDDEN')
+      {
+        break;
+      }
       switch ($setting['type'])
       {
-        case 'HIDDEN': continue 2;
         case 'BOOL' :
-          $param['FormType'] = 'radio';
+          $param['FormType']  = 'radio';
           $choices = array('1' => 'Yes', '0' => 'No');
           break;
         case 'ENUM' :
@@ -63,7 +65,8 @@ class ApplicationSettingForm extends OpenPNEFormAutoGenerate
           $choices = $setting['enumValues'];
           break;
         default :
-          $param['FormType'] = 'textarea';
+          $param['FormType']  = 'textarea';
+          $param['ValueType'] = '';
       }
       $this->widgetSchema[$key] = $this->generateWidget($param, $choices);
       $this->validatorSchema[$key] = $this->generateValidator($param, array_keys($choices));
