@@ -36,5 +36,5 @@ echo sortable_element('order', array(
 ));
 } ?>
 <?php else: ?>
-<?php include_box('ApplicationListError','Application List Error','No application.') ?>
+<?php include_box('ApplicationListError',__('アプリケーションリスト'), __('インストールされたアプリケーションがありません。')) ?>
 <?php endif ?>

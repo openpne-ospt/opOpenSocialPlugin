@@ -21,5 +21,5 @@ array('form' => $filters, 'url' => 'application/gallery', 'button' => __('検索
 <?php endforeach ?>
 <?php echo pager_navigation($pager, 'application/gallery?page=%d'); ?>
 <?php else : ?>
-<?php include_box('ApplicationGalleryError','Application Gallery Error','No application.') ?>
+<?php include_box('ApplicationGalleryError', __('アプリケーション検索'), __('該当するアプリケーションは見つかりませんでした。')) ?>
 <?php endif ?>
