@@ -150,6 +150,12 @@ class applicationActions extends sfActions
 
     $modId = $request->getParameter('mid');
     $member_app = MemberApplicationPeer::retrieveByPK($modId);
+
+    if ($member_app->getMember()->getId() != $this->getUser()->getMember()->getId())
+    {
+      return sfView::ERROR;
+    }
+    
     $this->appName = $member_app->getApplication()->getTitle();
 
     $this->applicationSettingForm = new ApplicationSettingForm();
