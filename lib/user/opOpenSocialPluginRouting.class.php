@@ -6,7 +6,7 @@ class opOpenSocialPluginRouting
     $routing = $event->getSubject();
     $routing->prependRoute('application_list_route',
       new sfRoute(
-        '/application/js.js' ,
+        '/application/webprefix.js' ,
         array(
           'module' => 'application',
           'action' => 'js',

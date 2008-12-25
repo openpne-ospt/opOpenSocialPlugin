@@ -1,18 +1,18 @@
 listSuccess:
   stylesheets:
-    - /plugins/opOpenSocialPlugin/css/opensocial
+    - /opOpenSocialPlugin/css/opensocial
 
 gallerySuccess:
   stylesheets:
-    - /plugins/opOpenSocialPlugin/css/opensocial
+    - /opOpenSocialPlugin/css/opensocial
 
 canvasSuccess:
   javascripts:
-    - /application/js
+    - /application/webprefix
     - /gadgets/js/rpc.js?c=1
     - http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js
-    - /plugins/opOpenSocialPlugin/js/tabs-min
-    - /plugins/opOpenSocialPlugin/js/container
+    - /opOpenSocialPlugin/js/tabs-min
+    - /opOpenSocialPlugin/js/container
 
 jsSuccess:
   has_layout: off
