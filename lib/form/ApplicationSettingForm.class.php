@@ -52,7 +52,7 @@ class ApplicationSettingForm extends OpenPNEFormAutoGenerate
       $param['Caption'] = $setting['displayName'];
       if (empty($setting['type']) || $setting['type'] == 'HIDDEN')
       {
-        break;
+        continue;
       }
       switch ($setting['type'])
       {
