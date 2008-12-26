@@ -19,7 +19,8 @@ class socialActions extends opOpenSocialServletActions
     sfConfig::set('sf_web_debug',false);
     $class = new JsonRpcServlet();
     ob_start();
-    try{
+    try
+    {
       self::servletExecute($class);
     }
     catch (SocialSpiException $e)

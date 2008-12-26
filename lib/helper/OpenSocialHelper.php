@@ -2,7 +2,7 @@
 /**
  * OpenSocialHelper
  *
- * @package    opOpenSocialPlugin
+ * @package    OpenPNE
  * @subpackage helper
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
@@ -22,4 +22,3 @@ function include_application_information_box($id, $aid, $mid = 0, $is_owner = fa
   );
   include_partial('application/informationBox', $params);
 }
-?>

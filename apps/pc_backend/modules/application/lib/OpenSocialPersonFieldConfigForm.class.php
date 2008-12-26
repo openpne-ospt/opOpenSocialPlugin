@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Open Social Person Field Config Form.
  *

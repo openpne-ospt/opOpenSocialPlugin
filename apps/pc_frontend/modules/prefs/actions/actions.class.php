@@ -47,7 +47,7 @@ class prefsActions extends sfActions
     catch (Exception $e)
     {
       header("HTTP/1.0 400 Bad Request",true);
-      echo "<html><body><h1>400 - Bad Request - ". $e->getMessage() ."</h1></body></html>";
+      echo "<html><body><h1>400 - Bad Request - ".$e->getMessage()."</h1></body></html>";
     }
     return sfView::NONE;
   }

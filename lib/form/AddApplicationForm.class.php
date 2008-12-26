@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * AddApplicationForm
+ * 
+ * @author Shogo Kawahara <kawahara@tejimaya.net>
+ *
+ */
 class AddApplicationForm extends sfForm
 {
   public function configure()

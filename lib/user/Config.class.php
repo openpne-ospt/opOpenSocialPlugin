@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Config of Shindig
+ *
+ * @author Shogo Kawahara <kawahara@tejimaya.net>
+ */
+
 class ConfigException extends Exception {}
 
 class Config

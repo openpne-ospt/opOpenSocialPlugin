@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * opGadgetRenderingServlet
+ *
+ * @author Shogo Kawahara <kawahara@tejimaya.net>
+ *
+ */
 class opGadgetRenderingServlet extends GadgetRenderingServlet {
   
   protected function appendJsConfig($context, $gadget, $hasForcedLibs)

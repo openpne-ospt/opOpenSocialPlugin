@@ -1,6 +1,9 @@
 <?php
+
 /**
  * opBasicRemoteContentFetcher
+ *
+ * @author Shogo Kawahara <kawahara@tejimaya.net>
  *
  */
 class opBasicRemoteContentFetcher extends RemoteContentFetcher {

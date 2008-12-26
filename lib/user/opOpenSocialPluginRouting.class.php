@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * opOpenSocialPluginRouting
+ *
+ * @author Shogo Kawahara <kawahara@tejimaya.net>
+ */
 class opOpenSocialPluginRouting
 {
   static public function listenToRoutingLoadConfigurationEvent(sfEvent $event)
