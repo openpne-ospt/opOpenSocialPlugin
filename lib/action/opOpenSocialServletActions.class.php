@@ -13,10 +13,15 @@ abstract class opOpenSocialServletActions extends sfActions
   /**
    * servletExecute
    *
-   * @param HttpServlet $servlet A servlet object
+   * @param $servlet A servlet object
    */
   protected function servletExecute($servlet)
   {
+    if (!($servlet instanceof HttpServlet) && !($servlet instanceof ApiServlet))
+    {
+      throw new LogicException();
+    }
+
     $request = $this->getRequest();
     $method = "";
     switch($request->getMethod())
