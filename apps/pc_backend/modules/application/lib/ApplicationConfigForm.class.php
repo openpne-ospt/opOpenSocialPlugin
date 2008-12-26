@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application Config Form.
  *
@@ -18,7 +19,7 @@ class ApplicationConfigForm extends sfForm
       'is_add_application'          => new sfWidgetFormInputCheckbox(),
       'is_view_profile_application' => new sfWidgetFormInputCheckbox(),
       'home_application_limit'      => new sfWidgetFormInput(),
-      'application_max_token_age'   => new sfWidgetFormInput(),
+      'application_token_max_age'   => new sfWidgetFormInput(),
       'application_cache_time'      => new sfWidgetFormInput(),
     ));
 
@@ -26,7 +27,7 @@ class ApplicationConfigForm extends sfForm
       'is_add_application'          => new sfValidatorBoolean(),
       'is_view_profile_application' => new sfValidatorBoolean(),
       'home_application_limit'      => new sfValidatorInteger(array('min' => 0)),
-      'application_max_token_age'   => new sfValidatorInteger(array('min' => 0)),
+      'application_token_max_age'   => new sfValidatorInteger(array('min' => 0)),
       'application_cache_time'      => new sfValidatorInteger(array('min' => 0)),
     ));
 
@@ -34,7 +35,7 @@ class ApplicationConfigForm extends sfForm
       'is_add_application'          => $is_add_application,
       'is_view_profile_application' => $is_view_profile_application,
       'home_application_limit'      => SnsConfigPeer::get('home_application_limit', 3),
-      'application_max_token_age'   => SnsConfigPeer::get('application_max_token_age', 60*60),
+      'application_token_max_age'   => SnsConfigPeer::get('application_max_token_age', 60*60),
       'application_cache_time'      => SnsConfigPeer::get('application_cache_time', 24*60*60),
     ));
 
@@ -42,7 +43,7 @@ class ApplicationConfigForm extends sfForm
       'is_add_application'          => 'メンバーによるアプリ追加を許可',
       'is_view_profile_application' => 'プロフィール画面にアプリを表示する',
       'home_application_limit'      => 'ホーム・プロフィール画面のアプリ表示上限',
-      'application_max_token_age'   => 'トークン有効期限(秒)',
+      'application_token_max_age'   => 'トークン有効期限(秒)',
       'application_cache_time'      => 'キャッシュ有効期限(秒)',
     ));
     $this->widgetSchema->setNameFormat('application_config[%s]');
