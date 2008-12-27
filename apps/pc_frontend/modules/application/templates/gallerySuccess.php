@@ -1,4 +1,3 @@
-<?php use_helper('Pagination'); ?>
 <?php use_helper('OpenSocial'); ?>
 
 <?php include_box('searchApplication',__('アプリケーション検索'),'',
