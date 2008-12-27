@@ -37,8 +37,9 @@ propel:
     id: ~
     member_id: { type: integer, foreignTable: member, foreignReference: id, onDelete: cascade }
     application_id: { type: integer, foreignTable: application, foreignReference: id, onDelete: cascade }
-    is_disp_other: { type: boolean }
-    is_disp_home: { type: boolean }
+    is_disp_other: { type: boolean, required: true }
+    is_disp_home: { type: boolean, required: true }
+    is_home_widget: { type: boolean, required: true } 
     sort_order: { type: integer }
 
   opensocial_person_field:

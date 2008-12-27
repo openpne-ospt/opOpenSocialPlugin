@@ -8,31 +8,31 @@ if ($is_owner)
 <div class="partsHeading">
 <h3>
 <?php if ($mid) : ?>
-<?php echo link_to($title, 'application/canvas?mid='.$mid) ?>
+<?php echo link_to($application->getTitle(), 'application/canvas?id='.$mid) ?>
 <?php else : ?>
-<?php echo $title ?>
+<?php echo $application->getTitle() ?>
 <?php endif ?>
 </h3>
 </div>
 
 <div class="body">
 <div class="app_thumbnail">
-<?php if (!empty($thumbnail)) : ?>
-<img src="<?php echo $thumbnail ?>" alt="<?php echo $title ?>" />
+<?php if ($application->getThumbnail()) : ?>
+<?php echo image_tag($application->getThumbnail(), array('alt' => $application->getTitle())) ?>
 <?php endif; ?>
 </div>
 
 <div class="app_info">
 <div class="app_description">
-<?php echo $description ?>
+<?php echo $application->getDescription() ?>
 </div>
 
-<?php if (!empty($author)) : ?>
+<?php if ($application->getAuthor()) : ?>
 <div class="app_author">
-<?php if (!empty($author_email)) : ?>
-<?php echo __('Author') ?>: <?php echo mail_to($author_email, $author, array('encode' => true)) ?>
+<?php if ($application->getAuthorEmail()) : ?>
+<?php echo __('Author') ?>: <?php echo mail_to($application->getAuthorEmail() , $application->getAuthor(), array('encode' => true)) ?>
 <?php else : ?>
-<?php echo __('Author') ?>: <?php echo $author ?>
+<?php echo __('Author') ?>: <?php echo $application->getAuthor() ?>
 <?php endif; ?>
 </div>
 <?php endif; ?>
@@ -42,8 +42,8 @@ if ($is_owner)
 <div class="app_option">
 <ul>
 <?php if($is_owner) : ?>
-<li><?php echo link_to(__('設定'), 'application/setting?mid='.$mid); ?></li>
-<li><?php echo link_to(__('削除'), 'application/remove?mid='.$mid); ?></li>
+<li><?php echo link_to(__('設定'), 'application/setting?id='.$mid); ?></li>
+<li><?php echo link_to(__('削除'), 'application/remove?id='.$mid); ?></li>
 <?php else : ?>
 <?php echo link_to(__('このアプリを追加する'), 'application/add?id='.$aid) ?>
 <?php endif ?>

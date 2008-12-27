@@ -12,11 +12,7 @@ array('form' => $filters, 'url' => 'application/gallery', 'button' => __('検索
   $application->getId(),
   0,
   false,
-  $application->getTitle(),
-  $application->getDescription(),
-  $application->getThumbnail(),
-  $application->getAuthor(),
-  $application->getAuthorEmail()
+  $application
 ) ?>
 <?php endforeach ?>
 <?php echo pager_navigation($pager, 'application/gallery?page=%d'); ?>

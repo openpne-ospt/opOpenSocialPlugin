@@ -5,7 +5,7 @@
  *
  * @package    OpenPNE
  * @subpackage saOpenSocialPlugin
- * @author     ShogoKawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
 class applicationComponents extends sfComponents
 {
@@ -31,6 +31,12 @@ class applicationComponents extends sfComponents
     if ($owner_id == $viewer_id)
     {
       $this->isViewer = true;
+    }
+
+    $this->hasSetting = true;
+    if ($member_app->getIsHomeWidget() && !$app->hasSetting())
+    {
+      $this->hasSetting = false;
     }
 
     $securityToken = BasicSecurityToken::createFromValues(
@@ -69,5 +75,46 @@ class applicationComponents extends sfComponents
 
   public function executeHomeApplication()
   {
+  }
+
+  public function executeHomeWidgetApplication()
+  {
+    $url = $this->widget->getConfig('url');
+    if (!$url)
+    {
+      return null;
+    }
+
+    try
+    {
+      $application = ApplicationPeer::addApplication($url, $this->getUser()->getCulture());
+      if (!$application)
+      {
+        return null;
+      }
+    }
+    catch (Exception $e)
+    {
+      return null;
+    }
+
+    $applicationId = $application->getId();
+    $memberId      = $this->getUser()->getMember()->getId();
+    $criteria = new Criteria();
+    $criteria->add(MemberApplicationPeer::IS_HOME_WIDGET, true);
+    $memberApplication = MemberApplicationPeer::retrieveByApplicationIdAndMemberId($applicationId, $memberId, $criteria);
+
+    if (!$memberApplication)
+    {
+      $memberApplication = new MemberApplication();
+      $memberApplication->setApplication($application);
+      $memberApplication->setMemberId($memberId);
+      $memberApplication->setIsDispOther(true);
+      $memberApplication->setIsDispHome(true);
+      $memberApplication->setIsHomeWidget(true);
+      $memberApplication->save();
+    }
+
+    $this->memberApplication = $memberApplication;
   }
 }

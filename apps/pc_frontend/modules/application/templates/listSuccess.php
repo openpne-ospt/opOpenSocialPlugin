@@ -18,11 +18,7 @@
   $member_app->getApplication()->getId(),
   $member_app->getId(),
   $is_owner,
-  $member_app->getApplication()->getTitle(),
-  $member_app->getAPplication()->getDescription(),
-  $member_app->getApplication()->getThumbnail(),
-  $member_app->getApplication()->getAuthor(),
-  $member_app->getApplication()->getAuthorEmail()
+  $member_app->getApplication()
 ) ?>
 <?php endforeach ?>
 </div>

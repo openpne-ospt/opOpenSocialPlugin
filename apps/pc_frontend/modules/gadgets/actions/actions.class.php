@@ -49,6 +49,7 @@ class gadgetsActions extends opOpenSocialServletActions
    */
   public function executeMakeRequest($request)
   {
+    $_GET = $request->getParameterHolder()->getAll();
     $_GET['output'] = 'js';
     $class = new ProxyServlet();
     self::servletExecute($class);

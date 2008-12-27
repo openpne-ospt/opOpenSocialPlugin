@@ -37,7 +37,7 @@ class ApplicationSettingForm extends OpenPNEFormAutoGenerate
       return false;
     }
 
-    if (!$memberApp->getApplication()->hasSettings())
+    if (!$memberApp->getApplication()->hasSetting())
     {
       return false;
     }

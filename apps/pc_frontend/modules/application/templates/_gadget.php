@@ -3,7 +3,10 @@
 <p class="link"><?php 
 if ($isViewer)
 {
-  echo link_to(__('設定'),"application/setting?mid=".$mid);
+  if ($hasSetting)
+  {
+    echo link_to(__('設定'),"application/setting?id=".$mid);
+  }
 }
 else
 {

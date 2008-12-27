@@ -10,11 +10,11 @@
 class Application extends BaseApplication
 {
  /**
-  * hasSettings
+  * hasSetting
   *
   * @return boolean
   */
-  public function hasSettings()
+  public function hasSetting()
   {
     $settings = $this->getSettings();
     if (!is_array($settings))
@@ -34,7 +34,7 @@ class Application extends BaseApplication
  /**
   * getSettings 
   * 
-  * @param string $culture
+  * @param  string $culture
   * @return array
   */
   public function getSettings($culture = null)
@@ -45,13 +45,13 @@ class Application extends BaseApplication
  /**
   * count installed member 
   *
-  * @param number $module_id
-  * @return number
+  * @return integer
   */
   public function countInstalledMember()
   {
     $criteria = new Criteria();
     $criteria->add(MemberApplicationPeer::APPLICATION_ID, parent::getId());
+    $criteria->add(MemberApplicationPeer::IS_HOME_WIDGET, false);
     return MemberApplicationPeer::doCount($criteria);
   }
 }

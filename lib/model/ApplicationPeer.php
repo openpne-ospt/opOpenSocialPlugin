@@ -36,9 +36,7 @@ class ApplicationPeer extends BaseApplicationPeer
    */
   public static function addApplication($url, $culture = 'en_US', $update = false)
   {
-    $criteria = new Criteria(self::DATABASE_NAME);
-    $criteria->add(self::URL, $url);
-    $app = self::doSelectOne($criteria);
+    $app = self::retrieveByUrl($url);
     if (!empty($app) && !$update)
     {
       $ua = $app->getUpdatedAt('U');
@@ -130,5 +128,18 @@ class ApplicationPeer extends BaseApplicationPeer
       return false;
     }
     return $app->hasSettings();
+  }
+
+  /**
+   * retrieve by url
+   *
+   * @param  string $url A url
+   * @return Application The application instance
+   */
+  public static function retrieveByUrl($url)
+  {
+    $criteria = new Criteria();
+    $criteria->add(self::URL, $url);
+    return self::doSelectOne($criteria);
   }
 }
