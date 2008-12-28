@@ -110,6 +110,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     $criteria->addJoin(ApplicationPersistentDataPeer::MEMBER_APPLICATION_ID, MemberApplicationPeer::ID);
     $criteria->add(MemberApplicationPeer::APPLICATION_ID, $appId);
     $criteria->add(MemberApplicationPeer::MEMBER_ID, $ids, Criteria::IN);
+    $criteria->add(ApplicationPersistentDataPeer::KEY, $fields, Criteria::IN);
     $persistentDatas = ApplicationPersistentDataPeer::doSelect($criteria);
     if (!count($persistentDatas))
     {
