@@ -107,18 +107,18 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
   {
     $ids = $this->getIdSet($userId, $groupId, $token);
     $criteria = new Criteria();
-    $criteria->addJoin(ApplicationSettingPeer::MEMBER_APPLICATION_ID, MemberApplicationPeer::ID);
+    $criteria->addJoin(ApplicationPersistentDataPeer::MEMBER_APPLICATION_ID, MemberApplicationPeer::ID);
     $criteria->add(MemberApplicationPeer::APPLICATION_ID, $appId);
     $criteria->add(MemberApplicationPeer::MEMBER_ID, $ids, Criteria::IN);
-    $app_settings = ApplicationSettingPeer::doSelect($criteria);
-    if (!count($app_settings))
+    $persistentDatas = ApplicationPersistentDataPeer::doSelect($criteria);
+    if (!count($persistentDatas))
     {
       throw new SocialSpiException("UnKnown person app data key(s): ".implode(', ', $fields));
     }
     $data = array();
-    foreach($app_settings as $app_setting)
+    foreach($persistentDatas as $persistentData)
     {
-      $data[$app_setting->getMemberApplication()->getMemberId()][$app_setting->getName()] = $app_setting->getValue();
+      $data[$persistentData->getMemberApplication()->getMemberId()][$persistentData->getKey()] = $persistentData->getValue();
     }
     return new DataCollection($data);
   }
@@ -156,17 +156,18 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
         {
           $value = isset($values[$key]) ? $values[$key] : null;
           $criteria = new Criteria();
-          $criteria->add(ApplicationSettingPeer::MEMBER_APPLICATION_ID, $token->getModuleId());
-          $criteria->add(ApplicationSettingPeer::NAME, $key);
-          $app_setting = ApplicationSettingPeer::doSelectOne($criteria);
-          if (!$app_setting)
+
+          $criteria->add(ApplicationPersistentDataPeer::MEMBER_APPLICATION_ID, $token->getModuleId());
+          $criteria->add(ApplicationPersistentDataPeer::KEY, $key);
+          $persistentData = ApplicationPersistentDataPeer::doSelectOne($criteria);
+          if (!$persistentData)
           {
-            $app_setting = new ApplicationSetting();
-            $app_setting->setMemberApplicationId($token->getModuleId());
-            $app_setting->setName($key);
+            $persistentData = new ApplicationPersistentData();
+            $persistentData->setMemberApplicationId($token->getModuleId());
+            $persistentData->setKey($key);
           }
-          $app_setting->setValue($value);
-          $app_setting->save();
+          $persistentData->setValue($value);
+          $persistentData->save();
         }
         break;
       default:

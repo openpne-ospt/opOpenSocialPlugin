@@ -27,12 +27,6 @@ propel:
     views: { type: longvarchar }
     version: { type: varchar(64), required: true }
 
-  application_setting:
-    id: ~
-    member_application_id: { type: integer, foreignTable: member_application, foreignReference: id, onDelete: cascade }
-    name: { type: varchar(128), required: true }
-    value: { type: varchar(255), required: true }
-
   member_application:
     id: ~
     member_id: { type: integer, foreignTable: member, foreignReference: id, onDelete: cascade }
@@ -41,6 +35,18 @@ propel:
     is_disp_home: { type: boolean, required: true }
     is_home_widget: { type: boolean, required: true } 
     sort_order: { type: integer }
+  
+  application_setting:
+    id: ~
+    member_application_id: { type: integer, foreignTable: member_application, foreignReference: id, onDelete: cascade }
+    name: { type: varchar(128), required: true }
+    value: { type: varchar(255), required: true }
+
+  application_persistent_data:
+    id: ~
+    member_application_id: { type: integer, foreignTable: member_application, foreignReference: id, onDelete: cascade }
+    key: { type: varchar(128), required: true }
+    value: { type : longvarchar, required: true }
 
   opensocial_person_field:
     profile_id: { type: integer, primaryKey: true, foreignTable: profile, foreignReference: id, onDelete: cascade }
