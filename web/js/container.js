@@ -69,7 +69,7 @@ Container.prototype = {
 		} else if (view === 'profile') {
 			return web_prefix + 'member/' + person;
 		} else if (view === 'canvas') {
-			return web_prefix + 'application/canvas/mid/' + mod;
+			return web_prefix + 'application/canvas/id/' + mod;
 		} else {
 			return null;
 		}
