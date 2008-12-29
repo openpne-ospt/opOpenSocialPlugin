@@ -110,7 +110,10 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     $criteria->addJoin(ApplicationPersistentDataPeer::MEMBER_APPLICATION_ID, MemberApplicationPeer::ID);
     $criteria->add(MemberApplicationPeer::APPLICATION_ID, $appId);
     $criteria->add(MemberApplicationPeer::MEMBER_ID, $ids, Criteria::IN);
-    $criteria->add(ApplicationPersistentDataPeer::KEY, $fields, Criteria::IN);
+    if (count($fields))
+    {
+      $criteria->add(ApplicationPersistentDataPeer::KEY, $fields, Criteria::IN);
+    }  
     $persistentDatas = ApplicationPersistentDataPeer::doSelect($criteria);
     if (!count($persistentDatas))
     {
@@ -133,7 +136,31 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
         throw new SocialSpiException("The person app data key had in valid characters", ResponseError::$BAD_REQUEST);
       }
     }
-    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+    $ids = $this->getIdSet($userId, $groupId, $token);
+    if (count($ids) < 1)
+    {
+      throw new InvalidArgumentException("No userId specified");
+    }
+    else if (count($ids) > 1)
+    {
+      throw new InvalidArgumentException("Multiple userIds not supported");
+    }
+    $userId = $ids[0];
+    $appId = $token->getAppId();
+    foreach ($fields as $key)
+    {
+      $criteria = new Criteria();
+      $criteria->addJoin(ApplicationPersistentDataPeer::MEMBER_APPLICATION_ID, MemberApplicationPeer::ID);
+      $criteria->add(MemberApplicationPeer::APPLICATION_ID, $appId);
+      $criteria->add(MemberApplicationPeer::MEMBER_ID, $userId);
+      $criteria->add(ApplicationPersistentDataPeer::KEY, $key);
+      $persistentData = ApplicationPersistentDataPeer::doSelectOne($criteria);
+      if (!$persistentData)
+      {
+        throw new SocialSpiException("Internal server error", ResponseError::$INTERNAL_ERROR);
+      }
+      $persistentData->delete();
+    }
   }
 
   public function updatePersonData(UserId $userId, GroupId $groupId, $appId, $fields, $values, SecurityToken $token)
