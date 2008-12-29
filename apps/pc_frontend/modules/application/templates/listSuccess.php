@@ -1,8 +1,8 @@
 <?php use_helper('Javascript') ?>
 <?php use_helper('OpenSocial') ?>
-<?php if ($is_owner) : ?>
+<?php if ($isOwner) : ?>
 <?php echo link_to(__('Application Gallery'), 'application/gallery') ?>
-<?php if ($is_add_application) : ?>
+<?php if ($isAddApplication) : ?>
 <?php include_box('form','アプリケーション追加','',array(
   'form' => array($form),
   'url' => 'application/list',
@@ -10,20 +10,20 @@
 )) ?>
 <?php endif ?>
 <?php endif ?>
-<?php if (isset($member_apps) && count($member_apps)) : ?>
+<?php if (isset($memberApps) && count($memberApps)) : ?>
 <div id="order">
-<?php foreach ($member_apps as $member_app) : ?>
+<?php foreach ($memberApps as $memberApp) : ?>
 <?php include_application_information_box(
-  'item_'.$member_app->getId(),
-  $member_app->getApplication()->getId(),
-  $member_app->getId(),
-  $is_owner,
-  $member_app->getApplication()
+  'item_'.$memberApp->getId(),
+  $memberApp->getApplication()->getId(),
+  $memberApp->getId(),
+  $isOwner,
+  $memberApp->getApplication()
 ) ?>
 <?php endforeach ?>
 </div>
 <?php 
-if ($is_owner)
+if ($isOwner)
 {
 echo sortable_element('order', array(
   'url'    => 'application/sortApplication',

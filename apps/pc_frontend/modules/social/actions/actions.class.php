@@ -4,7 +4,7 @@
  * social actions.
  *
  * @package    OpenPNE
- * @subpackage saOpenSocialPlugin
+ * @subpackage opOpenSocialPlugin
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
 class socialActions extends opOpenSocialServletActions

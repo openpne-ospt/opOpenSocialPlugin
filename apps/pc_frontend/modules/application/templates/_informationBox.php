@@ -1,5 +1,5 @@
 <div id="<?php echo $id ?>" class="dparts box<?php
-if ($is_owner)
+if ($isOwner)
 {
   echo " sortable";
 }
@@ -41,7 +41,7 @@ if ($is_owner)
 
 <div class="app_option">
 <ul>
-<?php if($is_owner) : ?>
+<?php if($isOwner) : ?>
 <li><?php echo link_to(__('設定'), 'application/setting?id='.$mid); ?></li>
 <li><?php echo link_to(__('削除'), 'application/remove?id='.$mid); ?></li>
 <?php else : ?>

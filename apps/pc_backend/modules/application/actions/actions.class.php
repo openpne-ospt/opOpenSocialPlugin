@@ -4,48 +4,46 @@
  * application actions.
  *
  * @package    OpenPNE
- * @subpackage application
+ * @subpackage opOpenSocialPlugin
  * @author     Shogo Kawahara<kawahara@tejimaya.net>
  */
 class applicationActions extends sfActions
 {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
+  /**
+   * Executes index action
+   *
+   * @param sfRequest $request A request object
+   */
   public function executeIndex($request)
   {
     return $this->redirect('application/applicationConfig');
   }
 
- /**
-  * Executes applicationConfig action
-  *
-  * @param sfRequest $request A request object
-  */
+  /**
+   * Executes applicationConfig action
+   *
+   * @param sfRequest $request A request object
+   */
   public function executeApplicationConfig($request)
   {
     $this->applicationConfigForm = new ApplicationConfigForm();
 
-    if (!$request->isMethod(sfRequest::POST))
+    if ($request->isMethod(sfRequest::POST))
     {
-      return sfView::SUCCESS;
-    }
-
-    $this->applicationConfigForm->bind($request->getParameter('application_config'));
-    if ($this->applicationConfigForm->isValid())
-    {
-      $this->applicationConfigForm->save();
+      $this->applicationConfigForm->bind($request->getParameter('application_config'));
+      if ($this->applicationConfigForm->isValid())
+      {
+        $this->applicationConfigForm->save();
+      }
     }
     return sfView::SUCCESS;
   }
 
- /**
-  * Executes list action
-  *
-  * @param sfRequest $request A request object
-  */
+  /**
+   * Executes list action
+   *
+   * @param sfRequest $request A request object
+   */
   public function executeList($request)
   {
     $criteria = new Criteria();
@@ -56,70 +54,65 @@ class applicationActions extends sfActions
     $this->pager->init();
 
     $this->addform = new AddApplicationForm();
-    if (!$request->isMethod('post'))
+    if ($request->isMethod('post'))
+    {
+      $this->addform->bind($request->getParameter('contact'));
+      if ($this->addform->isValid())
+      {
+        $contact = $this->addform->getValues();
+        try
+        {
+          $application = ApplicationPeer::addApplication($contact['application_url'], $this->getUser()->getCulture(),true);      
+        }
+        catch (Exception $e)
+        {
+          return sfView::ERROR;
+        }
+      }
+      else
+      {
+        return sfView::SUCCESS;
+      }
+    }
+    else
     {
       return sfView::SUCCESS;
     }
 
-    $this->addform->bind($request->getParameter('contact'));
-    if (!$this->addform->isValid())
-    {
-      return sfView::SUCCESS;
-    }
-
-    $contact = $this->addform->getValues();
-    try
-    {
-      $application = ApplicationPeer::addApplication($contact['application_url'], $this->getUser()->getCulture(),true);      
-    }
-    catch (Exception $e)
-    {
-      return sfView::ERROR;
-    }
     return $this->redirect('application/info?id='.$application->getId());
   }
 
- /**
-  * Executes info action
-  *
-  * @param sfRequest $request A request object
-  */
+  /**
+   * Executes info action
+   *
+   * @param sfRequest $request A request object
+   */
   public function executeInfo($request)
   {
-    $application_id = $request->getParameter('id',false);
-    if (!$application_id)
-    {
-      return sfView::ERROR;
-    }
-
-    $application = ApplicationPeer::retrieveByPk($application_id);
-    if (!$application)
-    {
-      return sfView::ERROR;
-    }
-
+    $application = ApplicationPeer::retrieveByPk($request->getParameter('id'));
+    $this->forward404Unless($application);
     $this->application = $application;
     return sfView::SUCCESS;
   }
 
- /**
-  * Executes profileSetting action
-  *
-  * @param sfRequest $request A request object
-  */
+  /**
+   * Executes profileSetting action
+   *
+   * @param sfRequest $request A request object
+   */
   public function executeProfileSetting($request)
   {
     $this->profileConfigForm = new OpenSocialPersonFieldConfigForm();
-    if (!$request->isMethod(sfRequest::POST))
+    
+    if ($request->isMethod(sfRequest::POST))
     {
-      return sfView::SUCCESS;
+      $this->profileConfigForm->bind($request->getParameter('opensocial_person_field_config'));
+      if ($this->profileConfigForm->isValid())
+      {
+        $this->profileConfigForm->save();
+      }
     }
     
-    $this->profileConfigForm->bind($request->getParameter('opensocial_person_field_config'));
-    if ($this->profileConfigForm->isValid())
-    {
-      $this->profileConfigForm->save();
-    }
     return sfView::SUCCESS;
   }
 
@@ -130,17 +123,8 @@ class applicationActions extends sfActions
    */
   public function executeDeleteApplication($request)
   {
-    $application_id = $request->getParameter('id', false);
-    if (!$application_id)
-    {
-      return $this->redirect('application/list');
-    }
-
-    $application = ApplicationPeer::retrieveByPk($application_id);
-    if (!$application)
-    {
-      return $this->redirect('application/list');
-    }
+    $application = ApplicationPeer::retrieveByPk($request->getParameter('id'));
+    $this->forward404Unless($application);
 
     if ($request->isMethod(sfRequest::POST))
     {
@@ -158,17 +142,8 @@ class applicationActions extends sfActions
    */
   public function executeUpdateApplication($request)
   {
-    $application_id = $request->getParameter('id',false);
-    if (!$application_id)
-    {
-      return $this->redirect('application/list');
-    }
-
-    $application = ApplicationPeer::retrieveByPk($application_id);
-    if (!$application)
-    {
-      return $this->redirect('application/list');
-    }
+    $application = ApplicationPeer::retrieveByPk($request->getParameter('id'));
+    $this->forward404Unless($application);
 
     try
     {
@@ -178,6 +153,6 @@ class applicationActions extends sfActions
     {
     }
 
-    return $this->redirect('application/info?id='.$application->getId());
+    $this->redirect('application/info?id='.$application->getId());
   }
 }

@@ -4,7 +4,7 @@
  * gadgets actions.
  *
  * @package    OpenPNE
- * @subpackage saOpenSocialPlugin
+ * @subpackage opOpenSocialPlugin
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
 class gadgetsActions extends opOpenSocialServletActions
@@ -64,6 +64,7 @@ class gadgetsActions extends opOpenSocialServletActions
   {
     $class = new opGadgetRenderingServlet();
     self::servletExecute($class);
+    return sfView::NONE;
   }
 
   /**
@@ -75,5 +76,6 @@ class gadgetsActions extends opOpenSocialServletActions
   {
     $class = new MetadataServlet();
     self::servletExecute($class);
+    return sfView::NONE;
   }
 }

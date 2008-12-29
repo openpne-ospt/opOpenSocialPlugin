@@ -25,6 +25,6 @@ else
 {
   echo "off";
 }
-?>" height="<?php echo ($height) ?>" frameborder="no" src="<?php echo $iframe_url ?>" class="gadgets-gadget" name="remote_iframe_<?php echo $mid ?>" id="remote_iframe_<?php echo $mid ?>"></iframe>
+?>" height="<?php echo ($height) ?>" frameborder="no" src="<?php echo $iframeUrl ?>" class="gadgets-gadget" name="remote_iframe_<?php echo $mid ?>" id="remote_iframe_<?php echo $mid ?>"></iframe>
 </div>
 </div></div>

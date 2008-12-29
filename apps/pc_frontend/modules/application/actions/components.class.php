@@ -11,50 +11,50 @@ class applicationComponents extends sfComponents
 {
   public function executeGadget()
   {
-    $member_app = $this->member_app;
-    $mod_id     = $member_app->getId();
-    $this->mid  = $mod_id;
-    $app = $member_app->getApplication();
+    $memberApp = $this->memberApp;
+    $modId     = $memberApp->getId();
+    $this->mid  = $modId;
+    $app = $memberApp->getApplication();
     $this->title = $app->getTitle();
-    $owner_id = $member_app->getMemberId();
-    $app_id   = $app->getId();
-    $url      = $app->getUrl();
+    $ownerId = $memberApp->getMemberId();
+    $appId   = $app->getId();
+    $url     = $app->getUrl();
     $culture = $this->getUser()->getCulture();
     $culture = split("_",$culture);
-    $this->aid       = $app_id;
+    $this->aid       = $appId;
     $this->height    = $app->getHeight() ? $app->getHeight() : 200;
     $this->scrolling = $app->getScrolling();
 
-    $viewer_id = $this->getUser()->getMemberId();
+    $viewerId = $this->getUser()->getMemberId();
 
     $this->isViewer = false;
-    if ($owner_id == $viewer_id)
+    if ($ownerId == $viewerId)
     {
       $this->isViewer = true;
     }
 
     $this->hasSetting = true;
-    if ($member_app->getIsHomeWidget() && !$app->hasSetting())
+    if ($memberApp->getIsHomeWidget() && !$app->hasSetting())
     {
       $this->hasSetting = false;
     }
 
     $securityToken = BasicSecurityToken::createFromValues(
-      $owner_id,  // owner
-      $viewer_id, // viewer
-      $app_id,    // app id
+      $ownerId,  // owner
+      $viewerId, // viewer
+      $appId,    // app id
       'default',  // domain key
       urlencode($url), // app url
-      $mod_id    // mod id
+      $modId    // mod id
     );
 
     $getParams = array(
       'synd'      => 'default',
       'container' => 'default',
-      'owner'     => $owner_id,
-      'viewer'    => $viewer_id,
-      'aid'       => $app_id,
-      'mid'       => $mod_id,
+      'owner'     => $ownerId,
+      'viewer'    => $viewerId,
+      'aid'       => $appId,
+      'mid'       => $modId,
       'country'   => isset($culture[1]) ? $culture[1] : 'US',
       'lang'      => $culture[0],
       'view'      => $this->view,
@@ -63,14 +63,14 @@ class applicationComponents extends sfComponents
       'url'       => $url,
     );
     $criteria = new Criteria();
-    $criteria->add(ApplicationSettingPeer::MEMBER_APPLICATION_ID, $mod_id);
+    $criteria->add(ApplicationSettingPeer::MEMBER_APPLICATION_ID, $modId);
     $app_settings = ApplicationSettingPeer::doSelect($criteria);
     $userpref_param_prefix = Config::get('userpref_param_prefix','up_');
     foreach ($app_settings as $app_setting)
     {
       $getParams[$userpref_param_prefix.$app_setting->getName()] = $app_setting->getValue();
     }
-    $this->iframe_url = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+    $this->iframeUrl = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
   }
 
   public function executeHomeApplication()
