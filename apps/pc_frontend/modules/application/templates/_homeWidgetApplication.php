@@ -10,5 +10,5 @@ if (!empty($memberApplication))
 }
 else
 {
-  include_box('aaaa','aaaaaaaaaaaaa','aaaaaaaaaaaaaaaaaa');
+  include_box('HomeApplicationError', __('エラー'), __('アプリケーションが正常にロードできませんでした。'));
 }
