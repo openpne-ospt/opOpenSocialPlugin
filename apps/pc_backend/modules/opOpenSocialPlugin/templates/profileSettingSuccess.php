@@ -3,7 +3,7 @@
 <?php end_slot() ?>
 
 <h2>OpenSocialAPIプロフィール連動設定</h2>
-<form action="<?php echo url_for('application/profileSetting') ?>" method="post">
+<form action="<?php echo url_for('opOpenSocialPlugin/profileSetting') ?>" method="post">
 <table>
 <th>識別名</th><th>対応先</th>
 <?php echo $profileConfigForm ?>

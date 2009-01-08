@@ -15,7 +15,7 @@
  * @subpackage opOpenSocialPlugin
  * @author     Shogo Kawahara<kawahara@tejimaya.net>
  */
-class applicationActions extends sfActions
+class opOpenSocialPluginActions extends sfActions
 {
   /**
    * Executes index action
@@ -24,7 +24,7 @@ class applicationActions extends sfActions
    */
   public function executeIndex($request)
   {
-    return $this->redirect('application/applicationConfig');
+    return $this->redirect('opOpenSocialPlugin/applicationConfig');
   }
 
   /**
@@ -62,7 +62,7 @@ class applicationActions extends sfActions
     $this->pager->init();
 
     $this->addform = new AddApplicationForm();
-    if ($request->isMethod('post'))
+    if ($request->isMethod(sfRequest::POST))
     {
       $this->addform->bind($request->getParameter('contact'));
       if ($this->addform->isValid())
@@ -70,7 +70,7 @@ class applicationActions extends sfActions
         $contact = $this->addform->getValues();
         try
         {
-          $application = ApplicationPeer::addApplication($contact['application_url'], $this->getUser()->getCulture(),true);      
+          $application = ApplicationPeer::addApplication($contact['application_url'], $this->getUser()->getCulture(),true);
         }
         catch (Exception $e)
         {
@@ -87,7 +87,7 @@ class applicationActions extends sfActions
       return sfView::SUCCESS;
     }
 
-    return $this->redirect('application/info?id='.$application->getId());
+    return $this->redirect('opOpenSocialPlugin/info?id='.$application->getId());
   }
 
   /**
@@ -137,7 +137,7 @@ class applicationActions extends sfActions
     if ($request->isMethod(sfRequest::POST))
     {
       $application->delete();
-      return $this->redirect('application/list');
+      return $this->redirect('opOpenSocialPlugin/list');
     }
 
     return sfView::SUCCESS;
@@ -161,6 +161,6 @@ class applicationActions extends sfActions
     {
     }
 
-    $this->redirect('application/info?id='.$application->getId());
+    $this->redirect('opOpenSocialPlugin/info?id='.$application->getId());
   }
 }

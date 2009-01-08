@@ -41,7 +41,7 @@
 </td></tr>
 <tr><th><?php echo __('引用') ?></th><td><?php echo $application->getAuthorQuote() ?></td></tr>
 <tr><td colspan="2">
-<?php echo link_to(__('削除'),'application/deleteApplication?id='.$sf_request->getParameter('id')) ?> 
-<?php echo link_to(__('更新'),'application/updateApplication?id='.$sf_request->getParameter('id')) ?>
+<?php echo link_to(__('削除'),'opOpenSocialPlugin/deleteApplication?id='.$sf_request->getParameter('id')) ?> 
+<?php echo link_to(__('更新'),'opOpenSocialPlugin/updateApplication?id='.$sf_request->getParameter('id')) ?>
 </td></tr>
 </table>
