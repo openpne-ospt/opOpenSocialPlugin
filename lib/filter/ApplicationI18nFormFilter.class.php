@@ -9,6 +9,12 @@
  */
 class ApplicationI18nFormFilter extends BaseApplicationI18nFormFilter
 {
+  /*
+  public function __construct($defaults = array(), $options = array(), $CSRFSecret = null)
+  {
+    return parent::__construct($defaults, $options, false);
+  }*/
+
   public function configure()
   {
     $this->setWidgets(array(
