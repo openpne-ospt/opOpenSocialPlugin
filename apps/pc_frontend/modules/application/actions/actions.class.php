@@ -151,7 +151,7 @@ class applicationActions extends sfActions
 
     $this->appName = $memberApp->getApplication()->getTitle();
 
-    $applicationSettingForm = new ApplicationSettingForm();
+    $applicationSettingForm = new MemberApplicationSettingForm();
     $memberId = $this->getUser()->getMember()->getId();
     $applicationSettingForm->setConfigWidgets($memberId, $modId);
 
@@ -159,8 +159,8 @@ class applicationActions extends sfActions
 
     if (!$memberApp->getIsHomeWidget())
     {
-      $memberApplicationSettingForm = new MemberApplicationSettingForm($memberApp);
-      $this->forms[] = $memberApplicationSettingForm;
+      $memberApplicationForm = new MemberApplicationForm($memberApp);
+      $this->forms[] = $memberApplicationForm;
     }
 
     if ($request->isMethod(sfRequest::POST))
@@ -168,10 +168,10 @@ class applicationActions extends sfActions
       $valid = true;
       if (!$memberApp->getIsHomeWidget())
       {
-        $memberApplicationSettingForm->bind($request->getParameter('member_app_setting'));
-        if ($memberApplicationSettingForm->isValid())
+        $memberApplicationForm->bind($request->getParameter('member_app_setting'));
+        if ($memberApplicationForm->isValid())
         {
-          $memberApplicationSettingForm->save();
+          $memberApplicationForm->save();
         }
         else
         {

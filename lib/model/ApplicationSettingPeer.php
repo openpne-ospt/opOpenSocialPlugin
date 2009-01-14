@@ -12,16 +12,15 @@
  * Subclass for performing query and update operations on the 'application_setting' table.
  *
  * 
- *
  * @package plugins.opOpenSocialPlugin.lib.model
+ * @author  Shogo Kawahara <kawahara@tejimaya.net>
  */ 
 class ApplicationSettingPeer extends BaseApplicationSettingPeer
 {
-  public static function retrieveByMemberApplicationIdAndName($memberApplicationId, $name)
+  public static function getSettingsByApplicationId($applicationId)
   {
     $criteria = new Criteria();
-    $criteria->add(self::MEMBER_APPLICATION_ID, $memberApplicationId);
-    $criteria->add(self::NAME, $name);
-    return self::doSelectOne($criteria);
+    $criteria->add(self::APPLICATION_ID, $memberApplicationId);
+    return self::doSelect($criteria);
   }
 }

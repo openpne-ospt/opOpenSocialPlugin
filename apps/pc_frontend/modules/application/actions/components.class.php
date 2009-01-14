@@ -70,9 +70,9 @@ class applicationComponents extends sfComponents
       'st'        => base64_encode($securityToken->toSerialForm()),
       'url'       => $url,
     );
-    $criteria = new Criteria();
-    $criteria->add(ApplicationSettingPeer::MEMBER_APPLICATION_ID, $modId);
-    $app_settings = ApplicationSettingPeer::doSelect($criteria);
+
+    $app_settings = MemberApplicationSettingPeer::getSettingsByMemberApplicationId($modId);
+
     $userpref_param_prefix = Config::get('userpref_param_prefix','up_');
     foreach ($app_settings as $app_setting)
     {

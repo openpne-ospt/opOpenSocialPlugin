@@ -9,31 +9,107 @@
  */
 
 /**
- * MemberApplication form.
+ * MemberApplicationSetting form.
  *
- * @package    OpenPNE3
+ * @package    OpenPNE
  * @subpackage form
- * @author     Shogo Kawahara<kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
-class MemberApplicationSettingForm extends BaseMemberApplicationForm
+class MemberApplicationSettingForm extends sfForm
 {
+  public function __construct($appSetting = array(),$options = array(), $CSRFSecret = null)
+  {
+    parent::__construct(array(), $options, $CSRFSecret);
+
+    foreach ($appSetting as $setting)
+    {
+      $this->setDefault($setting->getName(), $setting->getValue());
+    }
+  }
+
   public function configure()
   {
-    $this->setWidgets(array(
-      'is_disp_other' => new sfWidgetFormInputCheckbox(),
-      'is_disp_home'  => new sfWidgetFormInputCheckbox(),
-    ));
+    $this->widgetSchema->setNameFormat('setting[%s]');
+  }
 
-    $this->setValidators(array(
-      'is_disp_other' => new sfValidatorBoolean(array('required' => false)),
-      'is_disp_home'  => new sfValidatorBoolean(array('required' => false)),
-    ));
+  public function setConfigWidgets($memberId, $modId)
+  {
+    $memberApp = MemberApplicationPeer::retrieveByPk($modId);
+    if (!$memberApp)
+    {
+      return false;
+    }
 
-    $this->widgetSchema->setLabels(array(
-      'is_disp_other' => '他のメンバーによる閲覧を許可する',
-      'is_disp_home'  => 'ホーム/プロフィールに表示する',
-    ));
+    if ($memberApp->getMemberId() != $memberId)
+    {
+      return false;
+    }
 
-    $this->widgetSchema->setNameFormat('member_app_setting[%s]');
+    if (!$memberApp->getApplication()->hasSetting())
+    {
+      return false;
+    }
+
+    $settings = $memberApp->getApplication()->getSettings();
+
+    foreach ($settings as $key => $setting)
+    {
+      $param   = array();
+      $choices = array();
+      $param['IsRequired'] = false;
+      $param['Caption'] = $setting['displayName'];
+      if (empty($setting['type']) || $setting['type'] == 'HIDDEN')
+      {
+        continue;
+      }
+      switch ($setting['type'])
+      {
+        case 'BOOL' :
+          $param['FormType']  = 'radio';
+          $choices = array('1' => 'Yes', '0' => 'No');
+          break;
+        case 'ENUM' :
+          $param['FormType'] = 'select';
+          $choices = $setting['enumValues'];
+          break;
+        default :
+          $param['FormType']  = 'textarea';
+          $param['ValueType'] = '';
+      }
+      $this->widgetSchema[$key] = opFormItemGenerator::generateWidget($param, $choices);
+      $this->validatorSchema[$key] = opFormItemGenerator::generateValidator($param, array_keys($choices));
+
+      if ($setting['default'])
+      {
+        $this->setDefault($key, $setting['default']);
+      }
+    }
+
+    $appSettings = MemberApplicationSettingPeer::getSettingsByMemberApplicationId($modId);
+
+    foreach($appSettings as $appSetting)
+    {
+      $this->setDefault($appSetting->getName(), $appSetting->getValue());
+    }
+
+    return true;
+  }
+  
+  public function save($modId)
+  {
+    $values = $this->getValues();
+
+    foreach ($values as $name => $value)
+    {
+      $appSetting = MemberApplicationSettingPeer::retrieveByMemberApplicationIdAndName($modId, $name);
+      if (!$appSetting)
+      {
+        $appSetting = new MemberApplicationSetting();
+        $appSetting->setMemberApplicationId($modId);
+        $appSetting->setName($name);
+      }
+      $appSetting->setValue($value);
+      $appSetting->save();
+    }
   }
 }

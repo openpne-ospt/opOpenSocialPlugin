@@ -39,13 +39,12 @@ class prefsActions extends sfActions
       $token = BasicSecurityToken::createFromToken($st, 60);
       $modId = $token->getModuleId();
       $viewer = $token->getViewerId();
-      $criteria = new Criteria(ApplicationSettingPeer::DATABASE_NAME);
-      $criteria->add(ApplicationSettingPeer::MEMBER_APPLICATION_ID,$modId);
-      $criteria->add(ApplicationSettingPeer::NAME,$key);
-      $appSetting = ApplicationSettingPeer::doSelectOne($criteria);
+      
+      $appSetting = MemberApplicationSettingPeer::retrieveByMemberApplicationIdAndName($modId, $key);
+
       if (empty($appSetting))
       {
-        $appSetting = new ApplicationSetting();
+        $appSetting = new MemberApplicationSetting();
         $appSetting->setMemberApplicationId($modId);
         $appSetting->setName($key);
       }
