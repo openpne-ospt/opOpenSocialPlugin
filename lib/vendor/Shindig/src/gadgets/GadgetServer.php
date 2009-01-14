@@ -123,7 +123,16 @@ class GadgetServer {
 		$substitutor->addSubstitution('BIDI', "END_EDGE", $rtl ? "left" : "right");
 		$substitutor->addSubstitution('BIDI', "DIR", $rtl ? "rtl" : "ltr");
 		$substitutor->addSubstitution('BIDI', "REVERSE_DIR", $rtl ? "ltr" : "rtl");
-		
+
+    foreach ($gadget->userPrefs as $pref)
+    {
+      $pref->displayName = $gadget->getSubstitutions()->substitute($pref->displayName);
+      foreach ($pref->enumValues as &$enum)
+      {
+        $enum = $gadget->getSubstitutions()->substitute($enum);
+      }
+    }
+
 		// userPref's
 		$upValues = $gadget->getUserPrefValues();
 		foreach ($gadget->getUserPrefs() as $pref) {
