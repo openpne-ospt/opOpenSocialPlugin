@@ -36,12 +36,6 @@ propel:
     is_home_widget: { type: boolean, required: true } 
     sort_order: { type: integer }
   
-  application_setting:
-    id: ~
-    application_id: { type: integer, foreignTable: application, foreignReference: id, onDelete: cascade }
-    name: { type: varchar(128), required: true }
-    value: { type: varchar(255), required: true }
-
   member_application_setting:
     id: ~
     member_application_id: { type: integer, foreignTable: member_application, foreignReference: id, onDelete: cascade }
