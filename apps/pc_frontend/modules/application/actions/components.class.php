@@ -12,7 +12,7 @@
  * application components
  *
  * @package    OpenPNE
- * @subpackage saOpenSocialPlugin
+ * @subpackage opOpenSocialPlugin
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
 class applicationComponents extends sfComponents
