@@ -1,5 +1,5 @@
-<?php use_helper('Javascript') ?>
 <?php use_helper('OpenSocial') ?>
+
 <?php if ($isOwner) : ?>
 <?php echo link_to(__('Application Gallery'), 'application/gallery') ?>
 <?php if ($isAddApplication) : ?>

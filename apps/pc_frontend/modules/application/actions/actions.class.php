@@ -184,7 +184,7 @@ class applicationActions extends sfActions
       if ($valid && $applicationSettingForm->isValid())
       {
         $applicationSettingForm->save($modId);
-        $this->redirect('application/canvas?id='.$modId);
+        $this->isValid = true;
       }
 
     }

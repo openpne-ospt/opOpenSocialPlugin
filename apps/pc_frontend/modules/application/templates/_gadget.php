@@ -5,7 +5,7 @@ if ($isViewer)
 {
   if ($hasSetting)
   {
-    echo link_to(__('設定'),"application/setting?id=".$mid);
+    echo link_to_app_setting(__('設定'), $mid, true);
   }
 }
 else

@@ -42,7 +42,7 @@ if ($isOwner)
 <div class="app_option">
 <ul>
 <?php if($isOwner) : ?>
-<li><?php echo link_to(__('設定'), 'application/setting?id='.$mid); ?></li>
+<li><?php echo link_to_app_setting(__('設定'), $mid); ?></li>
 <li><?php echo link_to(__('削除'), 'application/remove?id='.$mid); ?></li>
 <?php else : ?>
 <?php echo link_to(__('このアプリを追加する'), 'application/add?id='.$aid) ?>

@@ -1,6 +1,7 @@
 <?php
 if (!empty($memberApplication))
 {
+  use_helper('OpenSocial');
   include_component('application', 'gadget',
     array(
       'view'       => 'home',

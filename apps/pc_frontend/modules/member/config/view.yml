@@ -2,7 +2,7 @@ homeSuccess:
   javascripts:
     - /application/webprefix
     - /gadgets/js/rpc.js?c=1
-    - http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js
+    - %SF_PROTOTYPE_WEB_DIR%/js/prototype
     - /opOpenSocialPlugin/js/tabs-min
     - /opOpenSocialPlugin/js/container
 
@@ -15,6 +15,6 @@ profileSuccess:
   javascripts:
     - /application/webprefix
     - /gadgets/js/rpc.js?c=1
-    - http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js
+    - %SF_PROTOTYPE_WEB_DIR%/js/prototype
     - /opOpenSocialPlugin/js/tabs-min
     - /opOpenSocialPlugin/js/container
