@@ -16,6 +16,8 @@ canvasSuccess:
 
 settingSuccess:
   layout: plain
+  javascripts:
+    - %SF_PROTOTYPE_WEB_DIR%/js/prototype
 
 jsSuccess:
   has_layout: off

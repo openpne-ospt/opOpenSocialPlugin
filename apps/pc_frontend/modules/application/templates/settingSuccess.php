@@ -1,18 +1,16 @@
 <?php if(isset($isValid) && $isValid): ?>
 <?php use_helper('Javascript') ?>
 <?php echo javascript_tag("
-var modal = parent.document.getElementById('opensocial_modal_box');
-var modalContents = parent.document.getElementById('opensocial_modal_box_contents');
+var modal = parent.$('opensocial_modal_box');
+var modalContents = parent.$('opensocial_modal_box_contents');
 var modalIframe = modalContents.getElementsByTagName('iframe')[0];
-modal.style.display = 'none';
-modalContents.style.display = 'none';
+Element.hide(modal);
+Element.hide(modalContents);
 "); ?>
 <?php if($sf_request->getParameter('is_reload')) : ?>
 <?php echo javascript_tag("
 parent.location.href = parent.location.pathname + parent.location.search;
 ") ?>
-<?php else: ?>
-
 <?php endif ?>
 <?php endif ?>
 

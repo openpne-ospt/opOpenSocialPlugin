@@ -51,5 +51,5 @@ function link_to_app_setting($text, $mid, $isReload = false)
 
 function make_app_setting_modal_box($id)
 {
-  return make_modal_box($id, '<iframe width="400" height="400" frameborder="0"></iframe>', 400, 400);
+  return make_modal_box($id, '<iframe width="400" height="400" frameborder="0"></iframe>');
 }
