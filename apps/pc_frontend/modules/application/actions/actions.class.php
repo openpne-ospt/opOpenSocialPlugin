@@ -68,8 +68,8 @@ class applicationActions extends sfActions
       {
         return sfView::ERROR;
       }
-      sfConfig::set('sf_navi_type', 'friend');
-      sfConfig::set('sf_navi_id', $this->memberApp->getMemberId());
+      sfConfig::set('sf_nav_type', 'friend');
+      sfConfig::set('sf_nav_id', $this->memberApp->getMemberId());
     }
     return sfView::SUCCESS;
   }
@@ -94,7 +94,7 @@ class applicationActions extends sfActions
     $this->memberApps = MemberApplicationPeer::getMemberApplicationList($ownerId, $memberId);
     if (!$this->isOwner)
     {
-      sfConfig::set('sf_navi_type', 'friend');
+      sfConfig::set('sf_nav_type', 'friend');
     }
 
     $this->isAddApplication = false;
