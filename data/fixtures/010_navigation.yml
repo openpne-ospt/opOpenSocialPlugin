@@ -1,22 +1,22 @@
-Navi:
-  default_navi_application:
+Navigation:
+  default_navigation_application:
     type: "default"
     uri: "application/index"
     sort_order: 15
 
-  friend_navi_application:
+  friend_navigation_application:
     type: "friend"
     uri: "application/list"
     sort_order: 25
 
-NaviI18n:
-  default_navi_application_i18n:
-    id: default_navi_application
+NavigationI18n:
+  default_navigation_application_i18n:
+    id: default_navigation_application
     caption: "アプリケーション"
     culture: "ja_JP"
 
-  friend_navi_application_i18n:
-    id: friend_navi_application
+  friend_navigation_application_i18n:
+    id: friend_navigation_application
     caption: "アプリケーション"
     culture: "ja_JP"
 
