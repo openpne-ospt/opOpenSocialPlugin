@@ -47,7 +47,7 @@ class MemberApplicationPeer extends BaseMemberApplicationPeer
   public static function getHomeMemberApplications($memberId, $viewerId, $limit = 3)
   {
     $criteria = new Criteria();
-    $criteria->add(self::IS_HOME_WIDGET, false);
+    $criteria->add(self::IS_GADGET, false);
     $criteria->add(self::MEMBER_ID ,$memberId);
     $criteria->add(self::IS_DISP_HOME, true);
     if ($memberId != $viewerId)
@@ -69,7 +69,7 @@ class MemberApplicationPeer extends BaseMemberApplicationPeer
   public static function getMemberApplicationList($memberId, $viewerId)
   {
     $criteria = new Criteria();
-    $criteria->add(self::IS_HOME_WIDGET, false);
+    $criteria->add(self::IS_GADGET, false);
     $criteria->add(self::MEMBER_ID, $memberId);
     if ($memberId != $viewerId)
     {

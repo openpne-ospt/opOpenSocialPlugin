@@ -42,7 +42,7 @@ class applicationComponents extends sfComponents
     }
 
     $this->hasSetting = true;
-    if ($memberApp->getIsHomeWidget() && !$app->hasSetting())
+    if ($memberApp->getIsGadget() && !$app->hasSetting())
     {
       $this->hasSetting = false;
     }
@@ -85,9 +85,9 @@ class applicationComponents extends sfComponents
   {
   }
 
-  public function executeHomeWidgetApplication()
+  public function executeGadgetApplication()
   {
-    $url = $this->widget->getConfig('url');
+    $url = $this->gadget->getConfig('url');
     if (!$url)
     {
       return null;
@@ -109,7 +109,7 @@ class applicationComponents extends sfComponents
     $applicationId = $application->getId();
     $memberId      = $this->getUser()->getMember()->getId();
     $criteria = new Criteria();
-    $criteria->add(MemberApplicationPeer::IS_HOME_WIDGET, true);
+    $criteria->add(MemberApplicationPeer::IS_GADGET, true);
     $memberApplication = MemberApplicationPeer::retrieveByApplicationIdAndMemberId($applicationId, $memberId, $criteria);
 
     if (!$memberApplication)
@@ -119,7 +119,7 @@ class applicationComponents extends sfComponents
       $memberApplication->setMemberId($memberId);
       $memberApplication->setIsDispOther(true);
       $memberApplication->setIsDispHome(true);
-      $memberApplication->setIsHomeWidget(true);
+      $memberApplication->setIsGadget(true);
       $memberApplication->save();
     }
 

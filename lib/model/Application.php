@@ -59,7 +59,7 @@ class Application extends BaseApplication
   {
     $criteria = new Criteria();
     $criteria->add(MemberApplicationPeer::APPLICATION_ID, parent::getId());
-    $criteria->add(MemberApplicationPeer::IS_HOME_WIDGET, false);
+    $criteria->add(MemberApplicationPeer::IS_GADGET, false);
     return MemberApplicationPeer::doCount($criteria);
   }
 }

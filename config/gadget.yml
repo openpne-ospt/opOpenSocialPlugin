@@ -10,7 +10,7 @@ applicationBox:
     ja_JP: "指定アプリケーションボックス"
   description:
     ja_JP: "特定のOpenSocialアプリケーションをホームに設置します"
-  component: [application, homeWidgetApplication]
+  component: [application, gadgetApplication]
   config:
     url:
       Name:       "url"

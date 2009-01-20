@@ -26,7 +26,7 @@ class applicationActions extends sfActions
   protected function addApplicationToMember(Application $application, $memberId)
   {
     $criteria = new Criteria();
-    $criteria->add(MemberApplicationPeer::IS_HOME_WIDGET, false);
+    $criteria->add(MemberApplicationPeer::IS_GADGET, false);
     $memberApp = MemberApplicationPeer::retrieveByApplicationIdAndMemberId($application->getId(), $memberId, $criteria);
     if ($memberApp)
     {
