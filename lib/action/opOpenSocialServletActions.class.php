@@ -1,7 +1,7 @@
 <?php
 
 /**
- * opOpenSocialServletActions
+ * base actions class for the gadgets and social modules
  *
  * @package    OpenPNE
  * @subpackage action
@@ -28,6 +28,8 @@ abstract class opOpenSocialServletActions extends sfActions
     {
       case sfRequest::GET  : $method = 'doGet';  break;
       case sfRequest::POST : $method = 'doPost'; break;
+      case sfRequest::PUT  : $method = 'doPut'; break;
+      case sfRequest::DELETE : $method = 'doDelete'; break;
     }
     if (is_callable(array($servlet, $method)))
     {

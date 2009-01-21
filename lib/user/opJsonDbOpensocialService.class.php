@@ -83,7 +83,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     return $collection;
   }
 
-  public function getActivities($userIds, $groupId, $appId, $sortBy, $filterBy, $startIndex, $count, $fields, $token)
+  public function getActivities($userIds, $groupId, $appId, $sortBy, $filterBy, $filterOp, $filterValue, $startIndex, $count, $fields, $activityIds ,$token)
   {
     throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
   }

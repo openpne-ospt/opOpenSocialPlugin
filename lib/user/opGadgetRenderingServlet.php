@@ -34,6 +34,12 @@ class opGadgetRenderingServlet extends GadgetRenderingServlet {
       }
     }
 
+    $requires = array();
+    foreach ($gadget->getRequires() as $feature) {
+      $requires[$feature->name] = new EmptyClass();
+    }
+    $gadgetConfig['core.util'] = $requires;
+
     foreach($gadgetConfig as $key => &$gc)
     {
       if ($key == "opensocial-0.8")
