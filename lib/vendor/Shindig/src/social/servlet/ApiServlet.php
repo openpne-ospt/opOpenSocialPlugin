@@ -82,7 +82,7 @@ abstract class ApiServlet extends HttpServlet {
     if ($appUrl && $signature) {
       //if ($appUrl && $signature && $userId) {
       // look up the user and perms for this oauth request
-      $oauthLookupService = Config::get('oauth_lookup_service');
+      $oauthLookupService = Shindig_Config::get('oauth_lookup_service');
       $oauthLookupService = new $oauthLookupService();
       $token = $oauthLookupService->getSecurityToken($request, $appUrl, $userId);
       if ($token) {
@@ -96,14 +96,14 @@ abstract class ApiServlet extends HttpServlet {
     // look for encrypted security token
     $token = isset($_POST['st']) ? $_POST['st'] : (isset($_GET['st']) ? $_GET['st'] : '');
     if (empty($token)) {
-      if (Config::get('allow_anonymous_token')) {
+      if (Shindig_Config::get('allow_anonymous_token')) {
         // no security token, continue anonymously, remeber to check
         // for private profiles etc in your code so their not publicly
         // accessable to anoymous users! Anonymous == owner = viewer = appId = modId = 0
         // create token with 0 values, no gadget url, no domain and 0 duration
         
         //FIXME change this to a new AnonymousToken when reworking auth token
-        $gadgetSigner = Config::get('security_token');
+        $gadgetSigner = Shindig_Config::get('security_token');
         return new $gadgetSigner(null, 0, 0, 0, 0, '', '', 0);
       } else {
         return null;
@@ -112,7 +112,7 @@ abstract class ApiServlet extends HttpServlet {
     if (count(explode(':', $token)) != 6) {
       $token = urldecode(base64_decode($token));
     }
-    $gadgetSigner = Config::get('security_token_signer');
+    $gadgetSigner = Shindig_Config::get('security_token_signer');
     $gadgetSigner = new $gadgetSigner();
     return $gadgetSigner->createToken($token);
   }

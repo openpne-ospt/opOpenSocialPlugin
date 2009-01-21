@@ -26,7 +26,7 @@ class PersonHandler extends DataRequestHandler {
   private static $DEFAULT_FIELDS = array('ID', 'NAME', 'GENDER', 'THUMBNAIL_URL');
 
   public function __construct() {
-    $service = Config::get('person_service');
+    $service = Shindig_Config::get('person_service');
     $this->personService = new $service();
   }
 

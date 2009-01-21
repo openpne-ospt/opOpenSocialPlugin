@@ -23,7 +23,7 @@
  * and contains all the gadget information.
  *
  */
-class Gadget {
+class Shindig_Gadget {
   private $jsLibraries;
   private $substitutions;
   private $userPrefValues;

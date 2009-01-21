@@ -24,7 +24,7 @@ class ActivityHandler extends DataRequestHandler {
   private static $ACTIVITY_ID_PATH = "/activities/{userId}/{groupId}/{activityId}";
 
   public function __construct() {
-    $service = Config::get('activity_service');
+    $service = Shindig_Config::get('activity_service');
     $this->service = new $service();
   }
 

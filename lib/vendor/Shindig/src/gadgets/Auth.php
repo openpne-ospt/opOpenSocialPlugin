@@ -18,7 +18,7 @@
  * under the License.
  */
 
-class Auth {
+class Shindig_Auth {
   
   public static $NONE = "NONE";
   public static $SIGNED = "SIGNED";
@@ -31,16 +31,16 @@ class Auth {
   public static function parse($value) {
     if (! empty($value)) {
       $value = trim($value);
-      if (strlen($value) == 0) return Auth::$NONE;
-      if (strtoupper($value) == Auth::$SIGNED) {
-        return Auth::$SIGNED;
-      } else if (strtoupper($value) == Auth::$AUTHENTICATED) {
-        return Auth::$AUTHENTICATED;
+      if (strlen($value) == 0) return Shindig_Auth::$NONE;
+      if (strtoupper($value) == Shindig_Auth::$SIGNED) {
+        return Shindig_Auth::$SIGNED;
+      } else if (strtoupper($value) == Shindig_Auth::$AUTHENTICATED) {
+        return Shindig_Auth::$AUTHENTICATED;
       } else {
-        return Auth::$NONE;
+        return Shindig_Auth::$NONE;
       }
     } else {
-      return Auth::$NONE;
+      return Shindig_Auth::$NONE;
     }
   }
 

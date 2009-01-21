@@ -39,11 +39,11 @@ class BasicSecurityTokenDecoder extends SecurityTokenDecoder {
     try {
       //TODO remove this once we have a better way to generate a fake token
       // in the example files
-      if (Config::get('allow_plaintext_token') && count(explode(':', $stringToken)) == 6) {
+      if (Shindig_Config::get('allow_plaintext_token') && count(explode(':', $stringToken)) == 6) {
         $tokens = explode(":", $stringToken);
         return new BasicSecurityToken(null, null, urldecode($tokens[$this->OWNER_INDEX]), urldecode($tokens[$this->VIEWER_INDEX]), urldecode($tokens[$this->APP_ID_INDEX]), urldecode($tokens[$this->CONTAINER_INDEX]), urldecode($tokens[$this->APP_URL_INDEX]), urldecode($tokens[$this->MODULE_ID_INDEX]));
       } else {
-        return BasicSecurityToken::createFromToken($stringToken, Config::get('token_max_age'));
+        return BasicSecurityToken::createFromToken($stringToken, Shindig_Config::get('token_max_age'));
       }
     } catch (Exception $e) {
       throw new GadgetException('INVALID_GADGET_TOKEN');

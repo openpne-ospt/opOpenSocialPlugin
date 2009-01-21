@@ -68,7 +68,7 @@ class BasicGadgetOAuthTokenStore extends GadgetOAuthTokenStore {
     $keyType = 'HMAC_SYMMETRIC';
     if ($keyTypeStr == "RSA_PRIVATE") {
       $keyType = 'RSA_PRIVATE';
-      $cache = Config::get('data_cache');
+      $cache = Shindig_Config::get('data_cache');
       $cache = new $cache();
       if (($cachedRequest = $cache->get(md5("RSA_KEY_" . $serviceName))) !== false) {
         $consumerSecret = $cachedRequest;

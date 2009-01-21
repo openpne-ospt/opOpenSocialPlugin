@@ -23,5 +23,5 @@
  * WRONG URL -> http://code.google.com/apis/opensocial/docs/0.7/reference/opensocial.Photo.Field.html
  *
  */
-class Photo extends ListField {
+class Shindig_Photo extends ListField {
 }

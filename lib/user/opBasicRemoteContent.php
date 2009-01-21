@@ -18,7 +18,7 @@ class opBasicRemoteContent extends RemoteContent {
 
 	public function fetch($request, $context)
 	{
-		$cache = Config::get('data_cache');
+		$cache = Shindig_Config::get('data_cache');
 		$cache = new $cache();
 		$remoteContentFetcher = new opBasicRemoteContentFetcher();
 		if (! ($request instanceof RemoteContentRequest)) {
@@ -39,7 +39,7 @@ class opBasicRemoteContent extends RemoteContent {
 
 	public function multiFetch(Array $requests, Array $contexts)
 	{
-		$cache = Config::get('data_cache');
+		$cache = Shindig_Config::get('data_cache');
 		$cache = new $cache();
 		$remoteContentFetcher = new opBasicRemoteContentFetcher();
 		

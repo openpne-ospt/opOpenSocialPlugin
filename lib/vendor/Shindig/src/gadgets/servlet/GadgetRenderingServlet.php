@@ -95,7 +95,7 @@ class GadgetRenderingServlet extends HttpServlet {
     echo "<html><body>";
     echo "<h1>Error</h1>";
     echo $e->getMessage();
-    if (Config::get('debug')) {
+    if (Shindig_Config::get('debug')) {
       echo "<p><b>Debug backtrace</b></p><div style='overflow:auto; height:300px; border:1px solid #000000'><pre>";
       print_r(debug_backtrace());
       echo "</pre></div>>";
@@ -139,7 +139,7 @@ class GadgetRenderingServlet extends HttpServlet {
     $forcedLibs = $context->getForcedJsLibs();
     // allow the &libs=.. param to override our forced js libs configuration value
     if (empty($forcedLibs)) {
-      $forcedLibs = Config::get('focedJsLibs');
+      $forcedLibs = Shindig_Config::get('focedJsLibs');
     }
     $this->setContentType("text/html; charset=UTF-8");
     if ($context->getIgnoreCache()) {
@@ -153,21 +153,21 @@ class GadgetRenderingServlet extends HttpServlet {
       $this->setCacheTime(5 * 60);
     }
     // Was a privacy policy header configured? if so set it
-    if (Config::get('P3P') != '') {
-      header("P3P: " . Config::get('P3P'));
+    if (Shindig_Config::get('P3P') != '') {
+      header("P3P: " . Shindig_Config::get('P3P'));
     }
     if (! $view->getQuirks()) {
       $content .= "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n";
     }
-    $content .= "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/><style type=\"text/css\">" . Config::get('gadget_css') . "</style></head><body>\n";
+    $content .= "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/><style type=\"text/css\">" . Shindig_Config::get('gadget_css') . "</style></head><body>\n";
     // Forced libs first.
     if (! empty($forcedLibs)) {
       $libs = explode(':', $forcedLibs);
-      $content .= sprintf($externFmt, Config::get('default_js_prefix') . $this->getJsUrl($libs, $gadget) . "&container=" . $context->getContainer()) . "\n";
+      $content .= sprintf($externFmt, Shindig_Config::get('default_js_prefix') . $this->getJsUrl($libs, $gadget) . "&container=" . $context->getContainer()) . "\n";
     }
 
     // web_prefix lib
-    $content .= sprintf($externFmt, Config::get('web_prefix'). '/application/webprefix.js')."\n";
+    $content .= sprintf($externFmt, Shindig_Config::get('web_prefix'). '/application/webprefix.js')."\n";
 
     $content .= "<script>\n";
     
@@ -227,7 +227,7 @@ class GadgetRenderingServlet extends HttpServlet {
     // TODO: userprefs on the fragment rather than query string
     $query .= $this->getPrefsQueryString($gadget->getUserPrefValues());
     $libs = array();
-    $forcedLibs = Config::get('focedJsLibs');
+    $forcedLibs = Shindig_Config::get('focedJsLibs');
     if ($forcedLibs == null) {
       $reqs = $gadget->getRequires();
       foreach ($reqs as $key => $val) {
@@ -257,7 +257,7 @@ class GadgetRenderingServlet extends HttpServlet {
    */
   private function appendLibsToQuery($libs, $gadget) {
     $ret = "&";
-    $ret .= Config::get('libs_param_name');
+    $ret .= Shindig_Config::get('libs_param_name');
     $ret .= "=";
     $ret .= $this->getJsUrl($libs, $gadget);
     return $ret;
@@ -274,7 +274,7 @@ class GadgetRenderingServlet extends HttpServlet {
     $ret = '';
     foreach ($prefVals->getPrefs() as $key => $val) {
       $ret .= '&';
-      $ret .= Config::get('userpref_param_prefix');
+      $ret .= Shindig_Config::get('userpref_param_prefix');
       $ret .= urlencode($key);
       $ret .= '=';
       $ret .= urlencode($val);
@@ -370,9 +370,9 @@ class GadgetRenderingServlet extends HttpServlet {
    *
    * @param gadget
    */
-  private function appendPreloads(Gadget $gadget, GadgetContext $context) {
+  private function appendPreloads(Shindig_Gadget $gadget, GadgetContext $context) {
     $resp = Array();
-    $gadgetSigner = Config::get('security_token_signer');
+    $gadgetSigner = Shindig_Config::get('security_token_signer');
     $gadgetSigner = new $gadgetSigner();
     $token = '';
     try {
@@ -385,7 +385,7 @@ class GadgetRenderingServlet extends HttpServlet {
     $signedRequests = Array();
     foreach ($gadget->getPreloads() as $preload) {
       try {
-        if (($preload->getAuth() == Auth::$NONE || $token != null) && (count($preload->getViews()) == 0 || in_array($context->getView(), $preload->getViews()))) {
+        if (($preload->getAuth() == Shindig_Auth::$NONE || $token != null) && (count($preload->getViews()) == 0 || in_array($context->getView(), $preload->getViews()))) {
           $request = new RemoteContentRequest($preload->getHref());
           $request->createRemoteContentRequestWithUri($preload->getHref());
           $request->getOptions()->ownerSigned = $preload->isSignOwner();
@@ -398,7 +398,7 @@ class GadgetRenderingServlet extends HttpServlet {
               break;
             case "SIGNED":
               //						Unify all signed requests to one single multi request
-              $signingFetcherFactory = new SigningFetcherFactory(Config::get("private_key_file"));
+              $signingFetcherFactory = new SigningFetcherFactory(Shindig_Config::get("private_key_file"));
               $fetcher = $signingFetcherFactory->getSigningFetcher(new BasicRemoteContentFetcher(), $token);
               $req = $fetcher->signRequest($preload->getHref(), $request->getMethod());
               $req->setNotSignedUri($preload->getHref());

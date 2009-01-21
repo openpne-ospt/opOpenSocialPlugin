@@ -77,7 +77,7 @@ class CacheFile extends Cache {
     // use the first 2 characters of the hash as a directory prefix
     // this should prevent slowdowns due to huge directory listings
     // and thus give some basic amount of scalability
-    return Config::get('cache_root') . '/' . substr($hash, 0, 2);
+    return Shindig_Config::get('cache_root') . '/' . substr($hash, 0, 2);
   }
 
   private function getCacheFile($hash) {
@@ -87,7 +87,7 @@ class CacheFile extends Cache {
   public function get($key, $expiration = false) {
     if (! $expiration) {
       // if no expiration time was given, fall back on the global config
-      $expiration = Config::get('cache_time');
+      $expiration = Shindig_Config::get('cache_time');
     }
     $cacheFile = $this->getCacheFile($key);
     // See if this cache file is locked, if so we wait upto 5 seconds for the lock owning process to

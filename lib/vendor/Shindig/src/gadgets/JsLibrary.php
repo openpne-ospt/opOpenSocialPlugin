@@ -37,8 +37,8 @@ class JsLibrary {
 
   public function getContent() {
     if (! $this->loaded && $this->type == 'FILE') {
-      if (Config::get('compress_javascript')) {
-        $dataCache = Config::get('data_cache');
+      if (Shindig_Config::get('compress_javascript')) {
+        $dataCache = Shindig_Config::get('data_cache');
         $dataCache = new $dataCache();
         if (! ($content = $dataCache->get(md5($this->content)))) {
           $content = JsMin::minify(JsLibrary::loadData($this->content, $this->type));
@@ -84,7 +84,7 @@ class JsLibrary {
     if (empty($fileName) || (strpos($fileName, 'res://') !== false)) {
       return '';
     }
-    if (Config::get('debug')) {
+    if (Shindig_Config::get('debug')) {
       if (! Shindig_File::exists($fileName)) {
         throw new Exception("JsLibrary file missing: $fileName");
       }

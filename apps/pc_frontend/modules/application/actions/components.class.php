@@ -73,7 +73,7 @@ class applicationComponents extends sfComponents
 
     $app_settings = MemberApplicationSettingPeer::getSettingsByMemberApplicationId($modId);
 
-    $userpref_param_prefix = Config::get('userpref_param_prefix','up_');
+    $userpref_param_prefix = Shindig_Config::get('userpref_param_prefix','up_');
     foreach ($app_settings as $app_setting)
     {
       $getParams[$userpref_param_prefix.$app_setting->getName()] = $app_setting->getValue();

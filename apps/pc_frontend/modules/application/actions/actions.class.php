@@ -144,7 +144,7 @@ class applicationActions extends sfActions
       return sfView::ERROR;
     }
 
-    if ($memberApp->getIsHomeWidget() && !$memberApp->getApplication()->hasSetting())
+    if ($memberApp->getIsGadget() && !$memberApp->getApplication()->hasSetting())
     {
       $this->forward404();
     }
@@ -157,7 +157,7 @@ class applicationActions extends sfActions
 
     $this->forms = array($applicationSettingForm);
 
-    if (!$memberApp->getIsHomeWidget())
+    if (!$memberApp->getIsGadget())
     {
       $memberApplicationForm = new MemberApplicationForm($memberApp);
       $this->forms[] = $memberApplicationForm;
@@ -166,7 +166,7 @@ class applicationActions extends sfActions
     if ($request->isMethod(sfRequest::POST))
     {
       $valid = true;
-      if (!$memberApp->getIsHomeWidget())
+      if (!$memberApp->getIsGadget())
       {
         $memberApplicationForm->bind($request->getParameter('member_app_setting'));
         if ($memberApplicationForm->isValid())
@@ -246,7 +246,7 @@ class applicationActions extends sfActions
       return sfView::ERROR;
     }
 
-    if ($memberApp->getIsHomeWidget())
+    if ($memberApp->getIsGadget())
     {
       return sfView::ERROR;
     }

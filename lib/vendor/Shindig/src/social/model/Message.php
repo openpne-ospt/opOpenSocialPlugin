@@ -25,7 +25,7 @@
  * see
  * http://www.opensocial.org/Technical-Resources/opensocial-spec-v081/opensocial-reference#opensocial.Message
  */
-class Message {
+class Shindig_Message{
   public $body;
   public $title;
   public $type;

@@ -59,7 +59,7 @@ class GadgetContext {
   }
 
   private function getRefreshIntervalParam() {
-    return isset($_GET['refresh']) ? $_GET['refresh'] : Config::get('cache_time');
+    return isset($_GET['refresh']) ? $_GET['refresh'] : Shindig_Config::get('cache_time');
   }
 
   private function getContainerParam() {
@@ -104,7 +104,7 @@ class GadgetContext {
   }
 
   private function instanceBlacklist() {
-    $blackListClass = Config::get('blacklist_class');
+    $blackListClass = Shindig_Config::get('blacklist_class');
     if (! empty($blackListClass)) {
       return new $blackListClass();
     } else {
@@ -114,7 +114,7 @@ class GadgetContext {
 
   private function instanceUserPrefs() {
     $prefs = array();
-    $userPrefParamPrefix = Config::get('userpref_param_prefix');
+    $userPrefParamPrefix = Shindig_Config::get('userpref_param_prefix');
     foreach ($_GET as $key => $val) {
       if (substr($key, 0, strlen($userPrefParamPrefix)) == $userPrefParamPrefix) {
         $name = substr($key, strlen($userPrefParamPrefix));
@@ -129,21 +129,21 @@ class GadgetContext {
   }
 
   private function instanceHttpFetcher() {
-    $remoteContent = Config::get('remote_content');
+    $remoteContent = Shindig_Config::get('remote_content');
     return new $remoteContent();
   }
 
   private function instanceCache() {
-    $dataCache = Config::get('data_cache');
+    $dataCache = Shindig_Config::get('data_cache');
     return new $dataCache();
   }
 
   private function instanceRegistry() {
     // Profiling showed 40% of the processing time was spend in the feature registry
     // So by caching this and making it a one time initialization, we almost double the performance
-    if (! ($registry = $this->getCache()->get(md5(Config::get('features_path'))))) {
-      $registry = new GadgetFeatureRegistry(Config::get('features_path'));
-      $this->getCache()->set(md5(Config::get('features_path')), $registry);
+    if (! ($registry = $this->getCache()->get(md5(Shindig_Config::get('features_path'))))) {
+      $registry = new GadgetFeatureRegistry(Shindig_Config::get('features_path'));
+      $this->getCache()->set(md5(Shindig_Config::get('features_path')), $registry);
     }
     return $registry;
   }
@@ -156,7 +156,7 @@ class GadgetContext {
   }
 
   private function instanceContainerConfig() {
-    return new ContainerConfig(Config::get('container_path'));
+    return new ContainerConfig(Shindig_Config::get('container_path'));
   }
 
   public function getContainer() {

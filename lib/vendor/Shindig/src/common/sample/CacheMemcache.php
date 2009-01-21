@@ -31,11 +31,11 @@ class CacheMemcache extends Cache {
     if (! function_exists('memcache_connect')) {
       throw new CacheException("Memcache functions not available");
     }
-    if (Config::get('cache_host') == '' || Config::get('cache_port') == '') {
+    if (Shindig_Config::get('cache_host') == '' || Shindig_Config::get('cache_port') == '') {
       throw new CacheException("You need to configure a cache server host and port to use the memcache backend");
     }
-    $this->host = Config::get('cache_host');
-    $this->port = Config::get('cache_port');
+    $this->host = Shindig_Config::get('cache_host');
+    $this->port = Shindig_Config::get('cache_port');
   }
 
   private function isLocked($key) {
@@ -93,7 +93,7 @@ class CacheMemcache extends Cache {
     $this->check();
     if (! $expiration) {
       // default to global cache time
-      $expiration = Config::Get('cache_time');
+      $expiration = Shindig_ConfigGet('cache_time');
     }
     if (($ret = @memcache_get($this->connection, $key)) === false) {
       return false;
@@ -109,7 +109,7 @@ class CacheMemcache extends Cache {
     $this->check();
     // we store it with the cache_time default expiration so objects will atleast get cleaned eventually.
     if (@memcache_set($this->connection, $key, array('time' => time(), 
-        'data' => $value), false, Config::Get('cache_time')) == false) {
+        'data' => $value), false, Shindig_ConfigGet('cache_time')) == false) {
       throw new CacheException("Couldn't store data in cache");
     }
   }

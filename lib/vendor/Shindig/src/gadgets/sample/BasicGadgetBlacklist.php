@@ -29,7 +29,7 @@ class BasicGadgetBlacklist implements GadgetBlacklist {
 
   public function __construct($file = false) {
     if (! $file) {
-      $file = Config::get('base_path') . '/blacklist.txt';
+      $file = Shindig_Config::get('base_path') . '/blacklist.txt';
     }
     if (Shindig_File::exists($file)) {
       $this->rules = explode("\n", @file_get_contents($file));

@@ -55,9 +55,9 @@ class ProxyServlet extends HttpServlet {
       }
       $signingFetcherFactory = $gadgetSigner = false;
       if (! empty($_GET['authz']) || ! empty($_POST['authz'])) {
-        $gadgetSigner = Config::get('security_token_signer');
+        $gadgetSigner = Shindig_Config::get('security_token_signer');
         $gadgetSigner = new $gadgetSigner();
-        $signingFetcherFactory = new SigningFetcherFactory(Config::get("private_key_file"));
+        $signingFetcherFactory = new SigningFetcherFactory(Shindig_Config::get("private_key_file"));
       }
       $proxyHandler = new ProxyHandler($context, $signingFetcherFactory);
       if (! empty($_GET['output']) && $_GET['output'] == 'js') {

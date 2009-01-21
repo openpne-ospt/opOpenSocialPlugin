@@ -190,7 +190,7 @@ class OAuthSignatureMethod_RSA_SHA1 extends OAuthSignatureMethod {
     // there is no phrase required, but for signed requests too, which do require it
     // this is a dirty hack to make it work .. kinda
     if (! $privatekeyid = @openssl_pkey_get_private($cert)) {
-      if (! $privatekeyid = @openssl_pkey_get_private($cert, Config::get('private_key_phrase') != '' ? (Config::get('private_key_phrase')) : null)) {
+      if (! $privatekeyid = @openssl_pkey_get_private($cert, Shindig_Config::get('private_key_phrase') != '' ? (Shindig_Config::get('private_key_phrase')) : null)) {
         throw new Exception("Could not load private key");
       }
     }

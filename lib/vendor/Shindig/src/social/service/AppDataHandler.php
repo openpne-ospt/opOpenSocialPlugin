@@ -23,7 +23,7 @@ class AppDataHandler extends DataRequestHandler {
   private $service;
 
   public function __construct() {
-    $service = Config::get('app_data_service');
+    $service = Shindig_Config::get('app_data_service');
     $this->service = new $service();
   }
 

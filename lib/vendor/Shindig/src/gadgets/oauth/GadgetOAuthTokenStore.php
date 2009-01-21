@@ -138,7 +138,7 @@ class GadgetOAuthTokenStore {
    * @param spec
    * @return a GadgetInfo
    */
-  public static function getProviderInfo(Gadget $spec, $serviceName) {
+  public static function getProviderInfo(Shindig_Gadget $spec, $serviceName) {
     $oauthSpec = $spec->getOAuthSpec();
     if ($oauthSpec == null) {
       $message = "gadget spec is missing /ModulePrefs/OAuth section";

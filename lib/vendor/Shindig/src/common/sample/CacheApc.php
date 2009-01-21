@@ -67,7 +67,7 @@ class CacheApc extends Cache {
   public function get($key, $expiration = false) {
     if (! $expiration) {
       // default to global cache time
-      $expiration = Config::Get('cache_time');
+      $expiration = Shindig_ConfigGet('cache_time');
     }
     if (($ret = @apc_fetch($key)) === false) {
       return false;
@@ -81,7 +81,7 @@ class CacheApc extends Cache {
 
   public function set($key, $value) {
     // we store it with the cache_time default expiration so objects will atleast get cleaned eventually.
-    if (@apc_store($key, array('time' => time(), 'data' => serialize($value)), Config::Get('cache_time')) == false) {
+    if (@apc_store($key, array('time' => time(), 'data' => serialize($value)), Shindig_ConfigGet('cache_time')) == false) {
       throw new CacheException("Couldn't store data in cache");
     }
   }

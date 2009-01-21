@@ -27,4 +27,6 @@ $shindigConfig = array(
 
   'cache_time' => SnsConfigPeer::get('application_cache_time', 60*60),
   'cache_root' => sfConfig::get('sf_app_cache_dir').'/plugins/opOpenSocialPlugin',
+
+  'curl_connection_timeout' => '15',
 );

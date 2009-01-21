@@ -58,7 +58,7 @@ class JsServlet extends HttpServlet {
     }
     $found = array();
     $missing = array();
-    $registry = new GadgetFeatureRegistry(Config::get('features_path'));
+    $registry = new GadgetFeatureRegistry(Shindig_Config::get('features_path'));
     if ($registry->getIncludedFeatures($needed, $found, $missing)) {
       $containerParam = isset($_GET["c"]) ? $_GET["c"] : '';
       $context = $containerParam == '1' ? 'CONTAINER' : 'GADGET';

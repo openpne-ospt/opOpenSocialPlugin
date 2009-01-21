@@ -32,7 +32,7 @@ class CertServlet extends HttpServlet {
    * so this function has no logic other then to output the cert
    */
   public function doGet() {
-    $file = Config::get('public_key_file');
+    $file = Shindig_Config::get('public_key_file');
     if (! file_exists($file) || ! is_readable($file)) {
       throw new Exception("Invalid public key location ($file), check config and file permissions");
     }

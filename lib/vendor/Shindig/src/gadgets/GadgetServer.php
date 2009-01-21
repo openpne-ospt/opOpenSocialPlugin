@@ -113,7 +113,7 @@ class GadgetServer {
     return null;
   }
 
-  private function featuresLoad(Gadget $gadget, $context) {
+  private function featuresLoad(Shindig_Gadget $gadget, $context) {
     //NOTE i've been a bit liberal here with folding code into this function, while it did get a bit long, the many include()'s are slowing us down
     // get the message bundle for this gadget
     $bundle = $this->getBundle($context, $gadget);
@@ -203,7 +203,7 @@ class GadgetServer {
     }
   }
 
-  private function substitutePreloads(Gadget $gadget, $substituter) {
+  private function substitutePreloads(Shindig_Gadget $gadget, $substituter) {
     $preloads = array();
     foreach ($gadget->preloads as $preload) {
       $preloads[] = $preload->substitute($substituter);

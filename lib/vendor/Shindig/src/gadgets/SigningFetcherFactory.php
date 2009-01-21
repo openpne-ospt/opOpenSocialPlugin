@@ -42,7 +42,7 @@ class SigningFetcherFactory {
    * @param keyFile The file containing your private key for signing requests.
    */
   public function __construct($keyFile = null) {
-    $this->keyName = 'http://' . $_SERVER["HTTP_HOST"] . Config::get('web_prefix') . '/public.cer';
+    $this->keyName = 'http://' . $_SERVER["HTTP_HOST"] . Shindig_Config::get('web_prefix') . '/public.cer';
     if (! empty($keyFile)) {
       $rsa_private_key = false;
       $privateKey = null;
@@ -57,7 +57,7 @@ class SigningFetcherFactory {
         if (! $rsa_private_key) {
           $rsa_private_key = '';
         } else {
-          $phrase = Config::get('private_key_phrase') != '' ? (Config::get('private_key_phrase')) : null;
+          $phrase = Shindig_Config::get('private_key_phrase') != '' ? (Shindig_Config::get('private_key_phrase')) : null;
           if (strpos($rsa_private_key, "-----BEGIN") === false) {
             $privateKey .= "-----BEGIN PRIVATE KEY-----\n";
             $chunks = str_split($rsa_private_key, 64);

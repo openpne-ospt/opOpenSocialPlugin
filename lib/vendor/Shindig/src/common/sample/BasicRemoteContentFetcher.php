@@ -33,11 +33,11 @@ class BasicRemoteContentFetcher extends RemoteContentFetcher {
     curl_setopt($request->handle, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($request->handle, CURLOPT_AUTOREFERER, 1);
     curl_setopt($request->handle, CURLOPT_MAXREDIRS, 10);
-    curl_setopt($request->handle, CURLOPT_CONNECTTIMEOUT, Config::get('curl_connection_timeout'));
+    curl_setopt($request->handle, CURLOPT_CONNECTTIMEOUT, Shindig_Config::get('curl_connection_timeout'));
     curl_setopt($request->handle, CURLOPT_TIMEOUT, 2);
     curl_setopt($request->handle, CURLOPT_HEADER, 1);
     curl_setopt($request->handle, CURLOPT_SSL_VERIFYPEER, 0);
-    $proxy = Config::get('proxy');
+    $proxy = Shindig_Config::get('proxy');
     if (! empty($proxy)) {
       curl_setopt($request->handle, CURLOPT_PROXY, $proxy);
     }
@@ -93,14 +93,14 @@ class BasicRemoteContentFetcher extends RemoteContentFetcher {
       curl_setopt($request->handle, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($request->handle, CURLOPT_AUTOREFERER, 1);
       curl_setopt($request->handle, CURLOPT_MAXREDIRS, 10);
-      curl_setopt($request->handle, CURLOPT_CONNECTTIMEOUT, Config::get('curl_connection_timeout'));
+      curl_setopt($request->handle, CURLOPT_CONNECTTIMEOUT, Shindig_Config::get('curl_connection_timeout'));
       curl_setopt($request->handle, CURLOPT_TIMEOUT, 2);
       curl_setopt($request->handle, CURLOPT_HEADER, 1);
       curl_setopt($request->handle, CURLOPT_SSL_VERIFYPEER, 0);
       // Set this so the multihandler will return data
       curl_setopt($request->handle, CURLOPT_RETURNTRANSFER, 1);
       
-      $proxy = Config::get('proxy');
+      $proxy = Shindig_Config::get('proxy');
       if (! empty($proxy)) {
         curl_setopt($request->handle, CURLOPT_PROXY, $proxy);
       }

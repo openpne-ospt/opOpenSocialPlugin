@@ -22,7 +22,7 @@
 class BasicRemoteContent extends RemoteContent {
 
   public function fetch($request, $context) {
-    $cache = Config::get('data_cache');
+    $cache = Shindig_Config::get('data_cache');
     $cache = new $cache();
     $remoteContentFetcher = new BasicRemoteContentFetcher();
     if (! ($request instanceof RemoteContentRequest)) {
@@ -42,7 +42,7 @@ class BasicRemoteContent extends RemoteContent {
   }
 
   public function multiFetch(Array $requests, Array $contexts) {
-    $cache = Config::get('data_cache');
+    $cache = Shindig_Config::get('data_cache');
     $cache = new $cache();
     $remoteContentFetcher = new BasicRemoteContentFetcher();
     

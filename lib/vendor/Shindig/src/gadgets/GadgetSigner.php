@@ -35,7 +35,7 @@ abstract class GadgetSigner {
    * following function will always returns a valid SecurityToken:
    *
    * <code>
-   * SecurityToken testToken(Gadget gadget, GadgetSigner signer) {
+   * SecurityToken testToken(Shindig_Gadget gadget, GadgetSigner signer) {
    *   SecurityToken token = signer.createToken(gadget);
    *   return signer.createToken(token.toSerialForm());
    * }

@@ -24,7 +24,7 @@ class MessagesHandler extends DataRequestHandler {
   private $service;
 
   public function __construct() {
-    $service = Config::get('messages_service');
+    $service = Shindig_Config::get('messages_service');
     $this->service = new $service();
   }
 

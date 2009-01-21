@@ -20,7 +20,7 @@
 
 class ContentRewriter {
 
-  public function rewriteGadgetView(Gadget $gadget, ViewSpec $gadgetView) {
+  public function rewriteGadgetView(Shindig_Gadget $gadget, ViewSpec $gadgetView) {
     // Dont rewrite content if the spec is unavailable
     $requires = $gadget->getRequires();
     if (isset($requires[ContentRewriteFeature::$REWRITE_TAG])) {
@@ -46,7 +46,7 @@ class ContentRewriter {
         $htmlTags = $defaultTags;
       }
     }
-    $gadgetView->setRewrittenContent($this->rewrite($gadgetView->getContent(), $htmlTags, $rewriteFeature->getExcludeParam(), $rewriteFeature->getIncludeParam(), Config::get('web_prefix') . ContentRewriteFeature::$PROXY_URL, $gadget->getId()->getURI(), $rewriteFeature->getTagsParam()));
+    $gadgetView->setRewrittenContent($this->rewrite($gadgetView->getContent(), $htmlTags, $rewriteFeature->getExcludeParam(), $rewriteFeature->getIncludeParam(), Shindig_Config::get('web_prefix') . ContentRewriteFeature::$PROXY_URL, $gadget->getId()->getURI(), $rewriteFeature->getTagsParam()));
     return true;
   }
 
@@ -58,7 +58,7 @@ class ContentRewriter {
         $htmlTags = ContentRewriteFeature::defaultHTMLTags();
       }
       $content = $request->getResponseContent();
-      $request->setResponseContent($this->rewrite($content, $htmlTags, '//', '/(.*)/', Config::get('web_prefix') . ContentRewriteFeature::$PROXY_URL, $request->getUrl()));
+      $request->setResponseContent($this->rewrite($content, $htmlTags, '//', '/(.*)/', Shindig_Config::get('web_prefix') . ContentRewriteFeature::$PROXY_URL, $request->getUrl()));
     }
     return false;
   }

@@ -50,7 +50,7 @@ class Preload {
       }
     }
     $this->views = $views;
-    $this->auth = Auth::parse($attributes[Preload::$AUTHZ_ATTR]);
+    $this->auth = Shindig_Auth::parse($attributes[Preload::$AUTHZ_ATTR]);
   }
 
   public function getHref() {

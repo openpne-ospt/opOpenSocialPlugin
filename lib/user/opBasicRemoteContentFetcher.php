@@ -41,8 +41,8 @@ class opBasicRemoteContentFetcher extends RemoteContentFetcher {
     }
     $outHeaders['User-Agent'] = "Shindig PHP";
     $options = array();
-    $options['Timeout'] = Config::get('curl_connection_timeout', 15);
-    $proxy   = Config::get('proxy',null);
+    $options['Timeout'] = Shindig_Config::get('curl_connection_timeout');
+    $proxy   = Shindig_Config::get('proxy');
     if (!empty($proxy))
     {
       $options['Proxy'] = $proxy;

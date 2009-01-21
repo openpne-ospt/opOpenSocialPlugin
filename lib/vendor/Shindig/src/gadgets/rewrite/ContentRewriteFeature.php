@@ -30,7 +30,7 @@ class ContentRewriteFeature {
   private $excludeParam;
   private $tagsParam;
 
-  public function createRewriteFeature(Gadget $gadget) {
+  public function createRewriteFeature(Shindig_Gadget $gadget) {
     $requires = $gadget->getRequires();
     if (! isset($requires[ContentRewriteFeature::$REWRITE_TAG])) {
       return;
@@ -61,7 +61,7 @@ class ContentRewriteFeature {
     }
   }
 
-  public function createDefaultRewriteFeature(Gadget $gadget) {
+  public function createDefaultRewriteFeature(Shindig_Gadget $gadget) {
     $this->includeParam = '/.*/';
     $this->includeAll = true;
   }

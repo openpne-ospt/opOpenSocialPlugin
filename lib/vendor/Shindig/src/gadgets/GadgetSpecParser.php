@@ -41,7 +41,7 @@ class GadgetSpecParser {
     if (count($doc->ModulePrefs) != 1) {
       throw new SpecParserException("Missing or duplicated <ModulePrefs>");
     }
-    $gadget = new Gadget($context->getGadgetId(), $context);
+    $gadget = new Shindig_Gadget($context->getGadgetId(), $context);
     // record Checksum to trace xml version
     $gadget->setChecksum($xml);
     // process ModulePref attributes
@@ -211,7 +211,7 @@ class GadgetSpecParser {
     $gadget->requires[$featureSpec->name] = $featureSpec;
   }
 
-  private function processIcon(Gadget &$gadget, $icon) {
+  private function processIcon(Shindig_Gadget &$gadget, $icon) {
     $attributes = $icon->attributes();
     $iconSpec = new Icon();
     $iconSpec->content = (string)(trim($icon));
@@ -220,7 +220,7 @@ class GadgetSpecParser {
     $gadget->icons[] = $iconSpec;
   }
 
-  private function processOAuthSpec(Gadget &$gadget, $OAuthSpec) {
+  private function processOAuthSpec(Shindig_Gadget &$gadget, $OAuthSpec) {
     $oauthSpec = new OAuthSpec($OAuthSpec->Service);
     $gadget->setOAuthSpec($oauthSpec);
   }
