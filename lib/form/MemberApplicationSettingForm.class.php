@@ -73,7 +73,7 @@ class MemberApplicationSettingForm extends sfForm
           $choices = $setting['enumValues'];
           break;
         default :
-          $param['FormType']  = 'textarea';
+          $param['FormType']  = 'input';
           $param['ValueType'] = '';
       }
       $this->widgetSchema[$key] = opFormItemGenerator::generateWidget($param, $choices);
