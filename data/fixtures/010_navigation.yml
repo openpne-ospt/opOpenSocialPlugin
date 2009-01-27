@@ -10,12 +10,19 @@ Navigation:
     sort_order: 25
 
 NavigationI18n:
-  default_navigation_application_i18n:
+  default_navigation_application_i18n_en:
+    id: default_navigation_application
+    caption: "Applications"
+    culture: "en"
+  default_navigation_application_i18n_ja:
     id: default_navigation_application
     caption: "アプリケーション"
     culture: "ja_JP"
-
-  friend_navigation_application_i18n:
+  friend_navigation_application_i18n_en:
+    id: friend_navigation_application
+    caption: "Applications"
+    culture: "en"
+  friend_navigation_application_i18n_ja:
     id: friend_navigation_application
     caption: "アプリケーション"
     culture: "ja_JP"

@@ -6,7 +6,10 @@ $shindigConfig = array(
   'web_prefix' => $webprefix,
   'default_js_prefix' => $webprefix.'/gadgets/js/',
   'default_iframe_prefix' => $webprefix.'/gadgets/ifr?',
-  'token_max_age' => SnsConfigPeer::get('application_token_max_age', 60*60),
+
+  'token_cipher_key' => SnsConfigPeer::get('shindig_token_cipher_key'),
+  'token_hmac_key' => SnsConfigPeer::get('shindig_token_hmac_key'),
+  'token_max_age' => SnsConfigPeer::get('shindig_token_max_age', 60*60),
   
   'base_path'      => realpath(dirname(__FILE__).'/..').'/',
   'features_path'  => realpath(dirname(__FILE__) . '/../features').'/',
@@ -25,7 +28,7 @@ $shindigConfig = array(
   'app_data_service' => 'opJsonDbOpensocialService',
   'messages_service' => 'opJsonDbOpensocialService',
 
-  'cache_time' => SnsConfigPeer::get('application_cache_time', 60*60),
+  'cache_time' => SnsConfigPeer::get('shindig_cache_time', 60*60),
   'cache_root' => sfConfig::get('sf_app_cache_dir').'/plugins/opOpenSocialPlugin',
 
   'curl_connection_timeout' => '15',
