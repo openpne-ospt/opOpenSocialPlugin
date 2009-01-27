@@ -1,4 +1,4 @@
-<?php echo include_box('ApplicationError', __('アプリケーション'), __('このアプリケーションにはアクセスできません。')) ?>
+<?php include_box('ApplicationError', __('アプリケーション'), __('このアプリケーションにはアクセスできません。')) ?>
 
 <?php use_helper('Javascript') ?>
-<p><?php echo link_to_function(__('前のページに戻る'), 'history.back()') ?></p>
+<?php op_include_line('backLink', link_to_function(__('Back to previous page'), 'history.back()')) ?>
