@@ -7,6 +7,9 @@ $shindigConfig = array(
   'default_js_prefix' => $webprefix.'/gadgets/js/',
   'default_iframe_prefix' => $webprefix.'/gadgets/ifr?',
 
+  'allow_plaintext_token' => false,
+  'allow_anonymous_token' => false,
+
   'token_cipher_key' => SnsConfigPeer::get('shindig_token_cipher_key'),
   'token_hmac_key' => SnsConfigPeer::get('shindig_token_hmac_key'),
   'token_max_age' => SnsConfigPeer::get('shindig_token_max_age', 60*60),
