@@ -24,7 +24,10 @@ $shindigConfig = array(
   'private_key_phrase' => 'openpne3', 
   'jsondb_path' => realpath(dirname(__FILE__) . '/../javascript/sampledata').'/canonicaldb.json',
 
-  'remote_content'   => 'opBasicRemoteContent',
+
+  'remote_content'        => 'opBasicRemoteContent',
+  'security_token_signer' => 'opBasicSecurityTokenDecoder',
+  'security_token'        => 'opBasicSecurityToken',
 
   'person_service'   => 'opJsonDbOpensocialService',
   'activity_service' => 'opJsonDbOpensocialService',

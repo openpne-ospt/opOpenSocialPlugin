@@ -47,7 +47,7 @@ class applicationComponents extends sfComponents
       $this->hasSetting = false;
     }
 
-    $securityToken = BasicSecurityToken::createFromValues(
+    $securityToken = opBasicSecurityToken::createFromValues(
       $ownerId,  // owner
       $viewerId, // viewer
       $appId,    // app id
