@@ -1,4 +1,4 @@
-<div class="dparts box"><div class="parts">
+<div id="application_gadget_<?php echo $aid ?>" class="dparts box"><div class="parts">
 <div id="gadgets-gadget-title-bar-<?php echo $mid ?>" class="partsHeading">
 <p class="link"><?php 
 if ($isViewer)
