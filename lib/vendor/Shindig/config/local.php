@@ -1,9 +1,7 @@
 <?php
-$webprefix = sfContext::getInstance()->getController()->genUrl('@homepage');
-$webprefix = preg_replace('/(.+)\/$/',"$1", $webprefix);
 $shindigConfig = array(
   'debug' => false,
-  'web_prefix' => $webprefix,
+  'web_prefix' => sfContext::getInstance()->getRequest()->getScriptName(),
   'default_js_prefix' => $webprefix.'/gadgets/js/',
   'default_iframe_prefix' => $webprefix.'/gadgets/ifr?',
 
