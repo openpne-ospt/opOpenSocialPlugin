@@ -14,7 +14,7 @@ parent.location.href = parent.location.pathname + parent.location.search;
 <?php endif ?>
 <?php endif ?>
 
-<?php include_box('formAppSetting', __('アプリケーション設定: ').$appName, '', array(
+<?php include_box('formAppSetting', __('Application Settings').': '.$appName, '', array(
   'form' => $forms,
   'url' => 'application/setting?id='.$sf_request->getParameter('id').'&is_reload='.$sf_request->getParameter('is_reload',false)
 )) ?>

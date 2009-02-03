@@ -254,8 +254,12 @@ class applicationActions extends sfActions
     if ($request->isMethod(sfRequest::POST))
     {
       $memberApp->delete();
+
+      $this->getUser()->setFlash('notice', 'The application was removed successfully.');
+
       $this->redirect('application/list');
     }
+    $this->appTitle = $memberApp->getApplication()->getTitle();
     return sfView::SUCCESS;
   }
 

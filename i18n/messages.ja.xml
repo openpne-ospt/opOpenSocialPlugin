@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en" datatype="plaintext">
+    <body>
+      <trans-unit id="">
+        <source>Applications</source>
+        <target>アプリケーション</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Application Gallery</source>
+        <target>アプリケーションギャラリー</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>About Application</source>
+        <target>アプリケーション詳細</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Name</source>
+        <target>名前</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Screen Shot</source>
+        <target>スクリーンショット</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Thumbnail</source>
+        <target>サムネイル</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Discription</source>
+        <target>詳細</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Users</source>
+        <target>ユーザ数</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>About Author</source>
+        <target>作成者詳細</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Author</source>
+        <target>作成者</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Affiliation</source>
+        <target>所属</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Aboutme</source>
+        <target>作者について</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Photo</source>
+        <target>写真</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Link</source>
+        <target>リンク</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Quote</source>
+        <target>引用</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Search Applications</source>
+        <target>アプリケーション検索</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Add this application</source>
+        <target>このアプリを追加</target>
+      </trans-unit>
+      <trans-unit id ="">
+        <source>Remove</source>
+        <target>削除</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Information</source>
+        <target>情報</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Add a new application</source>
+        <target>アプリケーションを新しく追加する</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Add</source>
+        <target>追加</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Failed in adding the application.</source>
+        <target>アプリケーションの追加に失敗しました。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Remove the application</source>
+        <target>アプリケーションを削除する</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Do you really delete this application?</source>
+        <target>本当にこのアプリケーションを削除しますか？</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>The application was removed successfully.</source>
+        <target>アプリケーションを削除しました。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Application Settings</source>
+        <target>アプリケーション設定</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Allow the SNS member accesses.</source>
+        <target>SNSメンバーによるアクセスを許可する。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Add home and your profile.</source>
+        <target>ホームとプロフィールに表示する。</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

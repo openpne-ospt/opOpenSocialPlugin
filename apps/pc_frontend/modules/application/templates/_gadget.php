@@ -5,12 +5,12 @@ if ($isViewer)
 {
   if ($hasSetting)
   {
-    echo link_to_app_setting(__('設定'), $mid, true);
+    echo link_to_app_setting(__('Settings'), $mid, true);
   }
 }
 else
 {
-  echo link_to(__('このアプリを追加する'),"application/add?id=".$aid);
+  echo link_to(__('Add this application'),"application/add?id=".$aid);
 }
 ?></p>
 <h3 id="remote_iframe_<?php echo $mid ?>_title"><?php echo $title ?></h3>

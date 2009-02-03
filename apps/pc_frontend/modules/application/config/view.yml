@@ -19,5 +19,9 @@ settingSuccess:
   javascripts:
     - %SF_PROTOTYPE_WEB_DIR%/js/prototype
 
+infoSuccess:
+  stylesheets:
+    - /opOpenSocialPlugin/css/opensocial
+
 jsSuccess:
   has_layout: off

@@ -1,10 +1,10 @@
 <?php use_helper('OpenSocial'); ?>
 
-<?php include_box('searchApplication',__('アプリケーション検索'),'',
-array('form' => $filters, 'url' => 'application/gallery', 'button' => __('検索'))) ?>
+<?php include_box('searchApplication',__('Search Applications'),'',
+array('form' => $filters, 'url' => 'application/gallery', 'button' => __('Search'))) ?>
 
 <?php if ($pager->getNbResults()): ?>
-<?php echo pager_navigation($pager, 'application/gallery?page=%d'); ?>
+<div class="pagerRelative"><p class="number"><?php echo pager_navigation($pager, 'application/gallery?page=%d'); ?></p></div>
 <?php foreach($pager->getResults() as $application) : ?>
 <?php include_application_information_box(
   'item_'.$application->getId(),
@@ -14,7 +14,7 @@ array('form' => $filters, 'url' => 'application/gallery', 'button' => __('検索
   $application
 ) ?>
 <?php endforeach ?>
-<?php echo pager_navigation($pager, 'application/gallery?page=%d'); ?>
+<div class="pagerRelative"><p><?php echo pager_navigation($pager, 'application/gallery?page=%d'); ?></p></div>
 <?php else : ?>
-<?php include_box('ApplicationGalleryError', __('アプリケーション検索'), __('該当するアプリケーションは見つかりませんでした。')) ?>
+<?php include_box('ApplicationGalleryError', __('Search Results'), __('Your search queries did not match any applications.')) ?>
 <?php endif ?>

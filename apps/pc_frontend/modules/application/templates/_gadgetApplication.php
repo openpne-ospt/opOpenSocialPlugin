@@ -11,5 +11,5 @@ if (!empty($memberApplication))
 }
 else
 {
-  include_box('HomeApplicationError', __('エラー'), __('アプリケーションが正常にロードできませんでした。'));
+  include_box('HomeApplicationError', __('Error'), __('Failed in loading the application.'));
 }

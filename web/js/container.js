@@ -49,7 +49,7 @@ Container.prototype = {
 			var url = '/prefs/set';
 			if (web_prefix)
 			{
-			  url = web_prefix + 'prefs/set';
+			  url = web_prefix + '/prefs/set';
 			}
 			new Ajax.Request(url, {method: 'get', parameters: { name: name, value: value, st: params.st }});
 		}
@@ -67,9 +67,9 @@ Container.prototype = {
 		if (view === 'home') {
 			return web_prefix;
 		} else if (view === 'profile') {
-			return web_prefix + 'member/' + person;
+			return web_prefix + '/member/' + person;
 		} else if (view === 'canvas') {
-			return web_prefix + 'application/canvas/id/' + mod;
+			return web_prefix + '/application/canvas/id/' + mod;
 		} else {
 			return null;
 		}

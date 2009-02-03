@@ -36,7 +36,7 @@ class prefsActions extends sfActions
       $st    = urldecode(base64_decode($request->getParameter('st')));
       $key   = $request->getParameter('name');
       $value = $request->getParameter('value');
-      $token = BasicSecurityToken::createFromToken($st, 60);
+      $token = opBasicSecurityToken::createFromToken($st, 60);
       $modId = $token->getModuleId();
       $viewer = $token->getViewerId();
       

@@ -30,8 +30,8 @@ class MemberApplicationForm extends BaseMemberApplicationForm
     ));
 
     $this->widgetSchema->setLabels(array(
-      'is_disp_other' => '他のメンバーによる閲覧を許可する',
-      'is_disp_home'  => 'ホーム/プロフィールに表示する',
+      'is_disp_other' => 'Allow the SNS member accesses.',
+      'is_disp_home'  => 'Add home and your profile.',
     ));
 
     $this->widgetSchema->setNameFormat('member_app_setting[%s]');

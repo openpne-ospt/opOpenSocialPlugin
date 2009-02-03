@@ -1,21 +1,35 @@
-.app_thumbnail
-{
+.applicationScreenShot {
   overflow: hidden;
-  float:    left;
-  width:    120px;
-  height:   60px;
+  float: left;
+  width: 280px;
 }
 
-.app_info
-{
-  width:   60%;
-  float:   left;
+.applicationThumbnail {
+  overflow: hidden;
+  float: left;
+  width: 120px;
+  height: 60px;
+}
+
+.applicationInfoBox .info {
+  width: 60%;
+  float: left;
   padding: 0px 5px;
 }
 
-.app_option
-{
-  width:         60px;
-  float:         right;
-  padding-right: 5px;
+.applicationInfoBox .operation {
+  width: 8.5em;
+  float: right;
+  padding: 0 5px 0 0;
+}
+
+.applicationInfoBox .operation ul li {
+  background:transparent url(../../images/icon_arrow_1.gif) no-repeat scroll 0 0.4em;
+  padding:2px 0 2px 20px;
+}
+
+.applicationInfo div.moreInfo ul.moreInfo,
+.applicationList div.moreInfo ul.moreInfo {
+  margin: 0 5px 10px auto;
+  width: 13em;
 }

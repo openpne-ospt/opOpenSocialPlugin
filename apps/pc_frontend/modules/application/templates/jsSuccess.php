@@ -1,2 +1,2 @@
-var web_prefix = "<?php echo url_for('@homepage') ?>";
+var web_prefix = "<?php echo $sf_request->getScriptName() ?>";
 
