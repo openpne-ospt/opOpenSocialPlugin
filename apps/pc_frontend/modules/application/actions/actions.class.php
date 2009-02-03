@@ -64,10 +64,8 @@ class applicationActions extends sfActions
     
     if ($this->getUser()->getMember()->getId() != $this->memberApp->getMemberId())
     {
-      if (!$this->memberApp->getIsDispOther())
-      {
-        return sfView::ERROR;
-      }
+      $this->forward404Unless($this->memberApp->getIsDispOther());
+      
       sfConfig::set('sf_nav_type', 'friend');
       sfConfig::set('sf_nav_id', $this->memberApp->getMemberId());
     }
@@ -139,15 +137,8 @@ class applicationActions extends sfActions
     $memberApp = MemberApplicationPeer::retrieveByPK($modId);
     $this->forward404Unless($memberApp);
 
-    if ($memberApp->getMember()->getId() != $this->getUser()->getMember()->getId())
-    {
-      return sfView::ERROR;
-    }
-
-    if ($memberApp->getIsGadget() && !$memberApp->getApplication()->hasSetting())
-    {
-      $this->forward404();
-    }
+    $this->forward404If($memberApp->getMember()->getId() != $this->getUser()->getMember()->getId());
+    $this->forward404If($memberApp->getIsGadget() && !$memberApp->getApplication()->hasSetting());
 
     $this->appName = $memberApp->getApplication()->getTitle();
 
@@ -241,15 +232,9 @@ class applicationActions extends sfActions
     $this->forward404Unless($memberApp);
 
     $memberId = $this->getUser()->getMember()->getId();
-    if ($memberId != $memberApp->getMember()->getId())
-    {
-      return sfView::ERROR;
-    }
-
-    if ($memberApp->getIsGadget())
-    {
-      return sfView::ERROR;
-    }
+    
+    $this->forward404If($memberId != $memberApp->getMember()->getId());
+    $this->forward404If($memberApp->getIsGadget());
 
     if ($request->isMethod(sfRequest::POST))
     {
