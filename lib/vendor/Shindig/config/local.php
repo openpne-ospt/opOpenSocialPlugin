@@ -1,7 +1,8 @@
 <?php
+$webprefix = sfContext::getInstance()->getRequest()->getScriptName();
 $shindigConfig = array(
   'debug' => false,
-  'web_prefix' => sfContext::getInstance()->getRequest()->getScriptName(),
+  'web_prefix' => $webprefix,
   'default_js_prefix' => $webprefix.'/gadgets/js/',
   'default_iframe_prefix' => $webprefix.'/gadgets/ifr?',
 
