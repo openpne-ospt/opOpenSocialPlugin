@@ -73,7 +73,7 @@ class ProxyHandler {
     if ($status == 200) {
       $output = '';
       if (isset($_REQUEST['contentType']) && $_REQUEST['contentType'] == 'FEED') {
-        require 'external/Zend/Feed.php';
+        require_once sfConfig::get('sf_lib_dir').'/vendor/Zend/Feed.php';
         $numEntries = $_REQUEST['numEntries'];
         $getSummaries = ! empty($_REQUEST['getSummaries']) && $_REQUEST['getSummaries'] != 'false' ? true : false;
         $channel = array();
