@@ -42,7 +42,7 @@ class SigningFetcherFactory {
    * @param keyFile The file containing your private key for signing requests.
    */
   public function __construct($keyFile = null) {
-    $this->keyName = 'http://' . $_SERVER["HTTP_HOST"] . Shindig_Config::get('web_prefix') . '/public.cer';
+    $this->keyName = 'http://' . $_SERVER["HTTP_HOST"] . Shindig_Config::get('web_prefix') . '/opensocial/certificates';
     if (! empty($keyFile)) {
       $rsa_private_key = false;
       $privateKey = null;
