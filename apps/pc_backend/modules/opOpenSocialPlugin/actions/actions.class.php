@@ -20,9 +20,9 @@ class opOpenSocialPluginActions extends sfActions
   /**
    * Executes index action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeIndex($request)
+  public function executeIndex(sfWebRequest $request)
   {
     return $this->redirect('opOpenSocialPlugin/applicationConfig');
   }
@@ -30,9 +30,9 @@ class opOpenSocialPluginActions extends sfActions
   /**
    * Executes applicationConfig action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeApplicationConfig($request)
+  public function executeApplicationConfig(sfWebRequest $request)
   {
     $this->applicationConfigForm = new ApplicationConfigForm();
 
@@ -50,9 +50,9 @@ class opOpenSocialPluginActions extends sfActions
   /**
    * Executes list action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeList($request)
+  public function executeList(sfWebRequest $request)
   {
     $criteria = new Criteria();
     $criteria->addDescendingOrderByColumn(ApplicationPeer::ID);
@@ -93,9 +93,9 @@ class opOpenSocialPluginActions extends sfActions
   /**
    * Executes info action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeInfo($request)
+  public function executeInfo(sfWebRequest $request)
   {
     $application = ApplicationPeer::retrieveByPk($request->getParameter('id'));
     $this->forward404Unless($application);
@@ -106,9 +106,9 @@ class opOpenSocialPluginActions extends sfActions
   /**
    * Executes profileSetting action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeProfileSetting($request)
+  public function executeProfileSetting(sfWebRequest $request)
   {
     $this->profileConfigForm = new OpenSocialPersonFieldConfigForm();
     
@@ -127,9 +127,9 @@ class opOpenSocialPluginActions extends sfActions
   /**
    * Executes deleteApplication action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeDeleteApplication($request)
+  public function executeDeleteApplication(sfWebRequest $request)
   {
     $application = ApplicationPeer::retrieveByPk($request->getParameter('id'));
     $this->forward404Unless($application);
@@ -146,9 +146,9 @@ class opOpenSocialPluginActions extends sfActions
   /**
    * Executes updateApplication action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeUpdateApplication($request)
+  public function executeUpdateApplication(sfWebRequest $request)
   {
     $application = ApplicationPeer::retrieveByPk($request->getParameter('id'));
     $this->forward404Unless($application);

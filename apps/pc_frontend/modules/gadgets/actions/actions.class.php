@@ -20,9 +20,9 @@ class gadgetsActions extends opOpenSocialServletActions
   /**
    * Execute files action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeFiles($request)
+  public function executeFiles(sfWebRequest $request)
   {
     $class = new FilesServlet();
     self::servletExecute($class);
@@ -31,9 +31,9 @@ class gadgetsActions extends opOpenSocialServletActions
   /**
    * Execute js action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeJs($request)
+  public function executeJs(sfWebRequest $request)
   {
     $class = new JsServlet();
     self::servletExecute($class);
@@ -42,9 +42,9 @@ class gadgetsActions extends opOpenSocialServletActions
   /**
    * Execute proxy action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeProxy($request)
+  public function executeProxy(sfWebRequest $request)
   {
     $class = new ProxyServlet();
     self::servletExecute($class);
@@ -53,9 +53,9 @@ class gadgetsActions extends opOpenSocialServletActions
   /**
    * Execute makeRequest action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeMakeRequest($request)
+  public function executeMakeRequest(sfWebRequest $request)
   {
     $_GET = $request->getParameterHolder()->getAll();
     $_GET['output'] = 'js';
@@ -66,9 +66,9 @@ class gadgetsActions extends opOpenSocialServletActions
  /**
   * Executes ifr action
   *
-  * @param sfRequest $request A request object
+  * @param sfWebRequest $request A request object
   */
-  public function executeIfr($request)
+  public function executeIfr(sfWebRequest $request)
   {
     $class = new opGadgetRenderingServlet();
     self::servletExecute($class);
@@ -78,9 +78,9 @@ class gadgetsActions extends opOpenSocialServletActions
   /**
    * Execute metadata action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeMetadata($request)
+  public function executeMetadata(sfWebRequest $request)
   {
     $class = new MetadataServlet();
     self::servletExecute($class);

@@ -20,9 +20,9 @@ class prefsActions extends sfActions
   /**
    * Executes set action
    * 
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeSet($request)
+  public function executeSet(sfWebRequest $request)
   {
     $response = $this->getResponse();
     if ($request->isMethod(sfRequest::POST) || !$request->hasParameter('st') || !$request->hasParameter('name') || ! $request->hasParameter('value'))

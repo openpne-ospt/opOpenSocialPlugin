@@ -45,9 +45,9 @@ class applicationActions extends sfActions
   /**
    * Executes index action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeIndex($request)
+  public function executeIndex(sfWebRequest $request)
   {
     $this->redirect('application/list');
   }
@@ -55,9 +55,9 @@ class applicationActions extends sfActions
   /**
    * Executes canvas action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeCanvas($request)
+  public function executeCanvas(sfWebRequest $request)
   {
     $this->memberApp = MemberApplicationPeer::retrieveByPK($request->getParameter('id'));
     $this->forward404Unless($this->memberApp);
@@ -75,9 +75,9 @@ class applicationActions extends sfActions
   /**
    * Executes list action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeList($request)
+  public function executeList(sfWebRequest $request)
   {
     $memberId = $this->getUser()->getMemberId();
     $ownerId  = $request->hasParameter('id') ? $request->getParameter('id') : $memberId;
@@ -129,9 +129,9 @@ class applicationActions extends sfActions
   /**
    * Executes setting action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeSetting($request)
+  public function executeSetting(sfWebRequest $request)
   {
     $modId = $request->getParameter('id');
     $memberApp = MemberApplicationPeer::retrieveByPK($modId);
@@ -185,9 +185,9 @@ class applicationActions extends sfActions
   /**
    * Executes gallery action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeGallery($request)
+  public function executeGallery(sfWebRequest $request)
   {
     $this->filters = new ApplicationI18nFormFilter();
     $this->filters->bind($request->getParameter('application',array()));
@@ -208,9 +208,9 @@ class applicationActions extends sfActions
   /**
    * Executes add action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeAdd($request)
+  public function executeAdd(sfWebRequest $request)
   {
     $application = ApplicationPeer::retrieveByPK($request->getParameter('id'));
     $this->forward404Unless($application);
@@ -224,9 +224,9 @@ class applicationActions extends sfActions
   /**
    * Executes remove action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeRemove($request)
+  public function executeRemove(sfWebRequest $request)
   {
     $memberApp = MemberApplicationPeer::retrieveByPK($request->getParameter('id'));
     $this->forward404Unless($memberApp);
@@ -251,9 +251,9 @@ class applicationActions extends sfActions
   /**
    * Executes info action
    * 
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */ 
-  public function executeInfo($request)
+  public function executeInfo(sfWebRequest $request)
   {
     $this->application = ApplicationPeer::retrieveByPK($request->getParameter('id'));
     $this->forward404Unless($this->application);
@@ -263,9 +263,9 @@ class applicationActions extends sfActions
   /**
    * Executes js action
    *
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeJs($request)
+  public function executeJs(sfWebRequest $request)
   {
     $response = $this->getResponse();
     $response->setContentType('text/javascript');
@@ -275,9 +275,9 @@ class applicationActions extends sfActions
   /**
    * Executes sort application
    * 
-   * @param sfRequest $request A request object
+   * @param sfWebRequest $request A request object
    */
-  public function executeSortApplication($request)
+  public function executeSortApplication(sfWebRequest $request)
   {
     if ($this->getRequest()->isXmlHttpRequest())
     {
