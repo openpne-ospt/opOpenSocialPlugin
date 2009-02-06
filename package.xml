@@ -14,7 +14,7 @@
   <active>yes</active>
  </lead>
  <date>2009-02-06</date>
- <time>14:01:29</time>
+ <time>16:54:39</time>
  <version>
   <release>0.8.1</release>
   <api>0.8.1</api>
@@ -24,7 +24,7 @@
   <api>beta</api>
  </stability>
  <license>Apache</license>
- <notes>Fixed some security issues and changed base language Japanese to English on the pc_frontend.</notes>
+ <notes>Fixed some security hole and changed base language from Japanese to English on the pc_frontend.</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="79e9aa9b5a73df52456ba5a2fe222433" name="apps/pc_backend/modules/opOpenSocialPlugin/actions/actions.class.php" role="data" />
@@ -65,7 +65,7 @@
    <file baseinstalldir="/" md5sum="e38bc8c3583d00e6322b963c3a35a81e" name="apps/pc_frontend/modules/social/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="82c4164d360e66e59272919767fb19fd" name="apps/pc_frontend/modules/social/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="5be2ac42493037d925b2f4a6895d9232" name="apps/pc_frontend/modules/social/templates/rpcSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="13ee9a36b476fe4da6f5867957e324b8" name="config/config.php" role="data" />
+   <file baseinstalldir="/" md5sum="2f5ac1c8161309bd769fe404ba736fe1" name="config/config.php" role="data" />
    <file baseinstalldir="/" md5sum="88ee826eaab33af39d2b681055ba236b" name="config/gadget.yml" role="data" />
    <file baseinstalldir="/" md5sum="fcfbad6f74520a8d44f533cc94731f67" name="config/schema.yml" role="data" />
    <file baseinstalldir="/" md5sum="6746c3d5a60214db95f6c14da2d3eb28" name="data/fixtures/010_navigation.yml" role="data" />
@@ -138,6 +138,12 @@
    <file baseinstalldir="/" md5sum="dd26b6590c7aaaedc714c61a3442b86a" name="lib/user/opJsonDbOpensocialService.class.php" role="data" />
    <file baseinstalldir="/" md5sum="f328f625e26714e64ed3e083e7b94845" name="lib/user/opOpenSocialPluginRouting.class.php" role="data" />
    <file baseinstalldir="/" md5sum="a690e124822df7878cc0bad54550d781" name="lib/user/opShindigCrypto.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="c4e657b93cfc22c87c96a4a875800fb1" name="lib/vendor/PEAR/Crypt/Blowfish.php" role="data" />
+   <file baseinstalldir="/" md5sum="17c8e5751cda3c6d03e0e8d9ae37a239" name="lib/vendor/PEAR/Crypt/Blowfish/CBC.php" role="data" />
+   <file baseinstalldir="/" md5sum="42a051f200d9cb7021540e6d46d0b3bf" name="lib/vendor/PEAR/Crypt/Blowfish/DefaultKey.php" role="data" />
+   <file baseinstalldir="/" md5sum="509af2e05c90f17f2ada708e85dfb49a" name="lib/vendor/PEAR/Crypt/Blowfish/ECB.php" role="data" />
+   <file baseinstalldir="/" md5sum="abdead31b7eb289952ec105b228c73ef" name="lib/vendor/PEAR/Crypt/Blowfish/MCrypt.php" role="data" />
+   <file baseinstalldir="/" md5sum="c0c01ba70caebc143b8c1d3a81a64ec9" name="lib/vendor/PEAR/Crypt/Blowfish/PHP.php" role="data" />
    <file baseinstalldir="/" md5sum="b09e7d5834a0c15dc1e411e2ddb4d79a" name="lib/vendor/Shindig/config/container.js" role="data" />
    <file baseinstalldir="/" md5sum="78380f766e3799dfe40def988f06fc13" name="lib/vendor/Shindig/config/container.php" role="data" />
    <file baseinstalldir="/" md5sum="f12d0c4128afe7781a9bab1207bbbc65" name="lib/vendor/Shindig/config/local.php" role="data" />
@@ -438,7 +444,7 @@
    </stability>
    <date>2009-02-06</date>
    <license>Apache</license>
-   <notes>Fixed some security issues and changed base language Japanese to English on the pc_frontend.</notes>
+   <notes>Fixed some security hole and changed base language from Japanese to English on the pc_frontend.</notes>
   </release>
  </changelog>
 </package>
