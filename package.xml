@@ -5,144 +5,142 @@
     http://pear.php.net/dtd/package-2.0.xsd">
  <name>opOpenSocialPlugin</name>
  <channel>plugins.openpne.jp</channel>
- <summary> </summary>
- <description> </description>
+ <summary>opOpenSocialPlugin</summary>
+ <description>opOpenSocialPlugin</description>
  <lead>
-  <name />
-  <user />
-  <email>maintainer@example.com</email>
+  <name>Shogo Kawahara</name>
+  <user>kawahara</user>
+  <email />
   <active>yes</active>
  </lead>
- <date>2009-01-27</date>
- <time>08:17:16</time>
+ <date>2009-02-06</date>
+ <time>14:01:29</time>
  <version>
-  <release>0.8.0</release>
-  <api>0.8.0</api>
+  <release>0.8.1</release>
+  <api>0.8.1</api>
  </version>
  <stability>
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license>Apache 2.0</license>
- <notes>First release</notes>
+ <license>Apache</license>
+ <notes>Fixed some security issues and changed base language Japanese to English on the pc_frontend.</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <file baseinstalldir="/" md5sum="918f0c71ee436d8b1e4a386c75c01fc3" name="apps/pc_backend/modules/opOpenSocialPlugin/actions/actions.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="fa767c2e9287b2dd5803ae358b8f17d5" name="apps/pc_backend/modules/opOpenSocialPlugin/lib/ApplicationConfigForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="11aaaeceb5d750e34836f48a074f11fd" name="apps/pc_backend/modules/opOpenSocialPlugin/lib/OpenSocialPersonFieldConfigForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="37f4d57ff16a9064e6e35872557adf14" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/applicationConfigSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="be0fd04fade0c9f06e2a5af1a2a3842d" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/deleteApplicationSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/indexSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="4c2fcbe0c1edea9675f21060fda32957" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/infoSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="516d2f922fb50b04d2f156db3b872276" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/listError.php" role="php" />
-   <file baseinstalldir="/" md5sum="59945fda77e77c16b11d9f92e83a0a3e" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/listSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="048940b2e98f682566c45595068e42e1" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/profileSettingSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="0e3814e0714eb5ff5f0e9349077d60cf" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_submenu.php" role="php" />
-   <file baseinstalldir="/" md5sum="6add53bf65925a212e947f0c93c548dd" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="28eeb23b95812ade9a79cc8139a6ee50" name="apps/pc_frontend/modules/application/actions/components.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="79e9aa9b5a73df52456ba5a2fe222433" name="apps/pc_backend/modules/opOpenSocialPlugin/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="e1803f83fffa2bee56ce2f9e266fac84" name="apps/pc_backend/modules/opOpenSocialPlugin/lib/ApplicationConfigForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="11aaaeceb5d750e34836f48a074f11fd" name="apps/pc_backend/modules/opOpenSocialPlugin/lib/OpenSocialPersonFieldConfigForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="37f4d57ff16a9064e6e35872557adf14" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/applicationConfigSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="be0fd04fade0c9f06e2a5af1a2a3842d" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/deleteApplicationSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/indexSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="4c2fcbe0c1edea9675f21060fda32957" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/infoSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="516d2f922fb50b04d2f156db3b872276" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/listError.php" role="data" />
+   <file baseinstalldir="/" md5sum="59945fda77e77c16b11d9f92e83a0a3e" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/listSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="048940b2e98f682566c45595068e42e1" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/profileSettingSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="0e3814e0714eb5ff5f0e9349077d60cf" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_submenu.php" role="data" />
+   <file baseinstalldir="/" md5sum="419b73976a35a65fe3a2118c0ed6731e" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="7a54a632963170ae9f5be2d616a9998e" name="apps/pc_frontend/modules/application/actions/components.class.php" role="data" />
    <file baseinstalldir="/" md5sum="31a9b416e4603892e50fc52658028ae8" name="apps/pc_frontend/modules/application/config/security.yml" role="data" />
-   <file baseinstalldir="/" md5sum="5f1560dce81a8f9f12218790f2def3a6" name="apps/pc_frontend/modules/application/config/view.yml" role="data" />
-   <file baseinstalldir="/" md5sum="dc5a4f1a865496e773e748bda5e454eb" name="apps/pc_frontend/modules/application/templates/addError.php" role="php" />
-   <file baseinstalldir="/" md5sum="67e24dc1758763efeea2178fb97687ba" name="apps/pc_frontend/modules/application/templates/canvasError.php" role="php" />
-   <file baseinstalldir="/" md5sum="0efba1b66cca41cbf20926d21e48f970" name="apps/pc_frontend/modules/application/templates/canvasSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="305c31581b21d65cb01a50865f464554" name="apps/pc_frontend/modules/application/templates/gallerySuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="42edc39512b5e80543cd443d691d5289" name="apps/pc_frontend/modules/application/templates/infoError.php" role="php" />
-   <file baseinstalldir="/" md5sum="9015b8d40b47ded361104c571cf29cd3" name="apps/pc_frontend/modules/application/templates/infoSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="f740de7680db8f4a006df8eddaf9364e" name="apps/pc_frontend/modules/application/templates/jsSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="47d7399bb8c61575ea70dec119f6070d" name="apps/pc_frontend/modules/application/templates/listError.php" role="php" />
-   <file baseinstalldir="/" md5sum="7d6ab8e5db0c00e521f3a9c8ea1d6ce7" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="5fde0761233b9bc779f5dd4a8ef64e6f" name="apps/pc_frontend/modules/application/templates/removeError.php" role="php" />
-   <file baseinstalldir="/" md5sum="ef98921cb95a9810f305f18abebbf389" name="apps/pc_frontend/modules/application/templates/removeSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="637ffe137c9313240b60e8ba8814e97d" name="apps/pc_frontend/modules/application/templates/settingError.php" role="php" />
-   <file baseinstalldir="/" md5sum="ec799e5da9700995a440454fc2e8cb28" name="apps/pc_frontend/modules/application/templates/settingSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="577975e947b4ce0ba6e0204da4c6bc5c" name="apps/pc_frontend/modules/application/templates/_gadget.php" role="php" />
-   <file baseinstalldir="/" md5sum="b134703a07c9f3b6c0e4129d37fdd787" name="apps/pc_frontend/modules/application/templates/_gadgetApplication.php" role="php" />
-   <file baseinstalldir="/" md5sum="1955e51b7b504ed5b27191ff592b7ae9" name="apps/pc_frontend/modules/application/templates/_homeApplication.php" role="php" />
-   <file baseinstalldir="/" md5sum="9184c923d9b789cf9c35b3f38ae35310" name="apps/pc_frontend/modules/application/templates/_informationBox.php" role="php" />
-   <file baseinstalldir="/" md5sum="6ed5be7235519649a8668092207b38d1" name="apps/pc_frontend/modules/application/templates/_profileApplication.php" role="php" />
-   <file baseinstalldir="/" md5sum="838797f89943955b50fa0faf32077ef6" name="apps/pc_frontend/modules/application/templates/_renderProfileApplication.php" role="php" />
-   <file baseinstalldir="/" md5sum="71c700978cf5b0630adf4509a872b737" name="apps/pc_frontend/modules/gadgets/actions/actions.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="efd88e927051c4c80677d355ea9998d0" name="apps/pc_frontend/modules/application/config/view.yml" role="data" />
+   <file baseinstalldir="/" md5sum="7252e4c7026535fffd1175f92f0df85a" name="apps/pc_frontend/modules/application/templates/addError.php" role="data" />
+   <file baseinstalldir="/" md5sum="0efba1b66cca41cbf20926d21e48f970" name="apps/pc_frontend/modules/application/templates/canvasSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="4b17208e028a8b8c6fa54a9143a342ba" name="apps/pc_frontend/modules/application/templates/gallerySuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="4c984f70db51ca51b079c7fbc9ce57e4" name="apps/pc_frontend/modules/application/templates/infoSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="1fba746c1aa18e620178e7940a0c9705" name="apps/pc_frontend/modules/application/templates/jsSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="2eb76bebb709673e819c54d881c25b79" name="apps/pc_frontend/modules/application/templates/listError.php" role="data" />
+   <file baseinstalldir="/" md5sum="00144e9f35b916888219b93f11ef1f55" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="0de5ea0fb90c0455db2c36ecb2aed298" name="apps/pc_frontend/modules/application/templates/removeSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="0f08aba69d4e9db603f2224c1bbf688d" name="apps/pc_frontend/modules/application/templates/settingSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="dcf35c6c97490512ecb37a962f4be326" name="apps/pc_frontend/modules/application/templates/_gadget.php" role="data" />
+   <file baseinstalldir="/" md5sum="3b0e04d7af417719b5d37a214a52939d" name="apps/pc_frontend/modules/application/templates/_gadgetApplication.php" role="data" />
+   <file baseinstalldir="/" md5sum="1955e51b7b504ed5b27191ff592b7ae9" name="apps/pc_frontend/modules/application/templates/_homeApplication.php" role="data" />
+   <file baseinstalldir="/" md5sum="bbd3be6cf1d53d270452fe16ac3764c3" name="apps/pc_frontend/modules/application/templates/_informationBox.php" role="data" />
+   <file baseinstalldir="/" md5sum="6ed5be7235519649a8668092207b38d1" name="apps/pc_frontend/modules/application/templates/_profileApplication.php" role="data" />
+   <file baseinstalldir="/" md5sum="838797f89943955b50fa0faf32077ef6" name="apps/pc_frontend/modules/application/templates/_renderProfileApplication.php" role="data" />
+   <file baseinstalldir="/" md5sum="276b283c78af7f5165a132b5ccaf57f2" name="apps/pc_frontend/modules/gadgets/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="82c4164d360e66e59272919767fb19fd" name="apps/pc_frontend/modules/gadgets/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="fe98712353d4dfc4c67975a58e71ef1d" name="apps/pc_frontend/modules/member/config/view.yml" role="data" />
-   <file baseinstalldir="/" md5sum="b65ddd0d7e27248d37fee29774fbf70e" name="apps/pc_frontend/modules/prefs/actions/actions.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="48aabdbfc15d7b5d9d436efcf0921421" name="apps/pc_frontend/modules/social/actions/actions.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="a84504a17d3e5638d48e580df809f39c" name="apps/pc_frontend/modules/opensocial/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="c21ae466fadd8eb481f648d63cc67d10" name="apps/pc_frontend/modules/prefs/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="e38bc8c3583d00e6322b963c3a35a81e" name="apps/pc_frontend/modules/social/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="82c4164d360e66e59272919767fb19fd" name="apps/pc_frontend/modules/social/config/view.yml" role="data" />
-   <file baseinstalldir="/" md5sum="5be2ac42493037d925b2f4a6895d9232" name="apps/pc_frontend/modules/social/templates/rpcSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="1593a404feb0cb65fddc83594120d363" name="config/config.php" role="php" />
+   <file baseinstalldir="/" md5sum="5be2ac42493037d925b2f4a6895d9232" name="apps/pc_frontend/modules/social/templates/rpcSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="13ee9a36b476fe4da6f5867957e324b8" name="config/config.php" role="data" />
    <file baseinstalldir="/" md5sum="88ee826eaab33af39d2b681055ba236b" name="config/gadget.yml" role="data" />
    <file baseinstalldir="/" md5sum="fcfbad6f74520a8d44f533cc94731f67" name="config/schema.yml" role="data" />
-   <file baseinstalldir="/" md5sum="4ab216a3fafaa59dcf6b6b44246764a7" name="data/fixtures/010_navigation.yml" role="data" />
+   <file baseinstalldir="/" md5sum="6746c3d5a60214db95f6c14da2d3eb28" name="data/fixtures/010_navigation.yml" role="data" />
    <file baseinstalldir="/" md5sum="4e05aafa6e80a4b4afc16f0788e081fc" name="data/fixtures/020_gadget.yml" role="data" />
-   <file baseinstalldir="/" md5sum="15a499a50cda6a5c014234fcc5f9a27d" name="lib/action/opOpenSocialServletActions.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="8d06fb37500a06b2c7e961ea5a04133a" name="lib/filter/ApplicationFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="5f7c50aa06cdc58d67618cb6aa1eb6ce" name="lib/filter/ApplicationI18nFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="0e49cd26be677cade0336ebfeaa875aa" name="lib/filter/ApplicationPersistentDataFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="8252b777b20e67f38d15b7dd4f7a5a21" name="lib/filter/MemberApplicationFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="815f8fa6803742e088fb3e7b8e6752f9" name="lib/filter/MemberApplicationSettingFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="574feb1045e4a3d46009c431f80c8cfa" name="lib/filter/OpensocialPersonFieldFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="4ccdda360109ea790358967cd9868477" name="lib/filter/base/BaseApplicationFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="79f2002a371a5798663795cbb57bfab5" name="lib/filter/base/BaseApplicationI18nFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="64d71668d9a6a559f577808709dfa610" name="lib/filter/base/BaseApplicationPersistentDataFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="f03b045d4a327cb232b3ba85119b6ac5" name="lib/filter/base/BaseApplicationSettingFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="4cfd86256fa2cc141a310474c62a79ca" name="lib/filter/base/BaseMemberApplicationFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="759c50e75398ece8b9581ed6499c2146" name="lib/filter/base/BaseMemberApplicationSettingFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="627d5ecda46f6e751ce98e72298dca6f" name="lib/filter/base/BaseOpensocialPersonFieldFormFilter.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="f64a70c6bc02df12ed31d8ff16e3f6ff" name="lib/form/AddApplicationForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="9e1a65019afa07aba61f377dd64b159c" name="lib/form/ApplicationForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="e31d1c7e563c68f5497d0310a274b8f3" name="lib/form/ApplicationI18nForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="3a7e8681cad37feeac3e091b2203849c" name="lib/form/ApplicationPersistentDataForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="25c5ff76efbb60bd47272b891118b3a4" name="lib/form/MemberApplicationForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="6d6157ecc46e1c373303737c13398ea2" name="lib/form/MemberApplicationSettingForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="5191950bbd62ec933cff0c9733dc33ab" name="lib/form/OpensocialPersonFieldForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="4165e8a9b47c4548961adaaffa3d021b" name="lib/form/base/BaseApplicationForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="4094c3cb4ab3236fc1fa0e3f26af2692" name="lib/form/base/BaseApplicationI18nForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="4d3954b7748bf42c060a2cf372887674" name="lib/form/base/BaseApplicationPersistentDataForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="a1175156b88db718a6eecfd8b9944d19" name="lib/form/base/BaseApplicationSettingForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="20918f5713f484ed08348256c594c788" name="lib/form/base/BaseMemberApplicationForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="00cc8a60fbfb91619c3c5e69179ced49" name="lib/form/base/BaseMemberApplicationSettingForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="dc36f09d133c7f4f560bbbb3aec4eaff" name="lib/form/base/BaseOpensocialPersonFieldForm.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="1bbffb17546cfaa180337ff42f7276a7" name="lib/helper/OpenSocialHelper.php" role="php" />
-   <file baseinstalldir="/" md5sum="365acc83d2c73e8b515fd03f890882f5" name="lib/model/Application.php" role="php" />
-   <file baseinstalldir="/" md5sum="0691b9df9d79746d8d94755b92692bf9" name="lib/model/ApplicationI18n.php" role="php" />
-   <file baseinstalldir="/" md5sum="e004054ae13e97b780c1593a9c531a78" name="lib/model/ApplicationI18nPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="de95c3a65e08eba9c256defa7bc2356d" name="lib/model/ApplicationPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="48b3dd229f9c99493cce0ca331b883aa" name="lib/model/ApplicationPersistentData.php" role="php" />
-   <file baseinstalldir="/" md5sum="9d80df30bcd5ebeb6d467754195b353b" name="lib/model/ApplicationPersistentDataPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="4b644ea715cb83a9c4fd19411ae83292" name="lib/model/MemberApplication.php" role="php" />
-   <file baseinstalldir="/" md5sum="6a3477a18d8ed194bd2a509fc1456465" name="lib/model/MemberApplicationPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="48ddab379888e1dc824ba61c911efeb3" name="lib/model/MemberApplicationSetting.php" role="php" />
-   <file baseinstalldir="/" md5sum="6feaf6591bb7a365c04f975c634d0b36" name="lib/model/MemberApplicationSettingPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="4958456e1c9119262dd10945f38adf40" name="lib/model/OpensocialPersonField.php" role="php" />
-   <file baseinstalldir="/" md5sum="d8b03e81bcfae56c1f60bf5c22ad26e4" name="lib/model/OpensocialPersonFieldPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="fc786af1f7c14d30f8608ebee9cca957" name="lib/model/map/ApplicationI18nMapBuilder.php" role="php" />
-   <file baseinstalldir="/" md5sum="fc52ccb5591d53aac5fbb5660100a891" name="lib/model/map/ApplicationMapBuilder.php" role="php" />
-   <file baseinstalldir="/" md5sum="09cdca3f56a820199ffb6be7073109b0" name="lib/model/map/ApplicationPersistentDataMapBuilder.php" role="php" />
-   <file baseinstalldir="/" md5sum="ad5d8dde0218f21057c6dea59ba6e5b2" name="lib/model/map/ApplicationSettingMapBuilder.php" role="php" />
-   <file baseinstalldir="/" md5sum="a10495ef8a10fb378533f01581546bed" name="lib/model/map/MemberApplicationMapBuilder.php" role="php" />
-   <file baseinstalldir="/" md5sum="782a988f71870255d608766588471acf" name="lib/model/map/MemberApplicationSettingMapBuilder.php" role="php" />
-   <file baseinstalldir="/" md5sum="2b9c875163f5beaaf8dc1443e3196650" name="lib/model/map/OpensocialPersonFieldMapBuilder.php" role="php" />
-   <file baseinstalldir="/" md5sum="43cf21e93e40a78b987a276f7d791f12" name="lib/model/om/BaseApplication.php" role="php" />
-   <file baseinstalldir="/" md5sum="e9e50f72c2e57a3a1cba327f5ed82573" name="lib/model/om/BaseApplicationI18n.php" role="php" />
-   <file baseinstalldir="/" md5sum="5c99f05b1032d96386883f77461457a4" name="lib/model/om/BaseApplicationI18nPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="a5ea98e5ef5447aa8a28d6d3a977cd0d" name="lib/model/om/BaseApplicationPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="97b589b75e26eac66920ba21fc01ed9e" name="lib/model/om/BaseApplicationPersistentData.php" role="php" />
-   <file baseinstalldir="/" md5sum="ccb9620795d256636ced744a72549cba" name="lib/model/om/BaseApplicationPersistentDataPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="90a1aedaf3f5a71d4726330fcaa2c927" name="lib/model/om/BaseApplicationSetting.php" role="php" />
-   <file baseinstalldir="/" md5sum="2e309b5bb74d8f43faf53ba4a5bd27c9" name="lib/model/om/BaseApplicationSettingPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="8311e5ab270d9585e70a2aa485d3f86f" name="lib/model/om/BaseMemberApplication.php" role="php" />
-   <file baseinstalldir="/" md5sum="1bb39b0801412a61916b0aad411ef611" name="lib/model/om/BaseMemberApplicationPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="0da6ad08c556e72b4b969cbd045c5393" name="lib/model/om/BaseMemberApplicationSetting.php" role="php" />
-   <file baseinstalldir="/" md5sum="2ba5215aed5b348f25c52bae2c41cfd2" name="lib/model/om/BaseMemberApplicationSettingPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="f95565dbd2184772662a42166d69de85" name="lib/model/om/BaseOpensocialPersonField.php" role="php" />
-   <file baseinstalldir="/" md5sum="a69183521d0548fa1707070724db67e3" name="lib/model/om/BaseOpensocialPersonFieldPeer.php" role="php" />
-   <file baseinstalldir="/" md5sum="ee5516a3d1329ce1d15ac0c05e483bba" name="lib/user/opBasicRemoteContent.php" role="php" />
-   <file baseinstalldir="/" md5sum="ac46385a32c27df4b9d99ce6b522f142" name="lib/user/opBasicRemoteContentFetcher.php" role="php" />
-   <file baseinstalldir="/" md5sum="cca1d2a3113594af29369aed19ae3533" name="lib/user/opGadgetRenderingServlet.php" role="php" />
-   <file baseinstalldir="/" md5sum="49898eaede15081b31feb90864384059" name="lib/user/opJsonDbOpensocialService.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="f328f625e26714e64ed3e083e7b94845" name="lib/user/opOpenSocialPluginRouting.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="130afc903198aa47b47131281f4ba873" name="lib/vendor/Shindig/config/container.js" role="data" />
-   <file baseinstalldir="/" md5sum="78380f766e3799dfe40def988f06fc13" name="lib/vendor/Shindig/config/container.php" role="php" />
-   <file baseinstalldir="/" md5sum="481d54c7384566e0c0523952e53e0bc3" name="lib/vendor/Shindig/config/local.php" role="php" />
+   <file baseinstalldir="/" md5sum="7e35038212aae3274c7b2ef2d10eba8a" name="data/fixtures/030_security.yml" role="data" />
+   <file baseinstalldir="/" md5sum="41c568cc5c92194d67a991777e783413" name="i18n/messages.ja.xml" role="data" />
+   <file baseinstalldir="/" md5sum="15a499a50cda6a5c014234fcc5f9a27d" name="lib/action/opOpenSocialServletActions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="8d06fb37500a06b2c7e961ea5a04133a" name="lib/filter/ApplicationFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="5f7c50aa06cdc58d67618cb6aa1eb6ce" name="lib/filter/ApplicationI18nFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="0e49cd26be677cade0336ebfeaa875aa" name="lib/filter/ApplicationPersistentDataFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="8252b777b20e67f38d15b7dd4f7a5a21" name="lib/filter/MemberApplicationFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="815f8fa6803742e088fb3e7b8e6752f9" name="lib/filter/MemberApplicationSettingFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="574feb1045e4a3d46009c431f80c8cfa" name="lib/filter/OpensocialPersonFieldFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4ccdda360109ea790358967cd9868477" name="lib/filter/base/BaseApplicationFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="79f2002a371a5798663795cbb57bfab5" name="lib/filter/base/BaseApplicationI18nFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="64d71668d9a6a559f577808709dfa610" name="lib/filter/base/BaseApplicationPersistentDataFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4cfd86256fa2cc141a310474c62a79ca" name="lib/filter/base/BaseMemberApplicationFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="759c50e75398ece8b9581ed6499c2146" name="lib/filter/base/BaseMemberApplicationSettingFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="627d5ecda46f6e751ce98e72298dca6f" name="lib/filter/base/BaseOpensocialPersonFieldFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="f64a70c6bc02df12ed31d8ff16e3f6ff" name="lib/form/AddApplicationForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="9e1a65019afa07aba61f377dd64b159c" name="lib/form/ApplicationForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="e31d1c7e563c68f5497d0310a274b8f3" name="lib/form/ApplicationI18nForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="3a7e8681cad37feeac3e091b2203849c" name="lib/form/ApplicationPersistentDataForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="bd084702712b550567c265946a200f91" name="lib/form/MemberApplicationForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="6d6157ecc46e1c373303737c13398ea2" name="lib/form/MemberApplicationSettingForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="5191950bbd62ec933cff0c9733dc33ab" name="lib/form/OpensocialPersonFieldForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4165e8a9b47c4548961adaaffa3d021b" name="lib/form/base/BaseApplicationForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4094c3cb4ab3236fc1fa0e3f26af2692" name="lib/form/base/BaseApplicationI18nForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4d3954b7748bf42c060a2cf372887674" name="lib/form/base/BaseApplicationPersistentDataForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="20918f5713f484ed08348256c594c788" name="lib/form/base/BaseMemberApplicationForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="00cc8a60fbfb91619c3c5e69179ced49" name="lib/form/base/BaseMemberApplicationSettingForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="dc36f09d133c7f4f560bbbb3aec4eaff" name="lib/form/base/BaseOpensocialPersonFieldForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="1bbffb17546cfaa180337ff42f7276a7" name="lib/helper/OpenSocialHelper.php" role="data" />
+   <file baseinstalldir="/" md5sum="365acc83d2c73e8b515fd03f890882f5" name="lib/model/Application.php" role="data" />
+   <file baseinstalldir="/" md5sum="0691b9df9d79746d8d94755b92692bf9" name="lib/model/ApplicationI18n.php" role="data" />
+   <file baseinstalldir="/" md5sum="e004054ae13e97b780c1593a9c531a78" name="lib/model/ApplicationI18nPeer.php" role="data" />
+   <file baseinstalldir="/" md5sum="de95c3a65e08eba9c256defa7bc2356d" name="lib/model/ApplicationPeer.php" role="data" />
+   <file baseinstalldir="/" md5sum="48b3dd229f9c99493cce0ca331b883aa" name="lib/model/ApplicationPersistentData.php" role="data" />
+   <file baseinstalldir="/" md5sum="9d80df30bcd5ebeb6d467754195b353b" name="lib/model/ApplicationPersistentDataPeer.php" role="data" />
+   <file baseinstalldir="/" md5sum="4b644ea715cb83a9c4fd19411ae83292" name="lib/model/MemberApplication.php" role="data" />
+   <file baseinstalldir="/" md5sum="6a3477a18d8ed194bd2a509fc1456465" name="lib/model/MemberApplicationPeer.php" role="data" />
+   <file baseinstalldir="/" md5sum="48ddab379888e1dc824ba61c911efeb3" name="lib/model/MemberApplicationSetting.php" role="data" />
+   <file baseinstalldir="/" md5sum="6feaf6591bb7a365c04f975c634d0b36" name="lib/model/MemberApplicationSettingPeer.php" role="data" />
+   <file baseinstalldir="/" md5sum="4958456e1c9119262dd10945f38adf40" name="lib/model/OpensocialPersonField.php" role="data" />
+   <file baseinstalldir="/" md5sum="d8b03e81bcfae56c1f60bf5c22ad26e4" name="lib/model/OpensocialPersonFieldPeer.php" role="data" />
+   <file baseinstalldir="/" md5sum="fc786af1f7c14d30f8608ebee9cca957" name="lib/model/map/ApplicationI18nMapBuilder.php" role="data" />
+   <file baseinstalldir="/" md5sum="fc52ccb5591d53aac5fbb5660100a891" name="lib/model/map/ApplicationMapBuilder.php" role="data" />
+   <file baseinstalldir="/" md5sum="09cdca3f56a820199ffb6be7073109b0" name="lib/model/map/ApplicationPersistentDataMapBuilder.php" role="data" />
+   <file baseinstalldir="/" md5sum="a10495ef8a10fb378533f01581546bed" name="lib/model/map/MemberApplicationMapBuilder.php" role="data" />
+   <file baseinstalldir="/" md5sum="782a988f71870255d608766588471acf" name="lib/model/map/MemberApplicationSettingMapBuilder.php" role="data" />
+   <file baseinstalldir="/" md5sum="2b9c875163f5beaaf8dc1443e3196650" name="lib/model/map/OpensocialPersonFieldMapBuilder.php" role="data" />
+   <file baseinstalldir="/" md5sum="43cf21e93e40a78b987a276f7d791f12" name="lib/model/om/BaseApplication.php" role="data" />
+   <file baseinstalldir="/" md5sum="e9e50f72c2e57a3a1cba327f5ed82573" name="lib/model/om/BaseApplicationI18n.php" role="data" />
+   <file baseinstalldir="/" md5sum="5c99f05b1032d96386883f77461457a4" name="lib/model/om/BaseApplicationI18nPeer.php" role="data" />
+   <file baseinstalldir="/" md5sum="a5ea98e5ef5447aa8a28d6d3a977cd0d" name="lib/model/om/BaseApplicationPeer.php" role="data" />
+   <file baseinstalldir="/" md5sum="97b589b75e26eac66920ba21fc01ed9e" name="lib/model/om/BaseApplicationPersistentData.php" role="data" />
+   <file baseinstalldir="/" md5sum="ccb9620795d256636ced744a72549cba" name="lib/model/om/BaseApplicationPersistentDataPeer.php" role="data" />
+   <file baseinstalldir="/" md5sum="8311e5ab270d9585e70a2aa485d3f86f" name="lib/model/om/BaseMemberApplication.php" role="data" />
+   <file baseinstalldir="/" md5sum="1bb39b0801412a61916b0aad411ef611" name="lib/model/om/BaseMemberApplicationPeer.php" role="data" />
+   <file baseinstalldir="/" md5sum="0da6ad08c556e72b4b969cbd045c5393" name="lib/model/om/BaseMemberApplicationSetting.php" role="data" />
+   <file baseinstalldir="/" md5sum="2ba5215aed5b348f25c52bae2c41cfd2" name="lib/model/om/BaseMemberApplicationSettingPeer.php" role="data" />
+   <file baseinstalldir="/" md5sum="f95565dbd2184772662a42166d69de85" name="lib/model/om/BaseOpensocialPersonField.php" role="data" />
+   <file baseinstalldir="/" md5sum="a69183521d0548fa1707070724db67e3" name="lib/model/om/BaseOpensocialPersonFieldPeer.php" role="data" />
+   <file baseinstalldir="/" md5sum="7df6688892523a253d0529b8755342d5" name="lib/user/opBasicBlobCrypter.php" role="data" />
+   <file baseinstalldir="/" md5sum="ee5516a3d1329ce1d15ac0c05e483bba" name="lib/user/opBasicRemoteContent.php" role="data" />
+   <file baseinstalldir="/" md5sum="ac46385a32c27df4b9d99ce6b522f142" name="lib/user/opBasicRemoteContentFetcher.php" role="data" />
+   <file baseinstalldir="/" md5sum="d3f9895d7bf167ae1eba76df6e38f56d" name="lib/user/opBasicSecurityToken.php" role="data" />
+   <file baseinstalldir="/" md5sum="6215f1626e252f1da4ad7fbdac3f76a7" name="lib/user/opBasicSecurityTokenDecoder.php" role="data" />
+   <file baseinstalldir="/" md5sum="cca1d2a3113594af29369aed19ae3533" name="lib/user/opGadgetRenderingServlet.php" role="data" />
+   <file baseinstalldir="/" md5sum="dd26b6590c7aaaedc714c61a3442b86a" name="lib/user/opJsonDbOpensocialService.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="f328f625e26714e64ed3e083e7b94845" name="lib/user/opOpenSocialPluginRouting.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="a690e124822df7878cc0bad54550d781" name="lib/user/opShindigCrypto.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="b09e7d5834a0c15dc1e411e2ddb4d79a" name="lib/vendor/Shindig/config/container.js" role="data" />
+   <file baseinstalldir="/" md5sum="78380f766e3799dfe40def988f06fc13" name="lib/vendor/Shindig/config/container.php" role="data" />
+   <file baseinstalldir="/" md5sum="f12d0c4128afe7781a9bab1207bbbc65" name="lib/vendor/Shindig/config/local.php" role="data" />
    <file baseinstalldir="/" md5sum="50d9bc0a6a0993eb41ecfe1201152fb3" name="lib/vendor/Shindig/config/oauth.json" role="data" />
    <file baseinstalldir="/" md5sum="8eab6999a423281906678e28fa2d13b9" name="lib/vendor/Shindig/features/features.txt" role="data" />
    <file baseinstalldir="/" md5sum="97468f4b3ae8ea7aa8b5b57a224536f0" name="lib/vendor/Shindig/features/pom.xml" role="data" />
@@ -228,7 +226,7 @@
    <file baseinstalldir="/" md5sum="90a26edcffd220d37e7e8eea78a6e803" name="lib/vendor/Shindig/features/opensocial-templates/loader_test.js" role="data" />
    <file baseinstalldir="/" md5sum="071b481d5b87363964340c1380ae3a13" name="lib/vendor/Shindig/features/opensocial-templates/namespaces.js" role="data" />
    <file baseinstalldir="/" md5sum="b76ac4430a8f5b47c540d0239ec42771" name="lib/vendor/Shindig/features/opensocial-templates/os.js" role="data" />
-   <file baseinstalldir="/" md5sum="c24940c9f046d876a720362e0b792d4b" name="lib/vendor/Shindig/features/opensocial-templates/ost_test.html" role="doc" />
+   <file baseinstalldir="/" md5sum="c24940c9f046d876a720362e0b792d4b" name="lib/vendor/Shindig/features/opensocial-templates/ost_test.html" role="data" />
    <file baseinstalldir="/" md5sum="df69bb0e07ac1673a0c90f6c30bb2de8" name="lib/vendor/Shindig/features/opensocial-templates/os_test.js" role="data" />
    <file baseinstalldir="/" md5sum="4fa9fdba43af8dd7dc5e5ec56f33a0c0" name="lib/vendor/Shindig/features/opensocial-templates/README" role="data" />
    <file baseinstalldir="/" md5sum="86dcf0520c789c59182675cee21b68e6" name="lib/vendor/Shindig/features/opensocial-templates/template.js" role="data" />
@@ -251,194 +249,148 @@
    <file baseinstalldir="/" md5sum="890912bf07f6ba3377e8b8cacfadd74c" name="lib/vendor/Shindig/features/views/feature.xml" role="data" />
    <file baseinstalldir="/" md5sum="2ac5e8892124b218b6e1dc51392cb154" name="lib/vendor/Shindig/features/views/urltemplatetest.js" role="data" />
    <file baseinstalldir="/" md5sum="eaa0032100abdf49d25cdec9af708544" name="lib/vendor/Shindig/features/views/views.js" role="data" />
-   <file baseinstalldir="/" md5sum="268cbb543ea3c333f181ad7e89a41431" name="lib/vendor/Shindig/javascript/README" role="data" />
-   <file baseinstalldir="/" md5sum="f8e698e58c38d3f8e96c88bd0b0a0d4a" name="lib/vendor/Shindig/javascript/container/cookiebaseduserprefstore.js" role="data" />
-   <file baseinstalldir="/" md5sum="714dd1c9db3a60ddd83e4ce8cd0e2f11" name="lib/vendor/Shindig/javascript/container/cookies.js" role="data" />
-   <file baseinstalldir="/" md5sum="32888184ed5822afba001d8f570b3c7e" name="lib/vendor/Shindig/javascript/container/gadgets.css" role="data" />
-   <file baseinstalldir="/" md5sum="19048744a5934dc96ed50880bab80446" name="lib/vendor/Shindig/javascript/container/gadgets.js" role="data" />
-   <file baseinstalldir="/" md5sum="0a069e56116c125fc16ec0d886ec40ee" name="lib/vendor/Shindig/javascript/container/rpctest_container.html" role="doc" />
-   <file baseinstalldir="/" md5sum="7a06beabb27a3e6c419c03f46031e736" name="lib/vendor/Shindig/javascript/container/rpctest_gadget.html" role="doc" />
-   <file baseinstalldir="/" md5sum="0b78923b7f17f1ab82dc4f4457f3c628" name="lib/vendor/Shindig/javascript/container/rpctest_perf.js" role="data" />
-   <file baseinstalldir="/" md5sum="bb610e5df9bdd72ac3f6fe461ec87d48" name="lib/vendor/Shindig/javascript/container/rpc_relay.html" role="doc" />
-   <file baseinstalldir="/" md5sum="e73983e711850025965cb54167cac876" name="lib/vendor/Shindig/javascript/container/rpc_relay.uncompressed.html" role="doc" />
-   <file baseinstalldir="/" md5sum="47bae5491d487352f07630e4a45f99cd" name="lib/vendor/Shindig/javascript/container/sample-metadata.html" role="doc" />
-   <file baseinstalldir="/" md5sum="fe8f4ba8cef983ea76b22d19ce53da0d" name="lib/vendor/Shindig/javascript/container/sample-pubsub-publisher.xml" role="data" />
-   <file baseinstalldir="/" md5sum="a455d29ac2d03b975c55ca62378a1494" name="lib/vendor/Shindig/javascript/container/sample-pubsub-subscriber.xml" role="data" />
-   <file baseinstalldir="/" md5sum="28cce470ee933d6ddd04516e927f97ed" name="lib/vendor/Shindig/javascript/container/sample-pubsub.html" role="doc" />
-   <file baseinstalldir="/" md5sum="cc3dd612601e541f27a4cf04e714fc2c" name="lib/vendor/Shindig/javascript/container/sample1.html" role="doc" />
-   <file baseinstalldir="/" md5sum="0f081e30daa0df247a08c3a0358f7e1b" name="lib/vendor/Shindig/javascript/container/sample2.html" role="doc" />
-   <file baseinstalldir="/" md5sum="161341025d888abc97c720c3b8100ab3" name="lib/vendor/Shindig/javascript/container/sample3.html" role="doc" />
-   <file baseinstalldir="/" md5sum="a4b707e5e7bea816f38ca5b51b9ae533" name="lib/vendor/Shindig/javascript/container/sample4.html" role="doc" />
-   <file baseinstalldir="/" md5sum="1da23fbfbff42a72a5b9cacb905e5c09" name="lib/vendor/Shindig/javascript/container/sample5.html" role="doc" />
-   <file baseinstalldir="/" md5sum="12fec0a84924bf3f8dcce5df6641f447" name="lib/vendor/Shindig/javascript/container/sample6.html" role="doc" />
-   <file baseinstalldir="/" md5sum="2318bd6fb1393698c483527f80953edf" name="lib/vendor/Shindig/javascript/container/sample7.html" role="doc" />
-   <file baseinstalldir="/" md5sum="e7e93b9042064c4ccbb66718c430759c" name="lib/vendor/Shindig/javascript/container/util.js" role="data" />
-   <file baseinstalldir="/" md5sum="84e3662eb5f118775e1f275d50da1e23" name="lib/vendor/Shindig/javascript/samplecontainer/getting-started.html" role="doc" />
-   <file baseinstalldir="/" md5sum="98e3f0d2ccc9ed37cedd8c87d7967be0" name="lib/vendor/Shindig/javascript/samplecontainer/samplecontainer.html" role="doc" />
-   <file baseinstalldir="/" md5sum="4673cea3c72c9ef439042c08282179d0" name="lib/vendor/Shindig/javascript/samplecontainer/samplecontainer.js" role="data" />
-   <file baseinstalldir="/" md5sum="1b638fab1ef3dde5dbc08c42ccb6c349" name="lib/vendor/Shindig/javascript/samplecontainer/state-basicfriendlist.xml" role="data" />
-   <file baseinstalldir="/" md5sum="ea4e69e1a3e9aa7c0bb67f44e646b422" name="lib/vendor/Shindig/javascript/samplecontainer/state-smallfriendlist.xml" role="data" />
-   <file baseinstalldir="/" md5sum="66f2991f231720bd761ac0a03366a0d4" name="lib/vendor/Shindig/javascript/samplecontainer/state.dtd" role="data" />
-   <file baseinstalldir="/" md5sum="9fac454e3e5b56c93fc608a7e5c72c6c" name="lib/vendor/Shindig/javascript/samplecontainer/examples/bubble.gif" role="data" />
-   <file baseinstalldir="/" md5sum="a0edd406d32ae3680ad22607a73b03b7" name="lib/vendor/Shindig/javascript/samplecontainer/examples/getFriendsHasApp.xml" role="data" />
-   <file baseinstalldir="/" md5sum="98c39d5699c9e22933bb27b3008295cc" name="lib/vendor/Shindig/javascript/samplecontainer/examples/new.gif" role="data" />
-   <file baseinstalldir="/" md5sum="c42e82f9d2cb29a5ca2284ed8b759c13" name="lib/vendor/Shindig/javascript/samplecontainer/examples/nophoto.gif" role="data" />
-   <file baseinstalldir="/" md5sum="c48decc2a5920f3cdcc985284f035118" name="lib/vendor/Shindig/javascript/samplecontainer/examples/oauth.xml" role="data" />
-   <file baseinstalldir="/" md5sum="5fb6dbbe5c13798a78608c8b9ece95bf" name="lib/vendor/Shindig/javascript/samplecontainer/examples/popup.js" role="data" />
-   <file baseinstalldir="/" md5sum="04a19622bb78677b14b8bf49ed9b3de8" name="lib/vendor/Shindig/javascript/samplecontainer/examples/SocialActivitiesWorld.xml" role="data" />
-   <file baseinstalldir="/" md5sum="602b46b329b46d08cc3719908fbb0991" name="lib/vendor/Shindig/javascript/samplecontainer/examples/SocialCajaWorld.xml" role="data" />
-   <file baseinstalldir="/" md5sum="0b29f98a6692448ccee4d8930cbfd670" name="lib/vendor/Shindig/javascript/samplecontainer/examples/SocialHelloWorld.xml" role="data" />
-   <file baseinstalldir="/" md5sum="0f95e2fce49a6da07516c83f62a3be61" name="lib/vendor/Shindig/javascript/samplecontainer/examples/rewriter/feather.png" role="data" />
-   <file baseinstalldir="/" md5sum="2084202f164e5550aed176e073c6f808" name="lib/vendor/Shindig/javascript/samplecontainer/examples/rewriter/rewriter1.css" role="data" />
-   <file baseinstalldir="/" md5sum="2a689ab5bc17bc6df72786422a1a2c46" name="lib/vendor/Shindig/javascript/samplecontainer/examples/rewriter/rewriter1.js" role="data" />
-   <file baseinstalldir="/" md5sum="efb3a00ebac4b483ebf137f29fd5e809" name="lib/vendor/Shindig/javascript/samplecontainer/examples/rewriter/rewriter2.css" role="data" />
-   <file baseinstalldir="/" md5sum="4fd016b4a41a557d9c0b7087fa7579a4" name="lib/vendor/Shindig/javascript/samplecontainer/examples/rewriter/rewriter2.js" role="data" />
-   <file baseinstalldir="/" md5sum="de459cf46b3bbcf6e81fa20a506d41e2" name="lib/vendor/Shindig/javascript/samplecontainer/examples/rewriter/rewriteroff.xml" role="data" />
-   <file baseinstalldir="/" md5sum="a556fb977fd27994a08156d63f69bd24" name="lib/vendor/Shindig/javascript/samplecontainer/examples/rewriter/rewriteron.html" role="doc" />
-   <file baseinstalldir="/" md5sum="76bb6e4ad63b4a9586772a30b60ad56c" name="lib/vendor/Shindig/javascript/samplecontainer/examples/rewriter/rewriteron.xml" role="data" />
-   <file baseinstalldir="/" md5sum="bd7dfc7e19da8c4d82168d59462f2125" name="lib/vendor/Shindig/javascript/sampledata/canonicaldb.json" role="data" />
-   <file baseinstalldir="/" md5sum="eaef24e1a4fba8beca97c5b81d8b5219" name="lib/vendor/Shindig/src/common/BlobCrypter.php" role="php" />
-   <file baseinstalldir="/" md5sum="0e467e7f1ac185cc10da990de8580aa7" name="lib/vendor/Shindig/src/common/Cache.php" role="php" />
-   <file baseinstalldir="/" md5sum="496bb3dd9e26d1aac29bfd592302feff" name="lib/vendor/Shindig/src/common/Config.php" role="php" />
-   <file baseinstalldir="/" md5sum="5400a8d30e16a0991310ec1f55714f9a" name="lib/vendor/Shindig/src/common/File.php" role="php" />
-   <file baseinstalldir="/" md5sum="d306e41c4924881e3459eff028cd9a80" name="lib/vendor/Shindig/src/common/HttpServlet.php" role="php" />
-   <file baseinstalldir="/" md5sum="16629b80cc3ed090a85a4b0f1694a703" name="lib/vendor/Shindig/src/common/IllegalArgumentException.php" role="php" />
-   <file baseinstalldir="/" md5sum="e697eb43873a519c2c3770d25bf61c0b" name="lib/vendor/Shindig/src/common/JsMin.php" role="php" />
-   <file baseinstalldir="/" md5sum="0296e99c486dcd1d0995df027a482faa" name="lib/vendor/Shindig/src/common/Locale.php" role="php" />
-   <file baseinstalldir="/" md5sum="4d71dbb0dd8e78978c5f6b08d58f8a1b" name="lib/vendor/Shindig/src/common/OAuthLookupService.php" role="php" />
-   <file baseinstalldir="/" md5sum="6b284af05bb719bbb2de3a528e394819" name="lib/vendor/Shindig/src/common/RemoteContent.php" role="php" />
-   <file baseinstalldir="/" md5sum="52b3849b435341717e24f44ead6fa110" name="lib/vendor/Shindig/src/common/RemoteContentFetcher.php" role="php" />
-   <file baseinstalldir="/" md5sum="c0e4d9d3a9c8a1b1f944c398462e125b" name="lib/vendor/Shindig/src/common/RemoteContentRequest.php" role="php" />
-   <file baseinstalldir="/" md5sum="b74d6ff6b478c400b32b4d12933de740" name="lib/vendor/Shindig/src/common/SecurityToken.php" role="php" />
-   <file baseinstalldir="/" md5sum="09a2733668ad490d0a51af1106f0ed0c" name="lib/vendor/Shindig/src/common/SecurityTokenDecoder.php" role="php" />
-   <file baseinstalldir="/" md5sum="6d01ca4ac0b939cb5724954fd43f6b77" name="lib/vendor/Shindig/src/common/UrlGenerator.php" role="php" />
-   <file baseinstalldir="/" md5sum="f5cbe98b03b67804c8735a70b104c5d3" name="lib/vendor/Shindig/src/common/sample/BasicBlobCrypter.php" role="php" />
-   <file baseinstalldir="/" md5sum="f7d3de02aa92a9f5b684174a2c22c43f" name="lib/vendor/Shindig/src/common/sample/BasicOAuthDataStore.php" role="php" />
-   <file baseinstalldir="/" md5sum="e9841d820fe3c71f106f797fe98441a9" name="lib/vendor/Shindig/src/common/sample/BasicOAuthLookupService.php" role="php" />
-   <file baseinstalldir="/" md5sum="0f9a1e872e07610cf72f82d3cb12c369" name="lib/vendor/Shindig/src/common/sample/BasicRemoteContent.php" role="php" />
-   <file baseinstalldir="/" md5sum="b58437f4e8ce238f7a1ce91db9471b62" name="lib/vendor/Shindig/src/common/sample/BasicRemoteContentFetcher.php" role="php" />
-   <file baseinstalldir="/" md5sum="775a2f7b5b9b94df5441e045c171bfc4" name="lib/vendor/Shindig/src/common/sample/BasicSecurityToken.php" role="php" />
-   <file baseinstalldir="/" md5sum="d8fbd8cd207f1844802ddd2bbbc8018a" name="lib/vendor/Shindig/src/common/sample/BasicSecurityTokenDecoder.php" role="php" />
-   <file baseinstalldir="/" md5sum="b4a977f93870133f6ff56e0f3b6b2c02" name="lib/vendor/Shindig/src/common/sample/CacheApc.php" role="php" />
-   <file baseinstalldir="/" md5sum="5be6d30990efbf48821dffb7332aa8b7" name="lib/vendor/Shindig/src/common/sample/CacheFile.php" role="php" />
-   <file baseinstalldir="/" md5sum="e6b4656d51915b5bb1eddfca61b85353" name="lib/vendor/Shindig/src/common/sample/CacheMemcache.php" role="php" />
-   <file baseinstalldir="/" md5sum="5be526720de642b89f656c822facb18e" name="lib/vendor/Shindig/src/common/sample/Crypto.php" role="php" />
-   <file baseinstalldir="/" md5sum="ad5c123aceefcc1d124bb55e72b19af2" name="lib/vendor/Shindig/src/gadgets/Auth.php" role="php" />
-   <file baseinstalldir="/" md5sum="2010f276e9380bb18367ee3a538fd66d" name="lib/vendor/Shindig/src/gadgets/ContainerConfig.php" role="php" />
-   <file baseinstalldir="/" md5sum="1eef891937321273e870e8e855a788fb" name="lib/vendor/Shindig/src/gadgets/FeatureSpec.php" role="php" />
-   <file baseinstalldir="/" md5sum="82f43cafaf0d775f26895a0787c4846c" name="lib/vendor/Shindig/src/gadgets/Gadget.php" role="php" />
-   <file baseinstalldir="/" md5sum="b929fecb45063d7f8f2fd683703ff19d" name="lib/vendor/Shindig/src/gadgets/GadgetBlacklist.php" role="php" />
-   <file baseinstalldir="/" md5sum="f305fbfd28ce2d98985e258d318ee209" name="lib/vendor/Shindig/src/gadgets/GadgetContext.php" role="php" />
-   <file baseinstalldir="/" md5sum="fb96f910048066274d9a13d0d141da55" name="lib/vendor/Shindig/src/gadgets/GadgetException.php" role="php" />
-   <file baseinstalldir="/" md5sum="83acd548ade9ef7a5be5d3dd3f3de60b" name="lib/vendor/Shindig/src/gadgets/GadgetFeature.php" role="php" />
-   <file baseinstalldir="/" md5sum="ec1ce6cb5711b2bf285ccae1f88bdcce" name="lib/vendor/Shindig/src/gadgets/GadgetFeatureFactory.php" role="php" />
-   <file baseinstalldir="/" md5sum="22859db0451880f9cb41f7201f7b88d3" name="lib/vendor/Shindig/src/gadgets/GadgetFeatureRegistry.php" role="php" />
-   <file baseinstalldir="/" md5sum="b8edff5544b0a60fea584d8db63282f0" name="lib/vendor/Shindig/src/gadgets/GadgetId.php" role="php" />
-   <file baseinstalldir="/" md5sum="55d6f5e6b6ecf561149d7c6993f68673" name="lib/vendor/Shindig/src/gadgets/GadgetServer.php" role="php" />
-   <file baseinstalldir="/" md5sum="c47a18b0d027d3e2962590c3419c3a56" name="lib/vendor/Shindig/src/gadgets/GadgetSigner.php" role="php" />
-   <file baseinstalldir="/" md5sum="75ff77c9ac18141bd6d9718ded5988c9" name="lib/vendor/Shindig/src/gadgets/GadgetSpecFactory.php" role="php" />
-   <file baseinstalldir="/" md5sum="ea9d5036e4575508795cf92f7b2a0a2e" name="lib/vendor/Shindig/src/gadgets/GadgetSpecParser.php" role="php" />
-   <file baseinstalldir="/" md5sum="d0d83851990c7a83e1ac42280a4eea4f" name="lib/vendor/Shindig/src/gadgets/HttpUtil.php" role="php" />
-   <file baseinstalldir="/" md5sum="f2a69eb1d474549c500a801e149cf555" name="lib/vendor/Shindig/src/gadgets/Icon.php" role="php" />
-   <file baseinstalldir="/" md5sum="55c5883ba297c67f3a3495278f9c0a40" name="lib/vendor/Shindig/src/gadgets/JsFeatureLoader.php" role="php" />
-   <file baseinstalldir="/" md5sum="c9c4a5ebe1198ad90d2fdedca4f24b03" name="lib/vendor/Shindig/src/gadgets/JsLibrary.php" role="php" />
-   <file baseinstalldir="/" md5sum="7e89580004f1ead759223a6e6f89de20" name="lib/vendor/Shindig/src/gadgets/JsLibraryFeatureFactory.php" role="php" />
-   <file baseinstalldir="/" md5sum="d2a1bcc0eb94fc2b4cfacb64a6cf04ce" name="lib/vendor/Shindig/src/gadgets/LinkSpec.php" role="php" />
-   <file baseinstalldir="/" md5sum="9401a8f193fdb57ab71e0158acfb5090" name="lib/vendor/Shindig/src/gadgets/LocaleMessageBundle.php" role="php" />
-   <file baseinstalldir="/" md5sum="eaf529121783383b940cf5482ab640e6" name="lib/vendor/Shindig/src/gadgets/LocaleSpec.php" role="php" />
-   <file baseinstalldir="/" md5sum="5380d87957835b8ee4e21ca4a923bfdd" name="lib/vendor/Shindig/src/gadgets/MessageBundle.php" role="php" />
-   <file baseinstalldir="/" md5sum="36496f81306fd14768a48ed61a9e7109" name="lib/vendor/Shindig/src/gadgets/MessageBundleParser.php" role="php" />
-   <file baseinstalldir="/" md5sum="5c28bcecd361ac019d349d872ee2bc23" name="lib/vendor/Shindig/src/gadgets/MetadataContext.php" role="php" />
-   <file baseinstalldir="/" md5sum="631a58d867b3e39b4bd720421f1ce1ea" name="lib/vendor/Shindig/src/gadgets/MetadataHandler.php" role="php" />
-   <file baseinstalldir="/" md5sum="5c67090d91bd648c498106464b100e45" name="lib/vendor/Shindig/src/gadgets/Preload.php" role="php" />
-   <file baseinstalldir="/" md5sum="957191971c892702cf5710cf757c90f8" name="lib/vendor/Shindig/src/gadgets/ProxyGadgetContext.php" role="php" />
-   <file baseinstalldir="/" md5sum="d37af48587774c3f8af94526ad0f682c" name="lib/vendor/Shindig/src/gadgets/ProxyHandler.php" role="php" />
-   <file baseinstalldir="/" md5sum="cd24684ed9f41fffad282cd7ad3e2fe5" name="lib/vendor/Shindig/src/gadgets/SigningFetcher.php" role="php" />
-   <file baseinstalldir="/" md5sum="7e37666e7e495350c6c54a774d6d8e5e" name="lib/vendor/Shindig/src/gadgets/SigningFetcherFactory.php" role="php" />
-   <file baseinstalldir="/" md5sum="14f7c0772dc365b7ac3af92a4d18e847" name="lib/vendor/Shindig/src/gadgets/Substitutions.php" role="php" />
-   <file baseinstalldir="/" md5sum="c5fc0976d08c9adc6a93839769059e65" name="lib/vendor/Shindig/src/gadgets/UserPref.php" role="php" />
-   <file baseinstalldir="/" md5sum="46b1ecc80e0f4c495079dfde6a0a584d" name="lib/vendor/Shindig/src/gadgets/UserPrefs.php" role="php" />
-   <file baseinstalldir="/" md5sum="35824cc040fb6e384d0108a270a56ce4" name="lib/vendor/Shindig/src/gadgets/ViewSpec.php" role="php" />
-   <file baseinstalldir="/" md5sum="38b2f5ba3722ab72f8dc25bc1101789f" name="lib/vendor/Shindig/src/gadgets/oauth/BasicGadgetOAuthTokenStore.php" role="php" />
-   <file baseinstalldir="/" md5sum="4c0d241ec43fa93e047aefdc697a30e9" name="lib/vendor/Shindig/src/gadgets/oauth/BasicOAuthStore.php" role="php" />
-   <file baseinstalldir="/" md5sum="cb8e190d442543a1efe86857a60004bc" name="lib/vendor/Shindig/src/gadgets/oauth/GadgetOAuthTokenStore.php" role="php" />
-   <file baseinstalldir="/" md5sum="97a3dbe6bcdbff23d21d19e9b9d15125" name="lib/vendor/Shindig/src/gadgets/oauth/OAuth.php" role="php" />
-   <file baseinstalldir="/" md5sum="ce569342e6e3369d5112ff95a6533d2c" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthAccessor.php" role="php" />
-   <file baseinstalldir="/" md5sum="198a11caccb414c980f8665a429026fe" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthError.php" role="php" />
-   <file baseinstalldir="/" md5sum="4a6e83a00316caa9124b42563206fe74" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthFetcher.php" role="php" />
-   <file baseinstalldir="/" md5sum="3ea198762427679aaea83c5beb841c17" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthFetcherFactory.php" role="php" />
-   <file baseinstalldir="/" md5sum="c8620191378d014e3c0e7d9b171d562a" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthRequestParams.php" role="php" />
-   <file baseinstalldir="/" md5sum="c96de4b62fe315c8dfc0c88f861a6a5b" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthService.php" role="php" />
-   <file baseinstalldir="/" md5sum="b39064cce5fc64ee5e74e96248af1796" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthServiceProvider.php" role="php" />
-   <file baseinstalldir="/" md5sum="342b9db8e034526a07bf4766098eb6f6" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthSpec.php" role="php" />
-   <file baseinstalldir="/" md5sum="6e5ea558f5e19a4eac9f64f40d0af66f" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthStore.php" role="php" />
-   <file baseinstalldir="/" md5sum="5df7c9d922def94f874ad06155bb10eb" name="lib/vendor/Shindig/src/gadgets/rewrite/ContentRewriteFeature.php" role="php" />
-   <file baseinstalldir="/" md5sum="048e4cb78576145c846ba2ca2f85a179" name="lib/vendor/Shindig/src/gadgets/rewrite/ContentRewriter.php" role="php" />
-   <file baseinstalldir="/" md5sum="0d91c63c51c4f6460596e47d11ec789e" name="lib/vendor/Shindig/src/gadgets/sample/BasicGadgetBlacklist.php" role="php" />
-   <file baseinstalldir="/" md5sum="257f892cb62ec86d4d6a21a2df5e2575" name="lib/vendor/Shindig/src/gadgets/sample/BasicGadgetSpecFactory.php" role="php" />
-   <file baseinstalldir="/" md5sum="0e64425c58c57e054573c16e377a016b" name="lib/vendor/Shindig/src/gadgets/servlet/CertServlet.php" role="php" />
-   <file baseinstalldir="/" md5sum="d44dd20946d2d9be9cf2ec25bd4c4aea" name="lib/vendor/Shindig/src/gadgets/servlet/FilesServlet.php" role="php" />
-   <file baseinstalldir="/" md5sum="d354f59c763330d41e3a1ab0ac564753" name="lib/vendor/Shindig/src/gadgets/servlet/GadgetRenderingServlet.php" role="php" />
-   <file baseinstalldir="/" md5sum="7f1b9531f8b7143e97aba952c91aece6" name="lib/vendor/Shindig/src/gadgets/servlet/JsServlet.php" role="php" />
-   <file baseinstalldir="/" md5sum="a2476358d6e5498d4da1f13e1fad49f6" name="lib/vendor/Shindig/src/gadgets/servlet/MetadataServlet.php" role="php" />
-   <file baseinstalldir="/" md5sum="77f7e644082c5362b090b151c8a5e4a5" name="lib/vendor/Shindig/src/gadgets/servlet/ProxyServlet.php" role="php" />
-   <file baseinstalldir="/" md5sum="02b005730db07e1f74fd3decff13400e" name="lib/vendor/Shindig/src/social/converters/InputAtomConverter.php" role="php" />
-   <file baseinstalldir="/" md5sum="66adedd288d628b5f32311b306f7c1dd" name="lib/vendor/Shindig/src/social/converters/InputBasicXmlConverter.php" role="php" />
-   <file baseinstalldir="/" md5sum="890296ac1d8cf4f8e2bce7f0e27cd38e" name="lib/vendor/Shindig/src/social/converters/InputConverter.php" role="php" />
-   <file baseinstalldir="/" md5sum="7e6f1bcb1070d7e1852c02395b760984" name="lib/vendor/Shindig/src/social/converters/InputJsonConverter.php" role="php" />
-   <file baseinstalldir="/" md5sum="ee4aaf55a751eada55dfdfc0f5285d32" name="lib/vendor/Shindig/src/social/converters/InputXmlConverter.php" role="php" />
-   <file baseinstalldir="/" md5sum="ff1ce219f9757e92af2fd5307b2ff509" name="lib/vendor/Shindig/src/social/converters/OutputAtomConverter.php" role="php" />
-   <file baseinstalldir="/" md5sum="601656c747b371e3b3fb5eb5a7a53f22" name="lib/vendor/Shindig/src/social/converters/OutputBasicXmlConverter.php" role="php" />
-   <file baseinstalldir="/" md5sum="31f8f26e8713360ef76279009e22b519" name="lib/vendor/Shindig/src/social/converters/OutputConverter.php" role="php" />
-   <file baseinstalldir="/" md5sum="af817b488d1eb54d0aca7d0aa3169a9e" name="lib/vendor/Shindig/src/social/converters/OutputJsonConverter.php" role="php" />
-   <file baseinstalldir="/" md5sum="a1c36eae72cd9c19d015691aa90a92a4" name="lib/vendor/Shindig/src/social/converters/OutputXmlConverter.php" role="php" />
-   <file baseinstalldir="/" md5sum="2c9d1cd01944824ff667607da022877f" name="lib/vendor/Shindig/src/social/model/Account.php" role="php" />
-   <file baseinstalldir="/" md5sum="1aba3914a0839b7b7a838b04b79cbd39" name="lib/vendor/Shindig/src/social/model/Activity.php" role="php" />
-   <file baseinstalldir="/" md5sum="3d1634701c23cd1da62d6aef0d186b74" name="lib/vendor/Shindig/src/social/model/Address.php" role="php" />
-   <file baseinstalldir="/" md5sum="e3c7a973bfd4340aebe0f12c19c38608" name="lib/vendor/Shindig/src/social/model/ApiCollection.php" role="php" />
-   <file baseinstalldir="/" md5sum="61c9f69a102529b475cb24208821f1a5" name="lib/vendor/Shindig/src/social/model/BodyType.php" role="php" />
-   <file baseinstalldir="/" md5sum="91a5780d7157ba58c55ff0a85fa78f98" name="lib/vendor/Shindig/src/social/model/ComplexField.php" role="php" />
-   <file baseinstalldir="/" md5sum="a8a77b6470b042535b02014fd576fa0f" name="lib/vendor/Shindig/src/social/model/Email.php" role="php" />
-   <file baseinstalldir="/" md5sum="e41fbb4ec982334a41082604f79366d9" name="lib/vendor/Shindig/src/social/model/Enum.php" role="php" />
-   <file baseinstalldir="/" md5sum="c8de480dedeb04f3249274e140885e1e" name="lib/vendor/Shindig/src/social/model/IdSpec.php" role="php" />
-   <file baseinstalldir="/" md5sum="164a31e16cd35c79c9e5de125b49afa9" name="lib/vendor/Shindig/src/social/model/Im.php" role="php" />
-   <file baseinstalldir="/" md5sum="161d740557c24bbd65a94219b7df94b5" name="lib/vendor/Shindig/src/social/model/ListField.php" role="php" />
-   <file baseinstalldir="/" md5sum="ed4f241e03654f16303f644d54f1c702" name="lib/vendor/Shindig/src/social/model/MediaItem.php" role="php" />
-   <file baseinstalldir="/" md5sum="3107a612d45aa9b109562143910b39a8" name="lib/vendor/Shindig/src/social/model/Message.php" role="php" />
-   <file baseinstalldir="/" md5sum="d0651933f22c36db5d25c32d242d1b75" name="lib/vendor/Shindig/src/social/model/Name.php" role="php" />
-   <file baseinstalldir="/" md5sum="e22a5b6454611ce191ca7ed70c350086" name="lib/vendor/Shindig/src/social/model/Organization.php" role="php" />
-   <file baseinstalldir="/" md5sum="e9eb741fb65f0112006dba1d5129ee30" name="lib/vendor/Shindig/src/social/model/Person.php" role="php" />
-   <file baseinstalldir="/" md5sum="2c6f68414672498a83c3384cd5a4e6b7" name="lib/vendor/Shindig/src/social/model/Phone.php" role="php" />
-   <file baseinstalldir="/" md5sum="ba3ee70ffbb86d0f1d9a80d38f7e4d43" name="lib/vendor/Shindig/src/social/model/Photo.php" role="php" />
-   <file baseinstalldir="/" md5sum="8d42311d58ce5121ad64a1669a9afb0c" name="lib/vendor/Shindig/src/social/model/Url.php" role="php" />
-   <file baseinstalldir="/" md5sum="e899341bab0b36a54eeb7c0a9a27eb2d" name="lib/vendor/Shindig/src/social/oauth/OAuth.php" role="php" />
-   <file baseinstalldir="/" md5sum="ac897cc029580cce0f009950b324ec24" name="lib/vendor/Shindig/src/social/oauth/OAuthSecurityToken.php" role="php" />
-   <file baseinstalldir="/" md5sum="b15046876c838f55db40a9e99a9c5ed8" name="lib/vendor/Shindig/src/social/sample/JsonDbOpensocialService.php" role="php" />
-   <file baseinstalldir="/" md5sum="01d61618f40ffce2bda7c98c65393098" name="lib/vendor/Shindig/src/social/service/ActivityHandler.php" role="php" />
-   <file baseinstalldir="/" md5sum="00c3c16b8786189c0ef4ed48da9b2bb2" name="lib/vendor/Shindig/src/social/service/AppDataHandler.php" role="php" />
-   <file baseinstalldir="/" md5sum="01f024a30c5222ca00ce31e5ea0d738f" name="lib/vendor/Shindig/src/social/service/DataRequestHandler.php" role="php" />
-   <file baseinstalldir="/" md5sum="6f3530eb30f8a79ed9b50b334553fad3" name="lib/vendor/Shindig/src/social/service/MessagesHandler.php" role="php" />
-   <file baseinstalldir="/" md5sum="7b3d252b7e5cafa7e1bbd5ef2ed93c1b" name="lib/vendor/Shindig/src/social/service/PersonHandler.php" role="php" />
-   <file baseinstalldir="/" md5sum="9359316bbb07d83bf1688853ec71eff0" name="lib/vendor/Shindig/src/social/service/RequestItem.php" role="php" />
-   <file baseinstalldir="/" md5sum="108c54a11e6d5aa411e56bbb92cf2441" name="lib/vendor/Shindig/src/social/service/ResponseError.php" role="php" />
-   <file baseinstalldir="/" md5sum="d18254e5a695389cfeced8bdf2080672" name="lib/vendor/Shindig/src/social/service/ResponseItem.php" role="php" />
-   <file baseinstalldir="/" md5sum="33cfe94712615c7f87748ce702ba7c1e" name="lib/vendor/Shindig/src/social/service/RestRequestItem.php" role="php" />
-   <file baseinstalldir="/" md5sum="a969d00b6661955bd734efce87ddebb0" name="lib/vendor/Shindig/src/social/service/RpcRequestItem.php" role="php" />
-   <file baseinstalldir="/" md5sum="3e9795d990882f3207e1a0217a8a18f5" name="lib/vendor/Shindig/src/social/service/SocialSpiException.php" role="php" />
-   <file baseinstalldir="/" md5sum="32fc0d165298c9fa30ad8f1e85338816" name="lib/vendor/Shindig/src/social/servlet/ApiServlet.php" role="php" />
-   <file baseinstalldir="/" md5sum="1b0ea2e4386d64ea27d52ff7d6eddc1b" name="lib/vendor/Shindig/src/social/servlet/DataServiceServlet.php" role="php" />
-   <file baseinstalldir="/" md5sum="2ff5fd132b60fb3bc583584a1563438e" name="lib/vendor/Shindig/src/social/servlet/JsonRpcServlet.php" role="php" />
-   <file baseinstalldir="/" md5sum="d964fb0f77bd724867ff8ba83a8f5248" name="lib/vendor/Shindig/src/social/spi/ActivityService.php" role="php" />
-   <file baseinstalldir="/" md5sum="517eb1097c15d7635139e03593450377" name="lib/vendor/Shindig/src/social/spi/AppDataService.php" role="php" />
-   <file baseinstalldir="/" md5sum="8c23bfb6c4f41cc80c387f03bfc976b9" name="lib/vendor/Shindig/src/social/spi/CollectionOptions.php" role="php" />
-   <file baseinstalldir="/" md5sum="fcfc41468213ac1984f266ac7809f168" name="lib/vendor/Shindig/src/social/spi/DataCollection.php" role="php" />
-   <file baseinstalldir="/" md5sum="8b010c2a046605c86b2f105be58f6fe5" name="lib/vendor/Shindig/src/social/spi/GroupId.php" role="php" />
-   <file baseinstalldir="/" md5sum="d12600f62a9dfed906bba313eb2c61fd" name="lib/vendor/Shindig/src/social/spi/MessagesService.php" role="php" />
-   <file baseinstalldir="/" md5sum="a0752720b2426f0976bc0e53ee6bef79" name="lib/vendor/Shindig/src/social/spi/PersonService.php" role="php" />
-   <file baseinstalldir="/" md5sum="32f82288e36821254843ed116eea840b" name="lib/vendor/Shindig/src/social/spi/RestfulCollection.php" role="php" />
-   <file baseinstalldir="/" md5sum="ff88bebae885e67734ecd9cd819791fc" name="lib/vendor/Shindig/src/social/spi/UserId.php" role="php" />
-   <file baseinstalldir="/" md5sum="2c6a9b127a29ee2f45207e587f753827" name="web/css/opensocial.css" role="data" />
-   <file baseinstalldir="/" md5sum="15682debc70eaeaaa1a86c14d4a42553" name="web/js/container.js" role="data" />
+   <file baseinstalldir="/" md5sum="eaef24e1a4fba8beca97c5b81d8b5219" name="lib/vendor/Shindig/src/common/BlobCrypter.php" role="data" />
+   <file baseinstalldir="/" md5sum="0e467e7f1ac185cc10da990de8580aa7" name="lib/vendor/Shindig/src/common/Cache.php" role="data" />
+   <file baseinstalldir="/" md5sum="496bb3dd9e26d1aac29bfd592302feff" name="lib/vendor/Shindig/src/common/Config.php" role="data" />
+   <file baseinstalldir="/" md5sum="5400a8d30e16a0991310ec1f55714f9a" name="lib/vendor/Shindig/src/common/File.php" role="data" />
+   <file baseinstalldir="/" md5sum="d306e41c4924881e3459eff028cd9a80" name="lib/vendor/Shindig/src/common/HttpServlet.php" role="data" />
+   <file baseinstalldir="/" md5sum="16629b80cc3ed090a85a4b0f1694a703" name="lib/vendor/Shindig/src/common/IllegalArgumentException.php" role="data" />
+   <file baseinstalldir="/" md5sum="e697eb43873a519c2c3770d25bf61c0b" name="lib/vendor/Shindig/src/common/JsMin.php" role="data" />
+   <file baseinstalldir="/" md5sum="0296e99c486dcd1d0995df027a482faa" name="lib/vendor/Shindig/src/common/Locale.php" role="data" />
+   <file baseinstalldir="/" md5sum="4d71dbb0dd8e78978c5f6b08d58f8a1b" name="lib/vendor/Shindig/src/common/OAuthLookupService.php" role="data" />
+   <file baseinstalldir="/" md5sum="6b284af05bb719bbb2de3a528e394819" name="lib/vendor/Shindig/src/common/RemoteContent.php" role="data" />
+   <file baseinstalldir="/" md5sum="52b3849b435341717e24f44ead6fa110" name="lib/vendor/Shindig/src/common/RemoteContentFetcher.php" role="data" />
+   <file baseinstalldir="/" md5sum="c0e4d9d3a9c8a1b1f944c398462e125b" name="lib/vendor/Shindig/src/common/RemoteContentRequest.php" role="data" />
+   <file baseinstalldir="/" md5sum="b74d6ff6b478c400b32b4d12933de740" name="lib/vendor/Shindig/src/common/SecurityToken.php" role="data" />
+   <file baseinstalldir="/" md5sum="09a2733668ad490d0a51af1106f0ed0c" name="lib/vendor/Shindig/src/common/SecurityTokenDecoder.php" role="data" />
+   <file baseinstalldir="/" md5sum="6d01ca4ac0b939cb5724954fd43f6b77" name="lib/vendor/Shindig/src/common/UrlGenerator.php" role="data" />
+   <file baseinstalldir="/" md5sum="f5cbe98b03b67804c8735a70b104c5d3" name="lib/vendor/Shindig/src/common/sample/BasicBlobCrypter.php" role="data" />
+   <file baseinstalldir="/" md5sum="f7d3de02aa92a9f5b684174a2c22c43f" name="lib/vendor/Shindig/src/common/sample/BasicOAuthDataStore.php" role="data" />
+   <file baseinstalldir="/" md5sum="e9841d820fe3c71f106f797fe98441a9" name="lib/vendor/Shindig/src/common/sample/BasicOAuthLookupService.php" role="data" />
+   <file baseinstalldir="/" md5sum="0f9a1e872e07610cf72f82d3cb12c369" name="lib/vendor/Shindig/src/common/sample/BasicRemoteContent.php" role="data" />
+   <file baseinstalldir="/" md5sum="b58437f4e8ce238f7a1ce91db9471b62" name="lib/vendor/Shindig/src/common/sample/BasicRemoteContentFetcher.php" role="data" />
+   <file baseinstalldir="/" md5sum="775a2f7b5b9b94df5441e045c171bfc4" name="lib/vendor/Shindig/src/common/sample/BasicSecurityToken.php" role="data" />
+   <file baseinstalldir="/" md5sum="d8fbd8cd207f1844802ddd2bbbc8018a" name="lib/vendor/Shindig/src/common/sample/BasicSecurityTokenDecoder.php" role="data" />
+   <file baseinstalldir="/" md5sum="b4a977f93870133f6ff56e0f3b6b2c02" name="lib/vendor/Shindig/src/common/sample/CacheApc.php" role="data" />
+   <file baseinstalldir="/" md5sum="5be6d30990efbf48821dffb7332aa8b7" name="lib/vendor/Shindig/src/common/sample/CacheFile.php" role="data" />
+   <file baseinstalldir="/" md5sum="e6b4656d51915b5bb1eddfca61b85353" name="lib/vendor/Shindig/src/common/sample/CacheMemcache.php" role="data" />
+   <file baseinstalldir="/" md5sum="5be526720de642b89f656c822facb18e" name="lib/vendor/Shindig/src/common/sample/Crypto.php" role="data" />
+   <file baseinstalldir="/" md5sum="ad5c123aceefcc1d124bb55e72b19af2" name="lib/vendor/Shindig/src/gadgets/Auth.php" role="data" />
+   <file baseinstalldir="/" md5sum="2010f276e9380bb18367ee3a538fd66d" name="lib/vendor/Shindig/src/gadgets/ContainerConfig.php" role="data" />
+   <file baseinstalldir="/" md5sum="1eef891937321273e870e8e855a788fb" name="lib/vendor/Shindig/src/gadgets/FeatureSpec.php" role="data" />
+   <file baseinstalldir="/" md5sum="82f43cafaf0d775f26895a0787c4846c" name="lib/vendor/Shindig/src/gadgets/Gadget.php" role="data" />
+   <file baseinstalldir="/" md5sum="b929fecb45063d7f8f2fd683703ff19d" name="lib/vendor/Shindig/src/gadgets/GadgetBlacklist.php" role="data" />
+   <file baseinstalldir="/" md5sum="f305fbfd28ce2d98985e258d318ee209" name="lib/vendor/Shindig/src/gadgets/GadgetContext.php" role="data" />
+   <file baseinstalldir="/" md5sum="fb96f910048066274d9a13d0d141da55" name="lib/vendor/Shindig/src/gadgets/GadgetException.php" role="data" />
+   <file baseinstalldir="/" md5sum="83acd548ade9ef7a5be5d3dd3f3de60b" name="lib/vendor/Shindig/src/gadgets/GadgetFeature.php" role="data" />
+   <file baseinstalldir="/" md5sum="ec1ce6cb5711b2bf285ccae1f88bdcce" name="lib/vendor/Shindig/src/gadgets/GadgetFeatureFactory.php" role="data" />
+   <file baseinstalldir="/" md5sum="22859db0451880f9cb41f7201f7b88d3" name="lib/vendor/Shindig/src/gadgets/GadgetFeatureRegistry.php" role="data" />
+   <file baseinstalldir="/" md5sum="b8edff5544b0a60fea584d8db63282f0" name="lib/vendor/Shindig/src/gadgets/GadgetId.php" role="data" />
+   <file baseinstalldir="/" md5sum="55d6f5e6b6ecf561149d7c6993f68673" name="lib/vendor/Shindig/src/gadgets/GadgetServer.php" role="data" />
+   <file baseinstalldir="/" md5sum="c47a18b0d027d3e2962590c3419c3a56" name="lib/vendor/Shindig/src/gadgets/GadgetSigner.php" role="data" />
+   <file baseinstalldir="/" md5sum="75ff77c9ac18141bd6d9718ded5988c9" name="lib/vendor/Shindig/src/gadgets/GadgetSpecFactory.php" role="data" />
+   <file baseinstalldir="/" md5sum="ea9d5036e4575508795cf92f7b2a0a2e" name="lib/vendor/Shindig/src/gadgets/GadgetSpecParser.php" role="data" />
+   <file baseinstalldir="/" md5sum="d0d83851990c7a83e1ac42280a4eea4f" name="lib/vendor/Shindig/src/gadgets/HttpUtil.php" role="data" />
+   <file baseinstalldir="/" md5sum="f2a69eb1d474549c500a801e149cf555" name="lib/vendor/Shindig/src/gadgets/Icon.php" role="data" />
+   <file baseinstalldir="/" md5sum="55c5883ba297c67f3a3495278f9c0a40" name="lib/vendor/Shindig/src/gadgets/JsFeatureLoader.php" role="data" />
+   <file baseinstalldir="/" md5sum="c9c4a5ebe1198ad90d2fdedca4f24b03" name="lib/vendor/Shindig/src/gadgets/JsLibrary.php" role="data" />
+   <file baseinstalldir="/" md5sum="7e89580004f1ead759223a6e6f89de20" name="lib/vendor/Shindig/src/gadgets/JsLibraryFeatureFactory.php" role="data" />
+   <file baseinstalldir="/" md5sum="d2a1bcc0eb94fc2b4cfacb64a6cf04ce" name="lib/vendor/Shindig/src/gadgets/LinkSpec.php" role="data" />
+   <file baseinstalldir="/" md5sum="9401a8f193fdb57ab71e0158acfb5090" name="lib/vendor/Shindig/src/gadgets/LocaleMessageBundle.php" role="data" />
+   <file baseinstalldir="/" md5sum="eaf529121783383b940cf5482ab640e6" name="lib/vendor/Shindig/src/gadgets/LocaleSpec.php" role="data" />
+   <file baseinstalldir="/" md5sum="5380d87957835b8ee4e21ca4a923bfdd" name="lib/vendor/Shindig/src/gadgets/MessageBundle.php" role="data" />
+   <file baseinstalldir="/" md5sum="36496f81306fd14768a48ed61a9e7109" name="lib/vendor/Shindig/src/gadgets/MessageBundleParser.php" role="data" />
+   <file baseinstalldir="/" md5sum="5c28bcecd361ac019d349d872ee2bc23" name="lib/vendor/Shindig/src/gadgets/MetadataContext.php" role="data" />
+   <file baseinstalldir="/" md5sum="631a58d867b3e39b4bd720421f1ce1ea" name="lib/vendor/Shindig/src/gadgets/MetadataHandler.php" role="data" />
+   <file baseinstalldir="/" md5sum="5c67090d91bd648c498106464b100e45" name="lib/vendor/Shindig/src/gadgets/Preload.php" role="data" />
+   <file baseinstalldir="/" md5sum="957191971c892702cf5710cf757c90f8" name="lib/vendor/Shindig/src/gadgets/ProxyGadgetContext.php" role="data" />
+   <file baseinstalldir="/" md5sum="3059deaa44dc1e61c41b8dbcfe9b563f" name="lib/vendor/Shindig/src/gadgets/ProxyHandler.php" role="data" />
+   <file baseinstalldir="/" md5sum="cd24684ed9f41fffad282cd7ad3e2fe5" name="lib/vendor/Shindig/src/gadgets/SigningFetcher.php" role="data" />
+   <file baseinstalldir="/" md5sum="c683b6db6d86118f05e4d2fe886cf87a" name="lib/vendor/Shindig/src/gadgets/SigningFetcherFactory.php" role="data" />
+   <file baseinstalldir="/" md5sum="14f7c0772dc365b7ac3af92a4d18e847" name="lib/vendor/Shindig/src/gadgets/Substitutions.php" role="data" />
+   <file baseinstalldir="/" md5sum="c5fc0976d08c9adc6a93839769059e65" name="lib/vendor/Shindig/src/gadgets/UserPref.php" role="data" />
+   <file baseinstalldir="/" md5sum="46b1ecc80e0f4c495079dfde6a0a584d" name="lib/vendor/Shindig/src/gadgets/UserPrefs.php" role="data" />
+   <file baseinstalldir="/" md5sum="35824cc040fb6e384d0108a270a56ce4" name="lib/vendor/Shindig/src/gadgets/ViewSpec.php" role="data" />
+   <file baseinstalldir="/" md5sum="38b2f5ba3722ab72f8dc25bc1101789f" name="lib/vendor/Shindig/src/gadgets/oauth/BasicGadgetOAuthTokenStore.php" role="data" />
+   <file baseinstalldir="/" md5sum="4c0d241ec43fa93e047aefdc697a30e9" name="lib/vendor/Shindig/src/gadgets/oauth/BasicOAuthStore.php" role="data" />
+   <file baseinstalldir="/" md5sum="cb8e190d442543a1efe86857a60004bc" name="lib/vendor/Shindig/src/gadgets/oauth/GadgetOAuthTokenStore.php" role="data" />
+   <file baseinstalldir="/" md5sum="97a3dbe6bcdbff23d21d19e9b9d15125" name="lib/vendor/Shindig/src/gadgets/oauth/OAuth.php" role="data" />
+   <file baseinstalldir="/" md5sum="ce569342e6e3369d5112ff95a6533d2c" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthAccessor.php" role="data" />
+   <file baseinstalldir="/" md5sum="198a11caccb414c980f8665a429026fe" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthError.php" role="data" />
+   <file baseinstalldir="/" md5sum="4a6e83a00316caa9124b42563206fe74" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthFetcher.php" role="data" />
+   <file baseinstalldir="/" md5sum="3ea198762427679aaea83c5beb841c17" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthFetcherFactory.php" role="data" />
+   <file baseinstalldir="/" md5sum="c8620191378d014e3c0e7d9b171d562a" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthRequestParams.php" role="data" />
+   <file baseinstalldir="/" md5sum="c96de4b62fe315c8dfc0c88f861a6a5b" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthService.php" role="data" />
+   <file baseinstalldir="/" md5sum="b39064cce5fc64ee5e74e96248af1796" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthServiceProvider.php" role="data" />
+   <file baseinstalldir="/" md5sum="342b9db8e034526a07bf4766098eb6f6" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthSpec.php" role="data" />
+   <file baseinstalldir="/" md5sum="6e5ea558f5e19a4eac9f64f40d0af66f" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthStore.php" role="data" />
+   <file baseinstalldir="/" md5sum="5df7c9d922def94f874ad06155bb10eb" name="lib/vendor/Shindig/src/gadgets/rewrite/ContentRewriteFeature.php" role="data" />
+   <file baseinstalldir="/" md5sum="048e4cb78576145c846ba2ca2f85a179" name="lib/vendor/Shindig/src/gadgets/rewrite/ContentRewriter.php" role="data" />
+   <file baseinstalldir="/" md5sum="0d91c63c51c4f6460596e47d11ec789e" name="lib/vendor/Shindig/src/gadgets/sample/BasicGadgetBlacklist.php" role="data" />
+   <file baseinstalldir="/" md5sum="257f892cb62ec86d4d6a21a2df5e2575" name="lib/vendor/Shindig/src/gadgets/sample/BasicGadgetSpecFactory.php" role="data" />
+   <file baseinstalldir="/" md5sum="0e64425c58c57e054573c16e377a016b" name="lib/vendor/Shindig/src/gadgets/servlet/CertServlet.php" role="data" />
+   <file baseinstalldir="/" md5sum="d44dd20946d2d9be9cf2ec25bd4c4aea" name="lib/vendor/Shindig/src/gadgets/servlet/FilesServlet.php" role="data" />
+   <file baseinstalldir="/" md5sum="d354f59c763330d41e3a1ab0ac564753" name="lib/vendor/Shindig/src/gadgets/servlet/GadgetRenderingServlet.php" role="data" />
+   <file baseinstalldir="/" md5sum="7f1b9531f8b7143e97aba952c91aece6" name="lib/vendor/Shindig/src/gadgets/servlet/JsServlet.php" role="data" />
+   <file baseinstalldir="/" md5sum="a2476358d6e5498d4da1f13e1fad49f6" name="lib/vendor/Shindig/src/gadgets/servlet/MetadataServlet.php" role="data" />
+   <file baseinstalldir="/" md5sum="77f7e644082c5362b090b151c8a5e4a5" name="lib/vendor/Shindig/src/gadgets/servlet/ProxyServlet.php" role="data" />
+   <file baseinstalldir="/" md5sum="02b005730db07e1f74fd3decff13400e" name="lib/vendor/Shindig/src/social/converters/InputAtomConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="66adedd288d628b5f32311b306f7c1dd" name="lib/vendor/Shindig/src/social/converters/InputBasicXmlConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="890296ac1d8cf4f8e2bce7f0e27cd38e" name="lib/vendor/Shindig/src/social/converters/InputConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="7e6f1bcb1070d7e1852c02395b760984" name="lib/vendor/Shindig/src/social/converters/InputJsonConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="ee4aaf55a751eada55dfdfc0f5285d32" name="lib/vendor/Shindig/src/social/converters/InputXmlConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="ff1ce219f9757e92af2fd5307b2ff509" name="lib/vendor/Shindig/src/social/converters/OutputAtomConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="601656c747b371e3b3fb5eb5a7a53f22" name="lib/vendor/Shindig/src/social/converters/OutputBasicXmlConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="31f8f26e8713360ef76279009e22b519" name="lib/vendor/Shindig/src/social/converters/OutputConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="af817b488d1eb54d0aca7d0aa3169a9e" name="lib/vendor/Shindig/src/social/converters/OutputJsonConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="a1c36eae72cd9c19d015691aa90a92a4" name="lib/vendor/Shindig/src/social/converters/OutputXmlConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="2c9d1cd01944824ff667607da022877f" name="lib/vendor/Shindig/src/social/model/Account.php" role="data" />
+   <file baseinstalldir="/" md5sum="1aba3914a0839b7b7a838b04b79cbd39" name="lib/vendor/Shindig/src/social/model/Activity.php" role="data" />
+   <file baseinstalldir="/" md5sum="3d1634701c23cd1da62d6aef0d186b74" name="lib/vendor/Shindig/src/social/model/Address.php" role="data" />
+   <file baseinstalldir="/" md5sum="e3c7a973bfd4340aebe0f12c19c38608" name="lib/vendor/Shindig/src/social/model/ApiCollection.php" role="data" />
+   <file baseinstalldir="/" md5sum="61c9f69a102529b475cb24208821f1a5" name="lib/vendor/Shindig/src/social/model/BodyType.php" role="data" />
+   <file baseinstalldir="/" md5sum="91a5780d7157ba58c55ff0a85fa78f98" name="lib/vendor/Shindig/src/social/model/ComplexField.php" role="data" />
+   <file baseinstalldir="/" md5sum="a8a77b6470b042535b02014fd576fa0f" name="lib/vendor/Shindig/src/social/model/Email.php" role="data" />
+   <file baseinstalldir="/" md5sum="e41fbb4ec982334a41082604f79366d9" name="lib/vendor/Shindig/src/social/model/Enum.php" role="data" />
+   <file baseinstalldir="/" md5sum="c8de480dedeb04f3249274e140885e1e" name="lib/vendor/Shindig/src/social/model/IdSpec.php" role="data" />
+   <file baseinstalldir="/" md5sum="164a31e16cd35c79c9e5de125b49afa9" name="lib/vendor/Shindig/src/social/model/Im.php" role="data" />
+   <file baseinstalldir="/" md5sum="161d740557c24bbd65a94219b7df94b5" name="lib/vendor/Shindig/src/social/model/ListField.php" role="data" />
+   <file baseinstalldir="/" md5sum="ed4f241e03654f16303f644d54f1c702" name="lib/vendor/Shindig/src/social/model/MediaItem.php" role="data" />
+   <file baseinstalldir="/" md5sum="3107a612d45aa9b109562143910b39a8" name="lib/vendor/Shindig/src/social/model/Message.php" role="data" />
+   <file baseinstalldir="/" md5sum="d0651933f22c36db5d25c32d242d1b75" name="lib/vendor/Shindig/src/social/model/Name.php" role="data" />
+   <file baseinstalldir="/" md5sum="e22a5b6454611ce191ca7ed70c350086" name="lib/vendor/Shindig/src/social/model/Organization.php" role="data" />
+   <file baseinstalldir="/" md5sum="e9eb741fb65f0112006dba1d5129ee30" name="lib/vendor/Shindig/src/social/model/Person.php" role="data" />
+   <file baseinstalldir="/" md5sum="2c6f68414672498a83c3384cd5a4e6b7" name="lib/vendor/Shindig/src/social/model/Phone.php" role="data" />
+   <file baseinstalldir="/" md5sum="ba3ee70ffbb86d0f1d9a80d38f7e4d43" name="lib/vendor/Shindig/src/social/model/Photo.php" role="data" />
+   <file baseinstalldir="/" md5sum="8d42311d58ce5121ad64a1669a9afb0c" name="lib/vendor/Shindig/src/social/model/Url.php" role="data" />
+   <file baseinstalldir="/" md5sum="e899341bab0b36a54eeb7c0a9a27eb2d" name="lib/vendor/Shindig/src/social/oauth/OAuth.php" role="data" />
+   <file baseinstalldir="/" md5sum="ac897cc029580cce0f009950b324ec24" name="lib/vendor/Shindig/src/social/oauth/OAuthSecurityToken.php" role="data" />
+   <file baseinstalldir="/" md5sum="b15046876c838f55db40a9e99a9c5ed8" name="lib/vendor/Shindig/src/social/sample/JsonDbOpensocialService.php" role="data" />
+   <file baseinstalldir="/" md5sum="01d61618f40ffce2bda7c98c65393098" name="lib/vendor/Shindig/src/social/service/ActivityHandler.php" role="data" />
+   <file baseinstalldir="/" md5sum="00c3c16b8786189c0ef4ed48da9b2bb2" name="lib/vendor/Shindig/src/social/service/AppDataHandler.php" role="data" />
+   <file baseinstalldir="/" md5sum="01f024a30c5222ca00ce31e5ea0d738f" name="lib/vendor/Shindig/src/social/service/DataRequestHandler.php" role="data" />
+   <file baseinstalldir="/" md5sum="6f3530eb30f8a79ed9b50b334553fad3" name="lib/vendor/Shindig/src/social/service/MessagesHandler.php" role="data" />
+   <file baseinstalldir="/" md5sum="7b3d252b7e5cafa7e1bbd5ef2ed93c1b" name="lib/vendor/Shindig/src/social/service/PersonHandler.php" role="data" />
+   <file baseinstalldir="/" md5sum="9359316bbb07d83bf1688853ec71eff0" name="lib/vendor/Shindig/src/social/service/RequestItem.php" role="data" />
+   <file baseinstalldir="/" md5sum="108c54a11e6d5aa411e56bbb92cf2441" name="lib/vendor/Shindig/src/social/service/ResponseError.php" role="data" />
+   <file baseinstalldir="/" md5sum="d18254e5a695389cfeced8bdf2080672" name="lib/vendor/Shindig/src/social/service/ResponseItem.php" role="data" />
+   <file baseinstalldir="/" md5sum="33cfe94712615c7f87748ce702ba7c1e" name="lib/vendor/Shindig/src/social/service/RestRequestItem.php" role="data" />
+   <file baseinstalldir="/" md5sum="a969d00b6661955bd734efce87ddebb0" name="lib/vendor/Shindig/src/social/service/RpcRequestItem.php" role="data" />
+   <file baseinstalldir="/" md5sum="3e9795d990882f3207e1a0217a8a18f5" name="lib/vendor/Shindig/src/social/service/SocialSpiException.php" role="data" />
+   <file baseinstalldir="/" md5sum="32fc0d165298c9fa30ad8f1e85338816" name="lib/vendor/Shindig/src/social/servlet/ApiServlet.php" role="data" />
+   <file baseinstalldir="/" md5sum="1b0ea2e4386d64ea27d52ff7d6eddc1b" name="lib/vendor/Shindig/src/social/servlet/DataServiceServlet.php" role="data" />
+   <file baseinstalldir="/" md5sum="2ff5fd132b60fb3bc583584a1563438e" name="lib/vendor/Shindig/src/social/servlet/JsonRpcServlet.php" role="data" />
+   <file baseinstalldir="/" md5sum="d964fb0f77bd724867ff8ba83a8f5248" name="lib/vendor/Shindig/src/social/spi/ActivityService.php" role="data" />
+   <file baseinstalldir="/" md5sum="517eb1097c15d7635139e03593450377" name="lib/vendor/Shindig/src/social/spi/AppDataService.php" role="data" />
+   <file baseinstalldir="/" md5sum="8c23bfb6c4f41cc80c387f03bfc976b9" name="lib/vendor/Shindig/src/social/spi/CollectionOptions.php" role="data" />
+   <file baseinstalldir="/" md5sum="fcfc41468213ac1984f266ac7809f168" name="lib/vendor/Shindig/src/social/spi/DataCollection.php" role="data" />
+   <file baseinstalldir="/" md5sum="8b010c2a046605c86b2f105be58f6fe5" name="lib/vendor/Shindig/src/social/spi/GroupId.php" role="data" />
+   <file baseinstalldir="/" md5sum="d12600f62a9dfed906bba313eb2c61fd" name="lib/vendor/Shindig/src/social/spi/MessagesService.php" role="data" />
+   <file baseinstalldir="/" md5sum="a0752720b2426f0976bc0e53ee6bef79" name="lib/vendor/Shindig/src/social/spi/PersonService.php" role="data" />
+   <file baseinstalldir="/" md5sum="32f82288e36821254843ed116eea840b" name="lib/vendor/Shindig/src/social/spi/RestfulCollection.php" role="data" />
+   <file baseinstalldir="/" md5sum="ff88bebae885e67734ecd9cd819791fc" name="lib/vendor/Shindig/src/social/spi/UserId.php" role="data" />
+   <file baseinstalldir="/" md5sum="5e7eb695569f510ae6ba28cba3b99e71" name="web/css/opensocial.css" role="data" />
+   <file baseinstalldir="/" md5sum="02d369bf249d56a3a4a7e9cbffe075a7" name="web/js/container.js" role="data" />
    <file baseinstalldir="/" md5sum="84d009076ba522cf33e7e03c90e6a8a2" name="web/js/opensocial-util.js" role="data" />
    <file baseinstalldir="/" md5sum="b8a5ae08d06aad5f3b6bbf627fcb4830" name="web/js/tabs-min.js" role="data" />
    <file baseinstalldir="/" md5sum="385e49d1930c3c9898b0c9089dec09e2" name="web/js/tabs.js" role="data" />
@@ -448,7 +400,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.2.3</min>
    </php>
    <pearinstaller>
     <min>1.4.0</min>
@@ -471,9 +423,22 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2009-01-27</date>
-   <license>Apache 2.0</license>
+   <date>2009-02-05</date>
+   <license>Apache</license>
    <notes>First release</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.1</release>
+    <api>0.8.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2009-02-06</date>
+   <license>Apache</license>
+   <notes>Fixed some security issues and changed base language Japanese to English on the pc_frontend.</notes>
   </release>
  </changelog>
 </package>
