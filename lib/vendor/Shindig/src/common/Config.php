@@ -34,7 +34,7 @@ class Shindig_Config {
       // load default configuration
       include_once 'config/container.php';
       self::$config = $shindigConfig;
-      if (file_exists(realpath(dirname(__FILE__).'/../../config/local.php'))) {
+      if (file_exists(sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/lib/vendor/Shindig/config/local.php')) {
         // include local.php if it exists and merge the config arrays. 
         // the second array values overwrites the first one's
         include_once 'config/local.php';

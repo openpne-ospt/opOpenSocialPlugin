@@ -13,16 +13,13 @@ $shindigConfig = array(
   'token_hmac_key' => SnsConfigPeer::get('shindig_token_hmac_key'),
   'token_max_age' => SnsConfigPeer::get('shindig_token_max_age', 60*60),
   
-  'base_path'      => realpath(dirname(__FILE__).'/..').'/',
-  'features_path'  => realpath(dirname(__FILE__) . '/../features').'/',
-  'container_path' => realpath(dirname(__FILE__) . '/../config').'/',
-  'javascript_path'=> realpath(dirname(__FILE__) . '/../javascript').'/',
+  'base_path'      => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/lib/vendor/Shindig/',
+  'features_path'  => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/lib/vendor/Shindig/features/',
+  'container_path' => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/lib/vendor/Shindig/config/',
 
-  'private_key_file' => realpath(dirname(__FILE__) . '/../certs').'/private.key', 
-  'public_key_file'  => realpath(dirname(__FILE__) . '/../certs').'/public.crt',
-  'private_key_phrase' => 'openpne3', 
-  'jsondb_path' => realpath(dirname(__FILE__) . '/../javascript/sampledata').'/canonicaldb.json',
-
+  'private_key_file' => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/private.key', 
+  'public_key_file'  => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/public.crt',
+  'private_key_phrase' => SnsConfigPeer::get('shindig_private_key_phrase'), 
 
   'remote_content'        => 'opBasicRemoteContent',
   'security_token_signer' => 'opBasicSecurityTokenDecoder',
