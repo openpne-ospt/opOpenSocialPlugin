@@ -25,8 +25,15 @@ class opensocialActions extends opOpenSocialServletActions
   public function executeCertificates(sfWebRequest $request)
   {
     sfConfig::set('sf_web_debug', false);
-    $class = new CertServlet();
-    self::servletExecute($class);
+    try
+    {
+      $class = new CertServlet();
+      self::servletExecute($class);
+    }
+    catch (Exception $e)
+    {
+      $this->forward404();
+    }
     return sfView::NONE;
   }
 }
