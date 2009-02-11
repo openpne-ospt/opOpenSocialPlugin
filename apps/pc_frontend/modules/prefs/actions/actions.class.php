@@ -27,9 +27,7 @@ class prefsActions extends sfActions
     $response = $this->getResponse();
     if ($request->isMethod(sfRequest::POST) || !$request->hasParameter('st') || !$request->hasParameter('name') || ! $request->hasParameter('value'))
     {
-      header("HTTP/1.0 400 Bad Request",true);
-      echo "<html><body><h1>400 - Bad Request</h1></body></html>";
-      return sfView::NONE;
+      $this->forward404();
     }
     try
     {
@@ -38,7 +36,10 @@ class prefsActions extends sfActions
       $value = $request->getParameter('value');
       $token = opBasicSecurityToken::createFromToken($st, 60);
       $modId = $token->getModuleId();
+      $owner = $token->getOwnerId();
       $viewer = $token->getViewerId();
+
+      $this->forward404Unless($viewer == $owner);
       
       $appSetting = MemberApplicationSettingPeer::retrieveByMemberApplicationIdAndName($modId, $key);
 
@@ -53,8 +54,7 @@ class prefsActions extends sfActions
     }
     catch (Exception $e)
     {
-      header("HTTP/1.0 400 Bad Request",true);
-      echo "<html><body><h1>400 - Bad Request - ".$e->getMessage()."</h1></body></html>";
+      $this->forward404();
     }
     return sfView::NONE;
   }
