@@ -48,6 +48,26 @@ class opOpenSocialPluginActions extends sfActions
   }
 
   /**
+   * Executes containerConfig action
+   *
+   * @param sfWebRequest $request A request object
+   */
+  public function executeContainerConfig(sfWebRequest $request)
+  {
+    $this->containerConfigForm = new ContainerConfigForm();
+
+    if ($request->isMethod(sfRequest::POST))
+    {
+      $this->containerConfigForm->bind($request->getParameter('container_config'));
+      if ($this->containerConfigForm->isValid())
+      {
+        $this->containerConfigForm->save();
+      }
+    }
+    return sfView::SUCCESS;
+  }
+
+  /**
    * Executes list action
    *
    * @param sfWebRequest $request A request object
