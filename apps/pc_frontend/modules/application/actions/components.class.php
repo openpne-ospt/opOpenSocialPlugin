@@ -78,7 +78,14 @@ class applicationComponents extends sfComponents
     {
       $getParams[$userpref_param_prefix.$app_setting->getName()] = $app_setting->getValue();
     }
-    $this->iframeUrl = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+    if (SnsConfigPeer::get('is_use_outer_shindig'))
+    {
+      $this->iframeUrl = SnsConfigPeer::get('shindig_url').'gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+    }
+    else
+    {
+      $this->iframeUrl = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+    }
   }
 
   public function executeHomeApplication()
