@@ -44,8 +44,9 @@ propel:
 
   application_persistent_data:
     id: ~
-    member_application_id: { type: integer, foreignTable: member_application, foreignReference: id, onDelete: cascade }
-    key: { type: varchar(128), required: true }
+    application_id: { type: integer, foreignTable: application, foreignReference: id, onDelete: cascade }
+    member_id: { type: integer, foreignTable: member, foreignReference: id, onDelete: cascade }
+    name: { type: varchar(128), required: true }
     value: { type : longvarchar, required: true }
 
   opensocial_person_field:

@@ -1,6 +1,14 @@
 <?php
 
 /**
+ * This file is part of the OpenPNE package.
+ * (c) OpenPNE Project (http://www.openpne.jp/)
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file and the NOTICE file that were distributed with this source code.
+ */
+
+/**
  * opJsonDbOpensocialService
  *
  * @author Shogo Kawahara <kawahara@tejimaya.net>
@@ -34,9 +42,11 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     $first = $options->getStartIndex();
     $max   = $options->getCount();
     $ret = array();
+
     $criteria = new Criteria();
     $criteria->add(MemberPeer::ID, $ids, Criteria::IN);
     $totalSize = MemberPeer::doCount($criteria);
+
     $criteria->addAscendingOrderByColumn(MemberPeer::ID);
     if ($first !== false && $max !== false && is_numeric($first) && is_numeric($max) && $first >= 0 && $max > 0)
     {
@@ -44,9 +54,11 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       $criteria->setLimit($max);
     }
     $members = MemberPeer::doSelect($criteria);
+
     $people = array();
     foreach ($members as $member)
     {
+      //FIXME
       $p = array();
       $p['isOwner']  =  (!$token->isAnonymous() && $member->getId() == $token->getOwnerId()) ? true : false;
       $p['isViewer'] =  (!$token->isAnonymous() && $member->getId() == $token->getViewerId()) ? true : false;
@@ -78,6 +90,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       }
       $people[] = $p;
     }
+
     $collection = new RestfulCollection($people, $options->getStartIndex(), $totalSize);
     $collection->setItemsPerPage($options->getCount());
     return $collection;
@@ -88,7 +101,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
   }
 
-  public function getActivity($userId, $groupId, $appdId, $fields, $activityId, SecurityToken $token)
+  public function getActivity($userId, $groupId, $appId, $fields, $activityId, SecurityToken $token)
   {
     throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
   }
@@ -105,30 +118,54 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
 
   public function getPersonData($userId, GroupId $groupId, $appId, $fields, SecurityToken $token)
   {
-    $ids = $this->getIdSet($userId, $groupId, $token);
-    $criteria = new Criteria();
-    $criteria->addJoin(ApplicationPersistentDataPeer::MEMBER_APPLICATION_ID, MemberApplicationPeer::ID);
-    $criteria->add(MemberApplicationPeer::APPLICATION_ID, $appId);
-    $criteria->add(MemberApplicationPeer::MEMBER_ID, $ids, Criteria::IN);
-    if (count($fields))
+    if (!($userId instanceof UserId))
     {
-      $criteria->add(ApplicationPersistentDataPeer::KEY, $fields, Criteria::IN);
-    }  
-    $persistentDatas = ApplicationPersistentDataPeer::doSelect($criteria);
-    if (!count($persistentDatas))
+      throw new SocialSpiException("Not support request", ResponseError::$NOT_IMPLEMENTED);
+    }
+    $targetUserId = (int)$userId->getUserId($token);
+    $viewerId = (int)$token->getViewerId();
+    if ($targetUserId != $viewerId)
     {
-      throw new SocialSpiException("UnKnown person app data key(s): ".implode(', ', $fields));
+      $memberRelationship = MemberRelationshipPeer::retrieveByFromAndTo($targetUserId, $viewerId);
+      if (!($memberRelationship && $memberRelationship->isFriend()))
+      {
+        throw new SocialSpiException("Unauthorized", ResponseError::$UNAUTHORIZED);
+      }
+    }
+   if ($groupId->getType() == 'self')
+    {
+      $appPersistentDatas = ApplicationPersistentDataPeer::retrievesByApplicationIdAndMemberId($appId, $targetUserId, $fields);
+    }
+    else if($groupId->getType() == 'friends')
+    {
+      $appPersistentDatas = ApplicationPersistentDataPeer::getMemberFriendPersistentDatas($appId, $targetUserId, $fields);  
+    }
+    else
+    {
+      throw new SocialSpiException("We support getting data only when GROUP_ID is SELF or FRIENDS ", ResponseError::$NOT_IMPLEMENTED);
     }
     $data = array();
-    foreach($persistentDatas as $persistentData)
+    foreach ($appPersistentDatas as $appPersistentData)
     {
-      $data[$persistentData->getMemberApplication()->getMemberId()][$persistentData->getKey()] = $persistentData->getValue();
+      $data[$appPersistentData->getMemberId()][$appPersistentData->getName()] = $appPersistentData->getValue();
     }
     return new DataCollection($data);
   }
 
   public function deletePersonData($userId, GroupId $groupId, $appId, $fields, SecurityToken $token)
   {
+    if (!($userId instanceof UserId) || $userId->getUserId($token) == null )
+    {
+      throw new SocialSpiException("Unknown person id", ResponseError::$NOT_FOUND);
+    }
+
+    $targetUserId = $userId->getUserId($token);
+    
+    if ($targetUserId != $token->getViewerId())
+    {
+      throw new SocialSpiException("Unauthorized", ResponseError::$UNAUTHORIZED);
+    }
+    
     foreach ($fields as $key)
     {
       if (!preg_match('/[\w\-\.]+/',$key))
@@ -136,30 +173,12 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
         throw new SocialSpiException("The person app data key had in valid characters", ResponseError::$BAD_REQUEST);
       }
     }
-    $ids = $this->getIdSet($userId, $groupId, $token);
-    if (count($ids) < 1)
+
+    $appPersistentDatas = ApplicationPersistentDataPeer::retrievesByApplicationIdAndMemberId($appId, $targetUserId, $fields);
+    
+    foreach ($appPersistentDatas as $appPersistentData)
     {
-      throw new InvalidArgumentException("No userId specified");
-    }
-    else if (count($ids) > 1)
-    {
-      throw new InvalidArgumentException("Multiple userIds not supported");
-    }
-    $userId = $ids[0];
-    $appId = $token->getAppId();
-    foreach ($fields as $key)
-    {
-      $criteria = new Criteria();
-      $criteria->addJoin(ApplicationPersistentDataPeer::MEMBER_APPLICATION_ID, MemberApplicationPeer::ID);
-      $criteria->add(MemberApplicationPeer::APPLICATION_ID, $appId);
-      $criteria->add(MemberApplicationPeer::MEMBER_ID, $userId);
-      $criteria->add(ApplicationPersistentDataPeer::KEY, $key);
-      $persistentData = ApplicationPersistentDataPeer::doSelectOne($criteria);
-      if (!$persistentData)
-      {
-        throw new SocialSpiException("Internal server error", ResponseError::$INTERNAL_ERROR);
-      }
-      $persistentData->delete();
+      $appPersistentData->delete();
     }
   }
 
@@ -167,7 +186,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
   {
     if ($userId->getUserId($token) == null)
     {
-      throw new SocialSpiException("Unknown person id.", ResponseError::$NOT_FOUND);
+      throw new SocialSpiException("Unknown person id", ResponseError::$NOT_FOUND);
     }
 
     foreach ($fields as $key)
@@ -177,29 +196,39 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
         throw new SocialSpiException("The person app data key had invalid characters", ResponseError::$BAD_REQUEST);
       }
     }
-    switch ($groupId->getType())
-    {
-      case 'self':
-        foreach ($fields as $key)
-        {
-          $value = isset($values[$key]) ? $values[$key] : null;
-          $criteria = new Criteria();
 
-          $criteria->add(ApplicationPersistentDataPeer::MEMBER_APPLICATION_ID, $token->getModuleId());
-          $criteria->add(ApplicationPersistentDataPeer::KEY, $key);
-          $persistentData = ApplicationPersistentDataPeer::doSelectOne($criteria);
-          if (!$persistentData)
-          {
-            $persistentData = new ApplicationPersistentData();
-            $persistentData->setMemberApplicationId($token->getModuleId());
-            $persistentData->setKey($key);
-          }
-          $persistentData->setValue($value);
-          $persistentData->save();
+    if ($groupId->getType() != 'self')
+    {
+      throw new SocialSpiException("We don't support updating data in batches yet", ResponseError::$NOT_IMPLEMENTED);
+    }
+
+    $targetUserId = $userId->getUserId($token);
+    if ($token->getOwnerId() == $targetUserId || $token->getViewerId() == $targetUserId)
+    {
+      $memberApplication = MemberApplicationPeer::retrieveByApplicationIdAndMemberId($appId, $targetUserId);
+      if (!$memberApplication)
+      {
+        throw new SocialSpiException("Unauthorized", ResponseError::$UNAUTHORIZED);
+      }
+
+      foreach($fields as $name)
+      {
+        $value = isset($values[$name]) ? $values[$name] : null;
+        $appPersistentData = ApplicationPersistentDataPeer::retrieveByApplicationIdAndMemberIdAndName($appId, $targetUserId, $name);
+        if (!$appPersistentData)
+        {
+          $appPersistentData = new ApplicationPersistentData();
+          $appPersistentData->setApplicationId($appId);
+          $appPersistentData->setMemberId($targetUserId);
+          $appPersistentData->setName($name);
         }
-        break;
-      default:
-        throw new SocialSpiException("We don't support updating data in batches yet", ResponseError::$NOT_IMPLEMENTED);
+        $appPersistentData->setValue($value);
+        $appPersistentData->save();
+      }
+    }
+    else
+    {
+      throw new SocialSpiException("Unauthorized", ResponseError::$UNAUTHORIZED);
     }
   }
 
@@ -208,7 +237,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
   }
 
-  private function getIdSet($user, GroupId $group, SecurityToken $token)
+  protected function getIdSet($user, GroupId $group, SecurityToken $token)
   {
     $ids = array();
     if ($user instanceof UserId)
@@ -223,21 +252,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
         case 'all':
         case 'friends':
         case 'groupId':
-
-          $criteria = new Criteria();
-          $criteria->add(MemberRelationshipPeer::MEMBER_ID_FROM,$userId);
-          $criteria->add(MemberRelationshipPeer::IS_FRIEND, true);
-          $friends = MemberRelationshipPeer::doSelect($criteria);
-          
-          $friendIds = array();
-          foreach ($friends as $friend)
-          {
-            $friendIds[] = $friend->getMemberIdTo();
-          }
-          if (count($friendIds))
-          {
-            $ids = $friendIds;
-          }
+          $ids = MemberRelationshipPeer::getFriendMemberIds($userId);
           break;
         case 'self':
           $ids[] = $userId;
