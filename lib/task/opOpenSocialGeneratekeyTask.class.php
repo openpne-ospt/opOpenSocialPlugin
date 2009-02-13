@@ -18,7 +18,7 @@ class opOpenSocialGenkeyTask extends sfPropelBaseTask
   protected function configure()
   {
     $this->namespace = 'opOpenSocial';
-    $this->name      = 'genkey';
+    $this->name      = 'generate-key';
 
     $this->briefDescription = 'Generate Key for RSA-SHA1';
     $this->detailedDescription = <<<EOF
