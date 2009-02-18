@@ -9,7 +9,7 @@ homeSuccess:
 profileSuccess:
   customize:
     profileApplication:
-      template: [application, profileApplication]
+      template: [application, renderProfileApplications]
       parts:    [profile]
       target:   [after]
   javascripts:

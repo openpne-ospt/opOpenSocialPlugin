@@ -3,14 +3,14 @@ applicationBoxes:
     ja_JP: "アプリケーションボックス"
   description:
     ja_JP: "メンバーが所有するOpenSocialアプリケーションをホームに設置します"
-  component: [application, homeApplication]
+  component: [application, renderHomeApplications]
 
 applicationBox:
   caption:
     ja_JP: "指定アプリケーションボックス"
   description:
     ja_JP: "特定のOpenSocialアプリケーションをホームに設置します"
-  component: [application, gadgetApplication]
+  component: [application, renderGadgetApplication]
   config:
     url:
       Name:       "url"

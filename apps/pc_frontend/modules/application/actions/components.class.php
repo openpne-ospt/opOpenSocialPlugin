@@ -88,11 +88,11 @@ class applicationComponents extends sfComponents
     }
   }
 
-  public function executeHomeApplication()
+  public function executeRenderHomeApplications()
   {
   }
 
-  public function executeGadgetApplication()
+  public function executeRenderHomeGadgetApplication()
   {
     $url = $this->gadget->getConfig('url');
     if (!$url)

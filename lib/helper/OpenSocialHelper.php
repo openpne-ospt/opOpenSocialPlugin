@@ -11,8 +11,6 @@ require_once sfConfig::get('sf_symfony_lib_dir').'/helper/UrlHelper.php';
 require_once sfConfig::get('sf_symfony_lib_dir').'/plugins/sfProtoculousPlugin/lib/helper/JavascriptHelper.php';
 require_once sfConfig::get('sf_lib_dir').'/helper/opJavascriptHelper.php';
 
-echo make_app_setting_modal_box('opensocial_modal_box');
-
 /**
  * include application information box
  *
@@ -32,6 +30,19 @@ function include_application_information_box($id, $aid, $mid = 0, $isOwner = fal
     'application' => $application,
   );
   include_partial('application/informationBox', $params);
+}
+
+function include_applications($view, $params = array())
+{
+  static $isFirst = true;
+  
+  if ($isFirst)
+  {
+    echo make_app_setting_modal_box('opensocial_modal_box');
+    $isFirst = false;
+  }
+
+  include_partial('application/'.$view.'Application', $params);
 }
 
 function link_to_app_setting($text, $mid, $isReload = false)
