@@ -103,8 +103,13 @@ EOF;
     openssl_x509_export($sscert, $certout);
     openssl_pkey_export($privatekey, $pkeyout, $phrase);
 
-    file_put_contents(sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/public.crt'  , $certout);
-    file_put_contents(sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/private.key' , $pkeyout);
+    $cert_filename = sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/public.crt';
+    file_put_contents($cert_filename , $certout);
+    $this->logSection('file+', $cert_filename);
+
+    $pkey_filename = sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/private.key';
+    file_put_contents($pkey_filename ,$pkeyout);
+    $this->logSection('file+', $pkey_filename);
     
     $databaseManager = new sfDatabaseManager($this->configuration);
     SnsConfigPeer::set('shindig_private_key_phrase', $phrase);
