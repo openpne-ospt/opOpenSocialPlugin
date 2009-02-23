@@ -38,10 +38,8 @@
         function(config) {
           var configParams = config["opensocial-0.8"];
           var path = configParams.path;
-          if (!web_prefix) {
-            web_prefix = "/";
-          }
-          path = path.replace("%host%", document.location.host).replace("%webprefix%", web_prefix);
+          
+          path = path.replace("%host%", document.location.host);
 
           if (configParams.impl == "rpc") {
             ShindigContainer = function() {

@@ -1,13 +1,8 @@
-if (!web_prefix)
-{
-  var web_prefix = "/";
-}
 var Container = Class.create();
 Container.prototype = {
 	maxHeight: 4096,
 	
 	initialize: function() {
-		// rpc services our container supports
 		gadgets.rpc.register('resize_iframe', this.setHeight);
 		gadgets.rpc.register('set_pref', this.setUserPref);
 		gadgets.rpc.register('set_title', this.setTitle);
@@ -16,9 +11,7 @@ Container.prototype = {
 	
 	setHeight: function(height) {
 		if ($(this.f) != undefined) {
-			// compensate for margin/padding offsets in some browsers (ugly hack but functional)
 			height += 28;
-			// change the height of the gadget iframe, limit to maxHeight height
 			if (height > gadgets.container.maxHeight) {
 				height = gadgets.container.maxHeight;
 			}
@@ -27,7 +20,6 @@ Container.prototype = {
 	},
 	
 	_parseIframeUrl: function(url) {
-		// parse the iframe url to extract the key = value pairs from it
 		var ret = new Object();
 		var hashParams = url.replace(/#.*$/, '').split('&');
 		var param = key = val = '';
@@ -41,16 +33,9 @@ Container.prototype = {
 	},
 	
 	setUserPref: function(editToken, name, value) {
-		// we use the security token to tell our backend who this is (app/mod/viewer)
-		// since it's the only fail safe way of doing so
 		if ($(this.f) != undefined) {
 			var params = gadgets.container._parseIframeUrl($(this.f).src);
-			//TODO use params.st to make the store request, it holds the owner / viewer / app id / mod id required
-			var url = '/prefs/set';
-			if (web_prefix)
-			{
-			  url = web_prefix + '/prefs/set';
-			}
+			var url = web_prefix + '/prefs/set';
 			new Ajax.Request(url, {method: 'get', parameters: { name: name, value: value, st: params.st }});
 		}
 	},
@@ -58,7 +43,6 @@ Container.prototype = {
 	setTitle: function(title) {
 		var element = $(this.f+'_title');
 		if (element != undefined) {
-			// update the title, and make sure we don't break it's html
 			element.update(title.replace(/&/g, '&amp;').replace(/</g, '&lt;'));
 		}
 	},
@@ -92,5 +76,4 @@ Container.prototype = {
 	}
 }
 
-// Create and initialize our container class
 gadgets.container = new Container();

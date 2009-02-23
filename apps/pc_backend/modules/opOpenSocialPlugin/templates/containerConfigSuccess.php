@@ -11,3 +11,7 @@
 </table>
 </form>
 
+<? if ($isUseOuterShindig): ?>
+<?php echo link_to(__('openpne.jsのダウンロード'), 'opOpenSocialPlugin/generateContainerConfig') ?>
+<? endif ?>
+

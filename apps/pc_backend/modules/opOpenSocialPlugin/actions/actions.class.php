@@ -64,6 +64,8 @@ class opOpenSocialPluginActions extends sfActions
         $this->containerConfigForm->save();
       }
     }
+
+    $this->isUseOuterShindig = SnsConfigPeer::get('is_use_outer_shindig');
     return sfView::SUCCESS;
   }
 
@@ -182,5 +184,21 @@ class opOpenSocialPluginActions extends sfActions
     }
 
     $this->redirect('opOpenSocialPlugin/info?id='.$application->getId());
+  }
+
+  /**
+   * Executes generate container config
+   *
+   * @param sfWebRequest $request A request object
+   */
+  public function executeGenerateContainerConfig(sfWebRequest $request)
+  {
+    sfConfig::set('sf_web_debug',false);
+    $response = $this->getResponse();
+    $response->setContentType('text/javascript');
+    $response->setHttpHeader('Content-Disposition','attachment; filename="openpne.js');
+    $opOpenSocialContainerConfig = new opOpenSocialContainerConfig(false);
+    $this->json = $opOpenSocialContainerConfig->generate();
+    return sfView::SUCCESS;
   }
 }

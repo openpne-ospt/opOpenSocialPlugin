@@ -47,18 +47,28 @@ class applicationComponents extends sfComponents
       $this->hasSetting = false;
     }
 
+    $isUseOuterShindig = SnsConfigPeer::get('is_use_outer_shindig');
+    $isDevEnvironment = null;
+    if ($isUseOuterShindig)
+    {
+      $isDevEnvironment = false;
+    }
+
+    $opOpenSocialContainerConfig = new opOpenSocialContainerConfig();
+    $containerName = $opOpenSocialContainerConfig->getContainerName();
+
     $securityToken = opBasicSecurityToken::createFromValues(
       $ownerId,  // owner
       $viewerId, // viewer
       $appId,    // app id
-      'default',  // domain key
+      $containerName,  // domain key
       urlencode($url), // app url
       $modId    // mod id
     );
 
     $getParams = array(
-      'synd'      => 'default',
-      'container' => 'default',
+      'synd'      => $containerName,
+      'container' => $containerName,
       'owner'     => $ownerId,
       'viewer'    => $viewerId,
       'aid'       => $appId,
@@ -78,9 +88,9 @@ class applicationComponents extends sfComponents
     {
       $getParams[$userpref_param_prefix.$app_setting->getName()] = $app_setting->getValue();
     }
-    if (SnsConfigPeer::get('is_use_outer_shindig'))
+    if ($isUseOuterShindig)
     {
-      $this->iframeUrl = SnsConfigPeer::get('shindig_url').'gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+      $this->iframeUrl = SnsConfigPeer::get('shindig_url').'/gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
     }
     else
     {

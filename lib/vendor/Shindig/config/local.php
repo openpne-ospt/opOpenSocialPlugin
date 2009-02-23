@@ -15,7 +15,7 @@ $shindigConfig = array(
   
   'base_path'      => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/lib/vendor/Shindig/',
   'features_path'  => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/lib/vendor/Shindig/features/',
-  'container_path' => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/lib/vendor/Shindig/config/',
+  'container_path' => sfConfig::get('sf_app_cache_dir').'/plugins/opOpenSocialPlugin',
 
   'private_key_file' => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/private.key', 
   'public_key_file'  => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/public.crt',

@@ -166,9 +166,6 @@ class GadgetRenderingServlet extends HttpServlet {
       $content .= sprintf($externFmt, Shindig_Config::get('default_js_prefix') . $this->getJsUrl($libs, $gadget) . "&container=" . $context->getContainer()) . "\n";
     }
 
-    // web_prefix lib
-    $content .= sprintf($externFmt, Shindig_Config::get('web_prefix'). '/application/webprefix.js')."\n";
-
     $content .= "<script>\n";
     
     if (! empty($forcedLibs)) {

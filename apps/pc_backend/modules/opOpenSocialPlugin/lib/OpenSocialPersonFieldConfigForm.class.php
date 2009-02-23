@@ -104,6 +104,14 @@ class OpenSocialPersonFieldConfigForm extends sfForm
       $osPersonField->setFieldName($value);
       $osPersonField->save();
     }
+
+    //prod
+    $opOpenSocialContainerConfig = new opOpenSocialContainerConfig(false);
+    $opOpenSocialContainerConfig->generateAndSave(true);
+
+    //dev
+    $opOpenSocialContainerConfig = new opOpenSocialContainerConfig(true);
+    $opOpenSocialContainerConfig->generateAndSave(true);
   }
 }
 

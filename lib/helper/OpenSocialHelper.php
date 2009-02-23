@@ -38,6 +38,9 @@ function include_applications($view, $params = array())
   
   if ($isFirst)
   {
+    $opOpenSocialContainerConfig = new opOpenSocialContainerConfig();
+    $opOpenSocialContainerConfig->generateAndSave();
+
     echo make_app_setting_modal_box('opensocial_modal_box');
     $isFirst = false;
   }
