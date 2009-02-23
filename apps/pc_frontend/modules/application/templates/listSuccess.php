@@ -1,6 +1,7 @@
 <?php use_helper('OpenSocial') ?>
 
 <?php if ($isOwner) : ?>
+<?php echo make_app_setting_modal_box('opensocial_modal_box') ?>
 <?php if ($isAddApplication) : ?>
 <?php op_include_form('form', $form ,array(
   'title' => __('Add a new application'),
