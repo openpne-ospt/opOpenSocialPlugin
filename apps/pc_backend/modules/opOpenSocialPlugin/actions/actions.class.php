@@ -174,14 +174,8 @@ class opOpenSocialPluginActions extends sfActions
   {
     $application = ApplicationPeer::retrieveByPk($request->getParameter('id'));
     $this->forward404Unless($application);
-
-    try
-    {
-      ApplicationPeer::addApplication($application->getUrl(), $this->getUser()->getCulture(),true);
-    }
-    catch (Exception $e)
-    {
-    }
+    
+    ApplicationPeer::updateApplication($request->getParameter('id'), $this->getUser()->getCulture());
 
     $this->redirect('opOpenSocialPlugin/info?id='.$application->getId());
   }

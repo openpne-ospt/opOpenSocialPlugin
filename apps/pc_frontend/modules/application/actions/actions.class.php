@@ -18,31 +18,6 @@
 class applicationActions extends sfActions
 {
   /**
-   * add application to member
-   *
-   * @param Application  $application The application instalce
-   * @param integer      $memberId    A member id
-   */
-  protected function addApplicationToMember(Application $application, $memberId)
-  {
-    $criteria = new Criteria();
-    $criteria->add(MemberApplicationPeer::IS_GADGET, false);
-    $memberApp = MemberApplicationPeer::retrieveByApplicationIdAndMemberId($application->getId(), $memberId, $criteria);
-    if ($memberApp)
-    {
-      return $memberApp;
-    }
-
-    $memberApp = new MemberApplication();
-    $memberApp->setMemberId($memberId);
-    $memberApp->setApplicationId($application->getId());
-    $memberApp->setIsDispOther(true);
-    $memberApp->setIsDispHome(true);
-    $memberApp->save();
-    return $memberApp;
-  }
-
-  /**
    * Executes index action
    *
    * @param sfWebRequest $request A request object
@@ -119,7 +94,7 @@ class applicationActions extends sfActions
       {
         return sfView::ERROR;
       }
-      $memberApp = self::addApplicationToMember($application, $memberId);
+      $memberApp = MemberApplicationPeer::addApplicationToMember($application, $memberId);
       $this->redirect('application/canvas?id='.$memberApp->getId());
     }
     
@@ -217,7 +192,7 @@ class applicationActions extends sfActions
 
     $memberId = $this->getUser()->getMemberId();
 
-    $memberApp = self::addApplicationToMember($application, $memberId);
+    $memberApp = MemberApplicationPeer::addApplicationToMember($application, $memberId);
     $this->redirect('application/canvas?id='.$memberApp->getId());
   }
 

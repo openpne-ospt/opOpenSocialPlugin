@@ -34,6 +34,7 @@ class ApplicationPeer extends BaseApplicationPeer
     }
     return (object)$array;
   }
+
   /**
    * add or update application
    *
@@ -149,5 +150,30 @@ class ApplicationPeer extends BaseApplicationPeer
     $criteria = new Criteria();
     $criteria->add(self::URL, $url);
     return self::doSelectOne($criteria);
+  }
+
+  /**
+   * update application
+   *
+   * @param integer $modId
+   * @param string  $culture
+   * @return Application The application instance
+   */
+  public static function updateApplication($modId, $culture = 'en_US')
+  {
+    $app = self::retrieveByPk($modId);
+    if (!$app)
+    {
+      return false;
+    }
+
+    try
+    {
+      return self::addApplication($app->getUrl(), $culture, true);
+    }
+    catch (Exception $e)
+    {
+      return false;
+    }
   }
 }

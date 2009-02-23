@@ -78,4 +78,36 @@ class MemberApplicationPeer extends BaseMemberApplicationPeer
     $criteria->addAscendingOrderByColumn(self::SORT_ORDER);
     return self::doSelect($criteria);
   }
+
+  /**
+   * add application to member
+   *
+   * @param Application $application
+   * @param integer     $memberId
+   * @return MemberApplication
+   */
+  public function addApplicationToMember(Application $application, $memberId)
+  {
+    $criteria = new Criteria();
+    $criteria->add(self::IS_GADGET, false);
+
+    $culture = sfContext::getInstance()->getUser()->getCulture();
+    ApplicationPeer::updateApplication($application->getId(), $culture);
+    $memberApp = self::retrieveByApplicationIdAndMemberId($application->getId(), $memberId, $criteria);
+    if ($memberApp)
+    {
+      return $memberApp;
+    }
+
+    $memberApp = new MemberApplication();
+    $memberApp->setMemberId($memberId);
+    $memberApp->setApplicationId($application->getId());
+    $memberApp->setIsDispOther(true);
+    $memberApp->setIsDispHome(true);
+    $memberApp->save();
+    return $memberApp;
+  }
+
+
+
 }
