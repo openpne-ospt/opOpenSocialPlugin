@@ -19,12 +19,12 @@ else
 <iframe width="100%" scrolling="<?php
 if ($scrolling)
 {
-  echo "on";
+  echo "yes";
 }
 else
 {
-  echo "off";
+  echo "no";
 }
-?>" height="<?php echo ($height) ?>" frameborder="no" src="<?php echo $iframeUrl ?>" class="gadgets-gadget" name="remote_iframe_<?php echo $mid ?>" id="remote_iframe_<?php echo $mid ?>"></iframe>
+?>" height="<?php echo ($height) ?>" frameborder="no" src="<?php echo $sf_data->getRaw('iframeUrl') ?>" class="gadgets-gadget" name="remote_iframe_<?php echo $mid ?>" id="remote_iframe_<?php echo $mid ?>"></iframe>
 </div>
 </div></div>

@@ -90,7 +90,7 @@ class applicationComponents extends sfComponents
     }
     if ($isUseOuterShindig)
     {
-      $this->iframeUrl = SnsConfigPeer::get('shindig_url').'/gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+      $this->iframeUrl = SnsConfigPeer::get('shindig_url').'gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
     }
     else
     {

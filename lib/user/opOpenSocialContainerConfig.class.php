@@ -134,7 +134,7 @@ class opOpenSocialContainerConfig
           )
         ),
         'rpc' => array(
-          'parentRelayUrl' => 'http://',
+          'parentRelayUrl' => '#sns_url#opOpenSocialPlugin/js/rpc_relay.html',
           'useLegacyProtocol' => false
         ),
         'skins' => array(
