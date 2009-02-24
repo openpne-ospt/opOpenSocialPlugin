@@ -95,6 +95,11 @@ EOF;
       'emailAddress' => $email
     );
 
+    $dirname = sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs';
+    
+    $filesystem = new sfFilesystem($this->dispatcher, $this->formatter);
+    $filesystem->mkdirs($dirname);
+
     $privatekey = openssl_pkey_new();
     
     $csr = openssl_csr_new($dn, $privatekey);
@@ -103,11 +108,11 @@ EOF;
     openssl_x509_export($sscert, $certout);
     openssl_pkey_export($privatekey, $pkeyout, $phrase);
 
-    $cert_filename = sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/public.crt';
+    $cert_filename = $dirname.'/public.crt';
     file_put_contents($cert_filename , $certout);
     $this->logSection('file+', $cert_filename);
 
-    $pkey_filename = sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/private.key';
+    $pkey_filename = $dirname.'/private.key';
     file_put_contents($pkey_filename ,$pkeyout);
     $this->logSection('file+', $pkey_filename);
     
