@@ -71,7 +71,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
           array('size' => '180x180'), true);
       }
       $p['profileUrl']   = sfContext::getInstance()->getController()->genUrl("@member_profile?id=".$member->getId(),true);
-      $memberProfiles = MemberProfilePeer::getProfileListByMemberId($member->getId());
+      $memberProfiles = $member->getProfile(true, $token->getViewerId());
       foreach ($memberProfiles as $memberProfile)
       {
         $osPersonField = $memberProfile->getProfile()->getOpensocialPersonField();

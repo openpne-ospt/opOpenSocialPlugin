@@ -92,7 +92,7 @@ class opOpenSocialPluginActions extends sfActions
         $contact = $this->addform->getValues();
         try
         {
-          $application = ApplicationPeer::addApplication($contact['application_url'], $this->getUser()->getCulture(),true);
+          $application = ApplicationPeer::addApplication($contact['application_url'], true);
         }
         catch (Exception $e)
         {

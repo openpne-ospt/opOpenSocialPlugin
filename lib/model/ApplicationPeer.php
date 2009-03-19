@@ -39,14 +39,30 @@ class ApplicationPeer extends BaseApplicationPeer
    * add or update application
    *
    * @param string $url     gadget url
-   * @param string $culture culture 
    * @param bool   $update
+   * @param string $culture culture 
    * @return Application application object  
    */
-  public static function addApplication($url, $culture = 'en_US', $update = false)
+  public static function addApplication($url, $update = false, $culture = null)
   {
+    if (is_null($culture))
+    {
+      $culture = sfContext::getInstance()->getUser()->getCulture();
+    }
+
+    if ($culture != sfConfig::get('sf_default_culture'))
+    { 
+      self::addApplication($url, $update, sfConfig::get('sf_default_culture'));
+    }
+
     $app = self::retrieveByUrl($url);
-    if (!empty($app) && !$update)
+    if (!$app)
+    {
+      $app = new Application();
+    }
+    $app->setCulture($culture);
+
+    if (!($app->getCurrentApplicationI18n()->isNew() || $update))
     {
       $ua = $app->getUpdatedAt('U');
       if (!empty($ua) && (time() - $ua) <= SnsConfigPeer::get('application_cache_time', 24*60*60))
@@ -57,7 +73,7 @@ class ApplicationPeer extends BaseApplicationPeer
     $cul = split('_',$culture);
     $req = self::arrayToObject(array(
       'context' => array(
-        'country' => isset($cul[1]) ? $cul[1] : 'US',
+        'country' => isset($cul[1]) ? $cul[1] : 'All',
         'language' => $cul[0],
         'view' => 'default',
         'container' => 'openpne3'
@@ -76,12 +92,7 @@ class ApplicationPeer extends BaseApplicationPeer
       throw new Exception($response[0]['errors'][0]);
     }
     $gadget = $response[0];
-    if (empty($app))
-    {
-      $app = new Application();
-    }
     $app->setUrl($gadget['url']);
-
     $app->setTitle($gadget['title']);
     $app->setTitleUrl($gadget['titleUrl']);
     $app->setDescription($gadget['description']);
@@ -115,10 +126,6 @@ class ApplicationPeer extends BaseApplicationPeer
       $app->setSingleton(false);
     }
     $app->setHeight(! empty($gadget['height']) ? $gadget['height'] : '0');
-    $iframe_url = $gadget['iframeUrl'];
-    $iframe_params = array();
-    parse_str($iframe_url, $iframe_params);
-    $app->setVersion(isset($iframe_params['v']) ? $iframe_params['v'] : '');
     $app->save();
     return $app;
   }
@@ -159,8 +166,13 @@ class ApplicationPeer extends BaseApplicationPeer
    * @param string  $culture
    * @return Application The application instance
    */
-  public static function updateApplication($modId, $culture = 'en_US')
+  public static function updateApplication($modId, $culture = null)
   {
+    if (is_null($culture))
+    {
+      $culture = sfContext::getInstance()->getUser()->getCulture();
+    }
+
     $app = self::retrieveByPk($modId);
     if (!$app)
     {
@@ -169,7 +181,7 @@ class ApplicationPeer extends BaseApplicationPeer
 
     try
     {
-      return self::addApplication($app->getUrl(), $culture, true);
+      return self::addApplication($app->getUrl(), true, $culture);
     }
     catch (Exception $e)
     {

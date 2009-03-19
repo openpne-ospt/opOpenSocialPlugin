@@ -88,7 +88,7 @@ class applicationActions extends sfActions
       $contact = $this->form->getValues();
       try
       {
-        $application = ApplicationPeer::addApplication($contact['application_url'],$this->getUser()->getCulture());
+        $application = ApplicationPeer::addApplication($contact['application_url']);
       }
       catch (Exception $e)
       {

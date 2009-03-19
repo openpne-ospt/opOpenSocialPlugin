@@ -112,7 +112,7 @@ class applicationComponents extends sfComponents
 
     try
     {
-      $application = ApplicationPeer::addApplication($url, $this->getUser()->getCulture());
+      $application = ApplicationPeer::addApplication($url);
       if (!$application)
       {
         return null;

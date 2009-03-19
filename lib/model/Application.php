@@ -17,11 +17,23 @@
  */ 
 class Application extends BaseApplication
 {
- /**
-  * hasSetting
-  *
-  * @return boolean
-  */
+  public function hydrate($row, $startcol = 0, $rehydrate = false)
+  {
+    $result = parent::hydrate($row, $startcol, $rehydrate);
+
+    if ($this->getCurrentApplicationI18n()->isNew())
+    {
+      $this->setCulture(sfConfig::get('sf_default_culture'));
+    }
+
+    return $result;
+  }
+
+  /**
+   * hasSetting
+   *
+   * @return boolean
+   */
   public function hasSetting()
   {
     $settings = $this->getSettings();
@@ -39,27 +51,27 @@ class Application extends BaseApplication
     return false;
   }
 
- /**
-  * getSettings 
-  * 
-  * @param  string $culture
-  * @return array
-  */
+  /**
+   * getSettings 
+   * 
+   * @param  string $culture
+   * @return array
+   */
   public function getSettings($culture = null)
   {
     return unserialize(parent::getSettings($culture));
   }
 
- /**
-  * count installed member 
-  *
-  * @return integer
-  */
+  /**
+   * count installed member 
+   *
+   * @return integer
+   */
   public function countInstalledMember()
   {
     $criteria = new Criteria();
-    $criteria->add(MemberApplicationPeer::APPLICATION_ID, parent::getId());
     $criteria->add(MemberApplicationPeer::IS_GADGET, false);
-    return MemberApplicationPeer::doCount($criteria);
+    return $this->countMemberApplications($criteria);
   }
 }
+
