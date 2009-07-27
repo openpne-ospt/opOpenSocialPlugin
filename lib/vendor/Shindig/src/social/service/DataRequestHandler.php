@@ -23,7 +23,7 @@ abstract class DataRequestHandler {
   
   public function __construct($serviceName) {
     try {
-      $service = trim(Config::get($serviceName));
+      $service = trim(Shindig_Config::get($serviceName));
       if (!empty($service)) {
         $this->service = new $service();
       }
@@ -94,7 +94,7 @@ abstract class DataRequestHandler {
   public function getSupportedFields($parameters) {
     $context = new GadgetContext('GADGET');
     $container = $context->getContainer();
-    $containerConfig = new ContainerConfig(Config::get('container_path'));
+    $containerConfig = new ContainerConfig(Shindig_Config::get('container_path'));
     $config = $containerConfig->getConfig($container, 'gadgets.features');
     $version = $this->getOpenSocialVersion($config);
     $supportedFields = $config[$version]['supportedFields'];

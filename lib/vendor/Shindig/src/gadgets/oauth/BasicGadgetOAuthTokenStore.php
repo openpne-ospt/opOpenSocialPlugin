@@ -28,7 +28,7 @@ class BasicGadgetOAuthTokenStore extends GadgetOAuthTokenStore {
 
   public function __construct($store, $fetcher) {
     parent::__construct($store, $fetcher);
-    $this->OAUTH_CONFIG = Config::get('container_path') . $this->OAUTH_CONFIG;
+    $this->OAUTH_CONFIG = Shindig_Config::get('container_path') . $this->OAUTH_CONFIG;
   }
 
   public function initFromConfigFile($fetcher) {
@@ -69,7 +69,7 @@ class BasicGadgetOAuthTokenStore extends GadgetOAuthTokenStore {
     $keyType = 'HMAC_SYMMETRIC';
     if ($keyTypeStr == "RSA_PRIVATE") {
       $keyType = 'RSA_PRIVATE';
-      $cache = Cache::createCache(Config::get('data_cache'), 'OAuthToken');
+      $cache = Cache::createCache(Shindig_Config::get('data_cache'), 'OAuthToken');
       if (($cachedRequest = $cache->get(md5("RSA_KEY_" . $serviceName))) !== false) {
         $consumerSecret = $cachedRequest;
       } else {

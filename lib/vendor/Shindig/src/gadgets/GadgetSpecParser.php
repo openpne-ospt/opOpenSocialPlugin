@@ -169,7 +169,7 @@ class GadgetSpecParser {
    * Parses the (optional) Icon element, returns a Icon class or null
    *
    * @param DOMElement $modulePrefs
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    */
   private function parseIcon(DOMElement &$modulePrefs, GadgetSpec &$gadget) {
     if (($iconNodes = $modulePrefs->getElementsByTagName('Icon')) != null) {
@@ -186,7 +186,7 @@ class GadgetSpecParser {
    * Parses the Required and Optional feature entries in the ModulePrefs
    *
    * @param DOMElement $modulePrefs
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    */
   private function parseFeatures(DOMElement &$modulePrefs, GadgetSpec &$gadget) {
     $gadget->requiredFeatures = $gadget->optionalFeatures = array();
@@ -305,7 +305,7 @@ class GadgetSpecParser {
    * Parses the preload elements
    *
    * @param DOMElement $modulePrefs
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    */
   private function parsePreloads(DOMElement &$modulePrefs, GadgetSpec &$gadget) {
     $gadget->preloads = array();
@@ -320,7 +320,7 @@ class GadgetSpecParser {
    * Parses the Locale (message bundle) entries
    *
    * @param DOMElement $modulePrefs
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    */
   private function parseLocales(DOMElement &$modulePrefs, GadgetSpec &$gadget) {
     $gadget->locales = array();

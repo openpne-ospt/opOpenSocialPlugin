@@ -25,7 +25,7 @@ class ConfigException extends Exception {
  * Configuration class. It uses the keys/values from config/container.php
  * and (if the file exists) config/local.php.
  */
-class Config {
+class Shindig_Config {
   private static $config = false;
 
   static private function loadConfig() {

@@ -32,7 +32,7 @@ class SanitizeRewriter extends DomRewriter {
    * @param GadgetRewriter $gadgetRewriter
    */
   public function register(GadgetRewriter &$gadgetRewriter) {
-    $sanitizeViews = Config::get('sanitize_views');
+    $sanitizeViews = Shindig_Config::get('sanitize_views');
     // Only hook up our dom node observers if this view should be sanitized
     if (in_array($this->context->getView(), $sanitizeViews)) {
       $gadgetRewriter->addObserver('script', $this, 'rewriteScript');

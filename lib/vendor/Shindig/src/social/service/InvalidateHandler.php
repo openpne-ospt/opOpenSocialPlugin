@@ -26,9 +26,9 @@ class InvalidateHandler extends DataRequestHandler {
 
   public function __construct() {
     try {
-      $service = trim(Config::get('invalidate_service'));
+      $service = trim(Shindig_Config::get('invalidate_service'));
       if (!empty($service)) {
-        $cache = Cache::createCache(Config::get('data_cache'), 'RemoteContent');
+        $cache = Cache::createCache(Shindig_Config::get('data_cache'), 'RemoteContent');
         $this->service = new $service($cache);
       }
     } catch (ConfigException $e) {

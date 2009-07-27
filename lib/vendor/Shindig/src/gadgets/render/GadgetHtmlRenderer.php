@@ -27,11 +27,11 @@ require 'GadgetBaseRenderer.php';
  */
 class GadgetHtmlRenderer extends GadgetBaseRenderer {
 
-  public function renderGadget(Gadget $gadget, $view) {
+  public function renderGadget(Shindig_Gadget $gadget, $view) {
     $this->setGadget($gadget);
     // Was a privacy policy header configured? if so set it
-    if (Config::get('P3P') != '') {
-      header("P3P: " . Config::get('P3P'));
+    if (Shindig_Config::get('P3P') != '') {
+      header("P3P: " . Shindig_Config::get('P3P'));
     }
     $content = '';
     // Set doctype if quirks = false or empty in the view
@@ -41,7 +41,7 @@ class GadgetHtmlRenderer extends GadgetBaseRenderer {
     // Rewriting the gadget's content using the libxml library does impose some restrictions to the validity of the input html, so
     // for the time being (until either gadgets are all fixed, or we find a more tolerant html parsing lib), we try to avoid it when we can
     $domRewrite = false;
-    if (isset($gadget->gadgetSpec->rewrite) || Config::get('rewrite_by_default')) {
+    if (isset($gadget->gadgetSpec->rewrite) || Shindig_Config::get('rewrite_by_default')) {
       $domRewrite = true;
     } elseif (strpos($view['content'], 'text/os-data') !== false || strpos($view['content'], 'text/os-template') !== false) {
       $domRewrite = true;
@@ -49,7 +49,7 @@ class GadgetHtmlRenderer extends GadgetBaseRenderer {
     if (!$domRewrite) {
       // Manually generate the html document using basic string concatinations instead of using our DOM based functions
       $content .= "<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n";
-      $content .= '<style>'.Config::get('gadget_css')."</style>\n";
+      $content .= '<style>'.Shindig_Config::get('gadget_css')."</style>\n";
       $scripts = $this->getJavaScripts();
       if ($scripts['external']) {
         $content .= "<script type=\"text/javascript\" src=\"{$scripts['external']}\"></script>\n";

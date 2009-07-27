@@ -40,9 +40,9 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
   /**
    * Sets the $this->gadget property, and populates Msg, UserPref and ViewParams dataContext
    *
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    */
-  public function setGadget(Gadget $gadget) {
+  public function setGadget(Shindig_Gadget $gadget) {
     $this->gadget = $gadget;
     $this->dataContext['UserPrefs'] = $this->dataContext['ViewParams'] = $this->dataContext['Msg'] = array();
     if (isset($this->gadget->gadgetSpec->locales)) {
@@ -280,7 +280,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
       // if some of the feature libraries are externalized (through a browser cachable <script src="/gadgets/js/opensocial-0.9:settitle.js"> type url)
       // we inject the tag and don't inline those libs (and their dependencies)
       $forcedJsLibs = explode(':', $forcedJsLibs);
-      $externalScript = Config::get('default_js_prefix') . $this->getJsUrl($forcedJsLibs, $this->gadget) . "&container=" . $this->context->getContainer();
+      $externalScript = Shindig_Config::get('default_js_prefix') . $this->getJsUrl($forcedJsLibs, $this->gadget) . "&container=" . $this->context->getContainer();
       $registry = $this->context->getRegistry();
       $missing = array();
       $registry->resolveFeatures($forcedJsLibs, $forcedJsLibs, $missing);
@@ -316,7 +316,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
     // Inject our configured gadget document style
     $styleNode = $doc->createElement('style');
     $styleNode->setAttribute('type', 'text/css');
-    $styleNode->appendChild($doc->createTextNode(Config::get('gadget_css')));
+    $styleNode->appendChild($doc->createTextNode(Shindig_Config::get('gadget_css')));
     $node->appendChild($styleNode);
     // Inject the OpenSocial feature javascripts
     $scripts = $this->getJavaScripts();
@@ -341,7 +341,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
     $forcedJsLibs = $this->context->getForcedJsLibs();
     // allow the &libs=.. param to override our forced js libs configuration value
     if (empty($forcedJsLibs)) {
-      $forcedJsLibs = Config::get('focedJsLibs');
+      $forcedJsLibs = Shindig_Config::get('focedJsLibs');
     }
     return $forcedJsLibs;
   }
@@ -349,11 +349,11 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
   /**
    * Appends the javascript features configuration string
    *
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    * @param unknown_type $hasForcedLibs
    * @return string
    */
-  private function appendJsConfig(Gadget $gadget, $hasForcedLibs) {
+  private function appendJsConfig(Shindig_Gadget $gadget, $hasForcedLibs) {
     $container = $this->context->getContainer();
     $containerConfig = $this->context->getContainerConfig();
     //TODO some day we should parse the forcedLibs too, and include their config selectivly as well for now we just include everything if forced libs is set.
@@ -404,10 +404,10 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
   /**
    * Injects the relevant translation message bundle into the javascript api
    *
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    * @return string
    */
-  private function appendMessages(Gadget $gadget) {
+  private function appendMessages(Shindig_Gadget $gadget) {
     $msgs = '';
     if (! empty($gadget->gadgetSpec->locales)) {
       $msgs = json_encode($gadget->gadgetSpec->locales);
@@ -418,10 +418,10 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
   /**
    * Injects the preloaded content into the javascript api
    *
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    * @return string
    */
-  private function appendPreloads(Gadget $gadget) {
+  private function appendPreloads(Shindig_Gadget $gadget) {
     return "gadgets.io.preloaded_ = " . (count($gadget->gadgetSpec->preloads) ? json_encode($gadget->gadgetSpec->preloads) : "{}") . ";\n";
   }
 }

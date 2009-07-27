@@ -36,17 +36,17 @@ class GadgetRewriter {
    * Does the actual rewrite option scanning and performs the dom parsing
    *
    * @param string $content
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    */
   public function rewrite($content, Gadget &$gadget) {
     // Check to see if the gadget requested rewriting, or if rewriting is forced in the configuration
-    if (is_array($gadget->gadgetSpec->rewrite) || Config::get('rewrite_by_default')) {
+    if (is_array($gadget->gadgetSpec->rewrite) || Shindig_Config::get('rewrite_by_default')) {
       require_once "src/gadgets/rewrite/ContentRewriter.php";
       $contentRewriter = new ContentRewriter($this->context, $gadget);
       $contentRewriter->register($this);
     }
     // Are we configured to sanitize certain views? (if so the config should be an array of view names to sanitize, iaw: array('profile', 'home'))
-    if (is_array(Config::get('sanitize_views'))) {
+    if (is_array(Shindig_Config::get('sanitize_views'))) {
       require_once "src/gadgets/rewrite/SanitizeRewriter.php";
       $sanitizeRewriter = new SanitizeRewriter($this->context, $gadget);
       $sanitizeRewriter->register($this);

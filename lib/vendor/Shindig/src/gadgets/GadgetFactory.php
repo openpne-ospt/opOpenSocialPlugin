@@ -49,7 +49,7 @@ class GadgetFactory {
     $gadgetContent = $this->fetchGadget($gadgetUrl);
     $gadgetSpecParser = new GadgetSpecParser();
     $gadgetSpec = $gadgetSpecParser->parse($gadgetContent);
-    $gadget = new Gadget($gadgetSpec, $this->context);
+    $gadget = new Shindig_Gadget($gadgetSpec, $this->context);
 
     // Process the gadget: fetching remote resources, processing & applying the correct translations, user prefs and feature resolving
     $this->fetchResources($gadget);
@@ -65,7 +65,7 @@ class GadgetFactory {
    * Resolves the Required and Optional features and their dependencies into a real feature list using
    * the GadgetFeatureRegistry, which can be used to construct the javascript for the gadget
    *
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    */
   private function parseFeatures(Gadget &$gadget) {
     $found = $missing = array();
@@ -136,7 +136,7 @@ class GadgetFactory {
   /**
    * Process the UserPrefs values based on the current context
    *
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    */
   private function parseUserPrefs(Gadget &$gadget) {
     foreach ($gadget->gadgetSpec->userPrefs as $key => $pref) {
@@ -152,9 +152,9 @@ class GadgetFactory {
    * This distills the locales array's back to one array of translations, which is then exposed
    * through the $gadget->substitutions class
    *
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    */
-  private function mergeLocales(Gadget $gadget) {
+  private function mergeLocales(Shindig_Gadget $gadget) {
     if (count($gadget->gadgetSpec->locales)) {
       $contextLocale = $this->context->getLocale();
       $locales = $gadget->gadgetSpec->locales;
@@ -184,7 +184,7 @@ class GadgetFactory {
    * The preloads will be json_encoded to their gadget document injection format, and the locales will
    * be reduced to only the GadgetContext->getLocale matching entries.
    *
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    * @param GadgetContext $context
    */
   private function fetchResources(Gadget &$gadget) {
@@ -242,7 +242,7 @@ class GadgetFactory {
       $signedRequests[$key] = $request;
     }
     if (count($signedRequests)) {
-    	$signingFetcherFactory = new SigningFetcherFactory(Config::get("private_key_file"));
+    	$signingFetcherFactory = new SigningFetcherFactory(Shindig_Config::get("private_key_file"));
       $remoteContent = new BasicRemoteContent(new BasicRemoteContentFetcher(), $signingFetcherFactory);
       $resps = $remoteContent->multiFetch($signedRequests);
       foreach ($resps as $response) {

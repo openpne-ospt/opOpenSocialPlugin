@@ -26,17 +26,17 @@ class GadgetUrlRenderer extends GadgetRenderer {
    * used. Proxied content is the socially aware (and higher performance) version of this
    * See GadgetHrefRenderer for it's implementation.
    *
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    * @param Array $view
    */
-  public function renderGadget(Gadget $gadget, $view) {
+  public function renderGadget(Shindig_Gadget $gadget, $view) {
     // Preserve existing query string parameters.
     $redirURI = $view['href'];
     $queryStr = strpos($redirURI, '?') !== false ? substr($redirURI, strpos($redirURI, '?')) : '';
     $query = $queryStr;
     $query .= $this->getPrefsQueryString($gadget->gadgetSpec->userPrefs);
     $features = array();
-    $forcedLibs = Config::get('focedJsLibs');
+    $forcedLibs = Shindig_Config::get('focedJsLibs');
     if ($forcedLibs == null) {
       $features = $gadget->features;
     } else {
@@ -57,12 +57,12 @@ class GadgetUrlRenderer extends GadgetRenderer {
    * ie: in libs=core:caja:etc.js format
    *
    * @param string $libs the libraries
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    * @return string the libs=... string to append to the redirection url
    */
   private function appendLibsToQuery($features) {
     $ret = "&";
-    $ret .= Config::get('libs_param_name');
+    $ret .= Shindig_Config::get('libs_param_name');
     $ret .= "=";
     $ret .= str_replace('?', '&', $this->getJsUrl($features));
     return $ret;
@@ -72,14 +72,14 @@ class GadgetUrlRenderer extends GadgetRenderer {
    * Returns the user preferences in &up_<name>=<val> format
    *
    * @param array $libs array of features this gadget requires
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    * @return string the up_<name>=<val> string to use in the redirection url
    */
   private function getPrefsQueryString($prefs) {
     $ret = '';
     foreach ($prefs as $pref) {
       $ret .= '&';
-      $ret .= Config::get('userpref_param_prefix');
+      $ret .= Shindig_Config::get('userpref_param_prefix');
       $ret .= urlencode($pref['name']);
       $ret .= '=';
       $ret .= urlencode($pref['value']);

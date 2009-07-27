@@ -33,7 +33,7 @@ class ContentRewriter extends DomRewriter {
   public function __construct(GadgetContext $context, Gadget &$gadget) {
     parent::__construct($context, $gadget);
     // if no rewrite params are set in the gadget but rewrite_by_default is on, use our default rules (rewrite all)
-    if (! isset($gadget->gadgetSpec->rewrite) && Config::get('rewrite_by_default')) {
+    if (! isset($gadget->gadgetSpec->rewrite) && Shindig_Config::get('rewrite_by_default')) {
       $this->rewrite = $this->defaultRewrite;
     } else {
       $this->rewrite = $gadget->gadgetSpec->rewrite;
@@ -65,7 +65,7 @@ class ContentRewriter extends DomRewriter {
     if (strpos(strtolower($url), 'http://') === false && strpos(strtolower($url), 'https://') === false) {
       $url = $this->baseUrl . $url;
     }
-    $url = Config::get('web_prefix') . '/gadgets/proxy?url=' . urlencode($url);
+    $url = Shindig_Config::get('web_prefix') . '/gadgets/proxy?url=' . urlencode($url);
     $url .= '&refresh=' . (isset($this->rewrite['expires']) && is_numeric($this->rewrite['expires']) ? $this->rewrite['expires'] : '3600');
     $url .= '&gadget=' . urlencode($this->context->getUrl());
     return $url;

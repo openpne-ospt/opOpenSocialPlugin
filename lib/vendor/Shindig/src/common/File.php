@@ -19,11 +19,11 @@
  */
 
 
-class File {
+class Shindig_File {
 
   public static function exists($file) {
     // only really check if check_file_exists == true, big performance hit on production systems, but also much safer :)
-    if (Config::get('check_file_exists')) {
+    if (Shindig_Config::get('check_file_exists')) {
       return file_exists($file);
     } else {
       return true;
@@ -32,7 +32,7 @@ class File {
 
   public static function readable($file) {
     // only really check if check_file_exists == true, big performance hit on production systems, but also much safer :)
-    if (Config::get('check_file_exists')) {
+    if (Shindig_Config::get('check_file_exists')) {
       return is_readable($file);
     } else {
       return true;

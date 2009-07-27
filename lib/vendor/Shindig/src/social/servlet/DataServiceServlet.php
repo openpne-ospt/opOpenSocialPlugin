@@ -48,7 +48,7 @@ class DataServiceServlet extends ApiServlet {
   }
 
   public function doPost() {
-    $xrdsLocation = Config::get('xrds_location');
+    $xrdsLocation = Shindig_Config::get('xrds_location');
     if ($xrdsLocation) {
       header("X-XRDS-Location: $xrdsLocation", false);
     }
@@ -65,7 +65,7 @@ class DataServiceServlet extends ApiServlet {
       $code = '500 Internal Server Error';
       header("HTTP/1.0 $code", true);
       echo "<h1>$code - Internal Server Error</h1>\n" . $e->getMessage();
-      if (Config::get('debug')) {
+      if (Shindig_Config::get('debug')) {
         echo "\n\n<br>\nDebug backtrace:\n<br>\n<pre>\n";
         echo $e->getTraceAsString();
         echo "\n</pre>\n";
@@ -151,13 +151,13 @@ class DataServiceServlet extends ApiServlet {
     $outputFormat = strtolower(trim(! empty($_POST[self::$FORMAT_PARAM]) ? $_POST[self::$FORMAT_PARAM] : (! empty($_GET[self::$FORMAT_PARAM]) ? $_GET[self::$FORMAT_PARAM] : 'json')));
     switch ($outputFormat) {
       case 'xml':
-        if (!Config::get('debug')) $this->setContentType('application/xml');
+        if (!Shindig_Config::get('debug')) $this->setContentType('application/xml');
         return new OutputXmlConverter();
       case 'atom':
-        if (!Config::get('debug')) $this->setContentType('application/atom+xml');
+        if (!Shindig_Config::get('debug')) $this->setContentType('application/atom+xml');
         return new OutputAtomConverter();
       case 'json':
-        if (!Config::get('debug')) $this->setContentType('application/json');
+        if (!Shindig_Config::get('debug')) $this->setContentType('application/json');
         return new OutputJsonConverter();
       default:
         // if no output format is set, see if we can match an input format header
@@ -165,14 +165,14 @@ class DataServiceServlet extends ApiServlet {
         if (isset($_SERVER['CONTENT_TYPE'])) {
           switch ($_SERVER['CONTENT_TYPE']) {
             case 'application/atom+xml':
-              if (!Config::get('debug')) $this->setContentType('application/atom+xml');
+              if (!Shindig_Config::get('debug')) $this->setContentType('application/atom+xml');
               return new OutputAtomConverter();
             case 'application/xml':
-              if (!Config::get('debug')) $this->setContentType('application/xml');
+              if (!Shindig_Config::get('debug')) $this->setContentType('application/xml');
               return new OutputXmlConverter();
             default:
             case 'application/json':
-              if (!Config::get('debug')) $this->setContentType('application/json');
+              if (!Shindig_Config::get('debug')) $this->setContentType('application/json');
               return new OutputJsonConverter();
           }
         }

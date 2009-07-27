@@ -50,13 +50,13 @@ class GadgetRenderingServlet extends HttpServlet {
         throw new GadgetException("Missing required parameter: url");
       }
       $this->context = new GadgetContext('GADGET');
-      $gadgetSigner = Config::get('security_token_signer');
+      $gadgetSigner = Shindig_Config::get('security_token_signer');
       $gadgetSigner = new $gadgetSigner();
       try {
         $token = $this->context->extractAndValidateToken($gadgetSigner);
       } catch (Exception $e) {
         // no token given, this is a fatal error if 'render_token_required' is set to true
-        if (Config::get('render_token_required')) {
+        if (Shindig_Config::get('render_token_required')) {
           $this->showError($e);
         } else {
           $token = '';
@@ -71,7 +71,7 @@ class GadgetRenderingServlet extends HttpServlet {
     }
   }
 
-  private function renderGadget(Gadget $gadget) {
+  private function renderGadget(Shindig_Gadget $gadget) {
     $view = $gadget->getView($this->context->getView());
     if ($view['type'] == 'URL') {
       require_once "src/gadgets/render/GadgetUrlRenderer.php";
@@ -107,7 +107,7 @@ class GadgetRenderingServlet extends HttpServlet {
     echo "<html><body>";
     echo "<h1>Error</h1>";
     echo $e->getMessage();
-    if (Config::get('debug')) {
+    if (Shindig_Config::get('debug')) {
       echo "<p><b>Debug backtrace</b></p><div style='overflow:auto; height:300px; border:1px solid #000000'><pre>";
       print_r(debug_backtrace());
       echo "</pre></div>>";

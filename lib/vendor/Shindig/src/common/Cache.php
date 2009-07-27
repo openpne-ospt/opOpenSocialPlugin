@@ -83,7 +83,7 @@ class Cache {
 
   public function set($key, $value, $ttl = false) {
     if (! $ttl) {
-      $ttl = Config::Get('cache_time');
+      $ttl = Shindig_Config::Get('cache_time');
     }
     if ($this->storage->isLocked($key)) {
       $this->storage->waitForLock($key);

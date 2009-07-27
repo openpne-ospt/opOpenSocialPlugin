@@ -21,7 +21,7 @@
 /**
  * http://opensocial-resources.googlecode.com/svn/spec/0.9/OpenSocial-Specification.xml#opensocial.Album
  */
-class Album {
+class Shindig_Album {
 
   public $id;
   public $title;

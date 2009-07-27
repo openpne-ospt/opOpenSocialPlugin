@@ -43,9 +43,9 @@ class MakeRequestServlet extends HttpServlet {
       $method = (isset($_GET['httpMethod']) ? $_GET['httpMethod'] : (isset($_POST['httpMethod']) ? $_POST['httpMethod'] : 'GET'));
       $signingFetcherFactory = $gadgetSigner = false;
       if (! empty($_GET['authz']) || ! empty($_POST['authz'])) {
-        $gadgetSigner = Config::get('security_token_signer');
+        $gadgetSigner = Shindig_Config::get('security_token_signer');
         $gadgetSigner = new $gadgetSigner();
-        $signingFetcherFactory = new SigningFetcherFactory(Config::get("private_key_file"));
+        $signingFetcherFactory = new SigningFetcherFactory(Shindig_Config::get("private_key_file"));
       }
       $makeRequestHandler = new MakeRequestHandler($context, $signingFetcherFactory);
       $makeRequestHandler->fetchJson($url, $gadgetSigner, $method);

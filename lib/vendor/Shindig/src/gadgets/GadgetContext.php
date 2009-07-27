@@ -56,7 +56,7 @@ class GadgetContext {
   }
 
   private function getRefreshIntervalParam() {
-    return isset($_GET['refresh']) ? $_GET['refresh'] : Config::get('default_refresh_interval');
+    return isset($_GET['refresh']) ? $_GET['refresh'] : Shindig_Config::get('default_refresh_interval');
   }
 
   private function getContainerParam() {
@@ -101,7 +101,7 @@ class GadgetContext {
   }
 
   private function instanceBlacklist() {
-    $blackListClass = Config::get('blacklist_class');
+    $blackListClass = Shindig_Config::get('blacklist_class');
     if (! empty($blackListClass)) {
       return new $blackListClass();
     } else {
@@ -110,16 +110,16 @@ class GadgetContext {
   }
 
   private function instanceHttpFetcher() {
-    $remoteContent = Config::get('remote_content');
+    $remoteContent = Shindig_Config::get('remote_content');
     return new $remoteContent();
   }
 
   private function instanceRegistry() {
     // feature parsing is very resource intensive so by caching the result this saves upto 30% of the processing time
-    $featureCache = Cache::createCache(Config::get('feature_cache'), 'FeatureCache');
-    if (! ($registry = $featureCache->get(md5(Config::get('features_path'))))) {
-      $registry = new GadgetFeatureRegistry(Config::get('features_path'));
-      $featureCache->set(md5(Config::get('features_path')), $registry);
+    $featureCache = Cache::createCache(Shindig_Config::get('feature_cache'), 'FeatureCache');
+    if (! ($registry = $featureCache->get(md5(Shindig_Config::get('features_path'))))) {
+      $registry = new GadgetFeatureRegistry(Shindig_Config::get('features_path'));
+      $featureCache->set(md5(Shindig_Config::get('features_path')), $registry);
     }
     return $registry;
   }
@@ -132,7 +132,7 @@ class GadgetContext {
   }
 
   private function instanceContainerConfig() {
-    return new ContainerConfig(Config::get('container_path'));
+    return new ContainerConfig(Shindig_Config::get('container_path'));
   }
 
   public function getContainer() {

@@ -88,7 +88,7 @@ abstract class ApiServlet extends HttpServlet {
   public function getSecurityToken() {
     // Support a configurable host name ('http_host' key) so that OAuth signatures don't fail in reverse-proxy type situations
     $scheme = (! isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
-    $http_url = $scheme . '://' . (Config::get('http_host') ? Config::get('http_host') : $_SERVER['HTTP_HOST']) . $_SERVER['REQUEST_URI'];
+    $http_url = $scheme . '://' . (Shindig_Config::get('http_host') ? Shindig_Config::get('http_host') : $_SERVER['HTTP_HOST']) . $_SERVER['REQUEST_URI'];
     // see if we have an OAuth request
     $request = OAuthRequest::from_request(null, $http_url, null);
     $appUrl = $request->get_parameter('oauth_consumer_key');
@@ -97,7 +97,7 @@ abstract class ApiServlet extends HttpServlet {
     if ($appUrl && $signature) {
       //if ($appUrl && $signature && $userId) {
       // look up the user and perms for this oauth request
-      $oauthLookupService = Config::get('oauth_lookup_service');
+      $oauthLookupService = Shindig_Config::get('oauth_lookup_service');
       $oauthLookupService = new $oauthLookupService();
       $token = $oauthLookupService->getSecurityToken($request, $appUrl, $userId, $this->getContentType());
       if ($token) {
@@ -112,13 +112,13 @@ abstract class ApiServlet extends HttpServlet {
     // look for encrypted security token
     $token = isset($_POST['st']) ? $_POST['st'] : (isset($_GET['st']) ? $_GET['st'] : '');
     if (empty($token)) {
-      if (Config::get('allow_anonymous_token')) {
+      if (Shindig_Config::get('allow_anonymous_token')) {
         // no security token, continue anonymously, remeber to check
         // for private profiles etc in your code so their not publicly
         // accessable to anoymous users! Anonymous == owner = viewer = appId = modId = 0
         // create token with 0 values, no gadget url, no domain and 0 duration
-        $gadgetSigner = Config::get('security_token');
-        return new $gadgetSigner(null, 0, SecurityToken::$ANONYMOUS, SecurityToken::$ANONYMOUS, 0, '', '', 0, Config::get('container_id'));
+        $gadgetSigner = Shindig_Config::get('security_token');
+        return new $gadgetSigner(null, 0, SecurityToken::$ANONYMOUS, SecurityToken::$ANONYMOUS, 0, '', '', 0, Shindig_Config::get('container_id'));
       } else {
         return null;
       }
@@ -126,7 +126,7 @@ abstract class ApiServlet extends HttpServlet {
     if (count(explode(':', $token)) != 7) {
       $token = urldecode(base64_decode($token));
     }
-    $gadgetSigner = Config::get('security_token_signer');
+    $gadgetSigner = Shindig_Config::get('security_token_signer');
     $gadgetSigner = new $gadgetSigner();
     return $gadgetSigner->createToken($token);
   }

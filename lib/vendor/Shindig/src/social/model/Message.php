@@ -22,7 +22,7 @@
  * see
  * http://opensocial-resources.googlecode.com/svn/spec/draft/OpenSocial-Specification.xml#opensocial.Message.Field
  */
-class Message {
+class Shindig_Message {
   // These fields should be referenced via getters and setters. 'public' only for json_encode. 
   public $appUrl;
   public $body;

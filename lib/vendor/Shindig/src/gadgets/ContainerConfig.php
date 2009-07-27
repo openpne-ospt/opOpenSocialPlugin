@@ -30,11 +30,11 @@ class ContainerConfig {
   }
 
   private function loadContainers($containers) {
-    if (! File::exists($containers)) {
+    if (! Shindig_File::exists($containers)) {
       throw new Exception("Invalid container path");
     }
     foreach (glob("$containers/*.js") as $file) {
-      if (! File::readable($file)) {
+      if (! Shindig_File::readable($file)) {
         throw new Exception("Could not read container config: $file");
       }
       if (is_dir($file)) {

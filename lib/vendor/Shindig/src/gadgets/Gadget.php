@@ -18,7 +18,7 @@
  * under the License.
  */
 
-class Gadget {
+class Shindig_Gadget {
   const DEFAULT_VIEW = 'profile';
 
   /**

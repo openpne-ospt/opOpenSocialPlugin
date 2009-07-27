@@ -46,8 +46,8 @@ class GadgetFeatureRegistry {
       return '';
     }
     $ret = '';
-    if (Config::get('compress_javascript')) {
-      $featureCache = Cache::createCache(Config::get('feature_cache'), 'FeatureCache');
+    if (Shindig_Config::get('compress_javascript')) {
+      $featureCache = Cache::createCache(Shindig_Config::get('feature_cache'), 'FeatureCache');
       if (($featureContent = $featureCache->get(md5('features:'.$featureName.$isGadgetContext)))) {
         return $featureContent;
       }
@@ -71,7 +71,7 @@ class GadgetFeatureRegistry {
           break;
       }
     }
-    if (Config::get('compress_javascript')) {
+    if (Shindig_Config::get('compress_javascript')) {
       $ret = JsMin::minify($ret);
       $featureCache->set(md5('features:'.$featureName.$isGadgetContext), $ret);
     }
@@ -118,7 +118,7 @@ class GadgetFeatureRegistry {
     $this->features = array();
     // Load the features from the shindig/features/features.txt file
     $featuresFile = $featurePath . '/features.txt';
-    if (File::exists($featuresFile)) {
+    if (Shindig_File::exists($featuresFile)) {
       $files = explode("\n", file_get_contents($featuresFile));
       // custom sort, else core.io seems to bubble up before core, which breaks the dep chain order
       usort($files, array($this, 'sortFeaturesFiles'));
@@ -156,7 +156,7 @@ class GadgetFeatureRegistry {
    */
   private function processFile($file) {
     $feature = null;
-    if (!empty($file) && File::exists($file)) {
+    if (!empty($file) && Shindig_File::exists($file)) {
       if (($content = file_get_contents($file))) {
         $feature = $this->parse($content, dirname($file));
       }

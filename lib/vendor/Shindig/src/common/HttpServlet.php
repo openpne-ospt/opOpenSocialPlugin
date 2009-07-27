@@ -38,7 +38,7 @@ class HttpServlet {
    */
   public function __construct() {
     // set our default cache time (config cache time defaults to 24 hours aka 1 day)
-    $this->cacheTime = Config::get('cache_time');
+    $this->cacheTime = Shindig_Config::get('cache_time');
     // to do our header magic, we need output buffering on
     ob_start();
   }

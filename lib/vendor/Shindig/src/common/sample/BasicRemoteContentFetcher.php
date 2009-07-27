@@ -210,11 +210,11 @@ class BasicRemoteContentFetcher extends RemoteContentFetcher {
     curl_setopt($handle, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($handle, CURLOPT_AUTOREFERER, 1);
     curl_setopt($handle, CURLOPT_MAXREDIRS, 10);
-    curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, Config::get('curl_connection_timeout'));
-    curl_setopt($handle, CURLOPT_TIMEOUT, Config::get('curl_connection_timeout'));
+    curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, Shindig_Config::get('curl_connection_timeout'));
+    curl_setopt($handle, CURLOPT_TIMEOUT, Shindig_Config::get('curl_connection_timeout'));
     curl_setopt($handle, CURLOPT_HEADER, 1);
     curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, 0);
-    $proxy = Config::get('proxy');
+    $proxy = Shindig_Config::get('proxy');
     if (! empty($proxy)) {
       curl_setopt($handle, CURLOPT_PROXY, $proxy);
     }

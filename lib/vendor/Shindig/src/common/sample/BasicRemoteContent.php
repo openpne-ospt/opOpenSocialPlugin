@@ -58,7 +58,7 @@ class BasicRemoteContent extends RemoteContent {
     $this->basicFetcher = $basicFetcher ? $basicFetcher : new BasicRemoteContentFetcher();
     $this->signingFetcherFactory = $signingFetcherFactory;
     $this->signer = $signer;
-    $this->cache = Cache::createCache(Config::get('data_cache'), 'RemoteContent');
+    $this->cache = Cache::createCache(Shindig_Config::get('data_cache'), 'RemoteContent');
     $this->invalidateService = new DefaultInvalidateService($this->cache);
   }
 
@@ -150,7 +150,7 @@ class BasicRemoteContent extends RemoteContent {
     }
     $ignoreCache = $originalRequest->getOptions()->ignoreCache;
     if (($this->cachePostRequest || ! $request->isPost()) && ! $ignoreCache) {
-      $ttl = Config::get('cache_time');
+      $ttl = Shindig_Config::get('cache_time');
       if ((int)$request->getHttpCode() == 200) {
         // Got a 200 OK response, calculate the TTL to use for caching it
         if (($expires = $request->getResponseHeader('Expires')) != null) {

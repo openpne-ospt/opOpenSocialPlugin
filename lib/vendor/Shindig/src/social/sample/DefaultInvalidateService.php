@@ -41,9 +41,9 @@ class DefaultInvalidateService implements InvalidateService {
   
   public function __construct(Cache $cache) {
     $this->cache = $cache;
-    $this->invalidationEntry = Cache::createCache(Config::get('data_cache'), 'InvalidationEntry');
+    $this->invalidationEntry = Cache::createCache(Shindig_Config::get('data_cache'), 'InvalidationEntry');
     if (self::$makerCache == null) {
-      self::$makerCache = Cache::createCache(Config::get('data_cache'), 'MarkerCache');
+      self::$makerCache = Cache::createCache(Shindig_Config::get('data_cache'), 'MarkerCache');
       $value = self::$makerCache->expiredGet('marker');
       if ($value['found']) {
         self::$marker = $value['data'];

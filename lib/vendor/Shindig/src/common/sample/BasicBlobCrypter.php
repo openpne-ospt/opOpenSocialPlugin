@@ -49,9 +49,9 @@ class BasicBlobCrypter extends BlobCrypter {
   protected $allowPlaintextToken;
 
   public function __construct() {
-    $this->cipherKey = Config::get('token_cipher_key');
-    $this->hmacKey = Config::get('token_hmac_key');
-    $this->allowPlaintextToken = Config::get('allow_plaintext_token');
+    $this->cipherKey = Shindig_Config::get('token_cipher_key');
+    $this->hmacKey = Shindig_Config::get('token_hmac_key');
+    $this->allowPlaintextToken = Shindig_Config::get('allow_plaintext_token');
   }
 
   /**

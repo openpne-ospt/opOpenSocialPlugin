@@ -47,13 +47,13 @@ class GadgetHrefRenderer extends GadgetBaseRenderer {
    * Renders a 'proxied content' view, for reference see:
    * http://opensocial-resources.googlecode.com/svn/spec/draft/OpenSocial-Data-Pipelining.xml
    *
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    * @param array $view
    */
-  public function renderGadget(Gadget $gadget, $view) {
+  public function renderGadget(Shindig_Gadget $gadget, $view) {
     $this->setGadget($gadget);
-    if (Config::get('P3P') != '') {
-      header("P3P: " . Config::get('P3P'));
+    if (Shindig_Config::get('P3P') != '') {
+      header("P3P: " . Shindig_Config::get('P3P'));
     }
     /* TODO
      * We should really re-add OAuth fetching support some day, uses these view atributes:
@@ -75,12 +75,12 @@ class GadgetHrefRenderer extends GadgetBaseRenderer {
     }
     $signingFetcherFactory = $gadgetSigner = false;
     if ($authz != 'none') {
-      $gadgetSigner = Config::get('security_token_signer');
+      $gadgetSigner = Shindig_Config::get('security_token_signer');
       $gadgetSigner = new $gadgetSigner();
       $token = $gadget->gadgetContext->extractAndValidateToken($gadgetSigner);
       $request->setToken($token);
       $request->setAuthType($authz);
-      $signingFetcherFactory = new SigningFetcherFactory(Config::get("private_key_file"));
+      $signingFetcherFactory = new SigningFetcherFactory(Shindig_Config::get("private_key_file"));
     }
     $basicFetcher = new BasicRemoteContentFetcher();
     $basicRemoteContent = new BasicRemoteContent($basicFetcher, $signingFetcherFactory, $gadgetSigner);
@@ -140,7 +140,7 @@ class GadgetHrefRenderer extends GadgetBaseRenderer {
    * @return int refresh interval
    */
   private function getRefreshInterval($view) {
-    return ! empty($view['refreshInterval']) && is_numeric($view['refreshInterval']) ? $view['refreshInterval'] : Config::get('default_refresh_interval');
+    return ! empty($view['refreshInterval']) && is_numeric($view['refreshInterval']) ? $view['refreshInterval'] : Shindig_Config::get('default_refresh_interval');
   }
 
   /**

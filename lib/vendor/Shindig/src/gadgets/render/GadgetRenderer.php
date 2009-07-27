@@ -34,7 +34,7 @@ abstract class GadgetRenderer {
    * javascript content (?v=<md5 of js>) for cache busting
    *
    * @param string $libs
-   * @param Gadget $gadget
+   * @param Shindig_Gadget $gadget
    * @return string the list of libraries in core:caja:etc.js?v=checksum> format
    */
   protected function getJsUrl($features) {
@@ -44,7 +44,7 @@ abstract class GadgetRenderer {
     } else {
       $ret = implode(':', $features);
     }
-    $cache = Cache::createCache(Config::get('feature_cache'), 'FeatureCache');
+    $cache = Cache::createCache(Shindig_Config::get('feature_cache'), 'FeatureCache');
     if (($md5 = $cache->get(md5('getJsUrlMD5'))) === false) {
       $registry = $this->context->getRegistry();
       $features = $registry->features;
@@ -62,5 +62,5 @@ abstract class GadgetRenderer {
     return $ret;
   }
 
-  abstract function renderGadget(Gadget $gadget, $view);
+  abstract function renderGadget(Shindig_Gadget $gadget, $view);
 }

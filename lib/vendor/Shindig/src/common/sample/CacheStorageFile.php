@@ -39,7 +39,7 @@ class CacheStorageFile extends CacheStorage {
 
   public function fetch($key) {
     $cacheFile = CacheStorageFile::getCacheFile($key);
-    if (File::exists($cacheFile) && File::readable($cacheFile)) {
+    if (Shindig_File::exists($cacheFile) && Shindig_File::readable($cacheFile)) {
       return @file_get_contents($cacheFile);
     }
     return false;
@@ -82,7 +82,7 @@ class CacheStorageFile extends CacheStorage {
     // use the first 2 characters of the hash as a directory prefix
     // this should prevent slowdowns due to huge directory listings
     // and thus give some basic amount of scalability
-    return Config::get('cache_root') . '/' . $this->prefix . '/' .
+    return Shindig_Config::get('cache_root') . '/' . $this->prefix . '/' .
         substr($key, 0, 2);
   }
 

@@ -30,9 +30,9 @@ class CacheStorageMemcache extends CacheStorage {
     $this->prefix = $name;
     if (!self::$memcache) {
       self::$memcache = new Memcache();
-      $host = Config::get('cache_host');
-      $port = Config::get('cache_port');
-      if (Config::get('cache_memcache_pconnect')) {
+      $host = Shindig_Config::get('cache_host');
+      $port = Shindig_Config::get('cache_port');
+      if (Shindig_Config::get('cache_memcache_pconnect')) {
         if (!self::$memcache->pconnect($host, $port)) {
           throw new CacheException("Couldn't connect to memcache server");
         }

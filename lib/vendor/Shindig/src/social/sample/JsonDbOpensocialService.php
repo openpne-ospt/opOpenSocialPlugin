@@ -93,7 +93,7 @@ class JsonDbOpensocialService implements ActivityService, PersonService, AppData
         }
         return $jsonDecoded;
       } else {
-        $jsonDb = Config::get('jsondb_path');
+        $jsonDb = Shindig_Config::get('jsondb_path');
         if (! file_exists($jsonDb) || ! is_readable($jsonDb)) {
           throw new SocialSpiException("Could not read json db file: $jsonDb, check if the file exists & has proper permissions", ResponseError::$INTERNAL_ERROR);
         }
