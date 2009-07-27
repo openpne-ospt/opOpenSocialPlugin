@@ -13,7 +13,7 @@
  *
  * @author ShogoKawahara <kawahara@tejimaya.net>
  */
-class opOpenSocialGenkeyTask extends sfPropelBaseTask
+class opOpenSocialGenkeyTask extends sfDoctrineBaseTask
 {
   protected function configure()
   {
@@ -117,6 +117,6 @@ EOF;
     $this->logSection('file+', $pkey_filename);
     
     $databaseManager = new sfDatabaseManager($this->configuration);
-    SnsConfigPeer::set('shindig_private_key_phrase', $phrase);
+    Doctrine::getTable('SnsConfig')->set('shindig_private_key_phrase', $phrase);
   }
 }
