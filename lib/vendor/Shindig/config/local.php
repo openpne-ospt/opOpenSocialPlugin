@@ -2,11 +2,13 @@
 $webprefix = sfContext::getInstance()->getRequest()->getScriptName();
 $shindigConfig = array(
   'debug' => false,
+
+  'allow_plaintext_token' => false,
+
   'web_prefix' => $webprefix,
   'default_js_prefix' => $webprefix.'/gadgets/js/',
   'default_iframe_prefix' => $webprefix.'/gadgets/ifr?',
 
-  'allow_plaintext_token' => false,
   'allow_anonymous_token' => false,
 
   'token_cipher_key' => SnsConfigPeer::get('shindig_token_cipher_key'),
