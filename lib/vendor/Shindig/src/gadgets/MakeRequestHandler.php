@@ -102,7 +102,7 @@ class MakeRequestHandler extends ProxyBase {
    * @return response string, either a json encoded feed structure or an error message
    */
   private function parseFeed($result, $url) {
-    require 'external/Zend/Feed.php';
+    // require 'external/Zend/Feed.php';
     $numEntries = $_REQUEST['numEntries'];
     $getSummaries = ! empty($_REQUEST['getSummaries']) && $_REQUEST['getSummaries'] != 'false' ? true : false;
     $channel = array();
