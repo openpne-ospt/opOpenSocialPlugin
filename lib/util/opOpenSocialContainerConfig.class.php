@@ -11,7 +11,9 @@
 /**
  * opOpenSocialContainerConfig
  *
- * @author Shogo Kawahara <kawahara@tejimaya.net>
+ * @package    opOpenSocialPlugin
+ * @subpackage util
+ * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
 class opOpenSocialContainerConfig
 {
@@ -57,7 +59,7 @@ class opOpenSocialContainerConfig
    */
   public function generateAndSave($force = false, $snsUrl = null, $shindigUrl = null)
   {
-    if (SnsConfigPeer::get('is_use_outer_shindig'))
+    if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
     {
       return false;
     }
@@ -115,6 +117,7 @@ class opOpenSocialContainerConfig
       'gadgets.lockedDomainSuffix' => '-a.example.com:8080',
       'gadgets.iframeBaseUri' => '/gadgets/ifr',
       'gadgets.jsUriTemplate' => '#shindig_url#gadgets/js/%js%',
+      'gadgets.oauthGadgetCallbackTemplate' => '#shindig_url#/gadgets/oauthcallback',
       'gadgets.securityTokenType' => 'secure',
       'gadgets.osDataUri' => '#shindig_url#social/rpc',
       'gadgets.features' => array(
@@ -154,6 +157,15 @@ class opOpenSocialContainerConfig
           'enableCaja' => false,
           'supportedFields' => array()
         ),
+        'osapi.services' => array(
+          'gadgets.rpc' => array('container.listMethods')
+        ),
+        'osapi' => array(
+          'endPoint' => array('#shindig_url#social/rpc', '#shindig_url#gadgets/api/rpc')
+        )
+        'osml' => array(
+          'library' => 'config/OSML_library.xml'
+        )
       ),
     );
 
@@ -170,9 +182,9 @@ class opOpenSocialContainerConfig
 
     if (!$shindigUrl)
     {
-      if (SnsConfigPeer::get('is_use_outer_shindig'))
+      if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
       {
-        $shindigUrl = SnsConfigPeer::get('shindig_url');
+        $shindigUrl = Doctrine::getTable('SnsConfig')->get('shindig_url');
       }
       else
       {
@@ -180,11 +192,7 @@ class opOpenSocialContainerConfig
       }
     }
 
-    // TODO
-    // add new method to the OpenSocialPersonFieldPeer to not use the Criteria in here.
-    $criteria = new Criteria();
-    $criteria->add(OpensocialPersonFieldPeer::FIELD_NAME, null, Criteria::ISNOTNULL);
-    $opPersonFields = OpensocialPersonFieldPeer::doSelect($criteria);
+    $opPersonFields = Doctrine::getTable('OpenSocialPersonField')->getNotNullPersonFields();
     $personFields = array('id', 'name', 'thumbnailUrl', 'profileUrl');
     foreach ($opPersonFields as $opPersonField)
     {

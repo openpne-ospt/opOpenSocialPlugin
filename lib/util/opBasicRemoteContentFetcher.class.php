@@ -11,17 +11,19 @@
 /**
  * opBasicRemoteContentFetcher
  *
- * @author Shogo Kawahara <kawahara@tejimaya.net>
- *
+ * @package    opOpenSocialPlugin
+ * @subpackage util
+ * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
 class opBasicRemoteContentFetcher extends RemoteContentFetcher {
 
-  public function fetchRequest($request)
+  public function fetchRequest(RemoteContentRequest $request)
   {
     $outHeaders = array();
     if ($request->hasHeaders())
     {
       $headers = explode("\n", $request->getHeaders());
+      var_dump($headers);
       foreach ($headers as $header)
       {
         if (strpos($header, ':'))
@@ -41,13 +43,40 @@ class opBasicRemoteContentFetcher extends RemoteContentFetcher {
     }
     $outHeaders['User-Agent'] = "Shindig PHP";
     $options = array();
-    $options['Timeout'] = Shindig_Config::get('curl_connection_timeout');
-    $proxy   = Shindig_Config::get('proxy');
-    if (!empty($proxy))
+    $options['timeout'] = Shindig_Config::get('curl_connection_timeout');
+
+    // configure proxy
+    $proxyUrl   = Shindig_Config::get('proxy');
+    if (!empty($proxyUrl))
     {
-      $options['Proxy'] = $proxy;
+      $options['adapter'] = 'Zend_Http_Client_Adapter_Proxy';
+      $proxy = parse_url($proxyUrl);
+      if (isset($proxy['host']))
+      {
+        $options['proxy_host'] = $proxy['host'];
+      }
+
+      if (isset($proxy['port']))
+      {
+        $options['proxy_port'] = $proxy['port'];
+      }
+
+      if (isset($proxy['user']))
+      {
+        $options['proxy_user'] = $proxy['user'];
+      }
+
+      if (isset($proxy['pass']))
+      {
+        $options['proxy_pass'] = $proxy['pass'];
+      }
+
     }
-    $browser = new sfWebBrowser($outHeaders, null, $options);
+
+    $client = new Zend_Http_Client();
+    $client->setConfig($options);
+    $client->setUri($request->getUrl());
+
     if ($request->isPost())
     {
       $outPostBody = array();
@@ -60,26 +89,21 @@ class opBasicRemoteContentFetcher extends RemoteContentFetcher {
           $outPostBody[$pb[0]] = $pb[1];
         }
       }
-      $browser->post($request->getUrl(), $outPostBody);
+      $client->setParameterPost($outPostBody);
+      $client->setMethod(Zend_Http_Client::POST);
     }
     else
     {
-      $browser->get($request->getUrl());
+      $client->setMethod(Zend_Http_Client::GET);
     }
-    $request->setHttpCode($browser->getResponseCode());
-    $request->setContentType($browser->getResponseHeader('Content-Type'));
-    $responseHeaders = $browser->getResponseHeaders();
-    $resHeaders = array();
-    foreach ($responseHeaders as $key => $val)
-    {
-      if (strcasecmp($key, 'Content-Encoding') != 0)
-      {
-        $resHeaders[] = $key.": ".$val;
-      }
-    }
-    $request->setResponseHeaders(implode("\n", $resHeaders));
-    $request->setResponseContent($browser->getResponseText());
-    $request->setResponseSize(strlen($browser->getResponseText()));
+
+    $response = $client->request();
+
+    $request->setHttpCode($response->getStatus());
+    $request->setContentType($response->getHeader('Content-Type'));
+    $request->setResponseHeaders($response->getHeaders());
+    $request->setResponseContent($response->getBody());
+    $request->setResponseSize(strlen($response->getBody()));
     return $request;
   }
 

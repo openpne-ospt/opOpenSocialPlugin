@@ -11,8 +11,10 @@
 /**
  * opBasicSecurityTokenDecoder
  *
- * @author Shogo Kawahara <kawahara@tejimaya.net>
- * @see    BasicSecurityTokenDecoder
+ * @package    opOpenSocialPlugin
+ * @subpackage util
+ * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @see        BasicSecurityTokenDecoder
  */
 class opBasicSecurityTokenDecoder extends SecurityTokenDecoder {
   private $OWNER_INDEX = 0;
@@ -21,6 +23,7 @@ class opBasicSecurityTokenDecoder extends SecurityTokenDecoder {
   private $CONTAINER_INDEX = 3;
   private $APP_URL_INDEX = 4;
   private $MODULE_ID_INDEX = 5;
+  private $CONTAINER_INDEX = 6;
 
   /**
    * 

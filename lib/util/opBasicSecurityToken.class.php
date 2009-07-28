@@ -11,8 +11,10 @@
 /**
  * opBasicSecurityToken
  *
- * @author Shogo Kawahara <kawahara@tejimaya.net>
- * @see          BasicSecurityToken
+ * @package    opOpenSocialPlugin
+ * @subpackage util
+ * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @see        BasicSecurityToken
  */
 class opBasicSecurityToken extends BasicSecurityToken {
   /**
@@ -20,15 +22,15 @@ class opBasicSecurityToken extends BasicSecurityToken {
    */
   public static function createFromToken($token, $maxAge)
   {
-    return new opBasicSecurityToken($token, $maxAge, null, null, null, null, null, null);
+    return new opBasicSecurityToken($token, $maxAge, SecurityToken::$ANONYMOUS, SecurityToken::$ANONYMOUS, null, null, null, null, null);
   }
 
   /**
    * @see BasicSecurityToken::createFromValues()
    */
-  public static function createFromValues($owner, $viewer, $app, $domain, $appUrl, $moduleId)
+  public static function createFromValues($owner, $viewer, $app, $domain, $appUrl, $moduleId, $containerId)
   {
-    return new opBasicSecurityToken(null, null, $owner, $viewer, $app, $domain, $appUrl, $moduleId);
+    return new opBasicSecurityToken(null, null, $owner, $viewer, $app, $domain, $appUrl, $moduleId, $containerId);
   }
 
   protected function getCrypter() {
