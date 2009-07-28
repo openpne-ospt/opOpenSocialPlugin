@@ -4,7 +4,10 @@ options:
 
 Application:
   actAs:
-    - Timestampable
+    Timestampable:
+    I18n:
+      fields: [title, title_url, description, directory_title, screenshot, thumbnail, author, author_aboutme, author_affiliation, author_email, author_photo, author_link, author_quote, settings, views, version]
+      length: 5
   columns:
     url:       { type: string(128), notnull: true }
     height:    { type: integer, notnull: true }
@@ -41,7 +44,7 @@ MemberApplication:
 MemberApplicationSetting:
   columns:
     member_application_id: { type: integer, notnull: true }
-    type:                  { type: enum, values: [application, user], default: "application" }
+    type:                  { type: enum, values: [application, user], notnull: true, default: "application" }
     name:                  { type: string(255), notnull: true }
     value:                 { type: string }
   indexes:
