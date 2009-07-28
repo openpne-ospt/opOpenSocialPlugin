@@ -27,7 +27,7 @@ abstract class DomRewriter {
   protected $context;
   protected $gadget;
 
-  public function __construct(GadgetContext $context, Gadget &$gadget) {
+  public function __construct(GadgetContext $context, Shindig_Gadget &$gadget) {
     $this->context = $context;
     $this->gadget = $gadget;
   }

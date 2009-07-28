@@ -38,7 +38,7 @@ class GadgetRewriter {
    * @param string $content
    * @param Shindig_Gadget $gadget
    */
-  public function rewrite($content, Gadget &$gadget) {
+  public function rewrite($content, Shindig_Gadget &$gadget) {
     // Check to see if the gadget requested rewriting, or if rewriting is forced in the configuration
     if (is_array($gadget->gadgetSpec->rewrite) || Shindig_Config::get('rewrite_by_default')) {
       require_once "src/gadgets/rewrite/ContentRewriter.php";

@@ -67,7 +67,7 @@ class GadgetFactory {
    *
    * @param Shindig_Gadget $gadget
    */
-  private function parseFeatures(Gadget &$gadget) {
+  private function parseFeatures(Shindig_Gadget &$gadget) {
     $found = $missing = array();
     if (!$this->context->getRegistry()->resolveFeatures(array_merge($gadget->gadgetSpec->requiredFeatures, $gadget->gadgetSpec->optionalFeatures), $found, $missing)) {
       $requiredMissing = false;
@@ -90,7 +90,7 @@ class GadgetFactory {
    * Applies the substitutions to the complex types (preloads, user prefs, etc). Simple
    * types (author, title, etc) are translated on the fly in the gadget's getFoo() functions
    */
-  private function applySubstitutions(Gadget &$gadget) {
+  private function applySubstitutions(Shindig_Gadget &$gadget) {
     // Apply the substitutions to the UserPrefs
     foreach ($gadget->gadgetSpec->userPrefs as $key => $pref) {
       $gadget->gadgetSpec->userPrefs[$key]['name'] = $gadget->substitutions->substitute($pref['name']);
@@ -115,7 +115,7 @@ class GadgetFactory {
   /**
    * Seeds the substitutions class with the user prefs, messages, bidi and module id
    */
-  private function addSubstitutions(Gadget &$gadget) {
+  private function addSubstitutions(Shindig_Gadget &$gadget) {
     $gadget->substitutions = new Substitutions();
     if ($this->token) {
       $gadget->substitutions->addSubstitution('MODULE', "ID", $this->token->getModuleId());
@@ -138,7 +138,7 @@ class GadgetFactory {
    *
    * @param Shindig_Gadget $gadget
    */
-  private function parseUserPrefs(Gadget &$gadget) {
+  private function parseUserPrefs(Shindig_Gadget &$gadget) {
     foreach ($gadget->gadgetSpec->userPrefs as $key => $pref) {
       $queryKey = 'up_'.$pref['name'];
       $gadget->gadgetSpec->userPrefs[$key]['value'] = isset($_GET[$queryKey]) ? trim(urldecode($_GET[$queryKey])) : $pref['defaultValue'];
@@ -187,7 +187,7 @@ class GadgetFactory {
    * @param Shindig_Gadget $gadget
    * @param GadgetContext $context
    */
-  private function fetchResources(Gadget &$gadget) {
+  private function fetchResources(Shindig_Gadget &$gadget) {
     $contextLocale = $this->context->getLocale();
     $unsignedRequests = $signedRequests = array();
     foreach ($gadget->getLocales() as $key => $locale) {

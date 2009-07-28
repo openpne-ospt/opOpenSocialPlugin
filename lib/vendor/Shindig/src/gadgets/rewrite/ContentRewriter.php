@@ -30,7 +30,7 @@ class ContentRewriter extends DomRewriter {
   private $baseUrl;
   private $defaultRewrite = array('include-url' => array('*'), 'exclude-url' => array(), 'refresh' => '86400');
 
-  public function __construct(GadgetContext $context, Gadget &$gadget) {
+  public function __construct(GadgetContext $context, Shindig_Gadget &$gadget) {
     parent::__construct($context, $gadget);
     // if no rewrite params are set in the gadget but rewrite_by_default is on, use our default rules (rewrite all)
     if (! isset($gadget->gadgetSpec->rewrite) && Shindig_Config::get('rewrite_by_default')) {
