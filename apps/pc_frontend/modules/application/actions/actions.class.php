@@ -178,7 +178,7 @@ class applicationActions extends sfActions
    */
   public function executeAdd(sfWebRequest $request)
   {
-    $memberApplicaiton = $this->application->addToMember($this->member);
+    $memberApplication = $this->application->addToMember($this->member);
     $this->redirect('@application_canvas?id='.$memberApplication->getId());
   }
 
