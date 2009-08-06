@@ -20,7 +20,7 @@ class opBasicSecurityToken extends BasicSecurityToken {
   /**
    * @see BasicSecurityToken::createFromToken()
    */
-  public static function createFromToken($token, $maxAge)
+  static public function createFromToken($token, $maxAge)
   {
     return new opBasicSecurityToken($token, $maxAge, SecurityToken::$ANONYMOUS, SecurityToken::$ANONYMOUS, null, null, null, null, null);
   }
@@ -28,7 +28,7 @@ class opBasicSecurityToken extends BasicSecurityToken {
   /**
    * @see BasicSecurityToken::createFromValues()
    */
-  public static function createFromValues($owner, $viewer, $app, $domain, $appUrl, $moduleId, $containerId)
+  static public function createFromValues($owner, $viewer, $app, $domain, $appUrl, $moduleId, $containerId)
   {
     return new opBasicSecurityToken(null, null, $owner, $viewer, $app, $domain, $appUrl, $moduleId, $containerId);
   }

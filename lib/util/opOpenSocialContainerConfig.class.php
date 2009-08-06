@@ -162,7 +162,7 @@ class opOpenSocialContainerConfig
         ),
         'osapi' => array(
           'endPoint' => array('#shindig_url#social/rpc', '#shindig_url#gadgets/api/rpc')
-        )
+        ),
         'osml' => array(
           'library' => 'config/OSML_library.xml'
         )

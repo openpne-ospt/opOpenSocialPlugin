@@ -16,11 +16,12 @@
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  * @see        BasicSecurityTokenDecoder
  */
-class opBasicSecurityTokenDecoder extends SecurityTokenDecoder {
+class opBasicSecurityTokenDecoder extends SecurityTokenDecoder
+{
   private $OWNER_INDEX = 0;
   private $VIEWER_INDEX = 1;
   private $APP_ID_INDEX = 2;
-  private $CONTAINER_INDEX = 3;
+  private $DOMAIN_INDEX = 3;
   private $APP_URL_INDEX = 4;
   private $MODULE_ID_INDEX = 5;
   private $CONTAINER_INDEX = 6;

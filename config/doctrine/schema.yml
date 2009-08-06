@@ -36,10 +36,12 @@ MemberApplication:
   columns:
     member_id:      { type: integer(4), notnull: true }
     application_id: { type: integer, notnull: true }
+    public_flag:    { type: enum, values: [public, friends, private], default: public, notnull: true }
+    is_gadget:      { type: boolean, notnull: true, default: false }
     sort_order:     { type: integer }
   relations:
     Member:       { onDelete: CASCADE, foreignAlias: MemberApplications }
-    Applicatioin: { onDelete: CASCADE, foreignAlias: MemberApplication }
+    Application:  { onDelete: CASCADE, foreignAlias: MemberApplication }
 
 MemberApplicationSetting:
   columns:

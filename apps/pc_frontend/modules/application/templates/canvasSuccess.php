@@ -1,2 +1,3 @@
 <?php use_helper('OpenSocial') ?>
-<?php include_applications('canvas', array('memberApp' => $memberApp)) ?>
+
+<?php op_include_applications('canvas', array('memberApplication' => $memberApplication)) ?>

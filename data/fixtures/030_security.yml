@@ -5,5 +5,3 @@ SnsConfig:
   token_hmac_key:
     name: "shindig_token_hmac_key"
     value: "<?php echo md5(rand()) ?>"
-
-

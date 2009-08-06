@@ -42,11 +42,11 @@ if ($isOwner)
 <ul>
 <?php if($isOwner) : ?>
 <li><?php echo link_to_app_setting(__('Settings'), $mid); ?></li>
-<li><?php echo link_to(__('Remove'), 'application/remove?id='.$mid); ?></li>
+<li><?php echo link_to(__('Remove'), '@application_remove?id='.$mid); ?></li>
 <?php else : ?>
-<li><?php echo link_to(__('Add this application'), 'application/add?id='.$aid) ?></li>
+<li><?php echo link_to(__('Add this application'), 'application/add?id='.$application->getId()) ?></li>
 <?php endif ?>
-<li><?php echo link_to(__('Information'), 'application/info?id='.$aid) ?></li>
+<li><?php echo link_to(__('Information'), 'application/info?id='.$application->getId()) ?></li>
 </div>
 </div>
 

@@ -19,74 +19,53 @@ class applicationComponents extends sfComponents
 {
   public function executeGadget()
   {
-    $memberApp = $this->memberApp;
-    $modId     = $memberApp->getId();
-    $this->mid  = $modId;
-    $app = $memberApp->getApplication();
-    $this->title = $app->getTitle();
-    $ownerId = $memberApp->getMemberId();
-    $appId   = $app->getId();
-    $url     = $app->getUrl();
     $culture = $this->getUser()->getCulture();
     $culture = split("_",$culture);
-    $this->aid       = $appId;
-    $this->height    = $app->getHeight() ? $app->getHeight() : 200;
-    $this->scrolling = $app->getScrolling();
+    $this->application = $this->memberApplication->getApplication();
+    $this->height      = $this->application->getHeight() ? $this->application->getHeight() : 200;
 
     $viewerId = $this->getUser()->getMemberId();
 
-    $this->isViewer = false;
-    if ($ownerId == $viewerId)
+    $this->isOwner = false;
+    if ($this->memberApplication->getMemberId() == $viewerId)
     {
-      $this->isViewer = true;
+      $this->isOwner = true;
     }
 
-    $this->hasSetting = true;
-    if ($memberApp->getIsGadget() && !$app->hasSetting())
-    {
-      $this->hasSetting = false;
-    }
-
-    $isUseOuterShindig = SnsConfigPeer::get('is_use_outer_shindig');
-    $isDevEnvironment = null;
-    if ($isUseOuterShindig)
-    {
-      $isDevEnvironment = false;
-    }
+    $isUseOuterShindig = Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig', false);
 
     $opOpenSocialContainerConfig = new opOpenSocialContainerConfig();
     $containerName = $opOpenSocialContainerConfig->getContainerName();
 
     $securityToken = opBasicSecurityToken::createFromValues(
-      $ownerId,  // owner
-      $viewerId, // viewer
-      $appId,    // app id
-      $containerName,  // domain key
-      urlencode($url), // app url
-      $modId    // mod id
+      $this->memberApplication->getMemberId(),  // owner
+      $viewerId,                                // viewer
+      $this->application->getId(),              // app id
+      $containerName,                           // domain key
+      urlencode($this->application->getUrl()),  // app url
+      $this->memberApplication->getId(),        // mod id
+      1
     );
 
     $getParams = array(
       'synd'      => $containerName,
       'container' => $containerName,
-      'owner'     => $ownerId,
+      'owner'     => $this->memberApplication->getMemberId(),
       'viewer'    => $viewerId,
-      'aid'       => $appId,
-      'mid'       => $modId,
-      'country'   => isset($culture[1]) ? $culture[1] : 'US',
+      'aid'       => $this->application->getId(),
+      'mid'       => $this->memberApplication->getId(),
+      'country'   => isset($culture[1]) ? $culture[1] : 'ALL',
       'lang'      => $culture[0],
       'view'      => $this->view,
       'parent'    => $this->getRequest()->getUri(),
       'st'        => base64_encode($securityToken->toSerialForm()),
-      'url'       => $url,
+      'url'       => $this->application->getUrl(),
     );
 
-    $app_settings = MemberApplicationSettingPeer::getSettingsByMemberApplicationId($modId);
-
-    $userpref_param_prefix = Shindig_Config::get('userpref_param_prefix','up_');
-    foreach ($app_settings as $app_setting)
+    $userprefParamPrefix = Shindig_Config::get('userpref_param_prefix','up_');
+    foreach ($this->memberApplication->getUserSettings() as $name => $value)
     {
-      $getParams[$userpref_param_prefix.$app_setting->getName()] = $app_setting->getValue();
+      $getParams[$userprefParamPrefix.$name] = $value;
     }
     if ($isUseOuterShindig)
     {

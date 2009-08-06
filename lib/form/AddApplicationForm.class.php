@@ -10,9 +10,10 @@
 
 /**
  * AddApplicationForm
- * 
- * @author Shogo Kawahara <kawahara@tejimaya.net>
  *
+ * @package    opOpenSocialPlugin
+ * @subpackage form
+ * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
 class AddApplicationForm extends sfForm
 {

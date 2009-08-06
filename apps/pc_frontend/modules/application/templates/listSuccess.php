@@ -10,36 +10,47 @@
 )) ?>
 <?php endif ?>
 <?php endif ?>
+
 <div class="applicationList">
-<?php if (isset($memberApps) && count($memberApps)) : ?>
+<?php if (isset($memberApplications) && count($memberApplications)) : ?>
+<?php if ($isOwner): ?>
+<ul>
+<li>アプリケーションはドラッグにより順序を並び替えることができます。</li>
+<li>最大N個のアプリケーションがホームに表示されます。</li>
+</ul>
+<?php endif; ?>
 <div id="order">
-<?php foreach ($memberApps as $memberApp) : ?>
-<?php include_application_information_box(
-  'item_'.$memberApp->getId(),
-  $memberApp->getApplication()->getId(),
-  $memberApp->getId(),
-  $isOwner,
-  $memberApp->getApplication()
+<?php foreach ($memberApplications as $memberApplication) : ?>
+<?php op_include_application_information_box(
+  'item_'.$memberApplication->getId(),
+  $memberApplication->getApplication(),
+  $memberApplication->getId(),
+  $isOwner
 ) ?>
 <?php endforeach ?>
 </div>
-<?php 
-if ($isOwner)
-{
-echo sortable_element('order', array(
-  'url'    => 'application/sortApplication',
+<?php else : ?>
+<?php slot('no_application_alert') ?>
+アプリケーションがありません。
+<?php if ($isOwner) : ?>
+アプリケーションギャラリーから追加することができます。
+<?php endif; ?>
+<?php end_slot(); ?>
+<?php op_include_parts('alertBox', 'NoApplication', array('body' => get_slot('no_application_alert'))) ?>
+<?php endif; ?>
+
+<?php if ($isOwner) : ?>
+<?php echo sortable_element('order', array(
+  'url'    => '@application_sort',
   'tag'    => 'div',
   'only'   => 'sortable'
-));
-} ?>
-<?php endif ?>
-<?php if ($isOwner): ?>
+)); ?>
+<?php endif; ?>
 <div class="moreInfo">
 <ul class="moreInfo">
 <li>
-<?php echo link_to(__('Application Gallery'), 'application/gallery') ?>
+<?php echo link_to(__('Application Gallery'), '@application_gallery') ?>
 </li>
 </ul>
 </div>
-<?php endif ?>
 </div>

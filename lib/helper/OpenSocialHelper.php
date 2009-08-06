@@ -15,24 +15,22 @@ require_once sfConfig::get('sf_lib_dir').'/helper/opJavascriptHelper.php';
  * include application information box
  *
  * @param integer     $id
- * @param integer     $aid         An application id
- * @param integer     $mid         A module id
- * @param boolean     $isOwner
- * @param Application $application 
+ * @param Application $application a instance of the Application
+ * @param integer     $mid         a module id
+ * @param boolean     $isOwner 
  */
-function include_application_information_box($id, $aid, $mid = 0, $isOwner = false , $application)
+function op_include_application_information_box($id, $application, $mid = null, $isOwner = false)
 {
   $params = array(
     'id'          => $id,
-    'aid'         => $aid,
-    'mid'         => $mid,
-    'isOwner'     => $isOwner,
     'application' => $application,
+    'mid'         => $mid,
+    'isOwner'     => $isOwner
   );
   include_partial('application/informationBox', $params);
 }
 
-function include_applications($view, $params = array())
+function op_include_applications($view, $params = array())
 {
   static $isFirst = true;
   

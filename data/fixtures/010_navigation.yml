@@ -1,29 +1,20 @@
 Navigation:
   default_navigation_application:
     type: "default"
-    uri: "application/index"
+    uri: "@application"
     sort_order: 15
+    Translation:
+      ja_JP:
+        caption: "アプリケーション"
+      en:
+        caption: "Applications"
 
   friend_navigation_application:
     type: "friend"
-    uri: "application/list"
+    uri: "@application_list"
     sort_order: 25
-
-NavigationI18n:
-  default_navigation_application_i18n_en:
-    id: default_navigation_application
-    caption: "Applications"
-    culture: "en"
-  default_navigation_application_i18n_ja:
-    id: default_navigation_application
-    caption: "アプリケーション"
-    culture: "ja_JP"
-  friend_navigation_application_i18n_en:
-    id: friend_navigation_application
-    caption: "Applications"
-    culture: "en"
-  friend_navigation_application_i18n_ja:
-    id: friend_navigation_application
-    caption: "アプリケーション"
-    culture: "ja_JP"
-
+    Translation:
+      ja_JP:
+        caption: "アプリケーション"
+      en:
+        caption: "Applications"

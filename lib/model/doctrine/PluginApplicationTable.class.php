@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * This file is part of the OpenPNE package.
+ * (c) OpenPNE Project (http://www.openpne.jp/)
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file and the NOTICE file that were distributed with this source code.
+ */
+
 /**
  * PluginApplicationTable
  *
@@ -14,6 +23,7 @@ class PluginApplicationTable extends Doctrine_Table
    * @param string  $url
    * @param boolean $update
    * @param string  $culture
+   * @return Application
    */
   public function addApplication($url, $update = false, $culture = null)
   {

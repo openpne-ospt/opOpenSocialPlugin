@@ -17,14 +17,36 @@
  */
 class applicationActions extends sfActions
 {
-  /**
-   * Executes index action
-   *
-   * @param sfWebRequest $request A request object
-   */
-  public function executeIndex(sfWebRequest $request)
+  public function preExecute()
   {
-    $this->redirect('application/list');
+    if (is_callable(array($this->getRoute(), 'getObject')))
+    {
+      $object = $this->getRoute()->getObject();
+      if ($object instanceof MemberApplication)
+      {
+        $this->memberApplication = $object;
+        $this->application       = $this->memberApplication->getApplication();
+        $this->member            = $this->memberApplication->getMember();
+      }
+      elseif ($object instanceof Application)
+      {
+        $this->application = $object;
+      }
+      elseif ($object instanceof Member)
+      {
+        $this->member = $object;
+      }
+    }
+
+    if (empty($this->member))
+    {
+      $this->member = $this->getUser()->getMember();
+    }
+    elseif ($this->member->getId() != $this->getUser()->getMemberId())
+    {
+      sfConfig::set('sf_nav_type', 'friend');
+      sfConfig::set('sf_nav_id', $this->member->getMemberId());
+    }
   }
 
   /**
@@ -34,17 +56,7 @@ class applicationActions extends sfActions
    */
   public function executeCanvas(sfWebRequest $request)
   {
-    $this->memberApp = MemberApplicationPeer::retrieveByPK($request->getParameter('id'));
-    $this->forward404Unless($this->memberApp);
-    
-    if ($this->getUser()->getMember()->getId() != $this->memberApp->getMemberId())
-    {
-      $this->forward404Unless($this->memberApp->getIsDispOther());
-      
-      sfConfig::set('sf_nav_type', 'friend');
-      sfConfig::set('sf_nav_id', $this->memberApp->getMemberId());
-    }
-    return sfView::SUCCESS;
+    $this->forward404Unless($this->memberApplication->isViewable());
   }
 
   /**
@@ -54,8 +66,9 @@ class applicationActions extends sfActions
    */
   public function executeList(sfWebRequest $request)
   {
-    $memberId = $this->getUser()->getMemberId();
-    $ownerId  = $request->hasParameter('id') ? $request->getParameter('id') : $memberId;
+    $memberId    = $this->getUser()->getMemberId();
+    $owner       = $this->member;
+    $ownerId     = $owner->getId();
 
     $this->isOwner = false;
     if ($memberId == $ownerId)
@@ -64,41 +77,26 @@ class applicationActions extends sfActions
       $this->form = new AddApplicationForm();
     }
 
-    $this->memberApps = MemberApplicationPeer::getMemberApplicationList($ownerId, $memberId);
-    if (!$this->isOwner)
-    {
-      sfConfig::set('sf_nav_type', 'friend');
-    }
+    $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($ownerId);
 
-    $this->isAddApplication = false;
-    $snsConfig = SnsConfigPeer::retrieveByName('is_add_application');
-    if ($snsConfig && $snsConfig->getValue())
-    {
-      $this->isAddApplication = true;
-    }
-
+    $this->isAddApplication = ($this->isOwner && Doctrine::getTable('SnsConfig')->get('allow_add_application', false));
     if ($request->isMethod(sfRequest::POST) && $this->isAddApplication)
     {
-      $contact = $request->getParameter('contact');
-      $this->form->bind($contact);
-      if (!$this->form->isValid())
+      $this->form->bind($request->getParameter('contact'));
+      if ($this->form->isValid())
       {
-        return sfView::SUCCESS;
+        try
+        {
+          $application = Doctrine::getTable('Application')->addApplication($this->form->getValue('application_url'));
+          $memberApplication = $application->addToMember($owner);
+        }
+        catch (Exception $e)
+        {
+          $this->getUser()->setFlash('notice', 'Failed in adding the application.');
+        }
+        $this->redirect('@my_application_list');
       }
-      $contact = $this->form->getValues();
-      try
-      {
-        $application = ApplicationPeer::addApplication($contact['application_url']);
-      }
-      catch (Exception $e)
-      {
-        return sfView::ERROR;
-      }
-      $memberApp = MemberApplicationPeer::addApplicationToMember($application, $memberId);
-      $this->redirect('application/canvas?id='.$memberApp->getId());
     }
-    
-    return sfView::SUCCESS;
   }
 
   /**
@@ -164,19 +162,12 @@ class applicationActions extends sfActions
    */
   public function executeGallery(sfWebRequest $request)
   {
-    $this->filters = new ApplicationI18nFormFilter();
-    $this->filters->bind($request->getParameter('application',array()));
-
-    $criteria = $this->filters->getCriteria();
-    $criteria->setDistinct();
-    $criteria->addJoin(ApplicationPeer::ID, ApplicationI18nPeer::ID);
-    $criteria->addDescendingOrderByColumn(ApplicationPeer::ID);
-    
-    $this->pager = new sfPropelPager('Application', 10);
-    $this->pager->setCriteria($criteria);
-    $this->pager->setPage($request->getParameter('page',1));
-    $this->pager->init();
-
+    $this->searchForm = new ApplicationSearchForm();
+    $this->searchForm->bind($request->getParameter('application', array('order_by' => 'desc_users')));
+    if ($this->searchForm->isValid())
+    {
+      $this->pager = $this->searchForm->getPager($request->getParameter('page', 1));
+    }
     return sfView::SUCCESS;
   }
 
@@ -187,13 +178,8 @@ class applicationActions extends sfActions
    */
   public function executeAdd(sfWebRequest $request)
   {
-    $application = ApplicationPeer::retrieveByPK($request->getParameter('id'));
-    $this->forward404Unless($application);
-
-    $memberId = $this->getUser()->getMemberId();
-
-    $memberApp = MemberApplicationPeer::addApplicationToMember($application, $memberId);
-    $this->redirect('application/canvas?id='.$memberApp->getId());
+    $memberApplicaiton = $this->application->addToMember($this->member);
+    $this->redirect('@application_canvas?id='.$memberApplication->getId());
   }
 
   /**
@@ -203,24 +189,26 @@ class applicationActions extends sfActions
    */
   public function executeRemove(sfWebRequest $request)
   {
-    $memberApp = MemberApplicationPeer::retrieveByPK($request->getParameter('id'));
-    $this->forward404Unless($memberApp);
-
-    $memberId = $this->getUser()->getMember()->getId();
-    
-    $this->forward404If($memberId != $memberApp->getMember()->getId());
-    $this->forward404If($memberApp->getIsGadget());
+    $this->forward404If($this->getUser()->getMemberId() != $this->memberApplication->getMember()->getId());
+    $this->forward404If($this->memberApplication->getIsGadget());
 
     if ($request->isMethod(sfRequest::POST))
     {
-      $memberApp->delete();
-
-      $this->getUser()->setFlash('notice', 'The application was removed successfully.');
-
-      $this->redirect('application/list');
+      $form = new sfForm();
+      $form->bind(array('_csrf_token' => $request->getParameter('_csrf_token')));
+      if ($form->isValid())
+      {
+        $this->memberApplication->delete();
+        $this->getUser()->setFlash('notice', 'The application was removed successfully.');
+        $this->redirect('@my_application_list');
+      }
     }
-    $this->appTitle = $memberApp->getApplication()->getTitle();
     return sfView::SUCCESS;
+  }
+
+  public function executeMember(sfWebRequest $request)
+  {
+    $this->pager = $this->application->getMemberListPager($request->getParameter('page', 1));
   }
 
   /**
@@ -230,9 +218,6 @@ class applicationActions extends sfActions
    */ 
   public function executeInfo(sfWebRequest $request)
   {
-    $this->application = ApplicationPeer::retrieveByPK($request->getParameter('id'));
-    $this->forward404Unless($this->application);
-    return sfView::SUCCESS;
   }
 
   /**
@@ -252,8 +237,9 @@ class applicationActions extends sfActions
    * 
    * @param sfWebRequest $request A request object
    */
-  public function executeSortApplication(sfWebRequest $request)
+  public function executeSort(sfWebRequest $request)
   {
+    /*
     if ($this->getRequest()->isXmlHttpRequest())
     {
       $memberId = $this->getUser()->getMember()->getId();
@@ -268,6 +254,7 @@ class applicationActions extends sfActions
         }
       }
     }
+     */
     return sfView::NONE;
   }
 }

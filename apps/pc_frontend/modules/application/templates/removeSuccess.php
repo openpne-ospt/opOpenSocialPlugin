@@ -1,8 +1,8 @@
 <?php
 $options = array(
-  'title'  => __('Remove the application').": ".$appTitle,
-  'body'   => __('Do you really delete this application?'),
-  'no_url' =>  url_for('application/list'),
+  'title'   => __('Remove the application').": ".$application->getTitle(),
+  'body'    => __('Do you really delete this application?'),
+  'no_url'  => url_for('@my_application_list'),
   'no_method' => 'get',
 );
 
