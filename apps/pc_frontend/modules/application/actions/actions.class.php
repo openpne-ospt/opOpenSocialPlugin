@@ -218,19 +218,18 @@ class applicationActions extends sfActions
   {
     if ($this->getRequest()->isXmlHttpRequest())
     {
-      /*
       $memberId = $this->getUser()->getMember()->getId();
       $order = $request->getParameter('order');
       foreach ($order as $key => $value)
       {
-        $memberApp = MemberApplicationPeer::retrieveByPK($value);
-        if ($memberApp && $memberApp->getMemberId() == $memberId)
+        $memberApplication = Doctrine::getTable('MemberApplication')->find($value);
+        if ($memberApplication && $memberApplication->getMemberId() == $memberId)
         {
-          $memberApp->setSortOrder($key);
-          $memberApp->save();
+          $memberApplication->setSortOrder($key);
+          $memberApplication->save();
         }
       }
-     */
     }
+    return sfView::NONE;
   }
 }
