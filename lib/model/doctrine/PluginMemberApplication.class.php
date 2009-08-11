@@ -38,11 +38,11 @@ abstract class PluginMemberApplication extends BaseMemberApplication
     return $result;
   }
 
-  protected function setSettting($type, $name, $value)
+  protected function setSetting($type, $name, $value)
   {
     $object = Doctrine::getTable('MemberApplicationSetting')
       ->createQuery()
-      ->where('type = ?', 'application')
+      ->where('type = ?', $type)
       ->andWhere('member_application_id = ?', $this->getId())
       ->andWhere('name = ?', $name)
       ->fetchOne();

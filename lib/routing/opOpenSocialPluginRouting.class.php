@@ -36,6 +36,12 @@ class opOpenSocialPluginRouting
         '/application/list',
         array('module' => 'application', 'action' => 'list')
       ),
+      'application_setting' => new sfDoctrineRoute(
+        '/application/setting/:id',
+        array('module' => 'application', 'action' => 'setting'),
+        array('id' => '\d+', 'sf_method' => array('get', 'post')),
+        array('model' => 'MemberApplication', 'type' => 'object')
+      ),
       'application_gallery' => new sfRoute(
         '/application/gallery',
         array('module' => 'application', 'action' => 'gallery')

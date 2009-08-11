@@ -71,8 +71,8 @@ class PluginApplicationTable extends Doctrine_Table
     $translation->author_photo       = $gadget['authorPhoto'];
     $translation->author_link        = $gadget['authorLink'];
     $translation->author_quote       = $gadget['authorQuote'];
-    $translation->settings           = isset($gadget['userPrefs']) ? serialize($gadget['userPrefs']) : '';
-    $translation->views              = isset($gadget['views']) ? serialize($gadget['views']) : '';
+    $translation->settings           = $gadget['userPrefs'];
+    $translation->views              = $gadget['views'];
     if ($gadget['scrolling'] == 'true')
     {
       $application->setScrolling(true);

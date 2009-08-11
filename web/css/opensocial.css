@@ -5,10 +5,10 @@
 }
 
 .applicationThumbnail {
-  overflow: hidden;
-  float: left;
-  width: 120px;
-  height: 60px;
+  float:left;
+  height:60px;
+  overflow:hidden;
+  width:120px;
 }
 
 .applicationInfoBox .info {
@@ -33,3 +33,26 @@
   margin: 0 5px 10px auto;
   width: 13em;
 }
+
+.applicationImageBox 
+{
+  background:transparent url(../../images/bg_parts_photo_box.gif) repeat-x scroll 0 0;
+  border:1px solid #CCCCCC;
+  padding:7px;
+}
+
+.applicationImageBox * {
+  text-align:center;
+}
+
+.applicationImageBox p.photo {
+  background-color:#FFFFFF;
+  border:1px solid #CCCCCC;
+  padding:7px;
+}
+
+.applicationImageBox p.text {
+  margin-top:4px;
+}
+
+

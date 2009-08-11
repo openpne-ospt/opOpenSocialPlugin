@@ -4,10 +4,11 @@ options:
 
 Application:
   actAs:
-    Timestampable:
     I18n:
       fields: [title, title_url, description, directory_title, screenshot, thumbnail, author, author_aboutme, author_affiliation, author_email, author_photo, author_link, author_quote, settings, views, version]
       length: 5
+      actAs:
+        Timestampable:
   columns:
     url:       { type: string(128), notnull: true }
     height:    { type: integer, notnull: true }
@@ -26,9 +27,8 @@ Application:
     author_photo:  { type: string(128) }
     author_link:   { type: string(128) }
     author_quote:  { type: string }
-    settings: { type: string }
-    views:    { type: string }
-    version:  { type: string(64) }
+    settings: { type: array }
+    views:    { type: array }
   relations:
     Members: { foreignAlias: Applications, class: Member, refClass: MemberApplication }
 

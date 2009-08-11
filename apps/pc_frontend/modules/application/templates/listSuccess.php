@@ -36,7 +36,7 @@
 アプリケーションギャラリーから追加することができます。
 <?php endif; ?>
 <?php end_slot(); ?>
-<?php op_include_parts('alertBox', 'NoApplication', array('body' => get_slot('no_application_alert'))) ?>
+<?php op_include_box('NoApplication', get_slot('no_application_alert')) ?>
 <?php endif; ?>
 
 <?php if ($isOwner) : ?>

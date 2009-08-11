@@ -1,9 +1,9 @@
 <?php use_helper('OpenSocial'); ?>
 
 
-<?php include_box('searchApplication',__('Search Applications'),'', array(
-    'form' => $searchForm, 
-    'url' => '@application_gallery',
+<?php op_include_form('searchApplication', $searchForm, array(
+    'title'  => __('Search Applications'),
+    'url'    => url_for('@application_gallery'),
     'method' => 'get',
     'button' => __('Search')
   ))
@@ -24,5 +24,8 @@
 <?php include_slot('pager') ?>
 <?php endforeach; ?>
 <?php else : ?>
-<?php include_box('ApplicationGalleryError', __('Search Results'), __('Your search queries did not match any applications.')) ?>
+<?php op_include_box('ApplicationGalleryError', __('Your search queries did not match any applications.'), array(
+    'title' => __('Search Results')
+  ))
+?>
 <?php endif; ?>

@@ -12,15 +12,15 @@ $shindigConfig = array(
   'allow_anonymous_token' => false,
 
   'token_cipher_key' => Doctrine::getTable('SnsConfig')->get('shindig_token_cipher_key'),
-  'token_hmac_key' => Doctrine::getTable('SnsConfig')->get('shindig_token_hmac_key'),
-  'token_max_age' => Doctrine::getTable('SnsConfig')->get('shindig_token_max_age', 60*60),
+  'token_hmac_key'   => Doctrine::getTable('SnsConfig')->get('shindig_token_hmac_key'),
+  'token_max_age'    => Doctrine::getTable('SnsConfig')->get('shindig_token_max_age', 60*60),
   
   'base_path'      => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/lib/vendor/Shindig/',
   'features_path'  => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/lib/vendor/Shindig/features/',
   'container_path' => sfConfig::get('sf_app_cache_dir').'/plugins/opOpenSocialPlugin',
 
-  'private_key_file' => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/private.key', 
-  'public_key_file'  => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/public.crt',
+  'private_key_file'  => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/private.key', 
+  'public_key_file'   => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/public.crt',
   'private_key_phrase' => Doctrine::getTable('SnsConfig')->get('shindig_private_key_phrase'), 
 
   'remote_content'        => 'opBasicRemoteContent',

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenSocialHelper
  *
@@ -53,7 +54,7 @@ function link_to_app_setting($text, $mid, $isReload = false)
   $response->addJavascript(sfConfig::get('sf_prototype_web_dir').'/js/builder');
   $response->addJavascript(sfConfig::get('sf_prototype_web_dir').'/js/effects');
   $response->addJavascript('/opOpenSocialPlugin/js/opensocial-util');
-  $url = 'application/setting?id='.$mid;
+  $url = '@application_setting?id='.$mid;
   if ($isReload)
   {
     $url = $url.'&is_reload=1';

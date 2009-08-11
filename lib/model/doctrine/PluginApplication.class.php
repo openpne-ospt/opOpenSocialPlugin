@@ -66,11 +66,17 @@ abstract class PluginApplication extends BaseApplication
   * @param integer $page
   * @param integer $size
   */
-  public function getMemberListPager($page = 1, $size = 50)
+  public function getMemberListPager($page = 1, $size = 50, $isRandom = false)
   {
     $query = Doctrine::getTable('Member')->createQuery('m')
       ->innerJoin('m.Applications a')
       ->where('a.id = ?', $this->getId());
+
+    if ($isRandom)
+    {
+      $expr = new Doctrine_Expression('RANDOM()');
+      $query->orderBy($expr);
+    }
 
     $pager = new sfDoctrinePager('Member', $size);
     $pager->setQuery($query);

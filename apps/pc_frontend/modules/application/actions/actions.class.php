@@ -106,53 +106,21 @@ class applicationActions extends sfActions
    */
   public function executeSetting(sfWebRequest $request)
   {
-    $modId = $request->getParameter('id');
-    $memberApp = MemberApplicationPeer::retrieveByPK($modId);
-    $this->forward404Unless($memberApp);
-
-    $this->forward404If($memberApp->getMember()->getId() != $this->getUser()->getMember()->getId());
-    $this->forward404If($memberApp->getIsGadget() && !$memberApp->getApplication()->hasSetting());
-
-    $this->appName = $memberApp->getApplication()->getTitle();
-
-    $applicationSettingForm = new MemberApplicationSettingForm();
-    $memberId = $this->getUser()->getMember()->getId();
-    $applicationSettingForm->setConfigWidgets($memberId, $modId);
-
-    $this->forms = array($applicationSettingForm);
-
-    if (!$memberApp->getIsGadget())
-    {
-      $memberApplicationForm = new MemberApplicationForm($memberApp);
-      $this->forms[] = $memberApplicationForm;
-    }
+    $this->forward404If($this->getUser()->getMemberId() != $this->memberApplication->getMember()->getId());
+    $this->settingForm     = new ApplicationSettingForm(array(), array('member_application' => $this->memberApplication));
+    $this->userSettingForm = new ApplicationUserSettingForm(array(), array('member_application' => $this->memberApplication));
 
     if ($request->isMethod(sfRequest::POST))
     {
-      $valid = true;
-      if (!$memberApp->getIsGadget())
+      $this->settingForm->bind($request->getParameter('setting'));
+      $this->userSettingForm->bind($request->getParameter('user_setting'));
+      if ($this->settingForm->isValid() && $this->userSettingForm->isValid())
       {
-        $memberApplicationForm->bind($request->getParameter('member_app_setting'));
-        if ($memberApplicationForm->isValid())
-        {
-          $memberApplicationForm->save();
-        }
-        else
-        {
-          $valid = false;
-        }
-      }
-
-      $applicationSettingForm->bind($request->getParameter('setting'));
-
-      if ($valid && $applicationSettingForm->isValid())
-      {
-        $applicationSettingForm->save($modId);
+        $this->settingForm->save();
+        $this->userSettingForm->save();
         $this->isValid = true;
       }
-
     }
-    return sfView::SUCCESS;
   }
 
   /**
@@ -178,6 +146,15 @@ class applicationActions extends sfActions
    */
   public function executeAdd(sfWebRequest $request)
   {
+    try 
+    {
+      $application = Doctrine::getTable('Application')->addApplication($this->application->getUrl());
+      $this->application = $application;
+    }
+    catch (Exception $e)
+    {
+    }
+
     $memberApplication = $this->application->addToMember($this->member);
     $this->redirect('@application_canvas?id='.$memberApplication->getId());
   }
@@ -218,6 +195,7 @@ class applicationActions extends sfActions
    */ 
   public function executeInfo(sfWebRequest $request)
   {
+    $this->memberListPager = $this->application->getMemberListPager(1, 9, true); 
   }
 
   /**
@@ -229,7 +207,6 @@ class applicationActions extends sfActions
   {
     $response = $this->getResponse();
     $response->setContentType('text/javascript');
-    return sfView::SUCCESS;
   }
 
   /**
@@ -239,9 +216,9 @@ class applicationActions extends sfActions
    */
   public function executeSort(sfWebRequest $request)
   {
-    /*
     if ($this->getRequest()->isXmlHttpRequest())
     {
+      /*
       $memberId = $this->getUser()->getMember()->getId();
       $order = $request->getParameter('order');
       foreach ($order as $key => $value)
@@ -253,8 +230,7 @@ class applicationActions extends sfActions
           $memberApp->save();
         }
       }
-    }
      */
-    return sfView::NONE;
+    }
   }
 }
