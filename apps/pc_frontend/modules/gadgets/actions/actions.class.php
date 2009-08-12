@@ -11,8 +11,8 @@
 /**
  * gadgets actions.
  *
- * @package    OpenPNE
- * @subpackage opOpenSocialPlugin
+ * @package    opOpenSocialPlugin
+ * @subpackage action
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
 class gadgetsActions extends opOpenSocialServletActions
@@ -26,6 +26,7 @@ class gadgetsActions extends opOpenSocialServletActions
   {
     $class = new JsServlet();
     self::servletExecute($class);
+    return sfView::NONE;
   }
 
   /**
@@ -35,8 +36,10 @@ class gadgetsActions extends opOpenSocialServletActions
    */
   public function executeProxy(sfWebRequest $request)
   {
+    sfConfig::set('sf_web_debug', false);
     $class = new ProxyServlet();
     self::servletExecute($class);
+    return sfView::NONE;
   }
 
   /**
@@ -46,10 +49,10 @@ class gadgetsActions extends opOpenSocialServletActions
    */
   public function executeMakeRequest(sfWebRequest $request)
   {
-    $_GET = $request->getParameterHolder()->getAll();
-    $_GET['output'] = 'js';
-    $class = new ProxyServlet();
+    sfConfig::set('sf_web_debug', false);
+    $class = new MakeRequestServlet();
     self::servletExecute($class);
+    return sfView::NONE;
   }
 
  /**

@@ -11,8 +11,8 @@
 /**
  * prefs actions.
  *
- * @package    OpenPNE
- * @subpackage opOpenSocialPlugin
+ * @package    opOpenSocialPlugin
+ * @subpackage action
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
 class prefsActions extends sfActions
@@ -32,7 +32,7 @@ class prefsActions extends sfActions
     try
     {
       $st    = urldecode(base64_decode($request->getParameter('st')));
-      $key   = $request->getParameter('name');
+      $name  = $request->getParameter('name');
       $value = $request->getParameter('value');
       $token = opBasicSecurityToken::createFromToken($st, 60);
       $modId = $token->getModuleId();
@@ -40,22 +40,17 @@ class prefsActions extends sfActions
       $viewer = $token->getViewerId();
 
       $this->forward404Unless($viewer == $owner);
-      
-      $appSetting = MemberApplicationSettingPeer::retrieveByMemberApplicationIdAndName($modId, $key);
 
-      if (empty($appSetting))
-      {
-        $appSetting = new MemberApplicationSetting();
-        $appSetting->setMemberApplicationId($modId);
-        $appSetting->setName($key);
-      }
-      $appSetting->setValue($value);
-      $appSetting->save();
+      $memberApplication = Doctrine::getTable('MemberApplication')->find($modId);
+      $this->forward404Unless($memberApplication);
+
+      $memberApplication->setUserSetting($name, $value);
     }
     catch (Exception $e)
     {
       $this->forward404();
     }
+
     return sfView::NONE;
   }
 }

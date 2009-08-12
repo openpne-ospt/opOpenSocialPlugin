@@ -24,8 +24,9 @@ class socialActions extends opOpenSocialServletActions
   */
   public function executeRpc(sfWebRequest $request)
   {
-    sfConfig::set('sf_web_debug',false);
+    sfConfig::set('sf_web_debug', false);
     $class = new JsonRpcServlet();
+
     ob_start();
     try
     {
@@ -34,8 +35,9 @@ class socialActions extends opOpenSocialServletActions
     catch (SocialSpiException $e)
     {
     }
-    $this->social_data = ob_get_contents();
+    $socialData = ob_get_contents();
     ob_end_clean();
-    return sfView::SUCCESS;
+
+    return $this->renderText($socialData);
   }
 }
