@@ -1,13 +1,20 @@
 <?php
 
 /**
+ * This file is part of the OpenPNE package.
+ * (c) OpenPNE Project (http://www.openpne.jp/)
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file and the NOTICE file that were distributed with this source code.
+ */
+
+/**
  * base actions class for the gadgets and social modules
  *
- * @package    OpenPNE
+ * @package    opOpenSocialPlugin
  * @subpackage action
  * @author     Shogo Kawahara <kawahara@tejimaya.net> 
  */
-
 abstract class opOpenSocialServletActions extends sfActions
 {
   /**
@@ -17,6 +24,7 @@ abstract class opOpenSocialServletActions extends sfActions
    */
   protected function servletExecute($servlet)
   {
+
     if (!($servlet instanceof HttpServlet) && !($servlet instanceof ApiServlet))
     {
       throw new LogicException();

@@ -85,4 +85,46 @@ abstract class PluginApplication extends BaseApplication
 
     return $pager;
   }
+
+ /**
+  * get a persistent data
+  *
+  * @param integer $memberId
+  * @param integer $name
+  * @return ApplicationPersistentData
+  */
+  public function getPersistentData($memberId, $name)
+  {
+    return Doctrine::getTable('ApplicationPersistentData')->createQuery()
+      ->where('application_id = ?', $this->getId())
+      ->andWhere('member_id = ?', $memberId)
+      ->andWhere('name = ?', $name)
+      ->fetchOne();
+  }
+
+ /**
+  * get persistent datas
+  *
+  * @param mixed $memberId
+  * @param mixed $name
+  * @return Doctrine_Collection of ApplicationPersistentData
+  */
+  public function getPersistentDatas($memberId, $name)
+  {
+    if (!is_array($memberId))
+    {
+      $memberId = array($memberId);
+    }
+
+    if (!is_array($name))
+    {
+      $name = array($name);
+    }
+
+    return Doctrine::getTable('ApplicationPersistentData')->createQuery()
+      ->where('application_id = ?', $this->getId())
+      ->andWhereIn('member_id', $memberId)
+      ->andWhereIn('name', $name)
+      ->execute();
+  }
 }

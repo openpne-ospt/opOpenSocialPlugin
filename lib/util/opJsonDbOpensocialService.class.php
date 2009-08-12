@@ -36,24 +36,29 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
 
   public function getPeople($userId, $groupId, CollectionOptions $options, $fields, SecurityToken $token)
   {
-    sfLoader::loadHelpers("Asset");
-    sfLoader::loadHelpers("sfImage");
+    $configuration = sfProjectConfiguration::getActive();
+    $configuration->loadHelpers(array('Asset', 'sfImage', 'opUtil'));
+
     $ids = $this->getIdSet($userId, $groupId, $token);
     $first = $options->getStartIndex();
     $max   = $options->getCount();
     $ret = array();
 
-    $criteria = new Criteria();
-    $criteria->add(MemberPeer::ID, $ids, Criteria::IN);
-    $totalSize = MemberPeer::doCount($criteria);
-
-    $criteria->addAscendingOrderByColumn(MemberPeer::ID);
-    if ($first !== false && $max !== false && is_numeric($first) && is_numeric($max) && $first >= 0 && $max > 0)
+    $members = array();
+    if (count($ids))
     {
-      $criteria->setOffset($first);
-      $criteria->setLimit($max);
+      $query = Doctrine::getTable('Member')->createQuery()->whereIn('id', $ids);
+
+      $totalSize = $query->count();
+
+      $query->orderBy('id');
+      if ($first !== false && $max !== false && is_numeric($first) && is_numeric($max) && $first >= 0 && $max > 0)
+      {
+        $query->offset($first);
+        $query->limit($max);
+      }
+      $members = $query->execute();
     }
-    $members = MemberPeer::doSelect($criteria);
 
     $people = array();
     foreach ($members as $member)
@@ -70,7 +75,8 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
         $p['thumbnailUrl'] = sf_image_path($member->getImage()->getFile()->getName(),
           array('size' => '180x180'), true);
       }
-      $p['profileUrl']   = sfContext::getInstance()->getController()->genUrl("@member_profile?id=".$member->getId(),true);
+      $p['profileUrl']   = app_url_for('pc_frontend', 'member/profile?id='.$member->getId(), true);
+      /*
       $memberProfiles = $member->getProfile(true, $token->getViewerId());
       foreach ($memberProfiles as $memberProfile)
       {
@@ -88,6 +94,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
           }
         }
       }
+      */
       $people[] = $p;
     }
 
@@ -123,31 +130,39 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       throw new SocialSpiException("Not support request", ResponseError::$NOT_IMPLEMENTED);
     }
     $targetUserId = (int)$userId->getUserId($token);
-    $viewerId = (int)$token->getViewerId();
+    $viewerId     = (int)$token->getViewerId();
     if ($targetUserId != $viewerId)
     {
-      $memberRelationship = MemberRelationshipPeer::retrieveByFromAndTo($targetUserId, $viewerId);
+      $memberRelationship = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($targetUserId, $viewerId);
       if (!($memberRelationship && $memberRelationship->isFriend()))
       {
         throw new SocialSpiException("Unauthorized", ResponseError::$UNAUTHORIZED);
       }
     }
-   if ($groupId->getType() == 'self')
+
+    $application = Doctrine::getTable('Application')->find($appId);
+    if (!$application)
     {
-      $appPersistentDatas = ApplicationPersistentDataPeer::retrievesByApplicationIdAndMemberId($appId, $targetUserId, $fields);
+      throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+    }
+
+    if ($groupId->getType() == 'self')
+    {
+      $persistentDatas = $application->getPersistentDatas($targetUserId, $fields);
     }
     else if($groupId->getType() == 'friends')
     {
-      $appPersistentDatas = ApplicationPersistentDataPeer::getMemberFriendPersistentDatas($appId, $targetUserId, $fields);  
+      $friendIds = Doctrine::getTable('MemberRelationship')->getFriendMemberIds($targetUserId);
+      $persistentDatas = $application->getPersistentDatas($friendIds, $fields);
     }
     else
     {
       throw new SocialSpiException("We support getting data only when GROUP_ID is SELF or FRIENDS ", ResponseError::$NOT_IMPLEMENTED);
     }
     $data = array();
-    foreach ($appPersistentDatas as $appPersistentData)
+    foreach ($persistentDatas as $persistentData)
     {
-      $data[$appPersistentData->getMemberId()][$appPersistentData->getName()] = $appPersistentData->getValue();
+      $data[$persistentData->getMemberId()][$persistentData->getName()] = $persistentData->getValue();
     }
     return new DataCollection($data);
   }
@@ -174,11 +189,17 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       }
     }
 
-    $appPersistentDatas = ApplicationPersistentDataPeer::retrievesByApplicationIdAndMemberId($appId, $targetUserId, $fields);
-    
-    foreach ($appPersistentDatas as $appPersistentData)
+    $application = Doctrine::getTable('Application')->find($appId);
+    if (!$application)
     {
-      $appPersistentData->delete();
+      throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+    }
+
+    $persistentDatas = $application->getPersistentDatas($targetUserId, $fields);
+    
+    foreach ($persistentDatas as $persistentData)
+    {
+      $persistentData->delete();
     }
   }
 
@@ -203,9 +224,21 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     }
 
     $targetUserId = $userId->getUserId($token);
+    $member = Doctrine::getTable('Member')->find($targetUserId);
+    if (!$member)
+    {
+      throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+    }
+
+    $application = Doctrine::getTable('Application')->find($appId);
+    if (!$application)
+    {
+      throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+    }
+
     if ($token->getOwnerId() == $targetUserId || $token->getViewerId() == $targetUserId)
     {
-      $memberApplication = MemberApplicationPeer::retrieveByApplicationIdAndMemberId($appId, $targetUserId);
+      $memberApplication = Doctrine::getTable('MemberApplication')->findOneByApplicationAndMember($application, $member);
       if (!$memberApplication)
       {
         throw new SocialSpiException("Unauthorized", ResponseError::$UNAUTHORIZED);
@@ -214,16 +247,16 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       foreach($fields as $name)
       {
         $value = isset($values[$name]) ? $values[$name] : null;
-        $appPersistentData = ApplicationPersistentDataPeer::retrieveByApplicationIdAndMemberIdAndName($appId, $targetUserId, $name);
-        if (!$appPersistentData)
+        $persistentData = $application->getPersistentData($targetUserId, $name);
+        if (!$persistentData)
         {
-          $appPersistentData = new ApplicationPersistentData();
-          $appPersistentData->setApplicationId($appId);
-          $appPersistentData->setMemberId($targetUserId);
-          $appPersistentData->setName($name);
+          $persistentData = new ApplicationPersistentData();
+          $persistentData->setApplication($application);
+          $persistentData->setMember($member);
+          $persistentData->setName($name);
         }
-        $appPersistentData->setValue($value);
-        $appPersistentData->save();
+        $persistentData->setValue($value);
+        $persistentData->save();
       }
     }
     else
@@ -232,7 +265,42 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     }
   }
 
-  public function createMessage($userId, $appId, $message, $optionalMessageId, SecurityToken $token)
+  public function createMessageCollection($userId, $msgCollection, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function updateMessageCollection($userId, $msgCollection, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function deleteMessageCollection($userId, $msgCollection, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function getMessageCollections($userId, $fields, $options, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function createMessage($userId, $msgCollection, $message, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function updateMessage($userId, $msgCollId, $message, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function deleteMessages($userId, $msgCollId, $messageIds, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function getMessages($userId, $msgCollId, $fields, $msgIds, $options, $token)
   {
     throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
   }
@@ -252,7 +320,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
         case 'all':
         case 'friends':
         case 'groupId':
-          $ids = MemberRelationshipPeer::getFriendMemberIds($userId);
+          $ids = Doctrine::getTable('MemberRelationship')->getFriendMemberIds($userId);
           break;
         case 'self':
           $ids[] = $userId;

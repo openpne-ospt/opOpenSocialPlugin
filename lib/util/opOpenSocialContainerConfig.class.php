@@ -55,9 +55,10 @@ class opOpenSocialContainerConfig
    * @param boolean $force
    * @param string  $snsUrl
    * @param string  $shindigUrl
+   * @param string  $apiUrl
    * @return boolean
    */
-  public function generateAndSave($force = false, $snsUrl = null, $shindigUrl = null)
+  public function generateAndSave($force = false, $snsUrl = null, $shindigUrl = null, $apiUrl = null)
   {
     if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
     {
@@ -105,9 +106,10 @@ class opOpenSocialContainerConfig
    * @param string $containerName
    * @param string $snsUrl
    * @param string $shindigUrl
+   * @param string $apiUrl
    * @return string 
    */
-  public function generate($snsUrl = null, $shindigUrl = null)
+  public function generate($snsUrl = null, $shindigUrl = null, $apiUrl = null)
   {
     //Template
     $containerTemplate = array(
@@ -119,7 +121,7 @@ class opOpenSocialContainerConfig
       'gadgets.jsUriTemplate' => '#shindig_url#gadgets/js/%js%',
       'gadgets.oauthGadgetCallbackTemplate' => '#shindig_url#/gadgets/oauthcallback',
       'gadgets.securityTokenType' => 'secure',
-      'gadgets.osDataUri' => '#shindig_url#social/rpc',
+      'gadgets.osDataUri' => '#api_url#social/rpc',
       'gadgets.features' => array(
         'core.io' => array(
           'proxyUrl' => '#shindig_url#gadgets/proxy?refresh=%refresh%&url=%url%',
@@ -151,8 +153,8 @@ class opOpenSocialContainerConfig
           )
         ),
         'opensocial-0.8' => array(
-          'impl' => 'rpc',
-          'path' => '#shindig_url#social',
+          'path'           => '#api_url#social/rpc',
+          'invalidatePath' => '#shindig_url#gadgets/api/rpc',
           'domain' => 'shindig',
           'enableCaja' => false,
           'supportedFields' => array()
@@ -161,7 +163,7 @@ class opOpenSocialContainerConfig
           'gadgets.rpc' => array('container.listMethods')
         ),
         'osapi' => array(
-          'endPoint' => array('#shindig_url#social/rpc', '#shindig_url#gadgets/api/rpc')
+          'endPoint' => array('#api_url#social/rpc', '#shindig_url#gadgets/api/rpc')
         ),
         'osml' => array(
           'library' => 'config/OSML_library.xml'
@@ -170,9 +172,10 @@ class opOpenSocialContainerConfig
     );
 
     $containerTemplate['gadgets.container'][] = $this->containerName;
-    if (!$snsUrl)
+
+    $request = sfContext::getInstance()->getRequest();
+    if (is_null($snsUrl))
     {
-      $request = sfContext::getInstance()->getRequest();
       $snsUrl = $request->getUriPrefix().$request->getRelativeUrlRoot().'/';
       if($this->isDevEnvironment)
       {
@@ -180,7 +183,24 @@ class opOpenSocialContainerConfig
       }
     }
 
-    if (!$shindigUrl)
+    if (is_null($apiUrl))
+    {
+      if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
+      {
+        $apiUrl = Doctrine::getTable('SnsConfig')->get('shindig_url');
+      }
+      else
+      {
+        $apiUrl = $request->getUriPrefix().$request->getRelativeUrlRoot().'/api';
+        if ($this->isDevEnvironment)
+        {
+          $apiUrl .= '_dev';
+        }
+        $apiUrl .= '.php/';
+      }
+    }
+
+    if (is_null($shindigUrl))
     {
       if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
       {
@@ -206,8 +226,9 @@ class opOpenSocialContainerConfig
     $json = json_encode($containerTemplate);
 
     $replace = array(
-      '/#sns_url#/' => $snsUrl,
-      '/#shindig_url#/' => $shindigUrl
+      '/#sns_url#/'     => $snsUrl,
+      '/#shindig_url#/' => $shindigUrl,
+      '/#api_url#/'     => $apiUrl, 
     );
 
     return preg_replace(array_keys($replace), $replace, $json);
