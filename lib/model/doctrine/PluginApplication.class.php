@@ -121,6 +121,11 @@ abstract class PluginApplication extends BaseApplication
       $name = array($name);
     }
 
+    if (!count($memberId))
+    {
+      return null;
+    }
+
     return Doctrine::getTable('ApplicationPersistentData')->createQuery()
       ->where('application_id = ?', $this->getId())
       ->andWhereIn('member_id', $memberId)

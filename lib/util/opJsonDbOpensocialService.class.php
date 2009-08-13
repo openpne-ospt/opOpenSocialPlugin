@@ -160,9 +160,12 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       throw new SocialSpiException("We support getting data only when GROUP_ID is SELF or FRIENDS ", ResponseError::$NOT_IMPLEMENTED);
     }
     $data = array();
-    foreach ($persistentDatas as $persistentData)
+    if ($persistentDatas)
     {
-      $data[$persistentData->getMemberId()][$persistentData->getName()] = $persistentData->getValue();
+      foreach ($persistentDatas as $persistentData)
+      {
+        $data[$persistentData->getMemberId()][$persistentData->getName()] = $persistentData->getValue();
+      }
     }
     return new DataCollection($data);
   }
