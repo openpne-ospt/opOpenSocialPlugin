@@ -41,7 +41,7 @@ require 'src/social/model/Photo.php';
 require 'src/social/spi/RestfulCollection.php';
 require 'src/social/spi/DataCollection.php';
 require 'src/social/service/ResponseItem.php';
-require 'src/social/oauth/OAuth.php';
+//require 'src/social/oauth/OAuth.php';
 
 /**
  * Common base class for API servlets.

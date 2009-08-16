@@ -26,6 +26,7 @@ $shindigConfig = array(
   'remote_content'        => 'opBasicRemoteContent',
   'security_token_signer' => 'opBasicSecurityTokenDecoder',
   'security_token'        => 'opBasicSecurityToken',
+  'oauth_lookup_service'  => 'opBasicOAuthLookupService',
 
   'data_cache'    => 'opCacheStorageFile',
   'feature_cache' => 'opCacheStorageFile',

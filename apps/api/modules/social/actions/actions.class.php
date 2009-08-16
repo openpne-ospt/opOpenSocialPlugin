@@ -1,5 +1,7 @@
 <?php
 
+require_once 'OAuth.php';
+
 /**
  * This file is part of the OpenPNE package.
  * (c) OpenPNE Project (http://www.openpne.jp/)
@@ -24,20 +26,35 @@ class socialActions extends opOpenSocialServletActions
   */
   public function executeRpc(sfWebRequest $request)
   {
-    sfConfig::set('sf_web_debug', false);
     $class = new JsonRpcServlet();
+    return $this->api($class);
+  }
+
+ /**
+  * Executes rest action
+  *
+  * @param sfWebRequest $request A request object
+  */
+  public function executeRest(sfWebRequest $request)
+  {
+    $class = new DataServiceServlet();
+    return $this->api($class);
+  }
+
+  protected function api($class)
+  {
+    sfConfig::set('sf_web_debug', false);
 
     ob_start();
     try
     {
-      self::servletExecute($class);
+      $this->servletExecute($class);
     }
     catch (SocialSpiException $e)
     {
     }
     $socialData = ob_get_contents();
     ob_end_clean();
-
     return $this->renderText($socialData);
   }
 }
