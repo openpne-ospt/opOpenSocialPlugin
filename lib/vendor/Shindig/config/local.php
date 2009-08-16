@@ -23,10 +23,10 @@ $shindigConfig = array(
   'public_key_file'   => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/public.crt',
   'private_key_phrase' => Doctrine::getTable('SnsConfig')->get('shindig_private_key_phrase', ""), 
 
-  'remote_content'        => 'opBasicRemoteContent',
-  'security_token_signer' => 'opBasicSecurityTokenDecoder',
-  'security_token'        => 'opBasicSecurityToken',
-  'oauth_lookup_service'  => 'opBasicOAuthLookupService',
+  'remote_content'        => 'opShindigRemoteContent',
+  'security_token_signer' => 'opShindigSecurityTokenDecoder',
+  'security_token'        => 'opShindigSecurityToken',
+  'oauth_lookup_service'  => 'opShindigOAuthLookupService',
 
   'data_cache'    => 'opCacheStorageFile',
   'feature_cache' => 'opCacheStorageFile',

@@ -9,14 +9,14 @@
  */
 
 /**
- * opBasicBlobCrypter
+ * opShindigBlobCrypter
  *
  * @package    opOpenSocialPlugin
  * @subpackage util
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  * @see        BasicBlobCrypter
  */
-class opBasicBlobCrypter extends BasicBlobCrypter
+class opShindigBlobCrypter extends BasicBlobCrypter
 {
   // Labels for key derivation
   private $CIPHER_KEY_LABEL = 0;

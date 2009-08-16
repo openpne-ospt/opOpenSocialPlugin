@@ -37,14 +37,14 @@ class applicationComponents extends sfComponents
     $opOpenSocialContainerConfig = new opOpenSocialContainerConfig();
     $containerName = $opOpenSocialContainerConfig->getContainerName();
 
-    $securityToken = opBasicSecurityToken::createFromValues(
+    $securityToken = opShindigSecurityToken::createFromValues(
       $this->memberApplication->getMemberId(),  // owner
       $viewerId,                                // viewer
       $this->application->getId(),              // app id
       $containerName,                           // domain key
       urlencode($this->application->getUrl()),  // app url
       $this->memberApplication->getId(),        // mod id
-      1
+      Shindig_Config::get('container_id')
     );
 
     $getParams = array(

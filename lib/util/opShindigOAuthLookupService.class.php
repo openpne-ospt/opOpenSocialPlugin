@@ -9,13 +9,13 @@
  */
 
 /**
- * opBasicOAuthLookupService
+ * opShindigOAuthLookupService
  *
  * @package    opOpenSocialPlugin
  * @subpackage util
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
-class opBasicOAuthLookupService extends OAuthLookupService
+class opShindigOAuthLookupService extends OAuthLookupService
 {
   protected
     $dataStore = null,

@@ -9,18 +9,17 @@
  */
 
 /**
- * opBasicRemoteContent
+ * opShindigRemoteContent
  * 
  * @package    opOpenSocialPlugin
  * @subpackage util
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
- *
  */
-class opBasicRemoteContent extends BasicRemoteContent
+class opShindigRemoteContent extends BasicRemoteContent
 {
   public function __construct(RemoteContentFetcher $basicFetcher = null, $signingFetcherFactory = null, $signer = null)
   {
-    $basicFetcher = $basicFetcher ? $basicFetcher : new opBasicRemoteContentFetcher();
+    $basicFetcher = $basicFetcher ? $basicFetcher : new opShindigRemoteContentFetcher();
     parent::__construct($basicFetcher, $signingFetcherFactory, $signer);
   }
 }

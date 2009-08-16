@@ -9,14 +9,14 @@
  */
 
 /**
- * opBasicSecurityTokenDecoder
+ * opShindigSecurityTokenDecoder
  *
  * @package    opOpenSocialPlugin
  * @subpackage util
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
- * @see        BasicSecurityTokenDecoder
+ * @see        SecurityTokenDecoder
  */
-class opBasicSecurityTokenDecoder extends SecurityTokenDecoder
+class opShindigSecurityTokenDecoder extends SecurityTokenDecoder
 {
   private $OWNER_INDEX = 0;
   private $VIEWER_INDEX = 1;
@@ -41,11 +41,11 @@ class opBasicSecurityTokenDecoder extends SecurityTokenDecoder
       if (Shindig_Config::get('allow_plaintext_token') && count(explode(':', $stringToken)) == 6)
       {
         $tokens = explode(":", $stringToken);
-        return new opBasicSecurityToken(null, null, urldecode($tokens[$this->OWNER_INDEX]), urldecode($tokens[$this->VIEWER_INDEX]), urldecode($tokens[$this->APP_ID_INDEX]), urldecode($tokens[$this->CONTAINER_INDEX]), urldecode($tokens[$this->APP_URL_INDEX]), urldecode($tokens[$this->MODULE_ID_INDEX]));
+        return new opShindigSecurityToken(null, null, urldecode($tokens[$this->OWNER_INDEX]), urldecode($tokens[$this->VIEWER_INDEX]), urldecode($tokens[$this->APP_ID_INDEX]), urldecode($tokens[$this->CONTAINER_INDEX]), urldecode($tokens[$this->APP_URL_INDEX]), urldecode($tokens[$this->MODULE_ID_INDEX]));
       }
       else
       {
-        return opBasicSecurityToken::createFromToken($stringToken, Shindig_Config::get('token_max_age'));
+        return opShindigSecurityToken::createFromToken($stringToken, Shindig_Config::get('token_max_age'));
       }
     }
     catch (Exception $e)

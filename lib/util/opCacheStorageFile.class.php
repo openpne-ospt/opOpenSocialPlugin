@@ -20,16 +20,19 @@ class opCacheStorageFile extends CacheStorageFile
 {
   protected $prefix = null;
 
-  public function __construct($name) {
+  public function __construct($name)
+  {
     $this->prefix = $name;
   }
 
-  private function getCacheDir($key) {
+  private function getCacheDir($key)
+  {
     return Shindig_Config::get('cache_root') . '/' . $this->prefix . '/' .
         substr($key, 0, 2);
   }
 
-  private function getCacheFile($key) {
+  private function getCacheFile($key)
+  {
     return $this->getCacheDir($key) . '/' . $key;
   }
 

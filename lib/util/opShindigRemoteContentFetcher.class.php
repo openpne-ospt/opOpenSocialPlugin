@@ -9,13 +9,13 @@
  */
 
 /**
- * opBasicRemoteContentFetcher
+ * opShindigRemoteContentFetcher
  *
  * @package    opOpenSocialPlugin
  * @subpackage util
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */
-class opBasicRemoteContentFetcher extends RemoteContentFetcher {
+class opShindigRemoteContentFetcher extends RemoteContentFetcher {
 
   public function fetchRequest(RemoteContentRequest $request)
   {
