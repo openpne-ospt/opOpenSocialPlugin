@@ -28,7 +28,7 @@ Call it with:
  [./symfony opOpenSocial:genkey|INFO]
 EOF;
   }
-  
+
   protected function execute($arguments = array(), $options = array())
   {
     if (! extension_loaded('openssl'))
@@ -96,12 +96,12 @@ EOF;
     );
 
     $dirname = sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs';
-    
+
     $filesystem = new sfFilesystem($this->dispatcher, $this->formatter);
     $filesystem->mkdirs($dirname);
 
     $privatekey = openssl_pkey_new();
-    
+
     $csr = openssl_csr_new($dn, $privatekey);
     $sscert = openssl_csr_sign($csr, null , $privatekey, $days);
 
