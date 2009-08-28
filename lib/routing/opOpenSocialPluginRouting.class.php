@@ -81,10 +81,6 @@ class opOpenSocialPluginRouting
         array('module' => 'application', 'action' => 'sort'),
         array('sf_method' => array('post'))
       ),
-      'application_webprefix_js' => new sfRoute(
-        '/application/webprefix.js',
-        array('module' => 'application', 'action' => 'js')
-      ),
       'application_nodefaults' => new sfRoute(
         '/application/*',
         array('module' => 'default', 'action' => 'error')

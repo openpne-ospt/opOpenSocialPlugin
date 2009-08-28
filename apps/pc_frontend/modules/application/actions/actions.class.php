@@ -199,17 +199,6 @@ class applicationActions extends sfActions
   }
 
   /**
-   * Executes js action
-   *
-   * @param sfWebRequest $request A request object
-   */
-  public function executeJs(sfWebRequest $request)
-  {
-    $response = $this->getResponse();
-    $response->setContentType('text/javascript');
-  }
-
-  /**
    * Executes sort application
    * 
    * @param sfWebRequest $request A request object

@@ -8,7 +8,6 @@ gallerySuccess:
 
 canvasSuccess:
   javascripts:
-    - /application/webprefix
     - /gadgets/js/rpc.js?c=1
     - %SF_PROTOTYPE_WEB_DIR%/js/prototype
     - /opOpenSocialPlugin/js/tabs-min
