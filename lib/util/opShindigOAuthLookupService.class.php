@@ -39,8 +39,9 @@ class opShindigOAuthLookupService extends OAuthLookupService
   {
     try
     {
+      $postBody = file_get_contents('php://input');
       $acceptedContentTypes = array('application/atom+xml', 'application/xml', 'application/json');
-      if (isset($GLOBALS['HTTP_RAW_POST_DATA']) && ! empty($GLOBALS['HTTP_RAW_POST_DATA']))
+      if (!empty($postBody))
       {
         if (!in_array($contentType, $acceptedContentTypes))
         {
@@ -49,7 +50,7 @@ class opShindigOAuthLookupService extends OAuthLookupService
         else
         {
           if (isset($_GET['oauth_body_hash'])) {
-            if (!$this->verifyBodyHash($GLOBALS['HTTP_RAW_POST_DATA'], $_GET['oauth_body_hash']))
+            if (!$this->verifyBodyHash($postBody, $_GET['oauth_body_hash']))
             {
               return null;
             }
@@ -75,9 +76,10 @@ class opShindigOAuthLookupService extends OAuthLookupService
 
   protected function verify2LeggedOAuth($oauthRequest, $userId, $appUrl)
   {
-    $consumer   = $this->dataStore->lookup_consumer($oauthRequest->get_parameter('oauth_consumer_key'));
+    $consumer = $this->dataStore->lookup_consumer($oauthRequest->get_parameter('oauth_consumer_key'));
     $signatureMethod = new OAuthSignatureMethod_HMAC_SHA1();
-    $signatureValid  = $signatureMethod->check_signature($oauthRequest, $consumer, null, $_GET['oauth_signature']);
+    $oauthSignature  =  $_GET['oauth_signature'];
+    $signatureValid  = $signatureMethod->check_signature($oauthRequest, $consumer, null, $oauthSignature);
 
     if (!$signatureValid)
     {
@@ -109,7 +111,7 @@ class opShindigOAuthLookupService extends OAuthLookupService
     }
     catch(Exception $e)
     {
-      var_dump($e->getMessage()); exit;
+      return null;
     }
 
     if (!$this->isAdmin)
@@ -123,5 +125,10 @@ class opShindigOAuthLookupService extends OAuthLookupService
       $userId = $memberToken->getMemberId();
     }
     return new OAuthSecurityToken($userId, $appUrl, 0, 'openpne');
+  }
+
+  protected function verifyBodyHash($postBody, $oauthBodyHash)
+  {
+    return base64_encode(sha1($postBody, true)) == $oauthBodyHash;
   }
 }

@@ -18,24 +18,35 @@
  */
 class OpenPNEService implements ActivityService, PersonService, AppDataService, MessagesService
 {
-  // changed this parameter
+  // changed parameters
   // for example:
   // 
-  // const SNSURL = 'http://sns.example.com/';
-  const SNSURL = '#SNS_URL#';
+  // const SNSURL          = 'http://sns.example.com/';
+  // const CONSUMER_KEY    = '62rjlY5wkKiVAyhn';
+  // const CONSUMER_SECRET = '6Lq1xcR#BCn[1fXrPHjiiBzdF]_6l9fM';
 
-  const ACTION = 'social/rpc';
+  const SNSURL          = '#SNS_URL#';
+  const CONSUMER_KEY    = '#CONSUMER_KEY#';
+  const CONSUMER_SECRET = '#CONSUMER_SECRET#';
+
+  const ACTION          = 'api.php/social/rpc';
 
   protected function fetch($postParam, $token)
   {
-    $headers = '';
     $context = new GadgetContext('GADGET');
     $context->setIgnoreCache(true);
-    $postData = array('request' => json_encode($postParam));
-    $url = self::SNSURL.self::ACTION.'?st='.base64_encode($token->toSerialForm());
-    $request = new RemoteContentRequest($url, $headers, $postData);
-    $request->setContentType('application/json; charset=UTF8');
-    $etime = microtime();
+    $url = self::SNSURL.self::ACTION;
+
+    $postData = json_encode($postParam);
+    $consumer = new OAuthConsumer(self::CONSUMER_KEY, self::CONSUMER_SECRET);
+    $oauthRequest = OAuthRequest::from_consumer_and_token($consumer, null, 'POST', $url);
+    $oauthRequest->set_parameter('xoauth_requestor_id', $this->getViewerId());
+    $oauthRequest->set_parameter('token_type', 'admin');
+    $oauthRequest->set_parameter('oauth_body_hash', base64_encode(sha1($postData, true)));
+    $oauthRequest->sign_request(new OAuthSignatureMethod_HMAC_SHA1(), $consumer, null);
+
+    $headers = 'Content-Type: application/json; charaset=utf-8';
+    $request = new RemoteContentRequest($oauthRequest->get_normalized_http_url().'?'.$oauthRequest->to_postdata(), $headers, $postData);
     return $this->getResponseData($context->getHttpFetcher()->fetch($request, $context));
   }
 
@@ -46,7 +57,7 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
       throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
     }
     $resjson = json_decode($res->getResponseContent());
-    if (!$resjson && count($resjson) == 1)
+    if (!($resjson && is_array($resjson) && count($resjson) == 1))
     {
       throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
     }
@@ -242,12 +253,46 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
       ),
       'id'     => 'appdata',
     ));
-    $this->fetch($q, $token); 
+    $this->fetch($q, $token);
   }
 
-  public function createMessage($userId, $appId, $message, $optionalMessageId, SecurityToken $token)
+  public function createMessageCollection($userId, $msgCollection, $token)
   {
     throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
   }
 
+  public function updateMessageCollection($userId, $msgCollection, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function deleteMessageCollection($userId, $msgCollId, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function getMessageCollections($userId, $fields, $options, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function createMessage($userId, $msgCollId, $message, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function updateMessage($userId, $msgCollId, $message, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function deleteMessages($userId, $msgCollId, $messageIds, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function getMessages($userId, $msgCollId, $fields, $msgIds, $options, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
 }
