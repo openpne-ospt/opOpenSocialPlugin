@@ -86,13 +86,13 @@ class opShindigOAuthLookupService extends OAuthLookupService
       return null;
     }
 
+    if (!($consumerInformation = $this->getConsumerInformation($consumer)))
+    {
+      return null;
+    }
+
     if (!$this->isAdmin)
     {
-      $consumerInformation = Doctrine::getTable('OAuthConsumerInformation')->findOneByKeyString($oauthRequest->get_parameter('oauth_consumer_key'));
-      if (!$consumerInformation)
-      {
-        return null;
-      }
       if ($consumerInformation->getMemberId() != $userId)
       {
         return null;
@@ -114,6 +114,11 @@ class opShindigOAuthLookupService extends OAuthLookupService
       return null;
     }
 
+    if (!$this->getConsumerInformation($consumer))
+    {
+      return null;
+    }
+
     if (!$this->isAdmin)
     {
       $memberToken = $this->tokenTable->findOneByKeyString($token->key);
@@ -124,7 +129,26 @@ class opShindigOAuthLookupService extends OAuthLookupService
 
       $userId = $memberToken->getMemberId();
     }
+
+
     return new OAuthSecurityToken($userId, $appUrl, 0, 'openpne');
+  }
+
+  protected function getConsumerInformation(OAuthConsumer $consumer)
+  {
+    $consumerInformation = Doctrine::getTable('OAuthConsumerInformation')->findOneByKeyString($consumer->key);
+
+    if (!$consumerInformation)
+    {
+      return null;
+    }
+
+    if (!in_array('opensocial', $consumerInformation->getUsingApis()))
+    {
+      return null;
+    }
+
+    return $consumerInformation;
   }
 
   protected function verifyBodyHash($postBody, $oauthBodyHash)
