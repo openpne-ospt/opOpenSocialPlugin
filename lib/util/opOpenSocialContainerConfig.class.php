@@ -212,12 +212,7 @@ class opOpenSocialContainerConfig
       }
     }
 
-    $opPersonFields = Doctrine::getTable('OpenSocialPersonField')->getNotNullPersonFields();
     $personFields = array('id', 'name', 'thumbnailUrl', 'profileUrl');
-    foreach ($opPersonFields as $opPersonField)
-    {
-      $personFields = $opPersonField->getFieldName();
-    }
     
     $supportedFields =& $containerTemplate['gadgets.features']['opensocial-0.8']['supportedFields'];
     $supportedFields['person'] = $personFields;

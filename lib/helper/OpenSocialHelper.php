@@ -37,6 +37,12 @@ function op_include_application_setting()
     $opOpenSocialContainerConfig = new opOpenSocialContainerConfig();
     $opOpenSocialContainerConfig->generateAndSave();
 
+    $response = sfContext::getInstance()->getResponse();
+    $response->addJavascript('/sfProtoculousPlugin/js/prototype');
+    $response->addJavascript('/opOpenSocialPlugin/js/tabs-min');
+    $response->addJavascript('/opOpenSocialPlugin/js/container');
+    $response->addJavascript('/gadgets/js/rpc.js?c=1');
+
     $request = sfContext::getInstance()->getRequest();
     $isDev   = sfConfig::get('sf_environment') == 'dev';
 

@@ -86,6 +86,6 @@ class applicationComponents extends sfComponents
   {
     $ownerId  = $request->getParameter('id', $this->getUser()->getMemberId());
     $viewerId = $this->getUser()->getMemberId();
-    $this->memberApplications = Doctrine::getTable('memberApplication')->getMemberApplications($ownerId, $viewerId);
+    $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($ownerId, $viewerId);
   }
 }
