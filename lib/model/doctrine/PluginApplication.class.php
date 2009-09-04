@@ -25,7 +25,7 @@ abstract class PluginApplication extends BaseApplication
   * @param Member $member
   * @return MemberApplication
   */
-  public function addToMember(Member $member)
+  public function addToMember(Member $member, $applicationSettings = array())
   {
     $memberApplication = Doctrine::getTable('MemberApplication')->findOneByApplicationAndMember($this, $member);
     if ($memberApplication)
@@ -36,6 +36,12 @@ abstract class PluginApplication extends BaseApplication
     $memberApplication->setApplication($this);
     $memberApplication->setMember($member);
     $memberApplication->save();
+
+    foreach ($applicationSettings as $name => $value)
+    {
+      $memberApplication->setApplicationSetting($name, $value);
+    }
+
     return $memberApplication;
   }
 

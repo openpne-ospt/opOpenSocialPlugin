@@ -126,27 +126,6 @@ class opOpenSocialPluginActions extends sfActions
   }
 
   /**
-   * Executes profileSetting action
-   *
-   * @param sfWebRequest $request A request object
-   */
-  public function executeProfileSetting(sfWebRequest $request)
-  {
-    $this->profileConfigForm = new OpenSocialPersonFieldConfigForm();
-    
-    if ($request->isMethod(sfRequest::POST))
-    {
-      $this->profileConfigForm->bind($request->getParameter('opensocial_person_field_config'));
-      if ($this->profileConfigForm->isValid())
-      {
-        $this->profileConfigForm->save();
-      }
-    }
-    
-    return sfView::SUCCESS;
-  }
-
-  /**
    * Executes deleteApplication action
    *
    * @param sfWebRequest $request A request object

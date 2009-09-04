@@ -11,7 +11,7 @@
 /**
  * Application Config Form.
  *
- * @package    OpenPNE
+ * @package    opOpenSocialPlugin
  * @subpackage form
  * @author     Shogo Kawahara <kawahara@tejimaya.net>
  */

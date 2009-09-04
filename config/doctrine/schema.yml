@@ -1,7 +1,6 @@
 options:
   charset: utf8
 
-
 Application:
   actAs:
     I18n:
@@ -37,7 +36,7 @@ MemberApplication:
     member_id:      { type: integer(4), notnull: true }
     application_id: { type: integer, notnull: true }
     public_flag:    { type: enum, values: [public, friends, private], default: public, notnull: true }
-    is_gadget:      { type: boolean, notnull: true, default: false }
+    is_force:       { type: boolean, notnull: true, default: false }
     sort_order:     { type: integer }
   relations:
     Member:       { onDelete: CASCADE, foreignAlias: MemberApplications }
@@ -69,10 +68,3 @@ ApplicationPersistentData:
   relations:
     Application: { onDelete: CASCADE, foreignAlias: PersistentDatas }
     Member:      { onDelete: CASCADE, foreignAlias: PersistentDatas }
-
-OpenSocialPersonField:
-  columns:
-    profile_id: { type: integer(4), primary: true }
-    field_name: { type: string(128), unique: true }
-  relations:
-    Profile: { onDelete: CASCADE }
