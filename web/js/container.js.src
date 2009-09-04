@@ -57,7 +57,7 @@ Container.prototype = {
     } else if (view === 'profile') {
       return gadgets.container.webPrefix + '/member/' + person;
     } else if (view === 'canvas') {
-      return gadgets.container.webPrefix + '/application/canvas/id/' + mod;
+      return gadgets.container.webPrefix + '/application/canvas/' + mod;
     } else {
       return null;
     }
