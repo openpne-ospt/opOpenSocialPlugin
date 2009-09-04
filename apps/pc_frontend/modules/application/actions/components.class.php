@@ -17,7 +17,7 @@
  */
 class applicationComponents extends sfComponents
 {
-  public function executeGadget()
+  public function executeGadget(sfWebRequest $request)
   {
     $culture = $this->getUser()->getCulture();
     $culture = split("_",$culture);
@@ -69,7 +69,7 @@ class applicationComponents extends sfComponents
     }
     if ($isUseOuterShindig)
     {
-      $this->iframeUrl = SnsConfigPeer::get('shindig_url').'gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+      $this->iframeUrl = Doctrine::getTable('SnsConfig')->get('shindig_url').'gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
     }
     else
     {
@@ -77,48 +77,15 @@ class applicationComponents extends sfComponents
     }
   }
 
-  public function executeRenderHomeApplications()
+  public function executeRenderHomeApplications(sfWebRequest $request)
   {
+    $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($this->getUser()->getMemberId());
   }
 
-  public function executeRenderHomeGadgetApplication()
+  public function executeRenderProfileApplications(sfWebRequest $request)
   {
-    $url = $this->gadget->getConfig('url');
-    if (!$url)
-    {
-      return null;
-    }
-
-    try
-    {
-      $application = ApplicationPeer::addApplication($url);
-      if (!$application)
-      {
-        return null;
-      }
-    }
-    catch (Exception $e)
-    {
-      return null;
-    }
-
-    $applicationId = $application->getId();
-    $memberId      = $this->getUser()->getMember()->getId();
-    $criteria = new Criteria();
-    $criteria->add(MemberApplicationPeer::IS_GADGET, true);
-    $memberApplication = MemberApplicationPeer::retrieveByApplicationIdAndMemberId($applicationId, $memberId, $criteria);
-
-    if (!$memberApplication)
-    {
-      $memberApplication = new MemberApplication();
-      $memberApplication->setApplication($application);
-      $memberApplication->setMemberId($memberId);
-      $memberApplication->setIsDispOther(true);
-      $memberApplication->setIsDispHome(true);
-      $memberApplication->setIsGadget(true);
-      $memberApplication->save();
-    }
-
-    $this->memberApplication = $memberApplication;
+    $ownerId  = $request->getParameter('id', $this->getUser()->getMemberId());
+    $viewerId = $this->getUser()->getMemberId();
+    $this->memberApplications = Doctrine::getTable('memberApplication')->getMemberApplications($ownerId, $viewerId);
   }
 }

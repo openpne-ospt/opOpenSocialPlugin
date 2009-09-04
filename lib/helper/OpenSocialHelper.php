@@ -29,7 +29,7 @@ function op_include_application_information_box($id, $application, $mid = null, 
   include_partial('application/informationBox', $params);
 }
 
-function op_include_applications($view, $params = array())
+function op_include_application_setting()
 {
   static $isFirst = true;
   if ($isFirst)
@@ -40,12 +40,12 @@ function op_include_applications($view, $params = array())
     $request = sfContext::getInstance()->getRequest();
     $isDev   = sfConfig::get('sf_environment') == 'dev';
 
-    $snsUrl  = $request->getUriPrefix().$request->getRelativeUrlRoot().'/';
-    $snsUrl .= $isDev ? 'pc_frontend_dev.php/' : '';
+    $snsUrl  = $request->getUriPrefix().$request->getRelativeUrlRoot();
+    $snsUrl .= $isDev ? 'pc_frontend_dev.php' : '';
 
     $apiUrl  = $request->getUriPrefix().$request->getRelativeUrlRoot().'/api';
     $apiUrl .= $isDev ? '_dev' : '';
-    $apiUrl .= '.php/'; 
+    $apiUrl .= '.php'; 
     
     echo javascript_tag(sprintf(<<<EOF
 gadgets.container = new Container("%s", "%s");
@@ -55,8 +55,6 @@ EOF
     echo make_app_setting_modal_box('opensocial_modal_box');
     $isFirst = false;
   }
-
-  include_partial('application/'.$view.'Application', $params);
 }
 
 function link_to_app_setting($text, $mid, $isReload = false)

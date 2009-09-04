@@ -1,7 +1,6 @@
 homeSuccess:
   javascripts:
-    - /application/webprefix
-    - /gadgets/js/rpc.js?c=1
-    - %SF_PROTOTYPE_WEB_DIR%/js/prototype
-    - /opOpenSocialPlugin/js/tabs-min
-    - /opOpenSocialPlugin/js/container
+    op_opensocial_prototype: %SF_PROTOTYPE_WEB_DIR%/js/prototype
+    op_opensocial_rpc:       /gadgets/js/rpc.js?c=1
+    op_opensocial_tab:       /opOpenSocialPlugin/js/tabs-min
+    op_opensocial_container: /opOpenSocialPlugin/js/container

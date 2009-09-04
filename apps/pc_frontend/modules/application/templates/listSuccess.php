@@ -14,10 +14,6 @@
 <div class="applicationList">
 <?php if (isset($memberApplications) && count($memberApplications)) : ?>
 <?php if ($isOwner): ?>
-<ul>
-<li>アプリケーションはドラッグにより順序を並び替えることができます。</li>
-<li>最大N個のアプリケーションがホームに表示されます。</li>
-</ul>
 <?php endif; ?>
 <div id="order">
 <?php foreach ($memberApplications as $memberApplication) : ?>
@@ -31,9 +27,9 @@
 </div>
 <?php else : ?>
 <?php slot('no_application_alert') ?>
-アプリケーションがありません。
+<?php echo __("The application hasn't installed."); ?>
 <?php if ($isOwner) : ?>
-アプリケーションギャラリーから追加することができます。
+ <?php echo __("The application can be installed from %0%.", array('%0%' => link_to(__('Application Gallery'), '@application_gallery'))) ?>
 <?php endif; ?>
 <?php end_slot(); ?>
 <?php op_include_box('NoApplication', get_slot('no_application_alert')) ?>

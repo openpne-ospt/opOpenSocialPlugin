@@ -88,7 +88,7 @@ class applicationActions extends sfActions
         try
         {
           $application = Doctrine::getTable('Application')->addApplication($this->form->getValue('application_url'));
-          $memberApplication = $application->addToMember($owner);
+          $this->redirect('@application_add?id='.$application->getId());
         }
         catch (Exception $e)
         {
@@ -155,7 +155,7 @@ class applicationActions extends sfActions
     {
     }
 
-    $memberApplication = $this->application->addToMember($this->member);
+    $memberApplication = $this->application->addToMember($this->member, array('is_view_home' => true, 'is_view_profile' => true));
     $this->redirect('@application_canvas?id='.$memberApplication->getId());
   }
 
