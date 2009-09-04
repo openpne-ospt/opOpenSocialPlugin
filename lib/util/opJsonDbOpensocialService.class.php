@@ -63,7 +63,6 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     $people = array();
     foreach ($members as $member)
     {
-      //FIXME
       $p = array();
       $p['isOwner']  =  (!$token->isAnonymous() && $member->getId() == $token->getOwnerId()) ? true : false;
       $p['isViewer'] =  (!$token->isAnonymous() && $member->getId() == $token->getViewerId()) ? true : false;
@@ -76,25 +75,8 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
           array('size' => '180x180'), true);
       }
       $p['profileUrl']   = app_url_for('pc_frontend', 'member/profile?id='.$member->getId(), true);
-      /*
-      $memberProfiles = $member->getProfile(true, $token->getViewerId());
-      foreach ($memberProfiles as $memberProfile)
-      {
-        $osPersonField = $memberProfile->getProfile()->getOpensocialPersonField();
-        if ($osPersonField)
-        {
-          $fieldName = $osPersonField->getFieldName();
-          switch ($memberProfile->getProfile()->getFormType())
-          {
-            case "date":
-              $p[$fieldName] = date("Y/m/d",strtotime($memberProfile->getValue()));
-              break;
-            default:
-              $p[$fieldName] = $memberProfile->getValue();
-          }
-        }
-      }
-      */
+      // TODO: support preset profile 
+
       $people[] = $p;
     }
 
