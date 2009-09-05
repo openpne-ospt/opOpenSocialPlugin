@@ -4,8 +4,6 @@
 
 <h2><?php echo __('OpenSocialコンテナ設定') ?></h2>
 
-<p>※OpenSocialコンテナURLは、スラッシュで終らせてください。</p>
-
 <form action="<?php echo url_for('opOpenSocialPlugin/containerConfig') ?>" method="post">
 <table>
 <?php echo $containerConfigForm ?>
