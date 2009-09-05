@@ -36,7 +36,7 @@ class opOpenSocialPluginActions extends sfActions
   {
     $this->applicationConfigForm = new ApplicationConfigForm();
 
-    if ($request->isMethod(sfRequest::POST))
+    if ($request->isMethod(sfWebRequest::POST))
     {
       $this->applicationConfigForm->bind($request->getParameter('application_config'));
       if ($this->applicationConfigForm->isValid())
@@ -56,7 +56,7 @@ class opOpenSocialPluginActions extends sfActions
   {
     $this->containerConfigForm = new ContainerConfigForm();
 
-    if ($request->isMethod(sfRequest::POST))
+    if ($request->isMethod(sfWebRequest::POST))
     {
       $this->containerConfigForm->bind($request->getParameter('container_config'));
       if ($this->containerConfigForm->isValid())
@@ -65,8 +65,37 @@ class opOpenSocialPluginActions extends sfActions
       }
     }
 
-    $this->isUseOuterShindig = SnsConfigPeer::get('is_use_outer_shindig');
-    return sfView::SUCCESS;
+    $this->isUseOuterShindig = Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig');
+  }
+
+ /**
+  * Executes add action
+  *
+  * @param sfWebRequest $request A request object
+  */
+  public function executeAdd(sfWebRequest $request)
+  {
+    $this->form = new AddApplicationForm();
+    if ($request->isMethod(sfWebRequest::POST))
+    {
+      $this->form->bind($request->getParameter('contact'));
+      if ($this->form->isValid())
+      {
+        try
+        {
+          $application = Doctrine::getTable('Application')->addApplication($this->form->getValue('application_url'));
+          $this->redirect('opOpenSocialPlugin/info?id='.$application->id);
+        }
+        catch (Exception $e)
+        {
+          if (!($e instanceof sfStopException))
+          {
+            $this->getUser()->setFlash('error', 'Failed in adding the application.');
+          }
+        }
+        $this->redirect('opOpenSocialPlugin/add');
+      }
+    }
   }
 
   /**
@@ -76,40 +105,12 @@ class opOpenSocialPluginActions extends sfActions
    */
   public function executeList(sfWebRequest $request)
   {
-    $criteria = new Criteria();
-    $criteria->addDescendingOrderByColumn(ApplicationPeer::ID);
-    $this->pager = new sfPropelPager('Application', 20);
-    $this->pager->setCriteria($criteria);
-    $this->pager->setPage($request->getParameter('page',1));
-    $this->pager->init();
-
-    $this->addform = new AddApplicationForm();
-    if ($request->isMethod(sfRequest::POST))
+    $this->searchForm = new ApplicationSearchForm();
+    $this->searchForm->bind($request->getParameter('application'));
+    if ($this->searchForm->isValid())
     {
-      $this->addform->bind($request->getParameter('contact'));
-      if ($this->addform->isValid())
-      {
-        $contact = $this->addform->getValues();
-        try
-        {
-          $application = ApplicationPeer::addApplication($contact['application_url'], true);
-        }
-        catch (Exception $e)
-        {
-          return sfView::ERROR;
-        }
-      }
-      else
-      {
-        return sfView::SUCCESS;
-      }
+      $this->pager = $this->searchForm->getPager($request->getParameter('page', 1));
     }
-    else
-    {
-      return sfView::SUCCESS;
-    }
-
-    return $this->redirect('opOpenSocialPlugin/info?id='.$application->getId());
   }
 
   /**
@@ -119,43 +120,42 @@ class opOpenSocialPluginActions extends sfActions
    */
   public function executeInfo(sfWebRequest $request)
   {
-    $application = ApplicationPeer::retrieveByPk($request->getParameter('id'));
-    $this->forward404Unless($application);
-    $this->application = $application;
-    return sfView::SUCCESS;
+    $this->application = Doctrine::getTable('Application')->find($request->getParameter('id'));
+    $this->forward404Unless($this->application);
   }
 
   /**
-   * Executes deleteApplication action
+   * Executes delete application action
    *
    * @param sfWebRequest $request A request object
    */
-  public function executeDeleteApplication(sfWebRequest $request)
+  public function executeDelete(sfWebRequest $request)
   {
-    $application = ApplicationPeer::retrieveByPk($request->getParameter('id'));
-    $this->forward404Unless($application);
+    $this->application = Doctrine::getTable('Application')->find($request->getParameter('id'));
+    $this->forward404Unless($this->application);
 
-    if ($request->isMethod(sfRequest::POST))
+    $this->form = new sfForm();
+    if ($request->isMethod(sfWebRequest::POST))
     {
-      $application->delete();
-      return $this->redirect('opOpenSocialPlugin/list');
+      $this->form->bind(array('_csrf_token' => $request->getParameter('_csrf_token')));
+      if ($this->form->isValid())
+      {
+        $this->application->delete();
+        $this->redirect('opOpenSocialPlugin/list');
+      }
     }
-
-    return sfView::SUCCESS;
   }
 
   /**
-   * Executes updateApplication action
+   * Executes update application action
    *
    * @param sfWebRequest $request A request object
    */
-  public function executeUpdateApplication(sfWebRequest $request)
+  public function executeUpdate(sfWebRequest $request)
   {
-    $application = ApplicationPeer::retrieveByPk($request->getParameter('id'));
+    $application = Doctrine::getTable('Application')->find($request->getParameter('id'));
     $this->forward404Unless($application);
-    
-    ApplicationPeer::updateApplication($request->getParameter('id'), $this->getUser()->getCulture());
-
+    $application->updateApplication($this->getUser()->getCulture());
     $this->redirect('opOpenSocialPlugin/info?id='.$application->getId());
   }
 
@@ -172,6 +172,5 @@ class opOpenSocialPluginActions extends sfActions
     $response->setHttpHeader('Content-Disposition','attachment; filename="openpne.js');
     $opOpenSocialContainerConfig = new opOpenSocialContainerConfig(false);
     $this->json = $opOpenSocialContainerConfig->generate();
-    return sfView::SUCCESS;
   }
 }

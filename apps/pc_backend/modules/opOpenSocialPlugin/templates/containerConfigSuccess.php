@@ -2,7 +2,7 @@
 <?php include_partial('submenu') ?>
 <?php end_slot() ?>
 
-<h2><?php echo __('OpenSocialコンテナの設定') ?></h2>
+<h2><?php echo __('OpenSocialコンテナ設定') ?></h2>
 
 <p>※OpenSocialコンテナURLは、スラッシュで終らせてください。</p>
 

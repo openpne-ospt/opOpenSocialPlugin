@@ -138,4 +138,15 @@ abstract class PluginApplication extends BaseApplication
       ->andWhereIn('name', $name)
       ->execute();
   }
+
+ /**
+  * update application
+  *
+  * @param string $culture
+  * @return Application
+  */
+  public function updateApplication($culture = null)
+  {
+    return $this->getTable()->addApplication($this->getUrl(), true, $culture);
+  }
 }

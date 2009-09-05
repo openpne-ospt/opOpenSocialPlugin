@@ -19,8 +19,7 @@ class ContainerConfigForm extends sfForm
 {
   public function configure()
   {
-    $is_use_outer_shindig = SnsConfigPeer::get('is_use_outer_shindig', false);
-    $is_use_outer_shindig = (empty($is_use_outer_shindig)) ? false : true;
+    $snsConfigTable = Doctrine::getTable('SnsConfig');
     $this->setWidgets(array(
       'shindig_token_cipher_key' => new sfWidgetFormInput(),
       'shindig_token_hmac_key'   => new sfWidgetFormInput(),
@@ -44,12 +43,12 @@ class ContainerConfigForm extends sfForm
     )));
 
     $this->setDefaults(array(
-      'shindig_token_cipher_key' => SnsConfigPeer::get('shindig_token_cipher_key'),
-      'shindig_token_hmac_key'   => SnsConfigPeer::get('shindig_token_hmac_key'),
-      'shindig_token_max_age'    => SnsConfigPeer::get('shindig_max_token_age', 60*60),
-      'shindig_cache_time'       => SnsConfigPeer::get('shindig_cache_time', 24*60*60),
-      'is_use_outer_shindig'     => $is_use_outer_shindig,
-      'shindig_url'              => SnsConfigPeer::get('shindig_url'),
+      'shindig_token_cipher_key' => $snsConfigTable->get('shindig_token_cipher_key'),
+      'shindig_token_hmac_key'   => $snsConfigTable->get('shindig_token_hmac_key'),
+      'shindig_token_max_age'    => $snsConfigTable->get('shindig_max_token_age', 60*60),
+      'shindig_cache_time'       => $snsConfigTable->get('shindig_cache_time', 24*60*60),
+      'is_use_outer_shindig'     => (bool)$snsConfigTable->get('is_use_outer_shindig', false),
+      'shindig_url'              => $snsConfigTable->get('shindig_url'),
     ));
 
     $this->widgetSchema->setLabels(array(
@@ -83,7 +82,7 @@ class ContainerConfigForm extends sfForm
   {
     foreach ($this->getValues() as $key => $value)
     {
-      $snsConfig = SnsConfigPeer::retrieveByName($key);
+      $snsConfig = Doctrine::getTable('SnsConfig')->findOneByName($key);
       if (!$snsConfig)
       {
         $snsConfig = new SnsConfig();

@@ -19,32 +19,21 @@ class ApplicationConfigForm extends sfForm
 {
   public function configure()
   {
-    $is_add_application = SnsConfigPeer::get('is_add_application', false);
-    $is_add_application = (empty($is_add_application)) ? false : true;
-    $is_view_profile_application = SnsConfigPeer::get('is_view_profile_application', true);
     $is_view_profile_application = (empty($is_view_profile_application)) ? false : true;
     $this->setWidgets(array(
-      'is_add_application'          => new sfWidgetFormInputCheckbox(),
-      'is_view_profile_application' => new sfWidgetFormInputCheckbox(),
-      'home_application_limit'      => new sfWidgetFormInput(),
+      'is_allow_add_application'    => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
-      'is_add_application'          => new sfValidatorBoolean(),
-      'is_view_profile_application' => new sfValidatorBoolean(),
-      'home_application_limit'      => new sfValidatorInteger(array('min' => 0)),
+      'is_allow_add_application'    => new sfValidatorBoolean(),
     ));
 
     $this->setDefaults(array(
-      'is_add_application'          => $is_add_application,
-      'is_view_profile_application' => $is_view_profile_application,
-      'home_application_limit'      => SnsConfigPeer::get('home_application_limit', 3),
+      'is_allow_add_application'    => (bool)Doctrine::getTable('SnsConfig')->get('is_allow_add_application', false),
     ));
 
     $this->widgetSchema->setLabels(array(
-      'is_add_application'          => 'メンバーによるアプリ追加を許可',
-      'is_view_profile_application' => 'プロフィール画面にアプリを表示する',
-      'home_application_limit'      => 'ホーム・プロフィール画面のアプリ表示上限',
+      'is_allow_add_application'          => 'メンバーによるアプリ追加を許可',
     ));
     $this->widgetSchema->setNameFormat('application_config[%s]');
   }
@@ -53,7 +42,7 @@ class ApplicationConfigForm extends sfForm
   {
     foreach ($this->getValues() as $key => $value)
     {
-      $snsConfig = SnsConfigPeer::retrieveByName($key);
+      $snsConfig = Doctrine::getTable('SnsConfig')->findOneByName($key);
       if (!$snsConfig)
       {
         $snsConfig = new SnsConfig();

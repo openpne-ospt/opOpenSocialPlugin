@@ -23,7 +23,7 @@
 <?php endif ?>
 </td></tr>
 <tr><th><?php echo __('詳細') ?></th><td><?php echo $application->getDescription() ?></td></tr>
-<tr><th><?php echo __('インストールしているメンバ数') ?></th><td><?php echo $application->countInstalledMember() ?></td></tr>
+<tr><th><?php echo __('インストールしているメンバ数') ?></th><td><?php echo $application->getMembers()->count() ?></td></tr>
 <tr><th><?php echo __('最終更新日') ?></th><td><?php echo $application->getUpdatedAt() ?></td></tr>
 <tr><th colspan="2"><?php echo __('作成者情報') ?></th></tr>
 <tr><th><?php echo __('作成者') ?></th><td><?php echo $application->getAuthorEmail() ? mail_to($application->getAuthorEmail(), $application->getAuthor(), array('encode' => true)) : $application->getAuthor() ?></td></tr>
@@ -41,7 +41,7 @@
 </td></tr>
 <tr><th><?php echo __('引用') ?></th><td><?php echo $application->getAuthorQuote() ?></td></tr>
 <tr><td colspan="2">
-<?php echo link_to(__('削除'),'opOpenSocialPlugin/deleteApplication?id='.$sf_request->getParameter('id')) ?> 
-<?php echo link_to(__('更新'),'opOpenSocialPlugin/updateApplication?id='.$sf_request->getParameter('id')) ?>
+<?php echo link_to(__('削除'),'opOpenSocialPlugin/delete?id='.$sf_request->getParameter('id')) ?> 
+<?php echo link_to(__('更新'),'opOpenSocialPlugin/update?id='.$sf_request->getParameter('id')) ?>
 </td></tr>
 </table>

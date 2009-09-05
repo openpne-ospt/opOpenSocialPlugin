@@ -79,8 +79,8 @@ class applicationActions extends sfActions
 
     $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($ownerId);
 
-    $this->isAddApplication = ($this->isOwner && Doctrine::getTable('SnsConfig')->get('allow_add_application', false));
-    if ($request->isMethod(sfRequest::POST) && $this->isAddApplication)
+    $this->isAllowAddApplication = ($this->isOwner && Doctrine::getTable('SnsConfig')->get('is_allow_add_application', false));
+    if ($request->isMethod(sfWebRequest::POST) && $this->isAllowAddApplication)
     {
       $this->form->bind($request->getParameter('contact'));
       if ($this->form->isValid())
@@ -92,7 +92,7 @@ class applicationActions extends sfActions
         }
         catch (Exception $e)
         {
-          $this->getUser()->setFlash('notice', 'Failed in adding the application.');
+          $this->getUser()->setFlash('error', 'Failed in adding the application.');
         }
         $this->redirect('@my_application_list');
       }
@@ -110,7 +110,7 @@ class applicationActions extends sfActions
     $this->settingForm     = new ApplicationSettingForm(array(), array('member_application' => $this->memberApplication));
     $this->userSettingForm = new ApplicationUserSettingForm(array(), array('member_application' => $this->memberApplication));
 
-    if ($request->isMethod(sfRequest::POST))
+    if ($request->isMethod(sfWebRequest::POST))
     {
       $this->settingForm->bind($request->getParameter('setting'));
       $this->userSettingForm->bind($request->getParameter('user_setting'));
@@ -167,9 +167,8 @@ class applicationActions extends sfActions
   public function executeRemove(sfWebRequest $request)
   {
     $this->forward404If($this->getUser()->getMemberId() != $this->memberApplication->getMember()->getId());
-    $this->forward404If($this->memberApplication->getIsGadget());
 
-    if ($request->isMethod(sfRequest::POST))
+    if ($request->isMethod(sfWebRequest::POST))
     {
       $form = new sfForm();
       $form->bind(array('_csrf_token' => $request->getParameter('_csrf_token')));

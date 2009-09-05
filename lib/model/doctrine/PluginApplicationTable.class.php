@@ -44,7 +44,7 @@ class PluginApplicationTable extends Doctrine_Table
       $application = new Application();
     }
 
-    if (!isset($application->Translation[$culture]) || $update)
+    if (isset($application->Translation[$culture]) && !$update)
     {
       $ua = $application->getUpdatedAt();
       $time = strtotime($ua);

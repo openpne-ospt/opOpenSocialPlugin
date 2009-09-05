@@ -2,7 +2,7 @@
 <?php include_partial('submenu') ?>
 <?php end_slot() ?>
 
-<h2><?php echo __('OpenSocialアプリケーションの設定') ?></h2>
+<h2><?php echo __('OpenSocialアプリケーション設定') ?></h2>
 
 <form action="<?php echo url_for('opOpenSocialPlugin/applicationConfig') ?>" method="post">
 <table>
