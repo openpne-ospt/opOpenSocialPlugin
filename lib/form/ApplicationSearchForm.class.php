@@ -21,9 +21,9 @@ class ApplicationSearchForm extends sfForm
   static protected
     $sortOrderChoices = array(
       'created_at'      => '登録日時の昇順',
-      'desc_created_at' => '登録日時の降順',
+      'created_at_desc' => '登録日時の降順',
       'users'           => 'ユーザ数の昇順',
-      'desc_users'      => 'ユーザ数の降順',
+      'users_desc'      => 'ユーザ数の降順',
     );
 
   public function __construct($defaults = array(), $options = array(), $CSRFProtection = false)
@@ -39,8 +39,9 @@ class ApplicationSearchForm extends sfForm
     ));
     $this->setValidators(array(
       'keyword'    => new opValidatorSearchQueryString(array('required' => false)),
-      'order_by'   => new sfValidatorChoice(array('choices' => array_keys(self::$sortOrderChoices)))
+      'order_by'   => new sfValidatorPass(),
     ));
+    $this->setDefaults(array('order_by' => 'created_at_desc'));
     $this->widgetSchema->setNameFormat('application[%s]');
   }
 
@@ -51,8 +52,7 @@ class ApplicationSearchForm extends sfForm
       throw $this->getErrorSchema();
     }
 
-    $query = Doctrine::getTable('Application')->createQuery('a')
-      ->leftJoin('a.Translation t');
+    $query = Doctrine::getTable('Application')->createQuery('a')->leftJoin('a.Translation t');
     $keywords = $this->getValue('keyword');
     if ($keywords)
     {
@@ -65,6 +65,42 @@ class ApplicationSearchForm extends sfForm
         $query->addWhere('t.title LIKE ?', '%'.$keyword.'%');
       }
     }
+    $orderBy = $this->getValue('order_by');
+    if (!$orderBy)
+    {
+      $orderBy = 'created_at_desc';
+    }
+
+    $isDesc = false;
+    if (preg_match('/_desc$/', $orderBy))
+    {
+      $isDesc  = true;
+      $orderBy = substr($orderBy, 0, strlen($orderBy) - 5);
+    }
+
+    $orderByDql = null;
+    switch ($orderBy)
+    {
+      case 'created_at':
+        $orderByDql = 't.created_at';
+        break;
+      case 'users':
+        $subquery = Doctrine::getTable('MemberApplication')->createQuery('ma')
+          ->select('COUNT(*)')
+          ->where('ma.application_id = a.id');
+        $query->select('*, ('.$subquery->getDql().') AS users');
+        $orderByDql = 'users';
+    }
+
+    if ($orderByDql)
+    {
+      if ($isDesc)
+      {
+        $orderByDql .= ' DESC';
+      }
+      $query->orderBy($orderByDql);
+    }
+    
     $pager = new sfDoctrinePager('Application', $size);
     $pager->setQuery($query);
     $pager->getPage($page);

@@ -131,7 +131,7 @@ class applicationActions extends sfActions
   public function executeGallery(sfWebRequest $request)
   {
     $this->searchForm = new ApplicationSearchForm();
-    $this->searchForm->bind($request->getParameter('application', array('order_by' => 'desc_users')));
+    $this->searchForm->bind($request->getParameter('application'));
     if ($this->searchForm->isValid())
     {
       $this->pager = $this->searchForm->getPager($request->getParameter('page', 1));
