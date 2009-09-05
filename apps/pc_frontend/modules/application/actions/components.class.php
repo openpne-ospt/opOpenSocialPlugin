@@ -69,7 +69,12 @@ class applicationComponents extends sfComponents
     }
     if ($isUseOuterShindig)
     {
-      $this->iframeUrl = Doctrine::getTable('SnsConfig')->get('shindig_url').'gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+      $shindigUrl = Doctrine::getTable('SnsConfig')->get('shindig_url');
+      if (substr($shindigUrl, -1) !== '/')
+      {
+        $shindigUrl .= '/';
+      }
+      $this->iframeUrl = $shindigUrl.'gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
     }
     else
     {

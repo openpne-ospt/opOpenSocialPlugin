@@ -188,6 +188,10 @@ class opOpenSocialContainerConfig
       if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
       {
         $apiUrl = Doctrine::getTable('SnsConfig')->get('shindig_url');
+        if (substr($apiUrl, -1) !== '/')
+        {
+          $apiUrl .= '/';
+        }
       }
       else
       {
@@ -204,7 +208,7 @@ class opOpenSocialContainerConfig
     {
       if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
       {
-        $shindigUrl = Doctrine::getTable('SnsConfig')->get('shindig_url');
+        $shindigUrl = $apiUrl;
       }
       else
       {
@@ -221,12 +225,11 @@ class opOpenSocialContainerConfig
     $json = json_encode($containerTemplate);
 
     $replace = array(
-      '/#sns_url#/'     => $snsUrl,
-      '/#shindig_url#/' => $shindigUrl,
-      '/#api_url#/'     => $apiUrl, 
+      '/#sns_url#/'     => addcslashes($snsUrl, '/'),
+      '/#shindig_url#/' => addcslashes($shindigUrl, '/'),
+      '/#api_url#/'     => addcslashes($apiUrl, '/'), 
     );
 
     return preg_replace(array_keys($replace), $replace, $json);
   }
 }
-
