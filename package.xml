@@ -14,7 +14,7 @@
   <active>yes</active>
  </lead>
  <date>2009-09-08</date>
- <time>12:29:58</time>
+ <time>13:16:45</time>
  <version>
   <release>0.9.0</release>
   <api>0.9.0</api>
@@ -71,7 +71,7 @@
    <file baseinstalldir="/" md5sum="d72860160b5494de2b8516f7f7e33cba" name="data/fixtures/020_gadget.yml" role="data" />
    <file baseinstalldir="/" md5sum="9fcffe0d7035553ed6425fb8ba77b7d1" name="data/fixtures/030_security.yml" role="data" />
    <file baseinstalldir="/" md5sum="c923bdefb86aeae42b91688dcb21a8c6" name="data/fixtures/100_paypal.yml" role="data" />
-   <file baseinstalldir="/" md5sum="8893e3d6d13356c660fdffcd5858f36c" name="data/fixtures/000_revision.yml" role="data" />
+   <file baseinstalldir="/" md5sum="adb42a5399184a46a5ed210472f8b0ea" name="data/fixtures/000_revision.yml" role="data" />
    <file baseinstalldir="/" md5sum="fc25fc16db34a653c91f17b90a9ac432" name="data/migrations/0.8.2/001_drop_application_persistent_data.php" role="data" />
    <file baseinstalldir="/" md5sum="f3969d6e3757c3c8d851949ee7b76235" name="data/migrations/0.8.2/002_create_application_persistent_data.php" role="data" />
    <file baseinstalldir="/" md5sum="1cccf168c32d861c961834207ed72b73" name="data/migrations/0.9.0/003_change_columns_for_doctrine.php" role="data" />
