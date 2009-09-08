@@ -1,5 +1,9 @@
-#Gadget:
-#  diay_friend_list:
-#    type: "contents"
-#    name: "applicationBoxes"
-#    sort_order: 105
+Gadget:
+  home_apps:
+    type: "contents"
+    name: "applicationBoxes"
+    sort_order: 110
+  profile_apps:
+    type: "profileContents"
+    name: "applicationBoxes"
+    sort_order: 110
