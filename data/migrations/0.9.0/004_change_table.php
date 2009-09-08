@@ -84,10 +84,6 @@ class opOpenSocialPlugin4_ChangeTable extends Doctrine_Migration_Base
       'onDelete'     => 'cascade'
     ));
 
-
-
-
-
     $this->renameTable('application_i18n', 'application_translation');
   }
 
