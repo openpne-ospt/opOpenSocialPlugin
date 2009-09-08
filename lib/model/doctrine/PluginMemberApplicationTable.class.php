@@ -47,7 +47,8 @@ class PluginMemberApplicationTable extends Doctrine_Table
       $viewerId = sfContext::getInstance()->getUser()->getMemberId();
     }
 
-    $q = $this->createQuery('ma');
+    $q = $this->createQuery('ma')
+      ->where('member_id = ?', $memberId);
     if ($memberId != $viewerId)
     {
       $dql = 'ma.public_flag = ?';
