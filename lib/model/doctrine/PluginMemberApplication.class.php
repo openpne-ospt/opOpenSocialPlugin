@@ -162,7 +162,7 @@ abstract class PluginMemberApplication extends BaseMemberApplication
       $memberId = sfContext::getInstance()->getUser()->getMemberId();
     }
 
-    if ($this->getMemberId() == $memberId)
+    if ($this->getMemberId() == $memberId || $this->getPublicFlag() == 'public')
     {
       return true;
     }
