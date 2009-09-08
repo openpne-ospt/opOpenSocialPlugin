@@ -5,9 +5,9 @@ Navigation:
     sort_order: 15
     Translation:
       ja_JP:
-        caption: "アプリケーション"
+        caption: "アプリ"
       en:
-        caption: "Applications"
+        caption: "Apps"
 
   friend_navigation_application:
     type: "friend"
@@ -15,6 +15,6 @@ Navigation:
     sort_order: 25
     Translation:
       ja_JP:
-        caption: "アプリケーション"
+        caption: "アプリ"
       en:
-        caption: "Applications"
+        caption: "Apps"

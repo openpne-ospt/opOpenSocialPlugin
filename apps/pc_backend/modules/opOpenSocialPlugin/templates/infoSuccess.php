@@ -2,11 +2,11 @@
 <?php include_partial('submenu') ?>
 <?php end_slot() ?>
 
-<h2><?php echo __('アプリケーション詳細') ?></h2>
+<h2><?php echo __('アプリ詳細') ?></h2>
 <table>
 <tr><th colspan="2"><?php echo __('アプリケーション情報') ?></th></tr>
-<tr><th><?php echo __('アプリケーション名') ?></th><td><?php echo $application->getTitle() ?></td></tr>
-<tr><th><?php echo __('アプリケーションURL') ?></th><td><?php echo $application->getUrl() ?></td></tr>
+<tr><th><?php echo __('アプリ名') ?></th><td><?php echo $application->getTitle() ?></td></tr>
+<tr><th><?php echo __('アプリURL') ?></th><td><?php echo $application->getUrl() ?></td></tr>
 <tr><th><?php echo __('タイトルURL') ?></th><td>
 <?php if ($application->getTitleUrl()) : ?>
 <?php echo link_to(null,$application->getTitleUrl(),array('target' => '_blank')) ?>

@@ -20,10 +20,9 @@ class ApplicationSearchForm extends sfForm
 {
   static protected
     $sortOrderChoices = array(
-      'created_at'      => '登録日時の昇順',
-      'created_at_desc' => '登録日時の降順',
-      'users'           => 'ユーザ数の昇順',
-      'users_desc'      => 'ユーザ数の降順',
+      'created_at_desc' => 'Newest',
+      'created_at'      => 'Oldest',
+      'users_desc'      => 'Users',
     );
 
   public function __construct($defaults = array(), $options = array(), $CSRFProtection = false)
@@ -35,7 +34,9 @@ class ApplicationSearchForm extends sfForm
   {
     $this->setWidgets(array(
       'keyword'    => new sfWidgetFormInput(),
-      'order_by'   => new sfWidgetFormChoice(array('choices' => self::$sortOrderChoices))
+      'order_by'   => new sfWidgetFormChoice(array(
+        'choices' => array_map(array(sfContext::getInstance()->getI18N(), '__'), self::$sortOrderChoices)
+      ))
     ));
     $this->setValidators(array(
       'keyword'    => new opValidatorSearchQueryString(array('required' => false)),

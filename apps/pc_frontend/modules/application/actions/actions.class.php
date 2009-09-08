@@ -45,7 +45,7 @@ class applicationActions extends sfActions
     elseif ($this->member->getId() != $this->getUser()->getMemberId())
     {
       sfConfig::set('sf_nav_type', 'friend');
-      sfConfig::set('sf_nav_id', $this->member->getMemberId());
+      sfConfig::set('sf_nav_id', $this->member->getId());
     }
   }
 
@@ -92,7 +92,10 @@ class applicationActions extends sfActions
         }
         catch (Exception $e)
         {
-          $this->getUser()->setFlash('error', 'Failed in adding the application.');
+          if (!($e instanceof sfStopException))
+          {
+            $this->getUser()->setFlash('error', 'Failed in adding the App.');
+          }
         }
         $this->redirect('@my_application_list');
       }
@@ -136,7 +139,6 @@ class applicationActions extends sfActions
     {
       $this->pager = $this->searchForm->getPager($request->getParameter('page', 1));
     }
-    return sfView::SUCCESS;
   }
 
   /**
@@ -146,17 +148,31 @@ class applicationActions extends sfActions
    */
   public function executeAdd(sfWebRequest $request)
   {
-    try 
+    $memberApplication = Doctrine::getTable('MemberApplication')->findOneByApplicationAndMember($this->application, $this->member);
+    if ($memberApplication)
     {
-      $application = Doctrine::getTable('Application')->addApplication($this->application->getUrl());
-      $this->application = $application;
-    }
-    catch (Exception $e)
-    {
+      $this->redirect('@application_canvas?id='.$memberApplication->getId());
     }
 
-    $memberApplication = $this->application->addToMember($this->member, array('is_view_home' => true, 'is_view_profile' => true));
-    $this->redirect('@application_canvas?id='.$memberApplication->getId());
+    $this->form = new sfForm();
+    if ($request->isMethod(sfWebRequest::POST))
+    {
+      $this->form->bind(array('_csrf_token' => $request->getParameter('_csrf_token')));
+      if ($this->form->isValid())
+      {
+        try 
+        {
+          $application = Doctrine::getTable('Application')->addApplication($this->application->getUrl());
+          $this->application = $application;
+        }
+        catch (Exception $e)
+        {
+        }
+
+        $memberApplication = $this->application->addToMember($this->member, array('is_view_home' => true, 'is_view_profile' => true));
+        $this->redirect('@application_canvas?id='.$memberApplication->getId());
+      }
+    }
   }
 
   /**
@@ -175,13 +191,17 @@ class applicationActions extends sfActions
       if ($form->isValid())
       {
         $this->memberApplication->delete();
-        $this->getUser()->setFlash('notice', 'The application was removed successfully.');
+        $this->getUser()->setFlash('notice', 'The App was removed successfully.');
         $this->redirect('@my_application_list');
       }
     }
-    return sfView::SUCCESS;
   }
 
+ /**
+  * Executes view Application User List action
+  *
+  * @param sfWebRequest $request A request object
+  */
   public function executeMember(sfWebRequest $request)
   {
     $this->pager = $this->application->getMemberListPager($request->getParameter('page', 1));

@@ -2,12 +2,11 @@
 
 
 <?php op_include_form('searchApplication', $searchForm, array(
-    'title'  => __('Search Applications'),
-    'url'    => url_for('@application_gallery'),
-    'method' => 'get',
-    'button' => __('Search')
-  ))
-?>
+  'title'  => __('Search Apps'),
+  'url'    => url_for('@application_gallery'),
+  'method' => 'get',
+  'button' => __('Search')
+))?>
 
 <?php if (isset($pager) && $pager->getNbResults()): ?>
 <?php slot('pager') ?>
@@ -21,10 +20,10 @@
   null,
   false
 )?>
-<?php include_slot('pager') ?>
 <?php endforeach; ?>
+<?php include_slot('pager') ?>
 <?php else : ?>
-<?php op_include_box('ApplicationGalleryError', __('Your search queries did not match any applications.'), array(
+<?php op_include_box('AppGalleryError', __('Your search queries did not match any Apps.'), array(
     'title' => __('Search Results')
   ))
 ?>

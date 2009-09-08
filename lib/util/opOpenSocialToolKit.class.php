@@ -65,4 +65,52 @@ class opOpenSocialToolKit
 
     return $response[0];
   }
+
+ /**
+  * Check enable home gadget
+  *
+  * @return boolean
+  */
+  static public function isEnableHomeGadget()
+  {
+    $homeGadgets = Doctrine::getTable('Gadget')->retrieveGadgetsByTypesName('gadget');
+    foreach ($homeGadgets as $gadgets)
+    {
+      if ($gadgets)
+      {
+        foreach ($gadgets as $gadget)
+        {
+          if (($gadget instanceof Gadget) && $gadget->getName() == 'applicationBoxes')
+          {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+ /**
+  * Check enable profile gadget
+  *
+  * @return boolean
+  */
+  static public function isEnableProfileGadget()
+  {
+    $profileGadgets = Doctrine::getTable('Gadget')->retrieveGadgetsByTypesName('profile');
+    foreach ($profileGadgets as $gadgets)
+    {
+      if ($gadgets)
+      {
+        foreach ($gadgets as $gadget)
+        {
+          if (($gadget instanceof Gadget) && $gadget->getName() == 'applicationBoxes')
+          {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
 }

@@ -15,6 +15,6 @@ parent.location.href = parent.location.pathname + parent.location.search;
 <?php endif ?>
 
 <?php op_include_form('formAppSetting', array($settingForm, $userSettingForm), array(
-  'title' => __('Application Settings: %0%', array('%0%' => $memberApplication->getApplication()->getTitle())), 
+  'title' => __('App Settings: %0%', array('%0%' => $memberApplication->getApplication()->getTitle())), 
   'url'   => url_for('@application_setting?id='.$memberApplication->getId().'&is_reload='.$sf_params->get('is_reload', false))
 )) ?>

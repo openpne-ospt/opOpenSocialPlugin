@@ -5,7 +5,7 @@ $options = array(
   'link_to' => 'member/profile?id=',
   'pager' => $pager,
   'link_to_pager' => '@application_member?page=%d&id='.$application->getId(),
-  'moreInfo' => array(link_to('Application Information', '@application_info?id='.$application->getId()))
+  'moreInfo' => array(link_to('App Information', '@application_info?id='.$application->getId()))
 );
 op_include_parts('photoTable', 'membersList', $options)
 ?>

@@ -2,7 +2,7 @@
 <?php include_partial('submenu') ?>
 <?php end_slot() ?>
 
-<h2><?php echo __('アプリケーション管理') ?></h2>
+<h2><?php echo __('アプリ管理') ?></h2>
 <table>
 <?php $searchForm->renderFormTag(url_for('opOpenSocialPlugin/list'), array('method' => 'get')) ?>
 <?php echo $searchForm ?>
@@ -21,5 +21,5 @@
 </ul>
 <?php include_slot('pager') ?>
 <?php else: ?>
-アプリケーションがありません。<?php echo link_to('こちら', 'opOpenSocialPlugin/add') ?>からアプリケーションを追加できます。
+アプリがありません。<?php echo link_to('こちら', 'opOpenSocialPlugin/add') ?>からアプリを追加できます。
 <?php endif; ?>

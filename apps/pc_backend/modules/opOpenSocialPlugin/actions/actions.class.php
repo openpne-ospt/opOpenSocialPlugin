@@ -90,7 +90,7 @@ class opOpenSocialPluginActions extends sfActions
         {
           if (!($e instanceof sfStopException))
           {
-            $this->getUser()->setFlash('error', 'Failed in adding the application.');
+            $this->getUser()->setFlash('error', 'Failed in adding the App.');
           }
         }
         $this->redirect('opOpenSocialPlugin/add');

@@ -4,7 +4,7 @@
 <?php echo make_app_setting_modal_box('opensocial_modal_box') ?>
 <?php if ($isAllowAddApplication) : ?>
 <?php op_include_form('form', $form ,array(
-  'title' => __('Add a new application'),
+  'title' => __('Add a new App'),
   'url' => url_for('application/list'),
   'button' => __('Add'),
 )) ?>
@@ -23,16 +23,16 @@
   $memberApplication->getId(),
   $isOwner
 ) ?>
-<?php endforeach ?>
+<?php endforeach; ?>
 </div>
 <?php else : ?>
-<?php slot('no_application_alert') ?>
-<?php echo __("The application hasn't installed."); ?>
+<?php slot('no_app_alert') ?>
+<?php echo __("The Apps hasn't installed."); ?>
 <?php if ($isOwner) : ?>
- <?php echo __("The application can be installed from %0%.", array('%0%' => link_to(__('Application Gallery'), '@application_gallery'))) ?>
+ <?php echo __("The Apps can be installed from %0%.", array('%0%' => link_to(__('App Gallery'), '@application_gallery'))) ?>
 <?php endif; ?>
 <?php end_slot(); ?>
-<?php op_include_box('NoApplication', get_slot('no_application_alert')) ?>
+<?php op_include_box('NoApp', get_slot('no_app_alert')) ?>
 <?php endif; ?>
 
 <?php if ($isOwner) : ?>
@@ -41,12 +41,12 @@
   'tag'    => 'div',
   'only'   => 'sortable'
 )); ?>
-<?php endif; ?>
 <div class="moreInfo">
 <ul class="moreInfo">
 <li>
-<?php echo link_to(__('Application Gallery'), '@application_gallery') ?>
+<?php echo link_to(__('App Gallery'), '@application_gallery') ?>
 </li>
 </ul>
 </div>
+<?php endif; ?>
 </div>

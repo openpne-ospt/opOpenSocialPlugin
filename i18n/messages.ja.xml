@@ -3,16 +3,28 @@
   <file orginal="global" source-language="en" datatype="plaintext">
     <body>
       <trans-unit id="">
-        <source>Applications</source>
-        <target>アプリケーション</target>
+        <source>Apps</source>
+        <target>アプリ</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Application Gallery</source>
-        <target>アプリケーションギャラリー</target>
+        <source>App Gallery</source>
+        <target>アプリギャラリー</target>
       </trans-unit>
       <trans-unit id="">
-        <source>About Application</source>
-        <target>アプリケーション詳細</target>
+        <source>The Apps hasn't installed.</source>
+        <target>アプリがインストールされていません。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>The Apps can be installed from %0%.</source>
+        <target>%0%からアプリを追加することができます。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>About App</source>
+        <target>アプリ詳細</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>App Info</source>
+        <target>アプリ情報</target>
       </trans-unit>
       <trans-unit id="">
         <source>Name</source>
@@ -33,6 +45,10 @@
       <trans-unit id="">
         <source>Users</source>
         <target>ユーザ数</target>
+      </trans-unit>
+      <trans-unit>
+        <source>App Users</source>
+        <target>アプリ利用者</target>
       </trans-unit>
       <trans-unit id="">
         <source>About Author</source>
@@ -63,11 +79,31 @@
         <target>引用</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Search Applications</source>
-        <target>アプリケーション検索</target>
+        <source>Search Apps</source>
+        <target>アプリ検索</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Add this application</source>
+        <source>Keyword</source>
+        <target>キーワード</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Order by</source>
+        <target>並び順</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Newest</source>
+        <target>新着順</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Oldest</source>
+        <target>古い順</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Your search queries did not match any Apps.</source>
+        <target>アプリが見つかりませんでした。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Add this App</source>
         <target>このアプリを追加</target>
       </trans-unit>
       <trans-unit id ="">
@@ -79,7 +115,7 @@
         <target>情報</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Add a new application</source>
+        <source>Add a new App</source>
         <target>アプリケーションを新しく追加する</target>
       </trans-unit>
       <trans-unit id="">
@@ -87,32 +123,44 @@
         <target>追加</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Failed in adding the application.</source>
-        <target>アプリケーションの追加に失敗しました。</target>
+        <source>Add App: %0%</source>
+        <target>アプリ追加: %0%</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Remove the application</source>
-        <target>アプリケーションを削除する</target>
+        <source>Do you wish to install this App?</source>
+        <target>このアプリを追加しますか？</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Do you really delete this application?</source>
-        <target>本当にこのアプリケーションを削除しますか？</target>
+        <source>The App might use your profile and your friend information.</source>
+        <target>アプリはあなたのプロフィール情報や、フレンド情報を扱うことがあります。</target>
       </trans-unit>
       <trans-unit id="">
-        <source>The application was removed successfully.</source>
-        <target>アプリケーションを削除しました。</target>
+        <source>Failed in adding the App.</source>
+        <target>アプリの追加に失敗しました。</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Application Settings</source>
-        <target>アプリケーション設定</target>
+        <source>Remove the App</source>
+        <target>アプリを削除する</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Allow the SNS member accesses.</source>
-        <target>SNSメンバーによるアクセスを許可する。</target>
+        <source>Do you really delete this App?</source>
+        <target>本当にこのアプリを削除しますか？</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Add home and your profile.</source>
-        <target>ホームとプロフィールに表示する。</target>
+        <source>The App was removed successfully.</source>
+        <target>アプリを削除しました。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>App Settings</source>
+        <target>アプリ設定</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Display on the home</source>
+        <target>ホームに表示する</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Display on your profile</source>
+        <target>プロフィールに表示する</target>
       </trans-unit>
     </body>
   </file>

@@ -8,7 +8,11 @@ $i = 0;
 <?php foreach ($memberApplications as $memberApplication): ?>
 <?php if ($i >= $maxNum) break; ?>
 <?php if ($memberApplication->getApplicationSetting('is_view_home')): ?>
-<?php include_component('application', 'gadget', array('view' => 'home', 'memberApplication' => $memberApplication)) ?>
+<?php include_component('application', 'gadget', array(
+  'view' => 'home',
+  'memberApplication' => $memberApplication,
+  'titleLinkTo' => '@application_canvas?id='.$memberApplication->getId(),
+)) ?>
 <?php $i++ ?>
 <?php endif; ?>
 <?php endforeach; ?>

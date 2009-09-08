@@ -55,7 +55,7 @@ class opOpenSocialPluginRouting
       'application_add' => new sfDoctrineRoute(
         '/application/add/:id',
         array('module' => 'application', 'action' => 'add'),
-        array('id' => '\d+'),
+        array('id' => '\d+', 'sf_method' => array('get', 'post')),
         array('model' => 'Application', 'type' => 'object')
       ),
       'application_remove' => new sfDoctrineRoute(

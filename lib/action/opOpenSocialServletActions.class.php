@@ -34,10 +34,10 @@ abstract class opOpenSocialServletActions extends sfActions
     $method = "";
     switch($request->getMethod())
     {
-      case sfRequest::GET  : $method = 'doGet';  break;
-      case sfRequest::POST : $method = 'doPost'; break;
-      case sfRequest::PUT  : $method = 'doPut'; break;
-      case sfRequest::DELETE : $method = 'doDelete'; break;
+      case sfRequest::GET    : $method = 'doGet';    break;
+      case sfRequest::POST   : $method = 'doPost';   break;
+      case sfRequest::PUT    : $method = 'doPut';    break;
+      case sfRequest::DELETE : $method = 'doDelete';
     }
     if (is_callable(array($servlet, $method)))
     {

@@ -7,7 +7,7 @@
 <?php if ($memberListPager->getNbResults()): ?>
 <?php op_include_parts('nineTable', 'applicationUsers', array(
   'link_to'  => 'member/profile?id=',
-  'title'    => __('Application Users'),
+  'title'    => __('App Users'),
   'list'     => $memberListPager->getResults(),
   'moreInfo' => array(
     link_to(sprintf('%s(%d)', __('Show all'), $memberListPager->getNbResults()), '@application_member?id='.$application->getId())
@@ -16,7 +16,7 @@
 <?php endif; ?>
 <?php end_slot(); ?>
 
-<div class="applicationInfo">
+<div class="appInfo">
 <?php
 $appInfoList = array();
 if ($application->getScreenshot())
@@ -32,12 +32,12 @@ $authorInfoList = array(
   __('Link') => $application->getAuthorLink() ? link_to(null , $application->getAuthorLink(), array('target' => '_blank')) : '',
   __('Quote')   => $application->getAuthorQuote(),
 );
-include_list_box('ApplicationInfoList', $appInfoList, array('title' => __('About Application')));
+include_list_box('ApplicationInfoList', $appInfoList, array('title' => __('About App')));
 include_list_box('AuthorInfoList', $authorInfoList, array('title' => __('About Author')));
 ?>
 <div class="moreInfo">
 <ul class="moreInfo">
-<li><?php echo link_to(__('Add this application'), 'application/add?id='.$application->getId()) ?></li>
+<li><?php echo link_to(__('Add this App'), '@application_add?id='.$application->getId()) ?></li>
 <li><?php echo link_to_function(__('Back to previous page'), 'history.back()') ?></li>
 </ul>
 </div>

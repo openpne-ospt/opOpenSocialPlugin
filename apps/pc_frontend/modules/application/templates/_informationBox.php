@@ -8,7 +8,7 @@ if ($isOwner)
 <div class="partsHeading">
 <h3>
 <?php if ($mid) : ?>
-<?php echo link_to($application->getTitle(), 'application/canvas?id='.$mid) ?>
+<?php echo link_to($application->getTitle(), '@application_canvas?id='.$mid) ?>
 <?php else : ?>
 <?php echo $application->getTitle() ?>
 <?php endif ?>
@@ -19,6 +19,8 @@ if ($isOwner)
 <div class="applicationThumbnail">
 <?php if ($application->getThumbnail()) : ?>
 <?php echo image_tag($application->getThumbnail(), array('alt' => $application->getTitle())) ?>
+<?php else: ?>
+<?php echo image_tag('no_image.gif', array('size' => '76x76')) ?>
 <?php endif; ?>
 </div>
 
@@ -44,9 +46,9 @@ if ($isOwner)
 <li><?php echo link_to_app_setting(__('Settings'), $mid); ?></li>
 <li><?php echo link_to(__('Remove'), '@application_remove?id='.$mid); ?></li>
 <?php else : ?>
-<li><?php echo link_to(__('Add this application'), 'application/add?id='.$application->getId()) ?></li>
+<li><?php echo link_to(__('Add this App'), '@application_add?id='.$application->getId()) ?></li>
 <?php endif ?>
-<li><?php echo link_to(__('Information'), 'application/info?id='.$application->getId()) ?></li>
+<li><?php echo link_to(__('Information'), '@application_info?id='.$application->getId()) ?></li>
 </div>
 </div>
 

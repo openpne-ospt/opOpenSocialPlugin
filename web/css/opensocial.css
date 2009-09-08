@@ -6,7 +6,8 @@
 
 .applicationThumbnail {
   float:left;
-  height:60px;
+  text-align: center;
+  height:76px;
   overflow:hidden;
   width:120px;
 }

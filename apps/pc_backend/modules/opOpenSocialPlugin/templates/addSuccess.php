@@ -2,7 +2,7 @@
 <?php include_partial('submenu') ?>
 <?php end_slot() ?>
 
-<h2>アプリケーション追加</h2>
+<h2>アプリ追加</h2>
 <?php echo $form->renderFormTag(url_for('opOpenSocialPlugin/add')) ?>
 <table>
 <?php echo $form ?>

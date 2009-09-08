@@ -17,8 +17,20 @@
  */
 class applicationComponents extends sfComponents
 {
+ /**
+  * Executes gadget component
+  *
+  * @param sfWebRequest $request
+  */
   public function executeGadget(sfWebRequest $request)
   {
+    $this->isTitleLink = true;
+    if (!$this->titleLinkTo)
+    {
+      $this->isTitleLink = false;
+      $this->titleLinkTo = '@homepage';
+    }
+
     $culture = $this->getUser()->getCulture();
     $culture = split("_",$culture);
     $this->application = $this->memberApplication->getApplication();
@@ -82,11 +94,21 @@ class applicationComponents extends sfComponents
     }
   }
 
+ /**
+  * Executes render home applications component
+  *
+  * @param sfWebRequest $request
+  */
   public function executeRenderHomeApplications(sfWebRequest $request)
   {
     $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($this->getUser()->getMemberId());
   }
 
+ /**
+  * Executes render profile application component
+  *
+  * @param sfWebRequest $request
+  */
   public function executeRenderProfileApplications(sfWebRequest $request)
   {
     $ownerId  = $request->getParameter('id', $this->getUser()->getMemberId());

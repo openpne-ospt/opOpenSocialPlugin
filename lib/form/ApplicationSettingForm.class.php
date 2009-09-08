@@ -41,6 +41,20 @@ class ApplicationSettingForm extends sfForm
     $this->setValidators(array(
       'public_flag' => new sfValidatorChoice(array('choices' => array_keys(self::$publicFlagChoices))),
     ));
+    
+    if (opOpenSocialToolKit::isEnableHomeGadget())
+    {
+      $this->setWidget('is_view_home', new sfWidgetFormInputCheckbox());
+      $this->setValidator('is_view_home', new sfValidatorBoolean());
+      $this->widgetSchema->setLabel('is_view_home', 'Display on the home');
+    }
+
+    if (opOpenSocialToolKit::isEnableProfileGadget())
+    {
+      $this->setWidget('is_view_profile', new sfWidgetFormInputCheckbox());
+      $this->setValidator('is_view_profile', new sfValidatorBoolean());
+      $this->widgetSchema->setLabel('is_view_profile', 'Display on your profile');
+    }
 
     foreach ($this->memberApplication->getApplicationSettings() as $name => $value)
     {
