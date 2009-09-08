@@ -73,6 +73,9 @@ class opOpenSocialPlugin4_ChangeTable extends Doctrine_Migration_Base
       'type'   => 'unique',
       'fields' => array('member_application_id', 'type', 'name'),
     ));
+    $export->createIndex('member_application_setting', 'member_application_id_idx', array(
+      'fields' => array('member_application_id'),
+    ));
     $export->createForeignKey('member_application_setting', array(
       'name'         => 'member_application_id',
       'local'        => 'member_application_id',
