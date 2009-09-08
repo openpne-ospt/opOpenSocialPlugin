@@ -27,6 +27,10 @@
         <target>アプリ情報</target>
       </trans-unit>
       <trans-unit id="">
+        <source>App Information</source>
+        <target>アプリ情報</target>
+      </trans-unit>
+      <trans-unit id="">
         <source>Name</source>
         <target>名前</target>
       </trans-unit>
@@ -49,6 +53,10 @@
       <trans-unit>
         <source>App Users</source>
         <target>アプリ利用者</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Members that has "%0%"</source>
+        <target>「%0%」を利用しているメンバー</target>
       </trans-unit>
       <trans-unit id="">
         <source>About Author</source>
@@ -116,7 +124,7 @@
       </trans-unit>
       <trans-unit id="">
         <source>Add a new App</source>
-        <target>アプリケーションを新しく追加する</target>
+        <target>アプリを新しく追加する</target>
       </trans-unit>
       <trans-unit id="">
         <source>Add</source>
@@ -151,8 +159,8 @@
         <target>アプリを削除しました。</target>
       </trans-unit>
       <trans-unit id="">
-        <source>App Settings</source>
-        <target>アプリ設定</target>
+        <source>App Settings: %0%</source>
+        <target>アプリ設定: %0%</target>
       </trans-unit>
       <trans-unit id="">
         <source>Display on the home</source>
