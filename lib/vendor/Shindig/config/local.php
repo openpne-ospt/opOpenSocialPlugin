@@ -1,5 +1,9 @@
 <?php
-$webprefix = sfContext::getInstance()->getRequest()->getScriptName();
+$webprefix = '';
+if (sfContext::hasInstance())
+{
+  $webprefix = sfContext::getInstance()->getRequest()->getScriptName();
+}
 $shindigConfig = array(
   'debug' => false,
 

@@ -1,0 +1,64 @@
+Member:
+  member_1:
+    id: ~
+    name: "OpenPNE君"
+    is_active: 1
+
+MemberConfig:
+  member_address_1:
+    name: "pc_address"
+    value: "sns@example.com"
+    Member: member_1
+  member_mobile_address_1:
+    name: "mobile_address"
+    value: "sns@example.com"
+    Member: member_1
+  member_password_1:
+    name: "password"
+    value: "<?php echo md5('password') ?>"
+    Member: member_1
+
+# opOpenSocialPlugin Test Datas
+
+Application:
+  app_1:
+    url: "http://example.com/dummy.xml"
+    Translation:
+      ja_JP:
+        title: "Test App"
+        description: "Test App"
+  app_2:
+    url: "http://gist.github.com/raw/183505/a7f3d824cdcbbcf14c06f287537d0acb0b3e5468/gistfile1.xsl"
+    Translation:
+      ja_JP:
+        title: "Test App2"
+        description: "Test App2"
+
+MemberApplication:
+  member_1_app:
+    Member: member_1
+    Application: app_1
+
+MemberApplicationSetting:
+  member_1_app_setting_1:
+    MemberApplication: member_1_app
+    type: "application"
+    name: "is_view_home"
+    value: 1
+  member_1_app_setting_2:
+    MemberApplication: member_1_app
+    type: "application"
+    name: "is_view_profile"
+    value: 1
+  member_1_app_setting_3:
+    MemberApplication: member_1_app
+    type: "user"
+    name: "user_setting"
+    value: 1
+
+ApplicationPersistentData:
+  member_1_app_1_data:
+    Application: app_1
+    Member: member_1
+    name: "test_key"
+    value: "tetete"
