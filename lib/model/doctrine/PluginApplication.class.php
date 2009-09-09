@@ -28,14 +28,14 @@ abstract class PluginApplication extends BaseApplication
   public function addToMember(Member $member, $applicationSettings = array())
   {
     $memberApplication = Doctrine::getTable('MemberApplication')->findOneByApplicationAndMember($this, $member);
-    if ($memberApplication)
+
+    if (!$memberApplication)
     {
-      return $memberApplication;
+      $memberApplication = new MemberApplication();
+      $memberApplication->setApplication($this);
+      $memberApplication->setMember($member);
+      $memberApplication->save();
     }
-    $memberApplication = new MemberApplication();
-    $memberApplication->setApplication($this);
-    $memberApplication->setMember($member);
-    $memberApplication->save();
 
     foreach ($applicationSettings as $name => $value)
     {
