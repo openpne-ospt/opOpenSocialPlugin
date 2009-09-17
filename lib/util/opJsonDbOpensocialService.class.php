@@ -36,9 +36,6 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
 
   public function getPeople($userId, $groupId, CollectionOptions $options, $fields, SecurityToken $token)
   {
-    $configuration = sfProjectConfiguration::getActive();
-    $configuration->loadHelpers(array('Asset', 'sfImage', 'opUtil'));
-
     $ids = $this->getIdSet($userId, $groupId, $token);
     $first = $options->getStartIndex();
     $max   = $options->getCount();
@@ -61,23 +58,23 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     }
 
     $people = array();
+    $viewer = (!$token->isAnonymous()) ? Doctrine::getTable('Member')->find($token->getViewerId()) : null;
+    $application = ($token->getAppId()) ? Doctrine::getTable('Application')->find($token->getAppId()): null;
+
+    $export = new opOpenSocialProfileExport();
+    $export->setViewer($viewer);
+
     foreach ($members as $member)
     {
       $p = array();
       $p['isOwner']  =  (!$token->isAnonymous() && $member->getId() == $token->getOwnerId()) ? true : false;
       $p['isViewer'] =  (!$token->isAnonymous() && $member->getId() == $token->getViewerId()) ? true : false;
-      $p['id']           = $member->getId();
-      $p['displayName']  = $member->getName();
-      $p['thumbnailUrl'] = "";
-      if ($member->getImage())
+      if ($application)
       {
-        $p['thumbnailUrl'] = sf_image_path($member->getImage()->getFile()->getName(),
-          array('size' => '180x180'), true);
+        $p['hasApp'] = $application->isHadByMember($member->getId());
       }
-      $p['profileUrl']   = app_url_for('pc_frontend', 'member/profile?id='.$member->getId(), true);
-      // TODO: support preset profile 
-
-      $people[] = $p;
+      $export->member = $member;
+      $people[] = $p + $export->getData($fields);
     }
 
     $collection = new RestfulCollection($people, $options->getStartIndex(), $totalSize);

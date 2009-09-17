@@ -216,11 +216,10 @@ class opOpenSocialContainerConfig
       }
     }
 
-    $personFields = array('id', 'name', 'thumbnailUrl', 'profileUrl');
+    $export = new opOpenSocialProfileExport();
     
     $supportedFields =& $containerTemplate['gadgets.features']['opensocial-0.8']['supportedFields'];
-    $supportedFields['person'] = $personFields;
-    $supportedFields['activity'] = array();
+    $supportedFields = $export->getSupportedFields();
 
     $json = json_encode($containerTemplate);
 
