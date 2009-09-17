@@ -83,6 +83,13 @@ class opOpenSocialProfileExport extends opProfileExport
         return '';
       }
     }
+    else
+    {
+      if ($profile->getPublicFlag() !== 0)
+      {
+        return '';
+      }
+    }
 
     return (string)$profile;
   }
