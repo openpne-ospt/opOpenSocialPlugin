@@ -65,17 +65,7 @@ class opOpenSocialContainerConfig
       return false;
     }
 
-    $dirname  = sfConfig::get('sf_cache_dir').'/pc_frontend';
-    if ($this->isDevEnvironment)
-    {
-      $dirname .= '/dev';
-    }
-    else
-    {
-      $dirname .= '/prod';
-    }
-    $dirname .= '/plugins/opOpenSocialPlugin';
-    
+    $dirname  = Shindig_Config::get('container_path');
     $filename = $dirname.'/'.$this->containerName.'.js';
 
     if (file_exists($filename) && !$force)
@@ -218,9 +208,7 @@ class opOpenSocialContainerConfig
 
     $export = new opOpenSocialProfileExport();
     
-    $supportedFields =& $containerTemplate['gadgets.features']['opensocial-0.8']['supportedFields'];
-    $supportedFields = $export->getSupportedFields();
-
+    $containerTemplate['gadgets.features']['opensocial-0.8']['supportedFields'] = $export->getSupportedFields();
     $json = json_encode($containerTemplate);
 
     $replace = array(

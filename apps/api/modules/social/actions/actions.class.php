@@ -45,6 +45,9 @@ class socialActions extends opOpenSocialServletActions
   {
     sfConfig::set('sf_web_debug', false);
 
+    $opOpenSocialContainerConfig = new opOpenSocialContainerConfig();
+    $opOpenSocialContainerConfig->generateAndSave();
+
     ob_start();
     try
     {
