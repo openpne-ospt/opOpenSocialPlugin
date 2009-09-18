@@ -58,7 +58,7 @@ class opShindigOAuthLookupService extends OAuthLookupService
         }
       }
 
-      if (is_null($oauthRequest->get_parameter('oauth_token')))
+      if ($oauthRequest->get_parameter('oauth_token') === null)
       {
         return $this->verify2LeggedOAuth($oauthRequest, $userId, $appUrl);
       }

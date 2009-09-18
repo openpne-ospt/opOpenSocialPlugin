@@ -23,7 +23,7 @@ class opOpenSocialContainerConfig
 
   public function __construct($isDevEnvironment = null, $containerName = 'openpne')
   {
-    if (is_null($isDevEnvironment))
+    if ($isDevEnvironment === null)
     {
       if (sfConfig::get('sf_environment') == 'dev')
       {
@@ -174,7 +174,7 @@ class opOpenSocialContainerConfig
     $containerTemplate['gadgets.container'][] = $this->containerName;
 
     $request = sfContext::getInstance()->getRequest();
-    if (is_null($snsUrl))
+    if ($snsUrl === null)
     {
       $snsUrl = $request->getUriPrefix().$request->getRelativeUrlRoot().'/';
       if($this->isDevEnvironment)
@@ -183,7 +183,7 @@ class opOpenSocialContainerConfig
       }
     }
 
-    if (is_null($apiUrl))
+    if ($apiUrl === null)
     {
       if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
       {
@@ -204,7 +204,7 @@ class opOpenSocialContainerConfig
       }
     }
 
-    if (is_null($shindigUrl))
+    if ($shindigUrl === null)
     {
       if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
       {

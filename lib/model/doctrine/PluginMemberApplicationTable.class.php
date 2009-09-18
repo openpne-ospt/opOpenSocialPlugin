@@ -42,7 +42,7 @@ class PluginMemberApplicationTable extends Doctrine_Table
   */
   public function getMemberApplications($memberId, $viewerId = null)
   {
-    if (is_null($viewerId))
+    if ($viewerId === null)
     {
       $viewerId = sfContext::getInstance()->getUser()->getMemberId();
     }

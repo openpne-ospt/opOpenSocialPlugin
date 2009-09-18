@@ -53,7 +53,7 @@ abstract class PluginApplication extends BaseApplication
   */
   public function isHadByMember($memberId = null)
   {
-    if (is_null($memberId))
+    if ($memberId === null)
     {
       sfContext::getInstance()->getUser()->getMemberId();
     }

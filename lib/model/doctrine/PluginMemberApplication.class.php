@@ -64,7 +64,7 @@ abstract class PluginMemberApplication extends BaseMemberApplication
   */
   public function getApplicationSettings()
   {
-    if (is_null($this->applicationSettings))
+    if ($this->applicationSettings === null)
     {
       $this->applicationSettings = $this->getSettings('application');
     }
@@ -110,7 +110,7 @@ abstract class PluginMemberApplication extends BaseMemberApplication
   */
   public function getUserSettings()
   {
-    if (is_null($this->userSettings))
+    if ($this->userSettings === null)
     {
       $this->userSettings = $this->getSettings('user');
     }
@@ -157,7 +157,7 @@ abstract class PluginMemberApplication extends BaseMemberApplication
   */
   public function isViewable($memberId = null)
   {
-    if (is_null($memberId))
+    if ($memberId === null)
     {
       $memberId = sfContext::getInstance()->getUser()->getMemberId();
     }

@@ -27,7 +27,7 @@ class PluginApplicationTable extends Doctrine_Table
    */
   public function addApplication($url, $update = false, $culture = null)
   {
-    if (is_null($culture))
+    if ($culture === null)
     {
       $culture = sfContext::getInstance()->getUser()->getCulture();
     }

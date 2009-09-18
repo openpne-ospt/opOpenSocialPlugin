@@ -36,7 +36,7 @@ $t->diag('->getPersistentDatas()');
 $persistentDatas1 = $application1->getPersistentDatas(2, array());
 $t->isa_ok($persistentDatas1, 'Doctrine_Collection', '->getPersistentDatas() return Doctrine_Collection object');
 $persistentDatas2 = $application1->getPersistentDatas(array(), array());
-$t->ok(is_null($persistentDatas2), '->getPersistentData() return null when memberId is blank array');
+$t->ok($persistentDatas2 === null, '->getPersistentData() return null when memberId is blank array');
 
 // ->updateApplication()
 $t->diag('->updateApplication()');
