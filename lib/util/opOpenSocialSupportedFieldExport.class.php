@@ -76,7 +76,7 @@ class opOpenSocialSupportedFieldExport
  /**
   * get supported fields
   *
-  *
+  * @return array
   */
   public function getSupportedFields()
   {
@@ -95,7 +95,7 @@ class opOpenSocialSupportedFieldExport
   }
 
   /**
-   * get person supported fields
+   * get supported fields of opensocial.Person
    *
    * @return array
    */
@@ -120,11 +120,11 @@ class opOpenSocialSupportedFieldExport
     return $result;
   }
 
-  public function isSupportedAddresses()
-  {
-    return $this->getSupportedFieldsAddress() ? true : false;
-  }
-
+ /**
+  * get supported fields of opensocial.Address
+  *
+  * @return array
+  */
   public function getSupportedFieldsAddress()
   {
     $result = array();
@@ -152,6 +152,25 @@ class opOpenSocialSupportedFieldExport
     return count($result) ? $result : null;
   }
 
+ /**
+  * get supported fields of opensocial.Phone
+  *
+  * @return array
+  */
+  public function getSupportedFieldsPhone()
+  {
+    if ($this->isSupportedPhoneNumbers())
+    {
+      return array('number');
+    }
+    return null;
+  }
+
+  public function isSupportedAddresses()
+  {
+    return $this->getSupportedFieldsAddress() ? true : false;
+  }
+
   public function isSupportedBirthday()
   {
     if ($this->isExistProfile('op_preset_birthday'))
@@ -164,14 +183,5 @@ class opOpenSocialSupportedFieldExport
   public function isSupportedAge()
   {
     return (bool)$this->isSupportedBirthday();
-  }
-
-  public function getSupportedFieldsPhone()
-  {
-    if ($this->isSupportedPhoneNumbers())
-    {
-      return array('number');
-    }
-    return null;
   }
 }
