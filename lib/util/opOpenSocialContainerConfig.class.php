@@ -153,12 +153,10 @@ class opOpenSocialContainerConfig
           'gadgets.rpc' => array('container.listMethods'),
           '#api_url#social/rpc' => array(
             'system.listMethods',
-            'people.supportedFields',
             'people.get',
             'appdata.get',
             'appdata.update',
             'appdata.delete',
-            'appdata.create'
           ),
           '#shindig_url#gadgets/api/rpc' => array('cache.invalidate')
         ),
