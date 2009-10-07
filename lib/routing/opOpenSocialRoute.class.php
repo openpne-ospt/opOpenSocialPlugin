@@ -19,7 +19,7 @@ class opOpenSocialRoute extends sfRoute implements opAPIRouteInterface
 {
   const
     API_NAME = 'opensocial',
-    API_CAPTION = 'OpenSocial';
+    API_CAPTION = "OpenSocial API: get member / member's friend item(s)";
 
   public function getAPIName()
   {
