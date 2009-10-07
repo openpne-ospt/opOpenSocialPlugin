@@ -23,7 +23,6 @@ class opShindigRemoteContentFetcher extends RemoteContentFetcher {
     if ($request->hasHeaders())
     {
       $headers = explode("\n", $request->getHeaders());
-      var_dump($headers);
       foreach ($headers as $header)
       {
         if (strpos($header, ':'))
