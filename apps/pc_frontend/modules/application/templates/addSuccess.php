@@ -9,7 +9,7 @@
 </div>
 <div class="info">
 <?php echo __('Do you wish to install this App?') ?><br> 
-<?php echo __('The App might use your profile and your friend information.') ?>
+<?php echo __('The App might use your profile and your %friend% information.', array('%friend%' => $op_term['friend']->pluralize())) ?>
 </div>
 </div>
 <div style="clear: both;">&nbsp;</div>

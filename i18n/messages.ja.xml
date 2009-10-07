@@ -139,8 +139,8 @@
         <target>このアプリを追加しますか？</target>
       </trans-unit>
       <trans-unit id="">
-        <source>The App might use your profile and your friend information.</source>
-        <target>アプリはあなたのプロフィール情報や、フレンド情報を扱うことがあります。</target>
+        <source>The App might use your profile and your %friend% information.</source>
+        <target>アプリはあなたのプロフィール情報や、%friend%情報を扱うことがあります。</target>
       </trans-unit>
       <trans-unit id="">
         <source>Failed in adding the App.</source>
