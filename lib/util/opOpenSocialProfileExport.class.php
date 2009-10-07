@@ -69,6 +69,12 @@ class opOpenSocialProfileExport extends opProfileExport
 
   protected function getProfile($name)
   {
+    // for bug of OpenPNE3.1.3 <=
+    if (!Doctrine::getTable('Profile')->findOneByName($name))
+    {
+      return '';
+    }
+
     $profile = $this->member->getProfile($name);
 
     if (!$profile)
