@@ -20,6 +20,9 @@ class opOpenSocialGenkeyTask extends sfDoctrineBaseTask
     $this->namespace = 'opOpenSocial';
     $this->name      = 'generate-key';
 
+    $this->addOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application', true);
+    $this->addOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev');
+
     $this->briefDescription = 'Generate Key for RSA-SHA1';
     $this->detailedDescription = <<<EOF
 The [opOpenSocial:genkey|INFO] task generate RSA private key and x509 certificate.
@@ -115,7 +118,7 @@ EOF;
     $pkey_filename = $dirname.'/private.key';
     file_put_contents($pkey_filename ,$pkeyout);
     $this->logSection('file+', $pkey_filename);
-    
+
     $databaseManager = new sfDatabaseManager($this->configuration);
     Doctrine::getTable('SnsConfig')->set('shindig_private_key_phrase', $phrase);
   }
