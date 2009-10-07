@@ -47,7 +47,7 @@ function op_include_application_setting()
     $isDev   = sfConfig::get('sf_environment') == 'dev';
 
     $snsUrl  = $request->getUriPrefix().$request->getRelativeUrlRoot();
-    $snsUrl .= $isDev ? 'pc_frontend_dev.php' : '';
+    $snsUrl .= $isDev ? '/pc_frontend_dev.php' : '';
 
     $apiUrl  = $request->getUriPrefix().$request->getRelativeUrlRoot().'/api';
     $apiUrl .= $isDev ? '_dev' : '';
