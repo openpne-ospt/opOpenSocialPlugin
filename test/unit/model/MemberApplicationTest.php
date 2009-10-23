@@ -6,7 +6,7 @@ include(dirname(__FILE__).'/../../bootstrap/database.php');
 $t = new lime_test(8, new lime_output_color());
 
 $application = Doctrine::getTable('Application')->findOneByUrl("http://example.com/dummy.xml");
-$member = Doctrine::getTable('Member')->find(2);
+$member = Doctrine::getTable('Member')->find(1);
 $memberApplication = Doctrine::getTable('MemberApplication')->findOneByApplicationAndMember($application, $member);
 
 // ->getApplicationSettings()

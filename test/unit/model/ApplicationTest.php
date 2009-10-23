@@ -7,7 +7,7 @@ $t = new lime_test(9, new lime_output_color());
 
 $application1 = Doctrine::getTable('Application')->findOneByUrl("http://example.com/dummy.xml");
 $application2 = Doctrine::getTable('Application')->findOneByUrl("http://gist.github.com/raw/183505/a7f3d824cdcbbcf14c06f287537d0acb0b3e5468/gistfile1.xsl");
-$member = Doctrine::getTable('Member')->find(2);
+$member = Doctrine::getTable('Member')->find(1);
 
 // ->addToMember()
 $t->diag('->addToMember()');
@@ -20,7 +20,7 @@ $t->ok(is_array($applicationSettings) && count($applicationSettings) === 1, '->a
 
 // ->isHadByMember()
 $t->diag('->isHadByMember()');
-$t->ok($application1->isHadByMember(2), '->isHadByMember() return true when the member has the application');
+$t->ok($application1->isHadByMember(1), '->isHadByMember() return true when the member has the application');
 $t->ok(!$application1->isHadByMember(999), '->isHadByMember() return false when the member has not the application');
 
 // ->getMemberListPager()
@@ -29,7 +29,7 @@ $t->isa_ok($application1->getMemberListPager(), 'sfDoctrinePager', '->getMemberL
 
 // ->getPersistentData()
 $t->diag('->getPersistentData()');
-$t->isa_ok($application1->getPersistentData(2, 'test_key'), 'ApplicationPersistentData', '->getPersistentData() return ApplicationPersisetentData object');
+$t->isa_ok($application1->getPersistentData(1, 'test_key'), 'ApplicationPersistentData', '->getPersistentData() return ApplicationPersisetentData object');
 
 // ->getPersistentDatas()
 $t->diag('->getPersistentDatas()');

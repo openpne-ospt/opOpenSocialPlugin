@@ -22,7 +22,4 @@ $configuration = ProjectConfiguration::getApplicationConfiguration($app, 'test',
 new sfDatabaseManager($configuration);
 
 $task = new sfDoctrineBuildAllReloadTask($configuration->getEventDispatcher(), new sfFormatter());
-$task->run(array('--no-confirmation', '--dir='.sfConfig::get('sf_root_dir').'/data/fixtures', '--skip-forms'));
-
-$loadData = new sfDoctrineLoadDataTask($configuration->getEventDispatcher(), new sfFormatter());
-$loadData->run(array('--dir='.dirname(__FILE__).'/../fixtures'));
+$task->run(array('--no-confirmation', '--dir='.dirname(__FILE__).'/../fixtures', '--skip-forms'));
