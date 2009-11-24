@@ -13,18 +13,18 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2009-10-07</date>
- <time>12:16:45</time>
+ <date>2009-11-24</date>
+ <time>13:41:32</time>
  <version>
-  <release>0.9.1</release>
-  <api>0.9.1</api>
+  <release>0.9.2</release>
+  <api>0.9.2</api>
  </version>
  <stability>
   <release>beta</release>
   <api>beta</api>
  </stability>
  <license>apache</license>
- <notes>The preseted profile item was made to correspond to API</notes>
+ <notes>Fixed MemberApplicationSetting model, because index key is too long.</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="8665be70ae66b94e14c285ff7627543d" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -62,23 +62,24 @@
    <file baseinstalldir="/" md5sum="82c4164d360e66e59272919767fb19fd" name="apps/pc_frontend/modules/gadgets/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="bd948e6ed748743fc3107e0f8328cb85" name="apps/pc_frontend/modules/opensocial/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="03acac39384c21f45be8b34f3baf309c" name="apps/pc_frontend/templates/_partsApplicationImageBox.php" role="data" />
-   <file baseinstalldir="/" md5sum="2f5ac1c8161309bd769fe404ba736fe1" name="config/config.php" role="data" />
+   <file baseinstalldir="/" md5sum="db58b497c90d7a913bbcd79b108d6d2a" name="config/config.php" role="data" />
    <file baseinstalldir="/" md5sum="544d9e2f0baeb5f59f2aa4d6d1060f59" name="config/gadget.yml" role="data" />
    <file baseinstalldir="/" md5sum="a0601f972a9d04c7d7f48444212f3109" name="config/profile_gadget.yml" role="data" />
    <file baseinstalldir="/" md5sum="d0d3d920dc3d6197de04d6d312465181" name="config/routing.yml" role="data" />
-   <file baseinstalldir="/" md5sum="274c63d40c64e257fee422600e0f6634" name="config/doctrine/schema.yml" role="data" />
+   <file baseinstalldir="/" md5sum="f41d2e5da2aee82f83d2f41be0890935" name="config/doctrine/schema.yml" role="data" />
+   <file baseinstalldir="/" md5sum="e991c025b81bbf2c217bc492ebcfe596" name="data/fixtures/000_revision.yml" role="data" />
    <file baseinstalldir="/" md5sum="7cf024fd61987701915344f4601ee5da" name="data/fixtures/010_navigation.yml" role="data" />
    <file baseinstalldir="/" md5sum="d72860160b5494de2b8516f7f7e33cba" name="data/fixtures/020_gadget.yml" role="data" />
-   <file baseinstalldir="/" md5sum="9fcffe0d7035553ed6425fb8ba77b7d1" name="data/fixtures/030_security.yml" role="data" />
+   <file baseinstalldir="/" md5sum="70404c6aa03bd7affeb9defff955c03a" name="data/fixtures/030_security.yml" role="data" />
    <file baseinstalldir="/" md5sum="c923bdefb86aeae42b91688dcb21a8c6" name="data/fixtures/100_paypal.yml" role="data" />
-   <file baseinstalldir="/" md5sum="adb42a5399184a46a5ed210472f8b0ea" name="data/fixtures/000_revision.yml" role="data" />
    <file baseinstalldir="/" md5sum="fc25fc16db34a653c91f17b90a9ac432" name="data/migrations/0.8.2/001_drop_application_persistent_data.php" role="data" />
    <file baseinstalldir="/" md5sum="f3969d6e3757c3c8d851949ee7b76235" name="data/migrations/0.8.2/002_create_application_persistent_data.php" role="data" />
    <file baseinstalldir="/" md5sum="1cccf168c32d861c961834207ed72b73" name="data/migrations/0.9.0/003_change_columns_for_doctrine.php" role="data" />
    <file baseinstalldir="/" md5sum="e5cd1dd05eb429eeb87fc9e54a5662ba" name="data/migrations/0.9.0/004_change_table.php" role="data" />
+   <file baseinstalldir="/" md5sum="44cc4bb8a2556f7af6aefe7700d88e1e" name="data/migrations/0.9.2/005_change_member_application_setting.php" role="data" />
    <file baseinstalldir="/" md5sum="f1be38d3e039eb205f40eff48083f6c0" name="i18n/api.ja.xml" role="data" />
    <file baseinstalldir="/" md5sum="392914bcba052d9096807d75e4719ffa" name="i18n/messages.ja.xml" role="data" />
-   <file baseinstalldir="/" md5sum="bd0fcf069d99e6448e4c160d457b78ae" name="lib/action/opOpenSocialServletActions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="7558244e3007206fd0911c579d551076" name="lib/action/opOpenSocialServletActions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="9d57a35297f95abd163fb64dcb96d33a" name="lib/filter/doctrine/PluginApplicationFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="6221772e3156bcfceb7169ffc4b6e6a7" name="lib/filter/doctrine/PluginApplicationPersistentDataFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="28b7e31b7b68b97242d3824b77b03672" name="lib/filter/doctrine/PluginApplicationTranslationFormFilter.class.php" role="data" />
@@ -99,7 +100,7 @@
    <file baseinstalldir="/" md5sum="d6282d429c11eb88519de7c622c49aa4" name="lib/model/doctrine/PluginApplicationPersistentDataTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="93316921c4168f5c068deb1d87f9da3e" name="lib/model/doctrine/PluginApplicationTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="182deefa3bdc01955fb8a9c56f770613" name="lib/model/doctrine/PluginMemberApplication.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="1aee1c08677c56215ebecb75ede7d2e8" name="lib/model/doctrine/PluginMemberApplicationSetting.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="7f70fe87db2bcbb23a30aec5f8858b82" name="lib/model/doctrine/PluginMemberApplicationSetting.class.php" role="data" />
    <file baseinstalldir="/" md5sum="f736fe8602594a2764747c0190fc56c9" name="lib/model/doctrine/PluginMemberApplicationSettingTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="e67985514880df365f86ae0412763a29" name="lib/model/doctrine/PluginMemberApplicationTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="856d9095441a24eb865a0f8eca27df81" name="lib/routing/opOpenSocialPluginRouting.class.php" role="data" />
@@ -1304,20 +1305,21 @@
    <file baseinstalldir="/" md5sum="32f82288e36821254843ed116eea840b" name="lib/vendor/Shindig/src/social/spi/RestfulCollection.php" role="data" />
    <file baseinstalldir="/" md5sum="ff88bebae885e67734ecd9cd819791fc" name="lib/vendor/Shindig/src/social/spi/UserId.php" role="data" />
    <file baseinstalldir="/" md5sum="165f965b0bb2914bb790adb531c31699" name="lib_for_shindig/OpenPNEService.php.sample" role="data" />
-   <file baseinstalldir="/" md5sum="b43e4fe41e30c397c13f9ccee318f76b" name="test/bootstrap/database.php" role="data" />
+   <file baseinstalldir="/" md5sum="52253be7b1ee15f761e3d8300637abc3" name="test/bootstrap/database.php" role="data" />
    <file baseinstalldir="/" md5sum="2089e76b9d0ae0fd4d222ee37ea68cb5" name="test/bootstrap/functional.php" role="data" />
    <file baseinstalldir="/" md5sum="4b9770b1215125c0704bfe2931a3215a" name="test/bootstrap/unit.php" role="data" />
    <file baseinstalldir="/" md5sum="23f72a19c178184e09213bb8acf43d06" name="test/fixtures/test_data.yml" role="data" />
    <file baseinstalldir="/" md5sum="3dbb728b843dbf2bb940ed44376b750c" name="test/functional/pc_frontend/skeletonActionsTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="6c59bb638f6340b1894afbec16715d32" name="test/unit/model/ApplicationTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="ff4d0c4c9ed409dc7986031fe6675a62" name="test/unit/model/ApplicationTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="0e808e9033ba20b4284000baeb273515" name="test/unit/model/MemberApplicationSettingTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="8457d43874a42c678d4a13061ea2a880" name="test/unit/model/MemberApplicationTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="0d85f395e1ae798540560a612ed7a30a" name="test/unit/model/MemberApplicationTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="5b3095cd95678ae8ee4836bd145bb270" name="web/css/opensocial.css" role="data" />
+   <file baseinstalldir="/" md5sum="d5a41e05170d2f538b61aa861637c0ff" name="test/unit/model/ApplicationTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="0b33ed3852e6d388a3dc1c805af64955" name="test/unit/model/ApplicationTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="8d7e92d7d339c0a745fbf6e2c4b2c4dc" name="test/unit/model/MemberApplicationSettingTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="38821f5d0d66bd7d6e75a37ece84c1af" name="test/unit/model/MemberApplicationSettingTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="c7ebcc2ae775ba7db7d3cc3bfd1d2700" name="test/unit/model/MemberApplicationTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="3a7f46dc4ff9f277f66a2312fa47f41d" name="test/unit/model/MemberApplicationTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="1164ed5f837ff6601bfcca1b88996976" name="web/css/opensocial.css" role="data" />
    <file baseinstalldir="/" md5sum="34764589073718f2a6f5fe73be6c8182" name="web/js/container.js" role="data" />
    <file baseinstalldir="/" md5sum="b4001389e823a4ac99dd19d96e18a62f" name="web/js/container.js.src" role="data" />
-   <file baseinstalldir="/" md5sum="84d009076ba522cf33e7e03c90e6a8a2" name="web/js/opensocial-util.js" role="data" />
+   <file baseinstalldir="/" md5sum="0c2bd6d7e5c36c64caa9ade5e3dfec25" name="web/js/opensocial-util.js" role="data" />
    <file baseinstalldir="/" md5sum="5c474de4df3efc02a106590bb36bcb93" name="web/js/rpc_relay.html" role="data" />
    <file baseinstalldir="/" md5sum="b8a5ae08d06aad5f3b6bbf627fcb4830" name="web/js/tabs-min.js" role="data" />
    <file baseinstalldir="/" md5sum="385e49d1930c3c9898b0c9089dec09e2" name="web/js/tabs.js" role="data" />
@@ -1405,6 +1407,19 @@
    <date>2009-10-07</date>
    <license>apache</license>
    <notes>The preseted profile item was made to correspond to API</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.2</release>
+    <api>0.9.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2009-11-24</date>
+   <license>apache</license>
+   <notes>Fixed MemberApplicationSetting model, because index key is too long.</notes>
   </release>
  </changelog>
 </package>
