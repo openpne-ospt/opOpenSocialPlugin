@@ -46,10 +46,11 @@ MemberApplicationSetting:
     member_application_id: { type: integer, notnull: true }
     type:                  { type: enum, values: [application, user], notnull: true, default: "application" }
     name:                  { type: string(255), notnull: true }
+    hash:                  { type: string(32), notnull: true }
     value:                 { type: string }
   indexes:
-    name_UNIQUE:
-      fields: [member_application_id, type, name]
+    hash_UNIQUE:
+      fields: hash
       type: unique
   relations:
     MemberApplication: { onDelete: CASCADE, foreignAlias: Settings }
