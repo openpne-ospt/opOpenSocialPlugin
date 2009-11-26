@@ -21,5 +21,10 @@ if (!isset($app))
 $configuration = ProjectConfiguration::getApplicationConfiguration($app, 'test', true);
 new sfDatabaseManager($configuration);
 
-$task = new sfDoctrineBuildAllReloadTask($configuration->getEventDispatcher(), new sfFormatter());
-$task->run(array('--no-confirmation', '--dir='.dirname(__FILE__).'/../fixtures', '--skip-forms'));
+$task = new sfDoctrineBuildTask($configuration->getEventDispatcher(), new sfFormatter());
+$task->setConfiguration($configuration);
+$task->run(array(), array(
+  'no-confirmation' => true,
+  'db'              => true,
+  'and-load'        => dirname(__FILE__).'/../fixtures',
+));
