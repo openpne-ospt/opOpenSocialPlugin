@@ -22,7 +22,6 @@ class opOpenSocialProfileExport extends opProfileExport
     $supportedFieldExport = null;
 
   public $tableToOpenPNE = array(
-    'id'             => 'id',
     'displayName'    => 'name',
     'nickname'       => 'name',
     'thumbnailUrl'   => 'image',
@@ -55,13 +54,11 @@ class opOpenSocialProfileExport extends opProfileExport
   );
 
   public $configs = array(
-    'id',
     'profileUrl',
     'languagesSpoken',
   );
 
   public $forceFields = array(
-    'id',
     'displayName',
     'profileUrl',
     'thumbnailUrl',
@@ -140,15 +137,35 @@ class opOpenSocialProfileExport extends opProfileExport
    */
   public function getData($allowed = array())
   {
-    $allowed = array_merge($this->forceFields, $allowed);
     $result = array();
+    $allowed = array_merge($this->forceFields, $allowed);
+    $isBlock = false;
+
+    // check access block
+    if ($this->viewer)
+    {
+      $relation = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($this->member->getId(), $this->viewer->getId());
+
+      if ($relation && $relation->getIsAccessBlock())
+      {
+        $isBlock = true;
+      }
+    }
+
     foreach ($this->tableToOpenPNE as $k => $v)
     {
       $checkSupportMethodName = $this->getSupportedFieldExport()->getIsSupportedMethodName($k);
       if (in_array($k, $allowed) && $this->getSupportedFieldExport()->$checkSupportMethodName())
       {
-        $methodName = $this->getGetterMethodName($k);
-        $result[$k] = $this->$methodName();
+        if ($isBlock)
+        {
+          $result[$k] = '';
+        }
+        else
+        {
+          $methodName = $this->getGetterMethodName($k);
+          $result[$k] = $this->$methodName();
+        }
       }
     }
 
@@ -177,11 +194,6 @@ class opOpenSocialProfileExport extends opProfileExport
   public function getSupportedFields()
   {
     return $this->getSupportedFieldExport()->getSupportedFields();
-  }
-
-  public function getId()
-  {
-    return $this->member->getId();
   }
 
   public function getAddresses()

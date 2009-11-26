@@ -70,6 +70,9 @@ class applicationActions extends sfActions
     $owner       = $this->member;
     $ownerId     = $owner->getId();
 
+    $relation = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($ownerId, $memberId);
+    $this->forward404If($relation && $relation->getIsAccessBlock());
+
     $this->isOwner = false;
     if ($memberId == $ownerId)
     {

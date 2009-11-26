@@ -162,6 +162,13 @@ abstract class PluginMemberApplication extends BaseMemberApplication
       $memberId = sfContext::getInstance()->getUser()->getMemberId();
     }
 
+    $relation = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($this->getMemberId(), $memberId);
+
+    if ($relation && $relation->getIsAccessBlock())
+    {
+      return false;
+    }
+
     if ($this->getMemberId() == $memberId || $this->getPublicFlag() == 'public')
     {
       return true;
@@ -169,7 +176,6 @@ abstract class PluginMemberApplication extends BaseMemberApplication
 
     if ($this->getPublicFlag() == 'friends')
     {
-      $relation = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($this->getMemberId(), $memberId);
       return (boolean)($relation && $relation->isFriend());
     }
 

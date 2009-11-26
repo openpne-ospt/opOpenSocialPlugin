@@ -67,6 +67,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     foreach ($members as $member)
     {
       $p = array();
+      $p['id']       =  $member->getId();
       $p['isOwner']  =  (!$token->isAnonymous() && $member->getId() == $token->getOwnerId()) ? true : false;
       $p['isViewer'] =  (!$token->isAnonymous() && $member->getId() == $token->getViewerId()) ? true : false;
       if ($application)

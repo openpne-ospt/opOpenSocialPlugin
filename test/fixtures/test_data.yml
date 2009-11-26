@@ -1,7 +1,18 @@
 Member:
   member_1:
-    id: ~
-    name: "OpenPNE君"
+    name: "A"
+    is_active: 1
+  member_2:
+    name: "B"
+    is_active: 1
+  member_3:
+    name: "C"
+    is_active: 1
+  member_4:
+    name: "D"
+    is_active: 1
+  member_5:
+    name: "E"
     is_active: 1
 
 MemberConfig:
@@ -18,6 +29,24 @@ MemberConfig:
     value: "<?php echo md5('password') ?>"
     Member: member_1
 
+MemberRelationship:
+  member_1_member_2:
+    Member: member_1
+    MemberRelatedByMemberIdFrom: member_2
+    is_friend: 1
+  member_2_member_1:
+    Member: member_2
+    MemberRelatedByMemberIdFrom: member_1
+    is_friend: 1
+  member_1_member_4:
+    Member: member_1
+    MemberRelatedByMemberIdFrom: member_4
+    is_friend_pre: 1
+  member_5_member_1:
+    Member: member_5
+    MemberRelatedByMemberIdFrom: member_1
+    is_access_block: 1
+
 # opOpenSocialPlugin Test Datas
 
 Application:
@@ -33,25 +62,41 @@ Application:
       ja_JP:
         title: "Test App2"
         description: "Test App2"
+  app_3:
+    url: "http://example.com/dummy3.xml"
+    Translation:
+      ja_JP:
+        title: "Test App3"
+        description: "Test App3"
+
 
 MemberApplication:
-  member_1_app:
+  member_1_app_1:
     Member: member_1
     Application: app_1
+    public_flag: "public"
+  member_1_app_2:
+    Member: member_1
+    Application: app_2
+    public_flag: "friends"
+  member_1_app_3:
+    Member: member_1
+    Application: app_3
+    public_flag: "private"
 
 MemberApplicationSetting:
   member_1_app_setting_1:
-    MemberApplication: member_1_app
+    MemberApplication: member_1_app_1
     type: "application"
     name: "is_view_home"
     value: 1
   member_1_app_setting_2:
-    MemberApplication: member_1_app
+    MemberApplication: member_1_app_1
     type: "application"
     name: "is_view_profile"
     value: 1
   member_1_app_setting_3:
-    MemberApplication: member_1_app
+    MemberApplication: member_1_app_1
     type: "user"
     name: "user_setting"
     value: 1
