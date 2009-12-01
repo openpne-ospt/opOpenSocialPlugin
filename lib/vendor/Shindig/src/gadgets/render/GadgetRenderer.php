@@ -34,7 +34,7 @@ abstract class GadgetRenderer {
    * javascript content (?v=<md5 of js>) for cache busting
    *
    * @param string $libs
-   * @param Shindig_Gadget $gadget
+   * @param Gadget $gadget
    * @return string the list of libraries in core:caja:etc.js?v=checksum> format
    */
   protected function getJsUrl($features) {

@@ -19,10 +19,6 @@
  */
 
 require_once 'src/gadgets/templates/DataPipelining.php';
-require_once 'src/gadgets/templates/TemplateParser.php';
-
-//TODO check if the opensocial-templates feature has disableAutoProcessing = true as param, if so don't
-
 
 class EmptyClass {
 }
@@ -40,7 +36,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
   /**
    * Sets the $this->gadget property, and populates Msg, UserPref and ViewParams dataContext
    *
-   * @param Shindig_Gadget $gadget
+   * @param Gadget $gadget
    */
   public function setGadget(Shindig_Gadget $gadget) {
     $this->gadget = $gadget;
@@ -70,6 +66,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
    * so javascript can take care of them
    */
   public function addTemplates($content) {
+    // If $this->gadget->gadgetSpec->templatesDisableAutoProcessing == true, unparsedTemplates will be empty, so the setting is ignored here
     if (count($this->unparsedTemplates)) {
       foreach ($this->unparsedTemplates as $key => $val) {
         $content = str_replace("<template_$key></template_$key>", $val . "\n", $content);
@@ -92,7 +89,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
     $osDataRequests = array();
     // First extract all the os-data tags, and execute those in a single combined request, saves latency
     // and is consistent with other server implementations
-    preg_match_all('/(<script.*type="text\/(os-data)".*>)(.*)(<\/script>)/imsxU', $content, $osDataRequests);
+    preg_match_all('/(<script[^>]*type="text\/(os-data)"[^>]*>)(.*)(<\/script>)/imsxU', $content, $osDataRequests);
     $osDataRequestsCombined = '';
     foreach ($osDataRequests[0] as $match) {
       $osDataRequestsCombined .= $match . "\n";
@@ -102,23 +99,35 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
     if (! empty($osDataRequestsCombined)) {
       $this->performDataRequests($osDataRequestsCombined);
     }
-    preg_match_all('/(<script.*type="text\/(os-template)".*>)(.*)(<\/script>)/imxsU', $content, $osTemplates);
-    foreach ($osTemplates[0] as $match) {
-      if (($renderedTemplate = $this->renderTemplate($match)) !== false) {
-        // Template was rendered, insert the rendered html into the document
-        $content = str_replace($match, $renderedTemplate, $content);
-      } else {
-        /*
+    preg_match_all('/(<script[^>]*type="text\/(os-template)"[^>]*>)(.*)(<\/script>)/imxsU', $content, $osTemplates);
+    $templateLibrary = false;
+    if (count($osTemplates[0])) {
+      // only load the template parser if there's any templates in the gadget content
+      require_once 'src/gadgets/templates/TemplateParser.php';
+      require_once 'src/gadgets/templates/TemplateLibrary.php';
+      $templateLibrary = new TemplateLibrary($this->gadget->gadgetContext);
+      if ($this->gadget->gadgetSpec->templatesRequireLibraries) {
+        foreach ($this->gadget->gadgetSpec->templatesRequireLibraries as $library) {
+          $templateLibrary->addTemplateLibrary($library);
+        }
+      }
+      foreach ($osTemplates[0] as $match) {
+        if (! $this->gadget->gadgetSpec->templatesDisableAutoProcessing && ($renderedTemplate = $this->renderTemplate($match, $templateLibrary)) !== false) {
+          // Template was rendered, insert the rendered html into the document
+          $content = str_replace($match, $renderedTemplate, $content);
+        } else {
+          /*
          * The template could not be rendered, this could happen because:
          * - @require is present, and at least one of the required pieces of data is unavailable
          * - @name is present
          * - @autoUpdate == true
-         * - disableAutoProcessing param on the opensocial-templates feature is true
+         * - $this->gadget->gadgetSpec->templatesDisableAutoProcessing is set to true
          * So set a magic marker (<template_$index>) that after the dom document parsing will be replaced with the original script content
          */
-        $index = count($this->unparsedTemplates);
-        $this->unparsedTemplates[$index] = $match;
-        $content = str_replace($match, "<template_$index></template_$index>", $content);
+          $index = count($this->unparsedTemplates);
+          $this->unparsedTemplates[$index] = $match;
+          $content = str_replace($match, "<template_$index></template_$index>", $content);
+        }
       }
     }
     return $content;
@@ -141,6 +150,8 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
           $this->dataContext[$key] = $val['data']['entry'];
         } elseif (isset($val['data'])) {
           $this->dataContext[$key] = $val['data'];
+        } else {
+          $this->dataContext[$key] = $val;
         }
       }
     }
@@ -152,7 +163,8 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
    * @param string $osDataRequests
    */
   private function performDataRequests($osDataRequests) {
-    //TODO check with the java implementation guys if they do a caching strategy here (same as with data-pipelining), would mean a much higher render performance..
+    //TODO check with the java implementation guys if they do a caching strategy here (same as with data-pipelining),
+    // would result in a much higher render performance..
     libxml_use_internal_errors(true);
     $this->doc = new DOMDocument(null, 'utf-8');
     $this->doc->preserveWhiteSpace = true;
@@ -186,7 +198,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
    * @param string $template
    * @return string
    */
-  private function renderTemplate($template) {
+  private function renderTemplate($template, $templateLibrary) {
     libxml_use_internal_errors(true);
     $this->doc = new DOMDocument(null, 'utf-8');
     $this->doc->preserveWhiteSpace = true;
@@ -212,19 +224,30 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
           }
         }
       }
-      // Everything checked out, proceeding to render the template
-      $parser = new TemplateParser();
-      $parser->process($childNode, $this->dataContext);
-      // unwrap the output, ie we only want the script block's content and not the main <script></script> node
-      $output = new DOMDocument(null, 'utf-8');
-      foreach ($childNode->childNodes as $node) {
-        $outNode = $output->importNode($node, true);
-        $output->appendChild($outNode);
+      // if $childNode->tag exists, add to global $templateLibraries array, else parse normally
+      $childNodeTag = $childNode->getAttribute('tag');
+      if (! empty($childNodeTag)) {
+        if (isset($this->templateLibraries[$childNode->getAttribute('tag')])) {
+          throw new ExpressionException("Template " . htmlentities($childNode->getAttribute('tag')) . " was already defined");
+        }
+        $templateLibrary->addTemplateByNode($childNode);
+      } else {
+        // Everything checked out, proceeding to render the template
+        $parser = new TemplateParser();
+        $parser->process($childNode, $this->dataContext, $templateLibrary);
+        // unwrap the output, ie we only want the script block's content and not the main <script></script> node
+        $output = new DOMDocument(null, 'utf-8');
+        foreach ($childNode->childNodes as $node) {
+          $outNode = $output->importNode($node, true);
+          $outNode = $output->appendChild($outNode);
+        }
+        // Restore single tags to their html variant, and remove the xml header
+        $ret = str_replace(
+            array('<?xml version="" encoding="utf-8"?>', '<br/>', '<script type="text/javascript"><![CDATA[', ']]></script>'),
+            array('', '<br>', '<script type="text/javascript">', '</script>'),
+            $output->saveXML());
+        return $ret;
       }
-      // Restore single tags to their html variant, and remove the xml header
-      $ret = str_replace(array(
-          '<?xml version="" encoding="utf-8"?>', '<br/>'), array('', '<br>'), $output->saveXML());
-      return $ret;
     }
     return false;
   }
@@ -243,7 +266,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
     $rewriter = new GadgetRewriter($this->context);
     $rewriter->addObserver('head', $this, 'addHeadTags');
     $rewriter->addObserver('body', $this, 'addBodyTags');
-    return $rewriter->rewrite($content, $this->gadget);
+    return $rewriter->rewrite($content, $this->gadget, true);
   }
 
   /**
@@ -254,7 +277,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
   public function getBodyScript() {
     $script = "gadgets.util.runOnLoadHandlers();";
     if ($this instanceof GadgetHrefRenderer) {
-      $script .= " window.setTimeout(function(){gadgets.window.adjustHeight()}, 10);";
+      $script .= "window.setTimeout(function(){gadgets.window.adjustHeight()}, 10);";
     }
     return $script;
   }
@@ -269,6 +292,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
     $script = $this->getBodyScript();
     $scriptNode = $doc->createElement('script');
     $scriptNode->setAttribute('type', 'text/javascript');
+    $scriptNode->appendChild($doc->createTextNode($script));
     $scriptNode->nodeValue = str_replace('&', '&amp;', $script);
     $node->appendChild($scriptNode);
   }
@@ -302,6 +326,9 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
         $data = json_encode($data['data']);
         $script .= "opensocial.data.DataContext.putDataSet(\"$key\", $data);\n";
       }
+    }
+    if ($this->gadget->gadgetSpec->templatesDisableAutoProcessing) {
+      $script .= "opensocial.template.Container.disableAutoProcessing();\n";
     }
     return array('inline' => $script, 'external' => $externalScript);
   }
@@ -349,7 +376,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
   /**
    * Appends the javascript features configuration string
    *
-   * @param Shindig_Gadget $gadget
+   * @param Gadget $gadget
    * @param unknown_type $hasForcedLibs
    * @return string
    */
@@ -404,7 +431,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
   /**
    * Injects the relevant translation message bundle into the javascript api
    *
-   * @param Shindig_Gadget $gadget
+   * @param Gadget $gadget
    * @return string
    */
   private function appendMessages(Shindig_Gadget $gadget) {
@@ -418,7 +445,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
   /**
    * Injects the preloaded content into the javascript api
    *
-   * @param Shindig_Gadget $gadget
+   * @param Gadget $gadget
    * @return string
    */
   private function appendPreloads(Shindig_Gadget $gadget) {

@@ -25,7 +25,6 @@
  *
  */
 class ProxyHandler extends ProxyBase {
-
   /**
    * Fetches the content and returns it as-is using the headers as returned
    * by the remote host.
@@ -33,24 +32,34 @@ class ProxyHandler extends ProxyBase {
    * @param string $url the url to retrieve
    */
   public function fetch($url) {
-    $url = $this->validateUrl($url);
-    $request = $this->buildRequest($url, 'GET');
-    $request->getOptions()->ignoreCache = $this->context->getIgnoreCache();
-    $result = $this->context->getHttpFetcher()->fetch($request);
+    // TODO: Check to see if we can just use MakeRequestOptions::fromCurrentRequest
+    $st = isset($_GET['st']) ? $_GET['st'] : (isset($_POST['st']) ? $_POST['st'] : false);
+    $body = isset($_GET['postData']) ? $_GET['postData'] : (isset($_POST['postData']) ? $_POST['postData'] : false);
+    $authz = isset($_GET['authz']) ? $_GET['authz'] : (isset($_POST['authz']) ? $_POST['authz'] : null);
+    $headers = isset($_GET['headers']) ? $_GET['headers'] : (isset($_POST['headers']) ? $_POST['headers'] : null);
+    $params = new MakeRequestOptions($url);
+    $params->setSecurityTokenString($st)
+      ->setAuthz($authz)
+      ->setRequestBody($body)
+      ->setHttpMethod('GET')
+      ->setFormEncodedRequestHeaders($headers)
+      ->setNoCache($this->context->getIgnoreCache());
+
+    $result = $this->makeRequest->fetch($this->context, $params);
     $httpCode = (int)$result->getHttpCode();
+    $cleanedResponseHeaders = $this->makeRequest->cleanResponseHeaders($result->getResponseHeaders());
     $isShockwaveFlash = false;
-    foreach ($result->getResponseHeaders() as $key => $val) {
-      if (! in_array($key, $this->disallowedHeaders)) {
-        header("$key: $val", true);
-      }
-      if ($key == 'Content-Type' && strtolower($val) == 'application/x-shockwave-flash') {
+    
+    foreach ($cleanedResponseHeaders as $key => $val) {
+      header("$key: $val", true);
+      if (strtoupper($key) == 'CONTENT-TYPE' && strtolower($val) == 'application/x-shockwave-flash') {
         // We're skipping the content disposition header for flash due to an issue with Flash player 10
         // This does make some sites a higher value phishing target, but this can be mitigated by
         // additional referer checks.
         $isShockwaveFlash = true;
       }
     }
-    if (! $isShockwaveFlash) {
+    if (! $isShockwaveFlash && !Shindig_Config::get('debug')) {
       header('Content-Disposition: attachment;filename=p.txt');
     }
     $lastModified = $result->getResponseHeader('Last-Modified') != null ? $result->getResponseHeader('Last-Modified') : gmdate('D, d M Y H:i:s', $result->getCreated()) . ' GMT';

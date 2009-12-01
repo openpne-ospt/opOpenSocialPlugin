@@ -22,7 +22,7 @@
  * see
  * http://www.opensocial.org/Technical-Resources/opensocial-spec-v081/opensocial-reference#opensocial.Activity
  */
-class Activity {
+class Shindig_Activity {
   public $appId;
   public $body;
   public $bodyId;

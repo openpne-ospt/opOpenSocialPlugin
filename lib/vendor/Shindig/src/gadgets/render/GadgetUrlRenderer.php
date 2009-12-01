@@ -26,7 +26,7 @@ class GadgetUrlRenderer extends GadgetRenderer {
    * used. Proxied content is the socially aware (and higher performance) version of this
    * See GadgetHrefRenderer for it's implementation.
    *
-   * @param Shindig_Gadget $gadget
+   * @param Gadget $gadget
    * @param Array $view
    */
   public function renderGadget(Shindig_Gadget $gadget, $view) {
@@ -57,7 +57,7 @@ class GadgetUrlRenderer extends GadgetRenderer {
    * ie: in libs=core:caja:etc.js format
    *
    * @param string $libs the libraries
-   * @param Shindig_Gadget $gadget
+   * @param Gadget $gadget
    * @return string the libs=... string to append to the redirection url
    */
   private function appendLibsToQuery($features) {
@@ -72,7 +72,7 @@ class GadgetUrlRenderer extends GadgetRenderer {
    * Returns the user preferences in &up_<name>=<val> format
    *
    * @param array $libs array of features this gadget requires
-   * @param Shindig_Gadget $gadget
+   * @param Gadget $gadget
    * @return string the up_<name>=<val> string to use in the redirection url
    */
   private function getPrefsQueryString($prefs) {

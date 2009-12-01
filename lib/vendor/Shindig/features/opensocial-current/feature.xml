@@ -18,8 +18,10 @@
   under the License.
 -->
 <feature>
-  <name>opensocial-0.9</name>
+  <name>opensocial</name>
+  <dependency>core.config</dependency>
   <dependency>opensocial-jsonrpc</dependency>
+  <dependency>security-token</dependency>
   <!-- <dependency>caja</dependency> -->
   <!-- Must include the "caja" feature to display samplecontainer -->
   <!-- gadgets when "use caja" is checked -->
@@ -27,15 +29,16 @@
     <script>
       var requiredConfig = {
         "path": gadgets.config.NonEmptyStringValidator,
+        "invalidatePath": gadgets.config.NonEmptyStringValidator,
         "domain": gadgets.config.NonEmptyStringValidator,
         "enableCaja": gadgets.config.BooleanValidator,
         "supportedFields": gadgets.config.ExistsValidator
       };
 
-      gadgets.config.register("opensocial-0.8", requiredConfig,
+      gadgets.config.register("opensocial", requiredConfig,
         function(config) {
           ShindigContainer = function() {
-            JsonRpcContainer.call(this, config["opensocial-0.8"]);
+            JsonRpcContainer.call(this, config["opensocial"]);
           };
           ShindigContainer.inherits(JsonRpcContainer);
 

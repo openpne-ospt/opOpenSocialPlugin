@@ -79,7 +79,7 @@ class OutputAtomConverter extends OutputConverter {
         $this->addNode($author, 'uri', $guid);
         $this->addNode($author, 'name', $authorName);
         // Special hoisting rules for activities
-        if ($response instanceof Activity) {
+        if ($response instanceof Shindig_Activity) {
           $this->addNode($feedEntry, 'category', '', array('term' => 'status'));
           $this->addNode($feedEntry, 'updated', date(DATE_ATOM, $response->postedTime));
           $this->addNode($feedEntry, 'id', 'urn:guid:' . $response->id);

@@ -74,7 +74,7 @@ class MessagesHandler extends DataRequestHandler {
     if (empty($messageIds)) {
       $messageIds = array();
     }
-    return $this->service->getMessages($userIds[0], $msgCollId, $requestItem->getFields(Message::$DEFAULT_FIELDS), $messageIds, $options, $token);
+    return $this->service->getMessages($userIds[0], $msgCollId, $requestItem->getFields(Shindig_Message::$DEFAULT_FIELDS), $messageIds, $options, $token);
   }
 
   /**

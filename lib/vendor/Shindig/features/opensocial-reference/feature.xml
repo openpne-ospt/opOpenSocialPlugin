@@ -19,6 +19,7 @@
 -->
 <feature>
   <name>opensocial-reference</name>
+  <dependency>core.util</dependency>
   <gadget>
     <script src="opensocial.js"/>
     <script src="activity.js"/>
@@ -42,5 +43,6 @@
     <script src="phone.js"/>
     <script src="responseitem.js"/>
     <script src="url.js"/>
+    <script src="taming.js"/>
   </gadget>
 </feature>

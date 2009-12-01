@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -65,11 +66,11 @@ class GadgetFactory {
    * Resolves the Required and Optional features and their dependencies into a real feature list using
    * the GadgetFeatureRegistry, which can be used to construct the javascript for the gadget
    *
-   * @param Shindig_Gadget $gadget
+   * @param Gadget $gadget
    */
   private function parseFeatures(Shindig_Gadget &$gadget) {
     $found = $missing = array();
-    if (!$this->context->getRegistry()->resolveFeatures(array_merge($gadget->gadgetSpec->requiredFeatures, $gadget->gadgetSpec->optionalFeatures), $found, $missing)) {
+    if (! $this->context->getRegistry()->resolveFeatures(array_merge($gadget->gadgetSpec->requiredFeatures, $gadget->gadgetSpec->optionalFeatures), $found, $missing)) {
       $requiredMissing = false;
       foreach ($missing as $featureName) {
         if (in_array($featureName, $gadget->gadgetSpec->requiredFeatures)) {
@@ -78,7 +79,7 @@ class GadgetFactory {
         }
       }
       if ($requiredMissing) {
-        throw new GadgetException("Unknown features: ".implode(',', $missing));
+        throw new GadgetException("Unknown features: " . implode(',', $missing));
       }
     }
     unset($gadget->gadgetSpec->optionalFeatures);
@@ -107,7 +108,7 @@ class GadgetFactory {
       }
     }
     // Apply substitutions to the preloads
-    foreach ($gadget->gadgetSpec->preloads as $key  => $preload) {
+    foreach ($gadget->gadgetSpec->preloads as $key => $preload) {
       $gadget->gadgetSpec->preloads[$key]['body'] = $gadget->substitutions->substitute($preload['body']);
     }
   }
@@ -133,14 +134,15 @@ class GadgetFactory {
       $gadget->substitutions->addSubstitution('UP', $gadget->substitutions->substitute($pref['name']), $gadget->substitutions->substitute($pref['value']));
     }
   }
+
   /**
    * Process the UserPrefs values based on the current context
    *
-   * @param Shindig_Gadget $gadget
+   * @param Gadget $gadget
    */
   private function parseUserPrefs(Shindig_Gadget &$gadget) {
     foreach ($gadget->gadgetSpec->userPrefs as $key => $pref) {
-      $queryKey = 'up_'.$pref['name'];
+      $queryKey = 'up_' . $pref['name'];
       $gadget->gadgetSpec->userPrefs[$key]['value'] = isset($_GET[$queryKey]) ? trim(urldecode($_GET[$queryKey])) : $pref['defaultValue'];
     }
   }
@@ -152,13 +154,13 @@ class GadgetFactory {
    * This distills the locales array's back to one array of translations, which is then exposed
    * through the $gadget->substitutions class
    *
-   * @param Shindig_Gadget $gadget
+   * @param Gadget $gadget
    */
   private function mergeLocales(Shindig_Gadget $gadget) {
     if (count($gadget->gadgetSpec->locales)) {
       $contextLocale = $this->context->getLocale();
       $locales = $gadget->gadgetSpec->locales;
-      $gadget->rightToLeft  = false;
+      $gadget->rightToLeft = false;
       $full = $partial = $all = null;
       foreach ($locales as $locale) {
         if ($locale['lang'] == $contextLocale['lang'] && $locale['country'] == $contextLocale['country']) {
@@ -184,7 +186,7 @@ class GadgetFactory {
    * The preloads will be json_encoded to their gadget document injection format, and the locales will
    * be reduced to only the GadgetContext->getLocale matching entries.
    *
-   * @param Shindig_Gadget $gadget
+   * @param Gadget $gadget
    * @param GadgetContext $context
    */
   private function fetchResources(Shindig_Gadget &$gadget) {
@@ -193,35 +195,57 @@ class GadgetFactory {
     foreach ($gadget->getLocales() as $key => $locale) {
       // Only fetch the locales that match the current context's language and country
       if (($locale['country'] == 'all' && $locale['lang'] == 'all') || ($locale['lang'] == $contextLocale['lang'] && $locale['country'] == 'all') || ($locale['lang'] == $contextLocale['lang'] && $locale['country'] == $contextLocale['country'])) {
-        if (!empty($locale['messages'])) {
+        if (! empty($locale['messages'])) {
           // locale matches the current context, add it to the requests queue
-          $unsignedRequests[] = $locale['messages'];
+          $request = new RemoteContentRequest($locale['messages']);
+          $request->createRemoteContentRequestWithUri($locale['messages']);
+          $request->getOptions()->ignoreCache = $this->context->getIgnoreCache();
+          $unsignedRequests[] = $request;
         }
       } else {
         // remove any locales that are not applicable to this context
         unset($gadget->gadgetSpec->locales[$key]);
       }
     }
-    // Add preloads to the request queue
-    foreach ($gadget->getPreloads() as $preload) {
-      if (!empty($preload['href'])) {
-        if (!empty($preload['authz']) && $preload['authz'] == 'SIGNED') {
-          if ($this->token == '') {
-            throw new GadgetException("Signed preloading requested, but no valid security token set");
+    if (! $gadget->gadgetContext instanceof MetadataGadgetContext) {
+      // Add preloads to the request queue
+      foreach ($gadget->getPreloads() as $preload) {
+        if (! empty($preload['href'])) {
+          $request = new RemoteContentRequest($preload['href']);
+          if (! empty($preload['authz']) && $preload['authz'] == 'SIGNED') {
+            if ($this->token == '') {
+              throw new GadgetException("Signed preloading requested, but no valid security token set");
+            }
+            $request = new RemoteContentRequest($preload['href']);
+            $request->setAuthType(RemoteContentRequest::$AUTH_SIGNED);
+            $request->setNotSignedUri($preload['href']);
+            $request->setToken($this->token);
+            $request->getOptions()->ignoreCache = $this->context->getIgnoreCache();
+            if (strcasecmp($preload['signViewer'], 'false') == 0) {
+              $request->getOptions()->viewerSigned = false;
+            }
+            if (strcasecmp($preload['signOwner'], 'false') == 0) {
+              $request->getOptions()->ownerSigned = false;
+            }
+            $signedRequests[] = $request;
+          } else {
+            $request->createRemoteContentRequestWithUri($preload['href']);
+            $request->getOptions()->ignoreCache = $this->context->getIgnoreCache();
+            $unsignedRequests[] = $request;
           }
-          $signedRequests[] = $preload['href'];
-        } else {
-          $unsignedRequests[] = $preload['href'];
+        }
+      }
+      // Add template libraries to the request queue
+      if ($gadget->gadgetSpec->templatesRequireLibraries) {
+        foreach ($gadget->gadgetSpec->templatesRequireLibraries as $libraryUrl) {
+        	$request = new RemoteContentRequest($libraryUrl);
+          $request->createRemoteContentRequestWithUri($libraryUrl);
+          $request->getOptions()->ignoreCache = $this->context->getIgnoreCache();
+          $unsignedRequests[] = $request;
         }
       }
     }
     // Perform the non-signed requests
-    foreach ($unsignedRequests as $key => $requestUrl) {
-      $request = new RemoteContentRequest($requestUrl);
-      $request->createRemoteContentRequestWithUri($requestUrl);
-      $request->getOptions()->ignoreCache = $this->context->getIgnoreCache();
-      $unsignedRequests[$key] = $request;
-    }
     $responses = array();
     if (count($unsignedRequests)) {
       $brc = new BasicRemoteContent();
@@ -233,17 +257,11 @@ class GadgetFactory {
       }
     }
     // Perform the signed requests
-    foreach ($signedRequests as $key => $requestUrl) {
-      $request = new RemoteContentRequest($requestUrl);
-      $request->setAuthType(RemoteContentRequest::$AUTH_SIGNED);
-      $request->setNotSignedUri($requestUrl);
-      $request->setToken($this->token);
-      $request->getOptions()->ignoreCache = $this->context->getIgnoreCache();
-      $signedRequests[$key] = $request;
-    }
     if (count($signedRequests)) {
-    	$signingFetcherFactory = new SigningFetcherFactory(Shindig_Config::get("private_key_file"));
-      $remoteContent = new BasicRemoteContent(new BasicRemoteContentFetcher(), $signingFetcherFactory);
+      $signingFetcherFactory = new SigningFetcherFactory(Shindig_Config::get("private_key_file"));
+      $remoteFetcherClass = Shindig_Config::get('remote_content_fetcher');
+      $remoteFetcher = new $remoteFetcherClass();
+      $remoteContent = new BasicRemoteContent($remoteFetcher, $signingFetcherFactory);
       $resps = $remoteContent->multiFetch($signedRequests);
       foreach ($resps as $response) {
         $responses[$response->getNotSignedUrl()] = array(
@@ -253,17 +271,28 @@ class GadgetFactory {
     }
     // assign the results to the gadget locales and preloads (using the url as the key)
     foreach ($gadget->gadgetSpec->locales as $key => $locale) {
-      if (!empty($locale['messages']) && isset($responses[$locale['messages']]) && $responses[$locale['messages']]['rc'] == 200) {
+      if (! empty($locale['messages']) && isset($responses[$locale['messages']]) && $responses[$locale['messages']]['rc'] == 200) {
         $gadget->gadgetSpec->locales[$key]['messageBundle'] = $this->parseMessageBundle($responses[$locale['messages']]['body']);
       }
     }
-    $preloads = array();
-    foreach ($gadget->gadgetSpec->preloads as $key => $preload) {
-      if (!empty($preload['href']) && isset($responses[$preload['href']]) && $responses[$preload['href']]['rc'] == 200) {
-        $preloads[] = array_merge(array('id' => $preload['href']), $responses[$preload['href']]);
-      }
+    if (! $gadget->gadgetContext instanceof MetadataGadgetContext) {
+	    $preloads = array();
+	    foreach ($gadget->gadgetSpec->preloads as $key => $preload) {
+	      if (! empty($preload['href']) && isset($responses[$preload['href']]) && $responses[$preload['href']]['rc'] == 200) {
+	        $preloads[] = array_merge(array('id' => $preload['href']), $responses[$preload['href']]);
+	      }
+	    }
+	    $gadget->gadgetSpec->preloads = $preloads;
+	    if ($gadget->gadgetSpec->templatesRequireLibraries) {
+	    	 $requiredLibraries = array();
+		    foreach ($gadget->gadgetSpec->templatesRequireLibraries as $key => $libraryUrl) {
+		    	if (isset($responses[$libraryUrl]) && $responses[$libraryUrl]['rc'] == 200) {
+		    		$requiredLibraries[$libraryUrl] = $responses[$libraryUrl]['body'];
+		    	}
+		    }
+		    $gadget->gadgetSpec->templatesRequireLibraries = $requiredLibraries;
+	    }
     }
-    $gadget->gadgetSpec->preloads = $preloads;
   }
 
   /**
@@ -276,7 +305,7 @@ class GadgetFactory {
     libxml_use_internal_errors(true);
     $doc = new DOMDocument();
     if (! $doc->loadXML($messageBundleData, LIBXML_NOCDATA)) {
-      throw new GadgetSpecException("Error parsing gadget xml:\n".XmlError::getErrors($messageBundleData));
+      throw new GadgetSpecException("Error parsing gadget xml:\n" . XmlError::getErrors($messageBundleData));
     }
     $messageBundle = array();
     if (($messageBundleNode = $doc->getElementsByTagName('messagebundle')) != null && $messageBundleNode->length > 0) {

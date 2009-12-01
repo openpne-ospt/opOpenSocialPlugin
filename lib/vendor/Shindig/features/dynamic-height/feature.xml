@@ -18,8 +18,10 @@ specific language governing permissions and limitations under the License.
 -->
 <feature>
   <name>dynamic-height</name>
+  <dependency>dynamic-height.util</dependency>
   <dependency>rpc</dependency>
   <gadget>
     <script src="dynamic-height.js"/>
+    <script src="taming.js"/>
   </gadget>
 </feature>

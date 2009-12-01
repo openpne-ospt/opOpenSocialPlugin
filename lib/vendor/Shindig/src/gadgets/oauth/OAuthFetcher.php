@@ -235,9 +235,9 @@ class OAuthFetcher extends RemoteContentFetcher {
    * @return RemoteContentRequest
    */
   public function fetchRequest(RemoteContentRequest $request) {
+    $this->checkCanApprove();
     if ($this->needApproval()) {
       // This is section 6.1 of the OAuth spec.
-      $this->checkCanApprove();
       $this->fetchRequestToken($request);
       // This is section 6.2 of the OAuth spec.
       $this->buildClientApprovalState();
@@ -247,7 +247,6 @@ class OAuthFetcher extends RemoteContentFetcher {
       return $this->buildOAuthApprovalResponse();
     } elseif ($this->needAccessToken()) {
       // This is section 6.3 of the OAuth spec
-      $this->checkCanApprove();
       $this->exchangeRequestToken($request);
       $this->saveAccessToken();
       $this->buildClientAccessState();
@@ -286,7 +285,7 @@ class OAuthFetcher extends RemoteContentFetcher {
     if ($pageOwner != $pageViewer) {
       throw new GadgetException("Only page owners can grant OAuth approval");
     }
-    if ($stateOwner != null && ! $stateOwner == $pageOwner) {
+    if ($stateOwner != null && $stateOwner != $pageOwner) {
       throw new GadgetException("Client state belongs to a different person.");
     }
   }
@@ -422,7 +421,9 @@ class OAuthFetcher extends RemoteContentFetcher {
   private function sendOAuthMessage(OAuthRequest $request) {
     $rcr = $this->createRemoteContentRequest($this->filterOAuthParams($request), $request->get_normalized_http_method(), $request->get_url(), null, RemoteContentRequest::$DEFAULT_CONTENT_TYPE, null, RemoteContentRequest::getDefaultOptions());
     $rcr->setToken($this->authToken);
-    $fetcher = new BasicRemoteContentFetcher();
+
+    $remoteFetcherClass = Shindig_Config::get('remote_content_fetcher');
+    $fetcher = new $remoteFetcherClass();
     $content = $fetcher->fetchRequest($rcr);
     $reply = OAuthRequest::from_request();
     $params = OAuthUtil::decodeForm($content->getResponseContent());
@@ -534,7 +535,8 @@ class OAuthFetcher extends RemoteContentFetcher {
       $oauthRequest = $this->newRequestMessageMethod($method, $this->realRequest->getUrl(), $msgParams);
       $rcr = $this->createRemoteContentRequest($this->filterOAuthParams($oauthRequest), $this->realRequest->getMethod(), $this->realRequest->getUrl(), $this->realRequest->getHeaders(), $this->realRequest->getContentType(), $this->realRequest->getPostBody(), $this->realRequest->getOptions());
       //TODO is there a better way to detect an SP error?
-      $fetcher = new BasicRemoteContentFetcher();
+      $remoteFetcherClass = Shindig_Config::get('remote_content_fetcher');
+      $fetcher = new $remoteFetcherClass();
       $content = $fetcher->fetchRequest($rcr);
       $statusCode = $content->getHttpCode();
       if ($statusCode >= 400 && $statusCode < 500) {

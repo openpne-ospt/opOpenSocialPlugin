@@ -19,8 +19,14 @@
 -->
 <feature>
   <name>opensocial-jsonrpc</name>
+  <dependency>core.auth</dependency>
+  <dependency>core.prefs</dependency>
+  <dependency>core.io</dependency>
+  <dependency>core.json</dependency>
+  <dependency>core.util</dependency>
   <dependency>opensocial-base</dependency>
   <dependency>rpc</dependency>
+  <dependency>security-token</dependency>
   <gadget>   
     <script src="jsonrpccontainer.js"></script>
   </gadget>

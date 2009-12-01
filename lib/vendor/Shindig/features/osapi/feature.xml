@@ -19,13 +19,28 @@
 -->
 <feature>
   <name>osapi</name>
+  <dependency>core.auth</dependency>
+  <dependency>core.config</dependency>
   <dependency>core.io</dependency>
+  <dependency>core.json</dependency>
+  <dependency>core.log</dependency>
+  <dependency>core.util</dependency>
   <dependency>rpc</dependency>
+  <dependency>security-token</dependency>
   <gadget>
     <script src="osapi.js"></script>
     <script src="batch.js"></script>
     <script src="jsonrpctransport.js"></script>
     <script src="gadgetsrpctransport.js"></script>
     <script src="peoplehelpers.js"></script>    
+    <script src="taming.js"></script>    
   </gadget>
+  <container>
+    <script src="osapi.js"></script>
+    <script src="batch.js"></script>
+    <script src="jsonrpctransport.js"></script>
+    <script src="gadgetsrpctransport.js"></script>
+    <script src="peoplehelpers.js"></script>
+    <script src="taming.js"></script>    
+  </container>
 </feature>
