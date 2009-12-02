@@ -13,7 +13,7 @@
  *
  * @author Shogo Kawahara <kawahara@tejimaya.net>
  */
-class opJsonDbOpensocialService implements ActivityService, PersonService, AppDataService, MessagesService
+class opJsonDbOpensocialService implements ActivityService, PersonService, AppDataService, MessagesService, AlbumService, MediaItemService
 {
   public function getPerson($userId, $groupId, $fields, SecurityToken $token)
   {
@@ -284,6 +284,179 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
   }
 
   public function getMessages($userId, $msgCollId, $fields, $msgIds, $options, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function getAlbums($userId, $groupId, $albumIds, $collectionOptions, $fields, $token)
+  {
+    if (!class_exists('Album'))
+    {
+      throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+    }
+
+    $first = $collectionOptions->getStartIndex();
+    $max   = $collectionOptions->getCount();
+
+    if (!is_object($userId))
+    {
+      $userId  = new UserId('userId', $userId);
+      $groupId = new GroupId('self', 'all');
+    }
+
+    $memberIds = $this->getIdSet($userId, $groupId, $token);
+    $albumIds = array_unique($albumIds);
+
+    $objects = array();
+    $totalSize = 0;
+    if (count($memberIds))
+    {
+      $query = Doctrine::getTable('Album')->createQuery()
+        ->whereIn('member_id', $memberIds);
+
+      Doctrine::getTable('Album')->addPublicFlagQuery($query, AlbumTable::PUBLIC_FLAG_SNS);
+
+      $totalSize = $query->count();
+
+      $query->orderBy('id');
+      if (count($albumIds))
+      {
+        $query->andWhereIn('id', $albumIds);
+      }
+      if ($first !== false && $max !== false && is_numeric($first) && is_numeric($max) && $first >= 0 && $max > 0)
+      {
+        $query->offset($first);
+        $query->limit($max);
+      }
+      $objects = $query->execute();
+    }
+    $results = array();
+    foreach ($objects as $object)
+    {
+      $result = array();
+      $result['id'] = $object->getId();
+      $result['title'] = $object->getTitle();
+      $result['description'] = $object->getBody();
+      $result['mediaItemCount'] = 0;
+      if ($object->getAlbumImages())
+      {
+        $result['mediaItemCount'] = count($object->getAlbumImages());
+      }
+      $result['ownerId'] = $object->getMemberId();
+      $result['thumbnailUrl'] = '';
+      if ($object->getFile())
+      {
+        sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'sfImage'));
+        $result['thumbnailUrl'] = sf_image_path($object->getFile(), array('size' => '180x180'), true);
+      }
+      $result['mediaType'] = 'IMAGE';
+      $results[] = $result;
+    }
+
+    $collection = new RestfulCollection($results, $collectionOptions->getStartIndex(), $totalSize);
+    $collection->setItemsPerPage($collectionOptions->getCount());
+    return $collection;
+  }
+
+  public function createAlbum($userId, $groupId, $album, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function updateAlbum($userId, $groupId, $album, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function deleteAlbum($userId, $groupId, $albumId, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function getMediaItems($userId, $groupId, $albumId, $mediaItemIds, $collectionOptions, $fields, $token)
+  {
+    if (!class_exists('Album'))
+    {
+      throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+    }
+
+    $first = $collectionOptions->getStartIndex();
+    $max   = $collectionOptions->getCount();
+
+    if (!is_object($userId))
+    {
+      $userId  = new UserId('userId', $userId);
+      $groupId = new GroupId('self', 'all');
+    }
+
+    $memberIds = $this->getIdSet($userId, $groupId, $token);
+    if ($groupId->getType() !== 'self' || count($memberIds) !== 1)
+    {
+      throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+    }
+    $memberId = $memberIds[0];
+
+    $albumObject = Doctrine::getTable('Album')->find($albumId);
+    if (!$albumObject)
+    {
+      throw new SocialSpiException("Album Not Found", ResponseError::$BAD_REQUEST);
+    }
+    if ($albumObject->getMemberId() != $memberId &&
+      !($albumObject->getPublicFlag() === AlbumTable::PUBLIC_FLAG_SNS ||
+      $albumObject->getPublicFlag() === AlbumTable::PUBLIC_FLAG_OPEN))
+    {
+      throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+    }
+
+    $totalSize = 0;
+    $query = Doctrine::getTable('AlbumImage')->createQuery()
+      ->where('album_id = ?', $albumObject->getId());
+    $totalSize = $query->count();
+    if ($first !== false && $max !== false && is_numeric($first) && is_numeric($max) && $first >= 0 && $max > 0)
+    {
+      $query->offset($first);
+      $query->limit($max);
+    }
+    $objects = $query->execute();
+
+    $results = array();
+    foreach ($objects as $object)
+    {
+      $result['albumId'] = $object->getId();
+      $result['created'] = $object->getCreatedAt();
+      $result['description'] = $object->getDescription();
+      $result['fileSize'] = $object->getFilesize();
+      $result['id']       = $object->getId();
+      $result['lastUpdated']  = $object->getUpdatedAt();
+      $result['thumbnailUrl'] = '';
+      $result['title']    = $object->getDescription();
+      $result['type']     = 'IMAGE';
+      $result['url']      = '';
+      if ($object->getFile())
+      {
+        sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'sfImage'));
+        $result['thumbnailUrl'] = sf_image_path($object->getFile(), array('size' => '180x180'), true);
+        $result['url'] = sf_image_path($object->getFile(), array(), true);
+      }
+      $results[] = $result;
+    }
+
+    $collection = new RestfulCollection($results, $collectionOptions->getStartIndex(), $totalSize);
+    $collection->setItemsPerPage($collectionOptions->getCount());
+    return $collection;
+  }
+
+  public function createMediaItem($userId, $groupId, $mediaItem, $data, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function updateMediaItem($userId, $groupId, $mediaItem, $data, $token)
+  {
+    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+  }
+
+  public function deleteMediaItems($userId, $groupId, $albumId, $mediaItemIds, $token)
   {
     throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
   }

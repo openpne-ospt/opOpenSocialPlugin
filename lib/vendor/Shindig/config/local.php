@@ -35,10 +35,12 @@ $shindigConfig = array(
   'data_cache'    => 'opCacheStorageFile',
   'feature_cache' => 'opCacheStorageFile',
 
-  'person_service'   => 'opJsonDbOpensocialService',
-  'activity_service' => 'opJsonDbOpensocialService',
-  'app_data_service' => 'opJsonDbOpensocialService',
-  'messages_service' => 'opJsonDbOpensocialService',
+  'person_service'     => 'opJsonDbOpensocialService',
+  'activity_service'   => 'opJsonDbOpensocialService',
+  'app_data_service'   => 'opJsonDbOpensocialService',
+  'messages_service'   => 'opJsonDbOpensocialService',
+  'album_service'      => 'opJsonDbOpensocialService',
+  'media_item_service' => 'opJsonDbOpensocialService',
 
   'cache_time' => Doctrine::getTable('SnsConfig')->get('shindig_cache_time', 60*60),
   'cache_root' => sfConfig::get('sf_app_cache_dir').'/plugins/opOpenSocialPlugin',
