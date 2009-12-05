@@ -435,25 +435,40 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     $objects = $query->execute();
 
     $results = array();
-    foreach ($objects as $object)
+
+    // block check
+    $isBlock = false;
+    if ($token->getViewerId())
     {
-      $result['albumId'] = $object->getId();
-      $result['created'] = $object->getCreatedAt();
-      $result['description'] = $object->getDescription();
-      $result['fileSize'] = $object->getFilesize();
-      $result['id']       = $object->getId();
-      $result['lastUpdated']  = $object->getUpdatedAt();
-      $result['thumbnailUrl'] = '';
-      $result['title']    = $object->getDescription();
-      $result['type']     = 'IMAGE';
-      $result['url']      = '';
-      if ($object->getFile())
+      $relation = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($memberId, $token->getViewerId());
+      if ($relation && $relation->getIsAccessBlock())
       {
-        sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'sfImage'));
-        $result['thumbnailUrl'] = sf_image_path($object->getFile(), array('size' => '180x180'), true);
-        $result['url'] = sf_image_path($object->getFile(), array(), true);
+        $isBlock = true;
       }
-      $results[] = $result;
+    }
+
+    if (!$isBlock)
+    {
+      foreach ($objects as $object)
+      {
+        $result['albumId'] = $object->getId();
+        $result['created'] = $object->getCreatedAt();
+        $result['description'] = $object->getDescription();
+        $result['fileSize'] = $object->getFilesize();
+        $result['id']       = $object->getId();
+        $result['lastUpdated']  = $object->getUpdatedAt();
+        $result['thumbnailUrl'] = '';
+        $result['title']    = $object->getDescription();
+        $result['type']     = 'IMAGE';
+        $result['url']      = '';
+        if ($object->getFile())
+        {
+          sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'sfImage'));
+          $result['thumbnailUrl'] = sf_image_path($object->getFile(), array('size' => '180x180'), true);
+          $result['url'] = sf_image_path($object->getFile(), array(), true);
+        }
+        $results[] = $result;
+      }
     }
 
     $collection = new RestfulCollection($results, $collectionOptions->getStartIndex(), $totalSize);
