@@ -52,12 +52,12 @@ class ContainerConfigForm extends sfForm
     ));
 
     $this->widgetSchema->setLabels(array(
-      'shindig_token_cipher_key'    => 'トークン暗号化キー',
-      'shindig_token_hmac_key'      => 'トークンハッシュ化キー',
-      'shindig_token_max_age'   => 'トークン有効期限(秒)',
-      'shindig_cache_time'      => 'キャッシュ有効期限(秒)',
-      'is_use_outer_shindig'    => '外部のOpenSocialコンテナを利用する(推奨)',
-      'shindig_url'             => 'OpenSocialコンテナURL',
+      'shindig_token_cipher_key'    => 'Token cipher key',
+      'shindig_token_hmac_key'      => 'Token hmac key',
+      'shindig_token_max_age'   => 'Token max age (s)',
+      'shindig_cache_time'      => 'Cache time (s)',
+      'is_use_outer_shindig'    => 'Use outer OpenSocial container (Recomended)',
+      'shindig_url'             => 'The OpenSocial container URL',
     ));
 
     $this->widgetSchema->setNameFormat('container_config[%s]');

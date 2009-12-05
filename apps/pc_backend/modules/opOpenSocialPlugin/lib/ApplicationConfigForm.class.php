@@ -33,7 +33,7 @@ class ApplicationConfigForm extends sfForm
     ));
 
     $this->widgetSchema->setLabels(array(
-      'is_allow_add_application'          => 'メンバーによるアプリ追加を許可',
+      'is_allow_add_application'          => 'Allow the SNS members to add apps',
     ));
     $this->widgetSchema->setNameFormat('application_config[%s]');
   }

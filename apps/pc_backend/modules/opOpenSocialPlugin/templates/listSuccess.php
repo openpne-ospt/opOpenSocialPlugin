@@ -2,11 +2,14 @@
 <?php include_partial('submenu') ?>
 <?php end_slot() ?>
 
-<h2><?php echo __('アプリ管理') ?></h2>
+<?php slot('title') ?>
+<?php echo __('Manage Apps') ?>
+<?php end_slot() ?>
+
 <table>
 <?php $searchForm->renderFormTag(url_for('opOpenSocialPlugin/list'), array('method' => 'get')) ?>
 <?php echo $searchForm ?>
-<td colspan="2"><input type="submit" value="検索"/></td>
+<td colspan="2"><input type="submit" value="<?php echo __('Search') ?>"/></td>
 </table>
 
 <?php if ($pager->getNbResults()): ?>

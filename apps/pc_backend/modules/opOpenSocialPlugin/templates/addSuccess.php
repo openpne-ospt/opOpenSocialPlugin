@@ -2,7 +2,12 @@
 <?php include_partial('submenu') ?>
 <?php end_slot() ?>
 
-<h2>アプリ追加</h2>
+<?php slot('title') ?>
+<?php echo __('Add App') ?>
+<?php end_slot() ?>
+
+<?php include_partial('bottomSubmenu') ?>
+
 <?php echo $form->renderFormTag(url_for('opOpenSocialPlugin/add')) ?>
 <table>
 <?php echo $form ?>

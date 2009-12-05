@@ -44,7 +44,7 @@ class opOpenSocialPluginActions extends sfActions
         $this->applicationConfigForm->save();
       }
     }
-    return sfView::SUCCESS;
+
   }
 
   /**
@@ -64,8 +64,6 @@ class opOpenSocialPluginActions extends sfActions
         $this->containerConfigForm->save();
       }
     }
-
-    $this->isUseOuterShindig = Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig');
   }
 
  /**

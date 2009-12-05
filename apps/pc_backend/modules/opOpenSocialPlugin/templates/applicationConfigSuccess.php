@@ -2,12 +2,16 @@
 <?php include_partial('submenu') ?>
 <?php end_slot() ?>
 
-<h2><?php echo __('アプリ設定') ?></h2>
+<?php slot('title') ?>
+<?php echo __('App Configuration') ?>
+<?php end_slot() ?>
+
+<?php include_partial('bottomSubmenu') ?>
 
 <form action="<?php echo url_for('opOpenSocialPlugin/applicationConfig') ?>" method="post">
 <table>
 <?php echo $applicationConfigForm ?>
-<tr><td colspan="2"><input type="submit" value="<?php echo __('設定変更') ?>" /></td></tr>
+<tr><td colspan="2"><input type="submit" value="<?php echo __('Modify') ?>" /></td></tr>
 </table>
 </form>
 

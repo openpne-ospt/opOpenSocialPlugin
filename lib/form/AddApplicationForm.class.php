@@ -25,6 +25,7 @@ class AddApplicationForm extends sfForm
     $this->setValidators(array(
       'application_url'      => new sfValidatorString(array(),array()),
     ));
+    $this->widgetSchema->setLabel('application_url', 'Gadget XML URL');
     $this->widgetSchema->setNameFormat('contact[%s]');
   }
 }
