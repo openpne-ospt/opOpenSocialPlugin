@@ -309,6 +309,21 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
 
     $objects = array();
     $totalSize = 0;
+
+    // block check
+    if ($token->getViewerId())
+    {
+      foreach ($memberIds as $k => $id)
+      {
+        $relation = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($id, $token->getViewerId());
+
+        if ($relation && $relation->getIsAccessBlock())
+        {
+          unset($memberIds[$k]);
+        }
+      }
+    }
+
     if (count($memberIds))
     {
       $query = Doctrine::getTable('Album')->createQuery()
