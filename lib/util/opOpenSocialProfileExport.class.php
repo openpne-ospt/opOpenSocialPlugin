@@ -272,7 +272,7 @@ class opOpenSocialProfileExport extends opProfileExport
 
     if ($this->member->getImage())
     {
-      return sf_image_path($this->member->getImageFileName(), $options, true);
+      return sf_image_path($this->member->getImageFileName(), array(), true);
     }
     return '';
   }
