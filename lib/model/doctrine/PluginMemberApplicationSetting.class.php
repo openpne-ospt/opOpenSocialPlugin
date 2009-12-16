@@ -19,7 +19,7 @@
  */
 abstract class PluginMemberApplicationSetting extends BaseMemberApplicationSetting
 {
-  public function preSave()
+  public function preSave($event)
   {
     if (!$this->type)
     {
