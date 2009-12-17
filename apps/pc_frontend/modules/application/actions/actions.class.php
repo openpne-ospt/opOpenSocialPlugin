@@ -157,24 +157,20 @@ class applicationActions extends sfActions
       $this->redirect('@application_canvas?id='.$memberApplication->getId());
     }
 
-    $this->form = new sfForm();
     if ($request->isMethod(sfWebRequest::POST))
     {
-      $this->form->bind(array('_csrf_token' => $request->getParameter('_csrf_token')));
-      if ($this->form->isValid())
+      $request->checkCSRFProtection();
+      try 
       {
-        try 
-        {
-          $application = Doctrine::getTable('Application')->addApplication($this->application->getUrl());
-          $this->application = $application;
-        }
-        catch (Exception $e)
-        {
-        }
-
-        $memberApplication = $this->application->addToMember($this->member, array('is_view_home' => true, 'is_view_profile' => true));
-        $this->redirect('@application_canvas?id='.$memberApplication->getId());
+        $application = Doctrine::getTable('Application')->addApplication($this->application->getUrl());
+        $this->application = $application;
       }
+      catch (Exception $e)
+      {
+      }
+
+      $memberApplication = $this->application->addToMember($this->member, array('is_view_home' => true, 'is_view_profile' => true));
+      $this->redirect('@application_canvas?id='.$memberApplication->getId());
     }
   }
 
@@ -189,14 +185,10 @@ class applicationActions extends sfActions
 
     if ($request->isMethod(sfWebRequest::POST))
     {
-      $form = new sfForm();
-      $form->bind(array('_csrf_token' => $request->getParameter('_csrf_token')));
-      if ($form->isValid())
-      {
-        $this->memberApplication->delete();
-        $this->getUser()->setFlash('notice', 'The App was removed successfully.');
-        $this->redirect('@my_application_list');
-      }
+      $request->checkCSRFProtection();
+      $this->memberApplication->delete();
+      $this->getUser()->setFlash('notice', 'The App was removed successfully.');
+      $this->redirect('@my_application_list');
     }
   }
 

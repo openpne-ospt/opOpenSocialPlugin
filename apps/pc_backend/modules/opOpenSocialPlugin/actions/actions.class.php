@@ -44,7 +44,6 @@ class opOpenSocialPluginActions extends sfActions
         $this->applicationConfigForm->save();
       }
     }
-
   }
 
   /**
@@ -132,15 +131,11 @@ class opOpenSocialPluginActions extends sfActions
     $this->application = Doctrine::getTable('Application')->find($request->getParameter('id'));
     $this->forward404Unless($this->application);
 
-    $this->form = new sfForm();
     if ($request->isMethod(sfWebRequest::POST))
     {
-      $this->form->bind(array('_csrf_token' => $request->getParameter('_csrf_token')));
-      if ($this->form->isValid())
-      {
-        $this->application->delete();
-        $this->redirect('opOpenSocialPlugin/list');
-      }
+      $request->checkCSRFProtection();
+      $this->application->delete();
+      $this->redirect('opOpenSocialPlugin/list');
     }
   }
 
