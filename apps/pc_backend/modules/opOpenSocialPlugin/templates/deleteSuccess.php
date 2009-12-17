@@ -9,6 +9,7 @@
 <?php use_helper('Javascript') ?>
 <p><?php echo __('Do you delete this app?') ?></p>
 <p><?php echo $application->getTitle() ?></p>
+<?php $form = new sfForm() ?>
 <?php echo $form->renderFormTag(url_for('opOpenSocialPlugin/delete?id='.$sf_request->getParameter('id'))) ?>
 <?php echo $form->renderHiddenFields() ?>
 <input type="submit" value="<?php echo __('Delete') ?>">
