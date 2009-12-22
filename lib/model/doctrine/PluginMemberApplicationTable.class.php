@@ -40,7 +40,7 @@ class PluginMemberApplicationTable extends Doctrine_Table
   * @param integer $viewerId
   * @return Doctrine_Collection
   */
-  public function getMemberApplications($memberId, $viewerId = null)
+  public function getMemberApplications($memberId, $viewerId = null, $isCheckActive = true)
   {
     if ($viewerId === null)
     {
@@ -62,8 +62,14 @@ class PluginMemberApplicationTable extends Doctrine_Table
       }
       $q->andWhere('('.$dql.')', $dqlParams);
     }
+
+    if ($isCheckActive)
+    {
+      $q->innerJoin('ma.Application a')
+        ->andWhere('is_active = ?', true);
+    }
+
     $q->orderBy('sort_order');
     return $q->execute();
   }
-
 }

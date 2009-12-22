@@ -17,6 +17,26 @@
  */
 class PluginApplicationTable extends Doctrine_Table
 {
+  const ADD_APPLICATION_DENY = 0; 
+  const ADD_APPLICATION_NECESSARY_TO_PERMIT = 1;
+  const ADD_APPLICATION_ALLOW = 2;
+
+ /**
+  * get add application rule selection
+  *
+  * @return array
+  */
+  public function getAddApplicationRuleChoices()
+  {
+    $result = array(
+      self::ADD_APPLICATION_DENY                => "Deny",
+      self::ADD_APPLICATION_NECESSARY_TO_PERMIT => "The SNS administrator's permission is necessary",
+      self::ADD_APPLICATION_ALLOW               => "Allow",
+    );
+
+    return array_map(array(sfContext::getInstance()->getI18N(), '__'), $result);
+  }
+
   /**
    * add a new application
    *
@@ -94,5 +114,31 @@ class PluginApplicationTable extends Doctrine_Table
     $application->setHeight(!empty($gadget['height']) ? $gadget['height'] : 0);
     $application->save();
     return $application;
+  }
+
+  public function getApplicationListPager($page = 1, $size = 20, $memberId = null, $isActive = null, $orderBy = 'id desc')
+  {
+    $query = $this->createQuery();
+
+    if (null !== $memberId)
+    {
+      $query->addWhere('member_id = ?', $memberId);
+    }
+
+    if (is_bool($isActive))
+    {
+      $query->addWhere('is_active = ?', $isActive);
+    }
+
+    if ($orderBy)
+    {
+      $query->orderBy($orderBy);
+    }
+
+    $pager = new sfDoctrinePager('Application', $size);
+    $pager->setQuery($query);
+    $pager->setPage($page);
+    $pager->init();
+    return $pager;
   }
 }

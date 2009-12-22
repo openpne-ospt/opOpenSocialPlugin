@@ -76,6 +76,21 @@ class opOpenSocialPluginRouting
         array('id' => '\d+'),
         array('model' => 'Application', 'type' => 'object')
       ),
+      'application_install' => new sfRoute(
+        '/application/install',
+        array('module' => 'application', 'action' => 'install'),
+        array('sf_method' => array('get', 'post'))
+      ),
+      'application_installed_list' => new sfRoute(
+        '/application/installedList',
+        array('module' => 'application', 'action' => 'installedList')
+      ),
+      'application_update' => new sfDoctrineRoute(
+        '/application/update/:id',
+        array('module' => 'application', 'action' => 'update'),
+        array('id' => '\d+', 'sf_method' => 'post'),
+        array('model' => 'Application', 'type' => 'object')
+      ),
       'application_sort' => new sfRoute(
         '/application/sort',
         array('module' => 'application', 'action' => 'sort'),

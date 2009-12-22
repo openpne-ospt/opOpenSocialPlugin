@@ -149,4 +149,14 @@ abstract class PluginApplication extends BaseApplication
   {
     return $this->getTable()->addApplication($this->getUrl(), true, $culture);
   }
+
+ /**
+  * is active
+  * 
+  * @return boolean 
+  */ 
+  public function isActive()
+  {
+    return (bool)$this->getIsActive();
+  }
 }

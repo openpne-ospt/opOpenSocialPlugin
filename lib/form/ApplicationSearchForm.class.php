@@ -25,13 +25,10 @@ class ApplicationSearchForm extends sfForm
       'users_desc'      => 'Users',
     );
 
-  public function __construct($defaults = array(), $options = array(), $CSRFProtection = false)
-  {
-    parent::__construct($defaults, $options, $CSRFProtection);
-  }
-
   public function configure()
   {
+    $this->localCSRFSecret = false;
+
     $this->setWidgets(array(
       'keyword'    => new sfWidgetFormInput(),
       'order_by'   => new sfWidgetFormChoice(array(
@@ -46,14 +43,21 @@ class ApplicationSearchForm extends sfForm
     $this->widgetSchema->setNameFormat('application[%s]');
   }
 
-  public function getPager($page = 1, $size = 20)
+  public function getPager($page = 1, $size = 20, $isCheckActive = false)
   {
     if (!$this->isValid())
     {
       throw $this->getErrorSchema();
     }
 
-    $query = Doctrine::getTable('Application')->createQuery('a')->leftJoin('a.Translation t');
+    $query = Doctrine::getTable('Application')->createQuery('a')
+      ->leftJoin('a.Translation t');
+
+    if ($isCheckActive)
+    {
+      $query->where('a.is_active = ?', true);
+    }
+
     $keywords = $this->getValue('keyword');
     if ($keywords)
     {

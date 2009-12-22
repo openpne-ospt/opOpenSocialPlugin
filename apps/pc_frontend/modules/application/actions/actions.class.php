@@ -57,6 +57,7 @@ class applicationActions extends sfActions
   public function executeCanvas(sfWebRequest $request)
   {
     $this->forward404Unless($this->memberApplication->isViewable());
+    $this->forward404Unless($this->application->isActive());
   }
 
   /**
@@ -77,32 +78,14 @@ class applicationActions extends sfActions
     if ($memberId == $ownerId)
     {
       $this->isOwner = true;
-      $this->form = new AddApplicationForm();
+      $this->isInstalledApp = (bool)Doctrine::getTable('Application')->findOneByMemberId($memberId);
+      $this->isInstallApp = !(
+        (int)Doctrine::getTable('SnsConfig')->get('add_application_rule', ApplicationTable::ADD_APPLICATION_DENY) ===
+        ApplicationTable::ADD_APPLICATION_DENY
+      );
     }
 
     $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($ownerId);
-
-    $this->isAllowAddApplication = ($this->isOwner && Doctrine::getTable('SnsConfig')->get('is_allow_add_application', false));
-    if ($request->isMethod(sfWebRequest::POST) && $this->isAllowAddApplication)
-    {
-      $this->form->bind($request->getParameter('contact'));
-      if ($this->form->isValid())
-      {
-        try
-        {
-          $application = Doctrine::getTable('Application')->addApplication($this->form->getValue('application_url'));
-          $this->redirect('@application_add?id='.$application->getId());
-        }
-        catch (Exception $e)
-        {
-          if (!($e instanceof sfStopException))
-          {
-            $this->getUser()->setFlash('error', 'Failed in adding the App.');
-          }
-        }
-        $this->redirect('@my_application_list');
-      }
-    }
   }
 
   /**
@@ -140,7 +123,7 @@ class applicationActions extends sfActions
     $this->searchForm->bind($request->getParameter('application'));
     if ($this->searchForm->isValid())
     {
-      $this->pager = $this->searchForm->getPager($request->getParameter('page', 1));
+      $this->pager = $this->searchForm->getPager($request->getParameter('page', 1), 20, true);
     }
   }
 
@@ -156,6 +139,8 @@ class applicationActions extends sfActions
     {
       $this->redirect('@application_canvas?id='.$memberApplication->getId());
     }
+
+    $this->forward404Unless($this->application->isActive());
 
     if ($request->isMethod(sfWebRequest::POST))
     {
@@ -210,6 +195,79 @@ class applicationActions extends sfActions
   public function executeInfo(sfWebRequest $request)
   {
     $this->memberListPager = $this->application->getMemberListPager(1, 9, true); 
+  }
+
+ /**
+  * Executes install action
+  *
+  * @param sfWebRequest $request A request object
+  */
+  public function executeInstall(sfWebRequest $request)
+  {
+    $this->rule = (int)Doctrine::getTable('SnsConfig')->get('add_application_rule', ApplicationTable::ADD_APPLICATION_DENY);
+    $this->forward404If($this->rule == ApplicationTable::ADD_APPLICATION_DENY);
+
+    $this->form = new AddApplicationForm();
+    if ($request->isMethod(sfWebRequest::POST))
+    {
+      $this->form->bind($request->getParameter('contact'));
+      if ($this->form->isValid())
+      {
+        try
+        {
+          $application = Doctrine::getTable('Application')->findOneByUrl($this->form->getValue('application_url'));
+          if ($application)
+          {
+            $this->getUser()->setFlash('notice', 'This app is already installed.');
+          }
+          else
+          {
+            $application = Doctrine::getTable('Application')->addApplication($this->form->getValue('application_url'));
+            $application->setMemberId($this->getUser()->getMemberId());
+            if (ApplicationTable::ADD_APPLICATION_NECESSARY_TO_PERMIT)
+            {
+              $application->setIsActive(false);
+            }
+            $application->save();
+          }
+          $this->redirect('@application_info?id='.$application->getId());
+        }
+        catch (Exception $e)
+        {
+          if (!($e instanceof sfStopException))
+          {
+            $this->getUser()->setFlash('error', 'Failed in adding the App.');
+          }
+        }
+        $this->redirect('@application_install');
+      }
+    }
+  }
+
+ /**
+  * Executes installed list action
+  *
+  * @param sfWebRequest $request A request object
+  */
+  public function executeInstalledList(sfWebRequest $request)
+  {
+    $page = $request->getParameter('page', 1);
+    $this->pager = Doctrine::getTable('Application')->getApplicationListPager($page, 20, $this->member->getId());
+    $this->forward404Unless($this->pager->getNbResults());
+  }
+
+  /**
+   * Executes update application action
+   *
+   * @param sfWebRequest $request A request object
+   */
+
+  public function executeUpdate(sfWebRequest $request)
+  {
+    $request->checkCSRFProtection();
+    $this->forward404Unless($this->member->getId() === $this->application->getMemberId());
+    $this->application->updateApplication($this->getUser()->getCulture());
+    $this->redirect('@application_info?id='.$this->application->getId());
   }
 
   /**

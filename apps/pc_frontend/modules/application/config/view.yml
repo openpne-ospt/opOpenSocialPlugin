@@ -1,21 +1,6 @@
-listSuccess:
+all:
   stylesheets:
     - /opOpenSocialPlugin/css/opensocial
-
-gallerySuccess:
-  stylesheets:
-    - /opOpenSocialPlugin/css/opensocial
-
-addSuccess:
-  stylesheets:
-    - /opOpenSocialPlugin/css/opensocial
-
-canvasSuccess:
-  javascripts:
-    - /gadgets/js/rpc.js?c=1
-    - %SF_PROTOTYPE_WEB_DIR%/js/prototype
-    - /opOpenSocialPlugin/js/tabs-min
-    - /opOpenSocialPlugin/js/container
 
 settingSuccess:
   layout: plain
@@ -24,8 +9,6 @@ settingSuccess:
 
 infoSuccess:
   layout: layoutA
-  stylesheets:
-    - /opOpenSocialPlugin/css/opensocial
 
 jsSuccess:
   has_layout: off

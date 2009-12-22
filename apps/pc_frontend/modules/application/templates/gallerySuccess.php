@@ -1,6 +1,5 @@
 <?php use_helper('OpenSocial'); ?>
 
-
 <?php op_include_form('searchApplication', $searchForm, array(
   'title'  => __('Search Apps'),
   'url'    => url_for('@application_gallery'),

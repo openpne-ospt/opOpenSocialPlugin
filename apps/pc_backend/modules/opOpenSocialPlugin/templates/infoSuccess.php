@@ -9,6 +9,10 @@
 <table>
 <tr><th colspan="2"><?php echo __('About App') ?></th></tr>
 <tr><th><?php echo __('Name') ?></th><td><?php echo $application->getTitle() ?></td></tr>
+<tr><th><?php echo __('Status') ?></th><td><?php echo $application->isActive() ? __('Active') : __('Inactive') ?></td></tr>
+<?php if ($application->getMemberId()): ?>
+<tr><th><?php echo __('Member who Added App') ?></th><td><?php echo $application->getAdditionalMember()->getName() ?></td></tr>
+<?php endif; ?>
 <tr><th><?php echo __('App URL') ?></th><td><?php echo $application->getUrl() ?></td></tr>
 <tr><th><?php echo __('Title URL') ?></th><td>
 <?php if ($application->getTitleUrl()) : ?>
@@ -25,7 +29,7 @@
 <?php echo image_tag($application->getThumbnail(), array('alt' => $application->getTitle())) ?>
 <?php endif ?>
 </td></tr>
-<tr><th><?php echo __('Detail') ?></th><td><?php echo $application->getDescription() ?></td></tr>
+<tr><th><?php echo __('Description') ?></th><td><?php echo $application->getDescription() ?></td></tr>
 <tr><th><?php echo __('Users') ?></th><td><?php echo $application->getMembers()->count() ?></td></tr>
 <tr><th><?php echo __('Last Updated') ?></th><td><?php echo $application->getUpdatedAt() ?></td></tr>
 <tr><th colspan="2"><?php echo __('About Author') ?></th></tr>
@@ -44,7 +48,22 @@
 </td></tr>
 <tr><th><?php echo __('Quote') ?></th><td><?php echo $application->getAuthorQuote() ?></td></tr>
 <tr><td colspan="2">
-<?php echo link_to(__('Delete'),'opOpenSocialPlugin/delete?id='.$sf_request->getParameter('id')) ?> 
-<?php echo link_to(__('Update'),'opOpenSocialPlugin/update?id='.$sf_request->getParameter('id')) ?>
+<?php echo button_to(__('Delete'),'opOpenSocialPlugin/delete?id='.$sf_request->getParameter('id'), array('style' => 'float:left')) ?> 
+<?php $form = new sfForm() ?>
+<?php echo $form->renderFormTag(url_for('opOpenSocialPlugin/update?id='.$sf_request->getParameter('id')), array('style' => 'float:left')) ?>
+<?php echo $form->renderHiddenFields() ?>
+<input type="submit" value="<?php echo __('Update') ?>" />
+</form>
+<?php if ($application->isActive()): ?>
+<?php echo $form->renderFormTag(url_for('opOpenSocialPlugin/inactivate?id='.$sf_request->getParameter('id'))) ?>
+<?php echo $form->renderHiddenFields() ?>
+<input type="submit" value="<?php echo __('Inactivate') ?>" />
+</form>
+<?php else: ?>
+<?php echo $form->renderFormTag(url_for('opOpenSocialPlugin/activate?id='.$sf_request->getParameter('id'))) ?>
+<?php echo $form->renderHiddenFields() ?>
+<input type="submit" value="<?php echo __('Activate') ?>" />
+</form>
+<?php endif; ?>
 </td></tr>
 </table>

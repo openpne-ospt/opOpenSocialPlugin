@@ -106,7 +106,7 @@ class opOpenSocialPluginActions extends sfActions
     $this->searchForm->bind($request->getParameter('application'));
     if ($this->searchForm->isValid())
     {
-      $this->pager = $this->searchForm->getPager($request->getParameter('page', 1));
+      $this->pager = $this->searchForm->getPager($request->getParameter('page', 1), 20, true);
     }
   }
 
@@ -146,6 +146,7 @@ class opOpenSocialPluginActions extends sfActions
    */
   public function executeUpdate(sfWebRequest $request)
   {
+    $request->checkCSRFProtection();
     $application = Doctrine::getTable('Application')->find($request->getParameter('id'));
     $this->forward404Unless($application);
     $application->updateApplication($this->getUser()->getCulture());
@@ -165,5 +166,43 @@ class opOpenSocialPluginActions extends sfActions
     $response->setHttpHeader('Content-Disposition','attachment; filename="openpne.js');
     $opOpenSocialContainerConfig = new opOpenSocialContainerConfig(false);
     $this->json = $opOpenSocialContainerConfig->generate();
+  }
+
+  /**
+   * Executes activate application
+   *
+   * @param sfWebRequest $request A request object
+   */
+  public function executeActivate(sfWebRequest $request)
+  {
+    $request->checkCSRFProtection();
+    $application = Doctrine::getTable('Application')->find($request->getParameter('id'));
+    $application->setIsActive(true);
+    $application->save();
+    $this->redirect('opOpenSocialPlugin/info?id='.$application->getId());
+  }
+
+  /**
+   * Executes inactivate application
+   *
+   * @param sfWebRequest $request A request object
+   */
+  public function executeInactivate(sfWebRequest $request)
+  {
+    $request->checkCSRFProtection();
+    $application = Doctrine::getTable('Application')->find($request->getParameter('id'));
+    $application->setIsActive(false);
+    $application->save();
+    $this->redirect('opOpenSocialPlugin/info?id='.$application->getId());
+  }
+
+  /**
+   * Executes inactive application list
+   *
+   * @param sfWebRequest $request A request object
+   */
+  public function executeInactiveList(sfWebRequest $request)
+  {
+    $this->pager = Doctrine::getTable('Application')->getApplicationListPager($request->getParameter('page'), 20, null, false);
   }
 }

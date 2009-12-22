@@ -59,10 +59,6 @@
         <target>スクリーンショット</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Update</source>
-        <target>更新</target>
-      </trans-unit>
-      <trans-unit id="">
         <source>Last Updated</source>
         <target>最終更新日</target>
       </trans-unit>
@@ -85,7 +81,39 @@
       <trans-unit id="">
         <source>If you modify the profile item, you must update this file.</source>
         <target>もしプロフィール項目を変更した場合は、このファイルを更新してください。</target>
-      </trans-unit>    
+      </trans-unit>
+      <trans-unit id="">
+        <source>Inactive Apps</source>
+        <target>無効アプリ一覧</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Active</source>
+        <target>有効</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Activate</source>
+        <target>有効化</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Inactivate</source>
+        <target>無効化</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Inactive</source>
+        <target>無効</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>There are no app.</source>
+        <target>アプリがありません。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>There are no inactive app.</source>
+        <target>無効なアプリがありません。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>The app can be installed from %0%.</source>
+        <target>アプリは %0% からインストールすることができます。</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

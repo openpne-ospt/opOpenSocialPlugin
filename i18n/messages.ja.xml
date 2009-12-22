@@ -11,11 +11,11 @@
         <target>アプリギャラリー</target>
       </trans-unit>
       <trans-unit id="">
-        <source>The Apps hasn't installed.</source>
-        <target>アプリがインストールされていません。</target>
+        <source>You haven't the app.</source>
+        <target>アプリを持っていません。</target>
       </trans-unit>
       <trans-unit id="">
-        <source>The Apps can be installed from %0%.</source>
+        <source>The Apps can be added from %0%.</source>
         <target>%0%からアプリを追加することができます。</target>
       </trans-unit>
       <trans-unit id="">
@@ -33,6 +33,10 @@
       <trans-unit id="">
         <source>Name</source>
         <target>名前</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Status</source>
+        <target>状態</target>
       </trans-unit>
       <trans-unit id="">
         <source>Screen Shot</source>
@@ -169,6 +173,62 @@
       <trans-unit id="">
         <source>Display on your profile</source>
         <target>プロフィールに表示する</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Display on your profile</source>
+        <target>プロフィールに表示する</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Deny</source>
+        <target>禁止</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>The SNS administrator's permission is necessary</source>
+        <target>SNS管理者の許可が必要</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Allow</source>
+        <target>許可</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Install new App</source>
+        <target>新しいアプリをインストールする</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Apps Installed by You</source>
+        <target>あなたがインストールしたアプリ</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Update</source>
+        <target>更新</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>If the members use the app, the SNS administrator's permission is necessary.</source>
+        <target>メンバーがアプリを利用するには、SNS管理者による許可が必要です。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>This app is waiting to approval by the SNS administrator, or is inactive.</source>
+        <target>このアプリは管理者による承認待ちか、無効化されています。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>This app is already installed.</source>
+        <target>このアプリはすでにインストールされています。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Member who Added App</source>
+        <target>アプリ提供者</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Information for Developer</source>
+        <target>開発者向け情報</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Update App Info</source>
+        <target>アプリ情報更新</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>This is waiting to approval by the SNS administrator.</source>
+        <target>管理者による承認待ち</target>
       </trans-unit>
     </body>
   </file>

@@ -2,13 +2,6 @@
 
 <?php if ($isOwner) : ?>
 <?php echo make_app_setting_modal_box('opensocial_modal_box') ?>
-<?php if ($isAllowAddApplication) : ?>
-<?php op_include_form('form', $form ,array(
-  'title' => __('Add a new App'),
-  'url' => url_for('application/list'),
-  'button' => __('Add'),
-)) ?>
-<?php endif ?>
 <?php endif ?>
 
 <div class="applicationList">
@@ -27,9 +20,9 @@
 </div>
 <?php else : ?>
 <?php slot('no_app_alert') ?>
-<?php echo __("The Apps hasn't installed."); ?>
+<?php echo __("You haven't the app."); ?>
 <?php if ($isOwner) : ?>
- <?php echo __("The Apps can be installed from %0%.", array('%0%' => link_to(__('App Gallery'), '@application_gallery'))) ?>
+ <?php echo __("The Apps can be added from %0%.", array('%0%' => link_to(__('App Gallery'), '@application_gallery'))) ?>
 <?php endif; ?>
 <?php end_slot(); ?>
 <?php op_include_box('NoApp', get_slot('no_app_alert')) ?>
@@ -45,6 +38,14 @@
 <ul class="moreInfo">
 <li>
 <?php echo link_to(__('App Gallery'), '@application_gallery') ?>
+<?php if ($isOwner): ?>
+<?php if ($isInstallApp): ?>
+<li><?php echo link_to(__('Install new App'), '@application_install') ?></li>
+<?php endif; ?>
+<?php if ($isInstalledApp): ?>
+<li><?php echo link_to(__('Apps Installed by You'), '@application_installed_list') ?></li>
+<?php endif; ?>
+<?php endif; ?>
 </li>
 </ul>
 </div>

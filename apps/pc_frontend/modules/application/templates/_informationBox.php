@@ -42,12 +42,16 @@ if ($isOwner)
 
 <div class="operation">
 <ul>
+<?php if ($application->isActive()): ?>
 <?php if($isOwner) : ?>
 <li><?php echo link_to_app_setting(__('Settings'), $mid); ?></li>
 <li><?php echo link_to(__('Remove'), '@application_remove?id='.$mid); ?></li>
 <?php else : ?>
 <li><?php echo link_to(__('Add this App'), '@application_add?id='.$application->getId()) ?></li>
 <?php endif ?>
+<?php else: ?>
+<?php echo __('This is waiting to approval by the SNS administrator.') ?>
+<?php endif; ?>
 <li><?php echo link_to(__('Information'), '@application_info?id='.$application->getId()) ?></li>
 </div>
 </div>

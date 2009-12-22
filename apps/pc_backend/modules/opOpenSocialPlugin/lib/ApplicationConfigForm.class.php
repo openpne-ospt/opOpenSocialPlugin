@@ -19,21 +19,21 @@ class ApplicationConfigForm extends sfForm
 {
   public function configure()
   {
-    $is_view_profile_application = (empty($is_view_profile_application)) ? false : true;
+    $addApplicationRuleChoices =  Doctrine::getTable('Application')->getAddApplicationRuleChoices();
     $this->setWidgets(array(
-      'is_allow_add_application'    => new sfWidgetFormInputCheckbox(),
+      'add_application_rule' => new sfWidgetFormChoice(array('choices' => $addApplicationRuleChoices)),
     ));
 
     $this->setValidators(array(
-      'is_allow_add_application'    => new sfValidatorBoolean(),
+      'add_application_rule' => new sfValidatorChoice(array('choices' => array_keys($addApplicationRuleChoices))),
     ));
 
     $this->setDefaults(array(
-      'is_allow_add_application'    => (bool)Doctrine::getTable('SnsConfig')->get('is_allow_add_application', false),
+      'add_application_rule' => (int)Doctrine::getTable('SnsConfig')->get('add_application_rule', ApplicationTable::ADD_APPLICATION_DENY),
     ));
 
     $this->widgetSchema->setLabels(array(
-      'is_allow_add_application'          => 'Allow the SNS members to add apps',
+      'add_application_rule' => 'Allow the SNS members to add apps',
     ));
     $this->widgetSchema->setNameFormat('application_config[%s]');
   }
