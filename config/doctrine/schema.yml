@@ -9,10 +9,12 @@ Application:
       actAs:
         Timestampable:
   columns:
+    member_id: { type: integer(4), notnull: false }
     url:       { type: string(128), notnull: true }
     height:    { type: integer, notnull: true }
     scrolling: { type: boolean, notnull: true, default: false }
     singleton: { type: boolean, notnull: true, default: true }
+    is_active: { type: boolean, notnull: true, default: true }
     title:       { type: string(128) }
     title_url:   { type: string(128) }
     description: { type: string }
@@ -29,6 +31,7 @@ Application:
     settings: { type: array }
     views:    { type: array }
   relations:
+    AdditionalMember: { foreignAlias: AddedApplications, onDelete: "SET NULL", class: Member, local: member_id, foreign: id }
     Members: { foreignAlias: Applications, class: Member, refClass: MemberApplication }
 
 MemberApplication:
