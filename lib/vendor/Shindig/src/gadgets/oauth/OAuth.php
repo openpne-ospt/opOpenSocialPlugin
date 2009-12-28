@@ -555,7 +555,7 @@ class OAuthUtil {
   public static function addParameters($url, $oauthParams) {
     $url .= strchr($url, '?') === false ? '?' : '&';
     foreach ($oauthParams as $key => $value) {
-      $url .= "$key=$value&";
+      $url .= OAuthUtil::urlencodeRFC3986($key)."=".OAuthUtil::urlencodeRFC3986($value)."&";
     }
     return $url;
   }

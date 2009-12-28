@@ -18,7 +18,9 @@ specific language governing permissions and limitations under the License.
 -->
 <feature>
   <name>flash</name>
+  <dependency>core.io</dependency>
   <gadget>
     <script src="flash.js"/>
+    <script src="taming.js"/>
   </gadget>
 </feature>

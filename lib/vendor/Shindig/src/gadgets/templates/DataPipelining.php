@@ -18,6 +18,8 @@
  * under the License.
  */
 
+require_once 'ExpressionParser.php';
+
 //TODO verify os:HttpRequest
 
 class DataPipelining {
@@ -93,7 +95,7 @@ class DataPipelining {
           if (($resolved = self::resolveRequest($request, $result)) !== false) {
             $requestQueue[] = $resolved;
             unset($dataPipeliningRequests[$key]);
-          }
+          } 
         }
         if (count($requestQueue)) {
           $returnedResults = self::performRequests($requestQueue, $context);
@@ -160,15 +162,19 @@ class DataPipelining {
           unset($request['key']);
           unset($request['method']);
           unset($request['type']);
+          if (isset($request['fields'])) {
+          	$request['fields'] = explode(',', $request['fields']);
+          }
           $jsonRequests[] = array('method' => $method, 'id' => $id, 'params' => $request);
           break;
         case 'os:HttpRequest':
           $id = $request['key'];
           $url = $request['href'];
+          $format = isset($request['format']) ? $request['format'] : 'json';
           unset($request['key']);
           unset($request['type']);
           unset($request['href']);
-          $httpRequests[] = array('id' => $id, 'url' => $url, 'queryStr' => implode('&', $request));
+          $httpRequests[$url] = array('id' => $id, 'url' => $url, 'format' => $format, 'queryStr' => implode('&', $request));
           break;
       }
     }
@@ -176,8 +182,9 @@ class DataPipelining {
       // perform social api requests
       $request = new RemoteContentRequest('http://'.$_SERVER['SERVER_NAME'] . Shindig_Config::get('web_prefix') . '/social/rpc?st=' . urlencode($securityToken) . '&format=json', "Content-Type: application/json\n", json_encode($jsonRequests));
       $request->setMethod('POST');
-      $basicFetcher = new BasicRemoteContentFetcher();
-      $basicRemoteContent = new BasicRemoteContent($basicFetcher);
+      $remoteFetcherClass = Shindig_Config::get('remote_content_fetcher');
+      $remoteFetcher = new $remoteFetcherClass();
+      $basicRemoteContent = new BasicRemoteContent($remoteFetcher);
       $response = $basicRemoteContent->fetch($request);
       $decodedResponse = json_decode($response->getResponseContent(), true);
     }
@@ -192,11 +199,41 @@ class DataPipelining {
       $basicRemoteContent = new BasicRemoteContent();
       $resps = $basicRemoteContent->multiFetch($requestQueue);
       foreach ($resps as $response) {
+        //FIXME: this isn't completely correct yet since this picks up the status code and headers
+        // as they are returned by the makeRequest handler and not the ones from the original request
+        
+        $url = $response->getNotSignedUrl();
+        $id = $httpRequests[$url]['id'];
         // strip out the UNPARSEABLE_CRUFT (see makeRequestHandler.php) on assigning the body
         $resp = json_decode(str_replace("throw 1; < don't be evil' >", '', $response->getResponseContent()), true);
         if (is_array($resp)) {
-          //FIXME: make sure that this is the format that java-shindig produces as well, the spec doesn't really state
-          $decodedResponse = array_merge($resp, $decodedResponse);
+          $statusCode = $response->getHttpCode();
+          $statusCodeMessage = $response->getHttpCodeMsg();
+          $headers = $response->getHeaders();
+          if (intval($statusCode) == 200) {
+            $content = $httpRequests[$url]['format'] == 'json' ? json_decode($resp[$url]['body'], true) : $resp[$url]['body'];
+            $toAdd = array(
+              'result' => array(
+                'content' => $content,
+                'status' => $statusCode,
+                'headers' => $headers
+              )
+            );
+          } else {
+            $content = $resp[$url]['body'];
+            $toAdd = array(
+              'error' => array(
+                'code' => $statusCode,
+                'message' => $statusCodeMessage,
+                'data' => array(
+                  'content' => $content,
+                  'headers' => $headers
+                )
+              )
+            );
+          }
+          //$toAdd[$id] = array('id' => $id, 'data' => $httpRequests[$url]['format'] == 'json' ? json_decode($resp[$url]['body'], true) : $resp[$url]['body']);
+          $decodedResponse[] = array('id' => $id, 'data' => $toAdd);
         }
       }
     }
@@ -223,7 +260,7 @@ class DataPipelining {
           try {
             $expressionResult = ExpressionParser::evaluate($expression, $dataContext);
             $request[$key] = str_replace($toReplace, $expressionResult, $request[$key]);
-          } catch (ExpressionException $e) {
+          } catch (Exception  $e) {
             // ignore, maybe on the next pass we can resolve this
             return false;
           }
