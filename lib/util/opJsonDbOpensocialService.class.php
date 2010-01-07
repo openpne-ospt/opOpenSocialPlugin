@@ -20,7 +20,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     if (!is_object($userId))
     {
       $userId  = new UserId('userId', $userId);
-      $groupId = new GroupId('self', 'all'); 
+      $groupId = new GroupId('self', 'all');
     }
     $person = $this->getPeople($userId, $groupId, new CollectionOptions(), $fields, $token);
     if (is_array($person->getEntry()))
@@ -49,11 +49,17 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       $totalSize = $query->count();
 
       $query->orderBy('id');
-      if ($first !== false && $max !== false && is_numeric($first) && is_numeric($max) && $first >= 0 && $max > 0)
+      if (!($first !== false && is_numeric($first) && $first >= 0))
       {
-        $query->offset($first);
-        $query->limit($max);
+        $first = 0;
       }
+      if (!($max !== false && is_numeric($max) && $max > 0))
+      {
+        $max = 20;
+      }
+      $query->offset($first);
+      $query->limit($max);
+
       $members = $query->execute();
     }
 
@@ -78,19 +84,120 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       $people[] = $p + $export->getData($fields);
     }
 
-    $collection = new RestfulCollection($people, $options->getStartIndex(), $totalSize);
-    $collection->setItemsPerPage($options->getCount());
+    $collection = new RestfulCollection($people, $first, $totalSize);
+    $collection->setItemsPerPage($max);
     return $collection;
-  }
-
-  public function getActivities($userIds, $groupId, $appId, $sortBy, $filterBy, $filterOp, $filterValue, $startIndex, $count, $fields, $activityIds ,$token)
-  {
-    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
   }
 
   public function getActivity($userId, $groupId, $appId, $fields, $activityId, SecurityToken $token)
   {
-    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+    if (!is_object($userId))
+    {
+      $userId  = new UserId('userId', $userId);
+      $groupId = new GroupId('self', 'all');
+    }
+    $activity = $this->getActivities($userId, $groupId, $appId, $fields, array($activityId), $token);
+    if (is_array($person->getEntry()))
+    {
+      $activity = $activity->getEntry();
+      if (is_array($activity) && count($activity) == 1)
+      {
+        return array_pop($activity);
+      }
+    }
+    throw new SocialSpiException("Person not found", ResponseError::$BAD_REQUEST);
+  }
+
+  public function getActivities($userIds, $groupId, $appId, $sortBy, $filterBy, $filterOp, $filterValue, $startIndex, $count, $fields, $activityIds ,$token)
+  {
+    $ids = $this->getIdSet($userIds, $groupId, $token);
+    $ret = array();
+
+    $activities = array();
+    if (count($ids))
+    {
+      $query = Doctrine::getTable('ActivityData')->createQuery()
+        ->whereIn('member_id', $ids)
+        ->andWhere('(public_flag = ? OR public_flag = ?)', array(ActivityDataTable::PUBLIC_FLAG_OPEN, ActivityDataTable::PUBLIC_FLAG_SNS))
+        ->andWhere('is_pc = ?', true);
+
+      if (count($activityIds))
+      {
+        if (1 === count($activityIds))
+        {
+          $query->andWhere('id = ?', $activityIds[0]);
+        }
+        else
+        {
+          $query->andWhereIn('id', $activityIds);
+        }
+      }
+
+      $totalSize = $query->count();
+
+      $query->orderBy('created_at DESC');
+      if (!($startIndex !== false && is_numeric($startIndex) && $startIndex >= 0))
+      {
+        $startIndex = 0;
+      }
+      if (!($count !== false && is_numeric($count) && $count > 0))
+      {
+        $count = 20;
+      }
+      $query->offset($startIndex);
+      $query->limit($count);
+      $activities = $query->execute();
+    }
+
+    $results = array();
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('opUtil', 'Asset', 'sfImage'));
+    foreach ($activities as $activity)
+    {
+      $a = array();
+      $a['id'] = $activity->getId();
+      $a['userId'] = $activity->getMemberId();
+      $a['title'] = $activity->getBody();
+      $a['postedTime'] = date(DATE_ATOM, strtotime($activity->getCreatedAt()));
+
+      if ($activity->getUri())
+      {
+        $a['streamUrl'] = app_url_for('pc_frontend', $activity->getUri(), true);
+      }
+      if ($activity->getForeignTable() == Doctrine::getTable('MemberApplication')->getTableName())
+      {
+        $ma = Doctrine::getTable('MemberApplication')->find($activity->getForeignId());
+        if ($ma)
+        {
+          $a['appId'] = $ma->getApplicationId();
+        }
+      }
+      $mediaItems = array();
+      foreach ($activity->getImages() as $image)
+      {
+        $mediaItem = array();
+        if ($image->getFileId())
+        {
+          $mediaItem['thumbnailUrl'] = sf_image_path($image->getFile(), array('size' => '76x76'), true);
+          $mediaItem['url'] = sf_image_path($image->getFile(), array(), true);
+          $mediaItem['type'] = $image->getFile()->getType();
+        }
+        else
+        {
+          $mediaItem['url'] = app_url_for('pc_frontend', $image->getUri(), true);
+          $mediaItem['type'] = $image->getMimeType();
+        }
+        $mediaItems[] = $mediaItem;
+      }
+      if (count($mediaItems))
+      {
+        $a['mediaItems'] = $mediaItems;
+      }
+      $results[] = $a;
+    }
+
+    $collection = new RestfulCollection($results, $startIndex, $totalSize);
+    $collection->setItemsPerPage($count);
+    return $collection;
   }
 
   public function deleteActivities($userId, $groupId, $appId, $activityIds, SecurityToken $token)
@@ -100,7 +207,84 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
 
   public function createActivity($userId, $groupId, $appId, $fields, $activity, SecurityToken $token)
   {
-    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+    if (!($userId instanceof UserId) || $userId->getUserId($token) == null)
+    {
+      throw new SocialSpiException("Unknown person id", ResponseError::$NOT_FOUND);
+    }
+
+    $targetUserId = $userId->getUserId($token);
+    $member = Doctrine::getTable('Member')->find($targetUserId);
+
+    if (!$member)
+    {
+      throw new SocialSpiException("Person not found", ResponseError::$NOT_FOUND);
+    }
+
+    if ($targetUserId != $token->getViewerId())
+    {
+      throw new SocialSpiException("Unauthorized", ResponseError::$UNAUTHORIZED);
+    }
+
+    if (!isset($activity['title']))
+    {
+      throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+    }
+
+    $options = array();
+    if ($token->getAppId())
+    {
+      $memberApplication = Doctrine::getTable('MemberApplication')->findOneByApplicationIdAndMemberId($token->getAppId(), $targetUserId);
+      if (!$memberApplication)
+      {
+        throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+      }
+
+      switch ($memberApplication->getPublicFlag())
+      {
+        case "friends" :
+          $options['public_flag'] = ActivityDataTable::PUBLIC_FLAG_FRIEND;
+          break;
+        case "private" :
+          $options['public_flag'] = ActivityDataTable::PUBLIC_FLAG_PRIVATE;
+      }
+
+      $application = $memberApplication->getApplication();
+
+      $culture = $member->getConfig('language');
+      $culture = $culture ? $culture : 'en';
+      $application->setDefaultCulture($culture);
+      $sourceName = $application->getTitle();
+      if (!$sourceName)
+      {
+        $translation = $application->Translation[0];
+        $sourceName = $translation->title;
+      }
+
+      sfContext::getInstance()->getConfiguration()->loadHelpers(array('opUtil'));
+      $options['source'] = $sourceName;
+      $options['source_uri'] = app_url_for('pc_frontend', '@application_info?id='.$application->getId(), true);
+
+      $options['foreign_table'] = $memberApplication->getTable()->getTableName();
+      $options['foreign_id'] = $memberApplication->getId();
+    }
+
+    if (isset($activity['url']) && $activity['url'])
+    {
+      $url = $activity['url'];
+      if (0 === strpos($url, 'http'))
+      {
+        $options = sfContext::getInstance()->getRouting()->getOptions();
+        if (!preg_match('#^https?://'.preg_quote($options['context']['host']).'#', $url))
+        {
+          throw new SocialSpiException("Bad URL", ResponseError::$BAD_REQUEST);
+        }
+      }
+      $options['url'] = $url;
+    }
+
+    $options['is_mobile'] = false;
+
+    Doctrine::getTable('ActivityData')->updateActivity($targetUserId, $activity['title'], $options);
   }
 
   public function getPersonData($userId, GroupId $groupId, $appId, $fields, SecurityToken $token)
@@ -152,18 +336,18 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
 
   public function deletePersonData($userId, GroupId $groupId, $appId, $fields, SecurityToken $token)
   {
-    if (!($userId instanceof UserId) || $userId->getUserId($token) == null )
+    if (!($userId instanceof UserId) || $userId->getUserId($token) == null)
     {
       throw new SocialSpiException("Unknown person id", ResponseError::$NOT_FOUND);
     }
 
     $targetUserId = $userId->getUserId($token);
-    
+
     if ($targetUserId != $token->getViewerId())
     {
       throw new SocialSpiException("Unauthorized", ResponseError::$UNAUTHORIZED);
     }
-    
+
     foreach ($fields as $key)
     {
       if (!preg_match('/[\w\-\.]+/',$key))
@@ -179,7 +363,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     }
 
     $persistentDatas = $application->getPersistentDatas($targetUserId, $fields);
-    
+
     foreach ($persistentDatas as $persistentData)
     {
       $persistentData->delete();
@@ -310,20 +494,6 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     $objects = array();
     $totalSize = 0;
 
-    // block check
-    if ($token->getViewerId())
-    {
-      foreach ($memberIds as $k => $id)
-      {
-        $relation = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($id, $token->getViewerId());
-
-        if ($relation && $relation->getIsAccessBlock())
-        {
-          unset($memberIds[$k]);
-        }
-      }
-    }
-
     if (count($memberIds))
     {
       $query = Doctrine::getTable('Album')->createQuery()
@@ -338,11 +508,18 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       {
         $query->andWhereIn('id', $albumIds);
       }
-      if ($first !== false && $max !== false && is_numeric($first) && is_numeric($max) && $first >= 0 && $max > 0)
+
+      if (!($first !== false && is_numeric($first) && $first >= 0))
       {
-        $query->offset($first);
-        $query->limit($max);
+        $first = 0;
       }
+      if (!($max !== false && is_numeric($max) && $max > 0))
+      {
+        $max = 20;
+      }
+      $query->offset($first);
+      $query->limit($max);
+
       $objects = $query->execute();
     }
     $results = array();
@@ -368,8 +545,8 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       $results[] = $result;
     }
 
-    $collection = new RestfulCollection($results, $collectionOptions->getStartIndex(), $totalSize);
-    $collection->setItemsPerPage($collectionOptions->getCount());
+    $collection = new RestfulCollection($results, $first, $totalSize);
+    $collection->setItemsPerPage($max);
     return $collection;
   }
 
@@ -427,11 +604,18 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     $query = Doctrine::getTable('AlbumImage')->createQuery()
       ->where('album_id = ?', $albumObject->getId());
     $totalSize = $query->count();
-    if ($first !== false && $max !== false && is_numeric($first) && is_numeric($max) && $first >= 0 && $max > 0)
+
+    if (!($first !== false && is_numeric($first) && $first >= 0))
     {
-      $query->offset($first);
-      $query->limit($max);
+      $first = 0;
     }
+    if (!($max !== false && is_numeric($max) && $max > 0))
+    {
+      $max = 20;
+    }
+    $query->offset($first);
+    $query->limit($max);
+
     $objects = $query->execute();
 
     $results = array();
@@ -471,8 +655,8 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       }
     }
 
-    $collection = new RestfulCollection($results, $collectionOptions->getStartIndex(), $totalSize);
-    $collection->setItemsPerPage($collectionOptions->getCount());
+    $collection = new RestfulCollection($results, $first, $totalSize);
+    $collection->setItemsPerPage($max);
     return $collection;
   }
 
@@ -481,7 +665,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
   }
 
-  public function updateMediaItem($userId, $groupId, $mediaItem, $data, $token)
+  public function updateMediaItem($userId, $groupId, $mediaItem, $token)
   {
     throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
   }
@@ -503,14 +687,15 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       }
       switch ($group->getType())
       {
-        case 'all':
         case 'friends':
-        case 'groupId':
           $ids = Doctrine::getTable('MemberRelationship')->getFriendMemberIds($userId);
           break;
         case 'self':
           $ids[] = $userId;
           break;
+        case 'all':
+        case 'groupId':
+          throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
       }
     }
     elseif (is_array($user))
@@ -521,6 +706,21 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
         $ids = array_merge($ids, $this->getIdSet($id, $group, $token));
       }
     }
+
+    // block check
+    if ($token->getViewerId())
+    {
+      foreach ($ids as $k => $id)
+      {
+        $relation = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($id, $token->getViewerId());
+
+        if ($relation && $relation->getIsAccessBlock())
+        {
+          unset($ids[$k]);
+        }
+      }
+    }
+
     return $ids;
   }
 }
