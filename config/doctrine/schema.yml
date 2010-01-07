@@ -53,7 +53,7 @@ MemberApplicationSetting:
     value:                 { type: string }
   indexes:
     hash_UNIQUE:
-      fields: hash
+      fields: [hash]
       type: unique
   relations:
     MemberApplication: { onDelete: CASCADE, foreignAlias: Settings }
