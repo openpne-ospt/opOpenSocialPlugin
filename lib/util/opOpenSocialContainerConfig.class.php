@@ -142,7 +142,7 @@ class opOpenSocialContainerConfig
             'ANCHOR_COLOR' => ''
           )
         ),
-        'opensocial-0.8' => array(
+        'opensocial' => array(
           'path'           => '#api_url#social/rpc',
           'invalidatePath' => '#shindig_url#gadgets/api/rpc',
           'domain' => 'shindig',
@@ -216,7 +216,7 @@ class opOpenSocialContainerConfig
 
     $export = new opOpenSocialProfileExport();
     
-    $containerTemplate['gadgets.features']['opensocial-0.8']['supportedFields'] = $export->getSupportedFields();
+    $containerTemplate['gadgets.features']['opensocial']['supportedFields'] = $export->getSupportedFields();
     $json = json_encode($containerTemplate);
 
     $replace = array(
