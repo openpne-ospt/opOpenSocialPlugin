@@ -158,8 +158,6 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
     throw new SocialSpiException("Person not found", ResponseError::$BAD_REQUEST);
   }
 
-
-
   public function getPeople($userId, $groupId, CollectionOptions $options, $fields, SecurityToken $token)
   {
     $q = array(array(
@@ -176,14 +174,45 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
     return $this->getRestfulCollection($r);
   }
 
-  public function getActivities($userIds, $groupId, $appId, $sortBy, $filterBy, $filterOp, $filterValue, $startIndex, $count, $fields, $activityIds ,$token)
-  {
-    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
-  }
-
   public function getActivity($userId, $groupId, $appdId, $fields, $activityId, SecurityToken $token)
   {
-    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+    if (!is_object($userId))
+    {
+      $userId  = new UserId('userId', $userId);
+      $groupId = new GroupId('self', 'all');
+    }
+    $activity = $this->getActivities($userId, $groupId, $appId, $fields, array($activityId), $token);
+    if (is_array($person->getEntry()))
+    {
+      $activity = $activity->getEntry();
+      if (is_array($activity) && count($activity) == 1)
+      {
+        return array_pop($activity);
+      }
+    }
+    throw new SocialSpiException("Activity not found", ResponseError::$BAD_REQUEST);
+  }
+
+  public function getActivities($userIds, $groupId, $appId, $sortBy, $filterBy, $filterOp, $filterValue, $startIndex, $count, $fields, $activityIds ,$token)
+  {
+    $q = array(array(
+      'method' => 'activities.get',
+      'params' => array(
+        'userId' => $this->getIdSet($userIds, $token),
+        'groupId' => $this->getGroupId($groupId),
+      ),
+      'id'     => 'data',
+    ));
+    $options = new CollectionOptions();
+    $options->setSortBy($sortBy);
+    $options->setFilterBy($filterBy);
+    $options->setFilterOperation($filterOp);
+    $options->setFilterValue($filterValue);
+    $options->setStartIndex($startIndex);
+    $options->setCount($count);
+    $this->addStandardArguments($q, $options);
+    $r = $this->fetch($q, $token);
+    return $this->getRestfulCollection($r);
   }
 
   public function deleteActivities($userId, $groupId, $appId, $activityIds, SecurityToken $token)
@@ -193,7 +222,22 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
 
   public function createActivity($userId, $groupId, $appId, $fields, $activity, SecurityToken $token)
   {
-    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+    if ($appId == $token->getAppId())
+    {
+      $appId = '@app';
+    }
+    $q = array(array(
+      'method' => 'activities.create',
+      'params' => array(
+        'userId' => $this->getIdSet($userId, $token),
+        'groupId' => $this->getGroupId($groupId),
+        'appId' => $appId,
+        'activity' => $activity,
+      ),
+      'id' => 'key'
+    ));
+    $this->fetch($q, $token);
+    return null;
   }
 
   public function getPersonData($userId, GroupId $groupId, $appId, $fields, SecurityToken $token)
