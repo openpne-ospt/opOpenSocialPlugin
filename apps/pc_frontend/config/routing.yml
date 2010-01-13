@@ -1,0 +1,3 @@
+opOpenSocial:
+  class: opOpenSocialPluginFrontendRouteCollection
+  options: { name: opOpenSocial }
