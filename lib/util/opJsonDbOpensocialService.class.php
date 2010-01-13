@@ -105,7 +105,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
         return array_pop($activity);
       }
     }
-    throw new SocialSpiException("Person not found", ResponseError::$BAD_REQUEST);
+    throw new SocialSpiException("Activity not found", ResponseError::$BAD_REQUEST);
   }
 
   public function getActivities($userIds, $groupId, $appId, $sortBy, $filterBy, $filterOp, $filterValue, $startIndex, $count, $fields, $activityIds ,$token)
