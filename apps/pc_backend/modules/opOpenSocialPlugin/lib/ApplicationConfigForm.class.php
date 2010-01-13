@@ -17,23 +17,32 @@
  */
 class ApplicationConfigForm extends sfForm
 {
+  protected function getSnsConfig($name, $default = null)
+  {
+    return Doctrine::getTable('SnsConfig')->get($name, $default);
+  }
+
   public function configure()
   {
     $addApplicationRuleChoices =  Doctrine::getTable('Application')->getAddApplicationRuleChoices();
     $this->setWidgets(array(
       'add_application_rule' => new sfWidgetFormChoice(array('choices' => $addApplicationRuleChoices)),
+      'opensocial_activity_post_limit_time' => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
       'add_application_rule' => new sfValidatorChoice(array('choices' => array_keys($addApplicationRuleChoices))),
+      'opensocial_activity_post_limit_time' => new sfValidatorInteger(array('min' => 0)),
     ));
 
     $this->setDefaults(array(
-      'add_application_rule' => (int)Doctrine::getTable('SnsConfig')->get('add_application_rule', ApplicationTable::ADD_APPLICATION_DENY),
+      'add_application_rule' => (int)$this->getSnsConfig('add_application_rule', ApplicationTable::ADD_APPLICATION_DENY),
+      'opensocial_activity_post_limit_time' => (int)$this->getSnsConfig('opensocial_activity_post_limit_time', 30),
     ));
 
     $this->widgetSchema->setLabels(array(
       'add_application_rule' => 'Allow the SNS members to add apps',
+      'opensocial_activity_post_limit_time' => 'Continuous activity post prohibition time (s)',
     ));
     $this->widgetSchema->setNameFormat('application_config[%s]');
   }
