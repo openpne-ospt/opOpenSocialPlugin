@@ -230,6 +230,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
     }
 
+
     $options = array();
     if ($token->getAppId())
     {
@@ -237,6 +238,25 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       if (!$memberApplication)
       {
         throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+      }
+
+
+      if (sfConfig::get('opensocial_activity_post_limit_time', 30))
+      {
+        $object = Doctrine::getTable('ActivityData')->createQuery()
+          ->where('foreign_table = ?', $memberApplication->getTable()->getTableName())
+          ->andWhere('foreign_id = ?', $memberApplication->getId())
+          ->andWhere('member_id = ?', $member->getId())
+          ->orderBy('created_at DESC')
+          ->fetchOne();
+        if ($object)
+        {
+          $interval = time() - strtotime($object->getCreatedAt());
+          if ($interval < sfConfig::get('opensocial_activity_post_limit_time', 30))
+          {
+            throw new SocialSpiException("Service Unavailable", 503);
+          }
+        }
       }
 
       switch ($memberApplication->getPublicFlag())

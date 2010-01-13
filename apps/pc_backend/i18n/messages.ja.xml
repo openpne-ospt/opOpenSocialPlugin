@@ -11,6 +11,10 @@
         <target>SNSメンバーのアプリ追加を許可</target>
       </trans-unit>
       <trans-unit id="">
+        <source>Continuous activity post prohibition time (s)</source>
+        <target>アクティビティの連続投稿禁止時間(秒)</target>
+      </trans-unit>
+      <trans-unit id="">
         <source>Container Configuration</source>
         <target>コンテナ設定</target>
       </trans-unit>
