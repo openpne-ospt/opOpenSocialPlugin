@@ -35,6 +35,7 @@ Application:
     Members: { foreignAlias: Applications, class: Member, refClass: MemberApplication }
 
 MemberApplication:
+  actAs: [opActivityCascadingBehavior]
   columns:
     member_id:      { type: integer(4), notnull: true }
     application_id: { type: integer, notnull: true }
