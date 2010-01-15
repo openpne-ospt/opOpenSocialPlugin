@@ -102,23 +102,23 @@ class opOpenSocialPluginFrontendRouteCollection extends sfRouteCollection
       ),
 
       'gadgets_js' => new sfRoute(
-        '/gadgets/js',
+        '/gadgets/js/*',
         array('module' => 'gadgets', 'action' => 'js')
       ),
       'gadgets_proxy' => new sfRoute(
-        '/gadgets/proxy',
+        '/gadgets/proxy/*',
         array('module' => 'gadgets', 'action' => 'proxy')
       ),
       'gadgets_makeRequest' => new sfRoute(
-        '/gadgets/makeRequest',
+        '/gadgets/makeRequest/*',
         array('module' => 'gadgets', 'action' => 'makeRequest')
       ),
       'gadgets_ifr' => new sfRoute(
-        '/gadgets/ifr',
+        '/gadgets/ifr/*',
         array('module' => 'gadgets', 'action' => 'ifr')
       ),
       'gadgets_metadata' => new sfRoute(
-        '/gadgets/ifr',
+        '/gadgets/metadata/*',
         array('module' => 'gadgets', 'action' => 'metadata')
       ),
       'gadgets_nodefaults' => new sfRoute(
