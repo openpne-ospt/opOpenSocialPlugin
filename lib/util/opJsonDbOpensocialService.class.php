@@ -115,7 +115,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       $userId  = new UserId('userId', $userId);
       $groupId = new GroupId('self', 'all');
     }
-    $activity = $this->getActivities($userId, $groupId, $appId, $fields, array($activityId), $token);
+    $activity = $this->getActivities($userId, $groupId, $appId, null, null, null, null, null, $fields, array($activityId), $token);
     if (is_array($person->getEntry()))
     {
       $activity = $activity->getEntry();
