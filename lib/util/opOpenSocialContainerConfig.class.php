@@ -215,8 +215,14 @@ class opOpenSocialContainerConfig
     }
 
     $export = new opOpenSocialProfileExport();
-    
-    $containerTemplate['gadgets.features']['opensocial']['supportedFields'] = $export->getSupportedFields();
+
+    $supportedFields = $export->getSupportedFields();
+    $supportedFields = array_merge($supportedFields, array(
+      'activity' => array('id', 'title', 'userId', 'postedTime', 'streamUrl', 'appId', 'mediaItems'),
+      'mediaItem' => array('id', 'albumId', 'created', 'description', 'fileSize', 'lastUpdated', 'thumbnailUrl', 'title', 'type', 'url')
+    ));
+
+    $containerTemplate['gadgets.features']['opensocial']['supportedFields'] = $supportedFields;
     $json = json_encode($containerTemplate);
 
     $replace = array(
