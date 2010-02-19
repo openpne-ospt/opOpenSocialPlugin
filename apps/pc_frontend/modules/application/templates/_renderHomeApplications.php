@@ -1,6 +1,5 @@
 <?php
 use_helper('OpenSocial');
-op_include_application_setting();
 $maxNum = (int)$gadget->getConfig('num');
 $i = 0;
 ?>

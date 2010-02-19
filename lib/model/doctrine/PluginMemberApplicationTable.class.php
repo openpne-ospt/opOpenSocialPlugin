@@ -72,4 +72,31 @@ class PluginMemberApplicationTable extends Doctrine_Table
     $q->orderBy('sort_order');
     return $q->execute();
   }
+
+ /**
+  * get installed friend ids
+  *
+  * @param Application $application
+  * @param Member $member
+  * @return array
+  */
+  public function getInstalledFriendIds($application, $member = null)
+  {
+    if (null === $member)
+    {
+      $member = sfContext::getInstance()->getUser()->getMember();
+    }
+
+    $friendIds = Doctrine::getTable('MemberRelationship')->getFriendMemberIds($member->getId());
+    if (!$friendIds)
+    {
+      return array();
+    }
+
+    $q = $this->createQuery()
+      ->whereIn('member_id', $friendIds)
+      ->andWhere('(public_flag = ? OR public_flag = ?)', array('public', 'friends'));
+
+    return $q->execute()->toKeyValueArray('id', 'member_id');
+  }
 }

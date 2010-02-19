@@ -1,3 +1,4 @@
+<?php op_include_application_setting($view, $hasApp) ?>
 <div id="application_gadget_<?php echo $memberApplication->getApplicationId() ?>" class="dparts box"><div class="parts">
 <div id="gadgets-gadget-title-bar-<?php echo $memberApplication->getId() ?>" class="partsHeading">
 <p class="link">
@@ -14,3 +15,9 @@
 <iframe width="100%" scrolling="<?php echo $application->getScrolling() ? "yes" : "no" ?>" height="<?php echo ($height) ?>" frameborder="no" src="<?php echo $sf_data->getRaw('iframeUrl') ?>" class="gadgets-gadget" name="remote_iframe_<?php echo $memberApplication->getId() ?>" id="remote_iframe_<?php echo $memberApplication->getId() ?>"></iframe>
 </div>
 </div></div>
+<?php javascript_tag() ?>
+(function (){
+gadgets.rpc.setRelayUrl("remote_iframe_<?php echo $memberApplication->getId() ?>", "<?php echo javascript_path('/opOpenSocialPlugin/js/rpc_relay.html', true) ?>");
+gadgets.rpc.setAuthToken("remote_iframe_<?php echo $memberApplication->getId() ?>", "<?php echo $rpcToken ?>");
+})();
+<?php end_javascript_tag(); ?>

@@ -45,6 +45,17 @@ MemberApplication:
     Member:       { onDelete: CASCADE, foreignAlias: MemberApplications }
     Application:  { onDelete: CASCADE, foreignAlias: MemberApplication }
 
+ApplicationInvite:
+  actAs: [Timestampable]
+  columns:
+    application_id: { type: integer, notnull: true }
+    to_member_id:  { type: integer(4), notnull: true }
+    from_member_id: { type: integer(4), notnull: true }
+  relations:
+    Application: { onDelete: CASCADE }
+    ToMember: { class: Member, local: to_member_id, foreign: id, onDelete: CASCADE }
+    FromMember: { class: Member, local: from_member_id, foreign: id, onDelete: CASCADE }
+
 MemberApplicationSetting:
   columns:
     member_application_id: { type: integer, notnull: true }

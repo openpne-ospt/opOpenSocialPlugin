@@ -1,11 +1,3 @@
-function showIframeModalBox(id, url)
-{
-  var modal = $(id);
-  var modalContents = $(id + '_contents');
-  var modalIframe = modalContents.getElementsByTagName('iframe')[0];
-  var pos = getCenterMuchScreen(modalContents);
-  modalContents.setStyle(pos);
-  modalIframe.src = url;
-  new Effect.Appear(modal, {from:0, to:0.7});
-  new Effect.Appear(modalContents, {from:0, to:1.0});
-}
+
+var IframeModalBox=Class.create();IframeModalBox.prototype={modal:null,modalContents:null,modalIframe:null,closeCallback:null,initialize:function(id){this.modal=$(id);this.modalContents=$(id+'_contents');this.modalIframe=this.modalContents.getElementsByTagName('iframe')[0];},open:function(url,close_callback){this.closeCallback=null;if(close_callback){this.closeCallback=close_callback;}
+var pos=getCenterMuchScreen(this.modalContents);this.modalContents.setStyle(pos);this.modalIframe.src=url;new Effect.Appear(this.modal,{from:0,to:0.7});new Effect.Appear(this.modalContents,{from:0,to:1.0});},close:function(callback_params){Element.hide(this.modal);Element.hide(this.modalContents);if(this.closeCallback){this.closeCallback(callback_params);}}}

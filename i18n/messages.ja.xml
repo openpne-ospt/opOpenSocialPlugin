@@ -230,6 +230,50 @@
         <source>This is waiting to approval by the SNS administrator.</source>
         <target>管理者による承認待ち</target>
       </trans-unit>
+      <trans-unit id="">
+        <source>Invite</source>
+        <target>招待</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Close</source>
+        <target>閉じる</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Close</source>
+        <target>閉じる</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>You've gotten %0% invitations to app.</source>
+        <target>%0%件のアプリへの招待があります</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>App name</source>
+        <target>アプリ名</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Pending invitation to app</source>
+        <target>アプリ招待承認待ち</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Member who invited this</source>
+        <target>招待者</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>You have just rejected request of invitation to app.</source>
+        <target>アプリの招待を拒否しました。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Check the members who sends the invitation.</source>
+        <target>招待を送るメンバーにチェックをしてください。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>The invitation to this app is sent</source>
+        <target>このアプリへ招待する</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Already using</source>
+        <target>すでに使用中です</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -29,7 +29,7 @@ function op_include_application_information_box($id, $application, $mid = null, 
   include_partial('application/informationBox', $params);
 }
 
-function op_include_application_setting()
+function op_include_application_setting($view, $hasApp)
 {
   static $isFirst = true;
   if ($isFirst)
@@ -42,6 +42,7 @@ function op_include_application_setting()
     $response->addJavascript('/opOpenSocialPlugin/js/tabs-min');
     $response->addJavascript('/opOpenSocialPlugin/js/container');
     $response->addJavascript('/gadgets/js/rpc.js?c=1');
+    $response->addJavascript('/opOpenSocialPlugin/js/opensocial-util');
 
     $request = sfContext::getInstance()->getRequest();
     $isDev   = sfConfig::get('sf_environment') == 'dev';
@@ -54,9 +55,9 @@ function op_include_application_setting()
     $apiUrl .= '.php'; 
     
     echo javascript_tag(sprintf(<<<EOF
-gadgets.container = new Container("%s", "%s");
+gadgets.container = new Container("%s", "%s", "%s", %s);
 EOF
-  ,$snsUrl, $apiUrl
+  ,$snsUrl, $apiUrl, $view, (($hasApp) ? 'true' : 'false')
 ));
     echo make_app_setting_modal_box('opensocial_modal_box');
     $isFirst = false;
@@ -70,15 +71,33 @@ function link_to_app_setting($text, $mid, $isReload = false)
   $response->addJavascript(sfConfig::get('sf_prototype_web_dir').'/js/builder');
   $response->addJavascript(sfConfig::get('sf_prototype_web_dir').'/js/effects');
   $response->addJavascript('/opOpenSocialPlugin/js/opensocial-util');
+
   $url = '@application_setting?id='.$mid;
   if ($isReload)
   {
     $url = $url.'&is_reload=1';
   }
-  return link_to_function($text,"showIframeModalBox('opensocial_modal_box','".url_for($url)."')");
+  return link_to_function($text, sprintf("iframeModalBox.open('%s')", url_for($url)));
 }
 
 function make_app_setting_modal_box($id)
 {
-  return make_modal_box($id, '<iframe width="400" height="400" frameborder="0"></iframe>');
+  sfContext::getInstance()->getResponse()->addJavascript(sfConfig::get('sf_prototype_web_dir').'/js/prototype');
+  sfContext::getInstance()->getResponse()->addJavascript('util');
+
+  $modalbox = '<div id="'.$id.'" class="modalWall" style="display:none" onclick="iframeModalBox.close(); false;"></div>'
+            . '<div id="'.$id.'_contents" class="modalBox" style="display: none;">'
+            . '<iframe width="400" height="400" frameborder="0"></iframe>'
+            . '</div>';
+
+  $javascript = <<<EOT
+var iframeModalBox = new IframeModalBox("%id%");
+(function (){
+  var contents = $("%id%_contents");
+  contents.setStyle(getCenterMuchScreen(contents));
+})();
+EOT;
+  $javascript = preg_replace('/%id%/', $id, $javascript);
+
+  return $modalbox.javascript_tag($javascript);
 }

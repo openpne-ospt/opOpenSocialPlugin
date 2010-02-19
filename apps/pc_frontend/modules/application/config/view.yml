@@ -10,5 +10,10 @@ settingSuccess:
 infoSuccess:
   layout: layoutA
 
-jsSuccess:
-  has_layout: off
+inviteSuccess:
+  layout: plain
+  javascripts:
+    - %SF_PROTOTYPE_WEB_DIR%/js/prototype
+
+inviteListSuccess:
+  has_layout: false

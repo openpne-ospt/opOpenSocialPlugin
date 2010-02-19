@@ -22,5 +22,24 @@ class opOpenSocialPluginConfiguration extends sfPluginConfiguration
     sfToolkit::addIncludePath(array(
       $this->rootDir.'/lib/vendor/Shindig/',
     ));
+
+    $this->dispatcher->connect('op_confirmation.list', array(__CLASS__, 'getConfirmList'));
+    $this->dispatcher->connect('op_confirmation.decision', array(__CLASS__, 'processConfirm'));
+  }
+
+  public function getConfirmList(sfEvent $event)
+  {
+    if ('invitation_app' == $event['category'])
+    {
+      return Doctrine::getTable('ApplicationInvite')->inviteApplicationList($event);
+    }
+  }
+
+  public function processConfirm(sfEvent $event)
+  {
+    if ('invitation_app' == $event['category'])
+    {
+      return Doctrine::getTable('ApplicationInvite')->processApplicationConfirm($event);
+    }
   }
 }

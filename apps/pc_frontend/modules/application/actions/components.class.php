@@ -74,6 +74,9 @@ class applicationComponents extends sfComponents
       'url'       => $this->application->getUrl(),
     );
 
+    $this->hasApp = $this->application->isHadByMember($this->getUser()->getMemberId());
+    $this->rpcToken = rand(0, getrandmax());
+
     $userprefParamPrefix = Shindig_Config::get('userpref_param_prefix','up_');
     foreach ($this->memberApplication->getUserSettings() as $name => $value)
     {
@@ -86,11 +89,11 @@ class applicationComponents extends sfComponents
       {
         $shindigUrl .= '/';
       }
-      $this->iframeUrl = $shindigUrl.'gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+      $this->iframeUrl = $shindigUrl.'gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.$this->rpcToken;
     }
     else
     {
-      $this->iframeUrl = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+      $this->iframeUrl = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'#rpctoken='.$this->rpcToken;
     }
   }
 
@@ -114,5 +117,15 @@ class applicationComponents extends sfComponents
     $ownerId  = $request->getParameter('id', $this->getUser()->getMemberId());
     $viewerId = $this->getUser()->getMemberId();
     $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($ownerId, $viewerId);
+  }
+
+ /**
+  * Executes caution about application invite
+  *
+  * @param sfWebRequest $request
+  */
+  public function executeCautionAboutApplicationInvite(sfWebRequest $request)
+  {
+    $this->count = Doctrine::getTable('ApplicationInvite')->findByToMemberId($this->getUser()->getMemberId())->count();
   }
 }

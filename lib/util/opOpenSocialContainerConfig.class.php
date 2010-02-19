@@ -101,6 +101,8 @@ class opOpenSocialContainerConfig
    */
   public function generate($snsUrl = null, $shindigUrl = null, $apiUrl = null)
   {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset'));
+
     //Template
     $containerTemplate = array(
       'gadgets.container' => array(),
