@@ -48,19 +48,19 @@
 </td></tr>
 <tr><th><?php echo __('Quote') ?></th><td><?php echo $application->getAuthorQuote() ?></td></tr>
 <tr><td colspan="2">
-<?php echo button_to(__('Delete'),'opOpenSocialPlugin/delete?id='.$sf_request->getParameter('id'), array('style' => 'float:left')) ?> 
+<?php echo button_to(__('Delete'),'@op_opensocial_delete?id='.$sf_request->getParameter('id'), array('style' => 'float:left')) ?> 
 <?php $form = new sfForm() ?>
-<?php echo $form->renderFormTag(url_for('opOpenSocialPlugin/update?id='.$sf_request->getParameter('id')), array('style' => 'float:left')) ?>
+<?php echo $form->renderFormTag(url_for('@op_opensocial_update?id='.$sf_request->getParameter('id')), array('style' => 'float:left')) ?>
 <?php echo $form->renderHiddenFields() ?>
 <input type="submit" value="<?php echo __('Update') ?>" />
 </form>
 <?php if ($application->isActive()): ?>
-<?php echo $form->renderFormTag(url_for('opOpenSocialPlugin/inactivate?id='.$sf_request->getParameter('id'))) ?>
+<?php echo $form->renderFormTag(url_for('@op_opensocial_inactivate?id='.$sf_request->getParameter('id'))) ?>
 <?php echo $form->renderHiddenFields() ?>
 <input type="submit" value="<?php echo __('Inactivate') ?>" />
 </form>
 <?php else: ?>
-<?php echo $form->renderFormTag(url_for('opOpenSocialPlugin/activate?id='.$sf_request->getParameter('id'))) ?>
+<?php echo $form->renderFormTag(url_for('@op_opensocial_activate?id='.$sf_request->getParameter('id'))) ?>
 <?php echo $form->renderHiddenFields() ?>
 <input type="submit" value="<?php echo __('Activate') ?>" />
 </form>

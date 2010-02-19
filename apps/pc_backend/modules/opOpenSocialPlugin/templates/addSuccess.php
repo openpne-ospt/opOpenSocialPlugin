@@ -8,7 +8,7 @@
 
 <?php include_partial('bottomSubmenu') ?>
 
-<?php echo $form->renderFormTag(url_for('opOpenSocialPlugin/add')) ?>
+<?php echo $form->renderFormTag(url_for('@op_opensocial_add')) ?>
 <table>
 <?php echo $form ?>
 <td colspan="2"><input type="submit" value="<?php echo __('Add') ?>" /></td>

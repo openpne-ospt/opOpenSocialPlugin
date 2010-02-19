@@ -17,14 +17,16 @@
  */
 class opOpenSocialPluginActions extends sfActions
 {
-  /**
-   * Executes index action
-   *
-   * @param sfWebRequest $request A request object
-   */
-  public function executeIndex(sfWebRequest $request)
+  public function preExecute()
   {
-    return $this->redirect('opOpenSocialPlugin/applicationConfig');
+    if (is_callable(array($this->getRoute(), 'getObject')))
+    {
+      $object = $this->getRoute()->getObject();
+      if ($object instanceof Application)
+      {
+        $this->application = $object;
+      }
+    }
   }
 
   /**
@@ -81,7 +83,7 @@ class opOpenSocialPluginActions extends sfActions
         try
         {
           $application = Doctrine::getTable('Application')->addApplication($this->form->getValue('application_url'));
-          $this->redirect('opOpenSocialPlugin/info?id='.$application->id);
+          $this->redirect('@op_opensocial_info?id='.$application->id);
         }
         catch (Exception $e)
         {
@@ -90,7 +92,7 @@ class opOpenSocialPluginActions extends sfActions
             $this->getUser()->setFlash('error', 'Failed in adding the App.');
           }
         }
-        $this->redirect('opOpenSocialPlugin/add');
+        $this->redirect('@op_opensocial_add');
       }
     }
   }
@@ -117,8 +119,6 @@ class opOpenSocialPluginActions extends sfActions
    */
   public function executeInfo(sfWebRequest $request)
   {
-    $this->application = Doctrine::getTable('Application')->find($request->getParameter('id'));
-    $this->forward404Unless($this->application);
   }
 
   /**
@@ -128,14 +128,11 @@ class opOpenSocialPluginActions extends sfActions
    */
   public function executeDelete(sfWebRequest $request)
   {
-    $this->application = Doctrine::getTable('Application')->find($request->getParameter('id'));
-    $this->forward404Unless($this->application);
-
     if ($request->isMethod(sfWebRequest::POST))
     {
       $request->checkCSRFProtection();
       $this->application->delete();
-      $this->redirect('opOpenSocialPlugin/list');
+      $this->redirect('@op_opensocial_list');
     }
   }
 
@@ -147,10 +144,8 @@ class opOpenSocialPluginActions extends sfActions
   public function executeUpdate(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $application = Doctrine::getTable('Application')->find($request->getParameter('id'));
-    $this->forward404Unless($application);
-    $application->updateApplication($this->getUser()->getCulture());
-    $this->redirect('opOpenSocialPlugin/info?id='.$application->getId());
+    $this->application->updateApplication($this->getUser()->getCulture());
+    $this->redirect('@op_opensocial_info?id='.$this->application->getId());
   }
 
   /**
@@ -160,7 +155,7 @@ class opOpenSocialPluginActions extends sfActions
    */
   public function executeGenerateContainerConfig(sfWebRequest $request)
   {
-    sfConfig::set('sf_web_debug',false);
+    sfConfig::set('sf_web_debug', false);
     $response = $this->getResponse();
     $response->setContentType('text/javascript');
     $response->setHttpHeader('Content-Disposition','attachment; filename="openpne.js');
@@ -176,10 +171,9 @@ class opOpenSocialPluginActions extends sfActions
   public function executeActivate(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $application = Doctrine::getTable('Application')->find($request->getParameter('id'));
-    $application->setIsActive(true);
-    $application->save();
-    $this->redirect('opOpenSocialPlugin/info?id='.$application->getId());
+    $this->application->setIsActive(true);
+    $this->application->save();
+    $this->redirect('@op_opensocial_info?id='.$this->application->getId());
   }
 
   /**
@@ -190,10 +184,9 @@ class opOpenSocialPluginActions extends sfActions
   public function executeInactivate(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $application = Doctrine::getTable('Application')->find($request->getParameter('id'));
-    $application->setIsActive(false);
-    $application->save();
-    $this->redirect('opOpenSocialPlugin/info?id='.$application->getId());
+    $this->application->setIsActive(false);
+    $this->application->save();
+    $this->redirect('@op_opensocial_info?id='.$this->application->getId());
   }
 
   /**

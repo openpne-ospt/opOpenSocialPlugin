@@ -7,7 +7,7 @@
 <?php end_slot() ?>
 
 <?php include_partial('bottomSubmenu') ?>
-<form action="<?php echo url_for('opOpenSocialPlugin/containerConfig') ?>" method="post">
+<?php echo $containerConfigForm->renderFormTag(url_for('@op_opensocial_container_config')) ?>
 <table>
 <?php echo $containerConfigForm ?>
 <tr><td colspan="2"><input type="submit" value="<?php echo __('Modify') ?>" /></td></tr>
@@ -16,7 +16,7 @@
 
 <?php if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig', false)): ?>
 <p>
-<?php echo link_to(__('Download openpne.js'), 'opOpenSocialPlugin/generateContainerConfig') ?>
+<?php echo link_to(__('Download openpne.js'), '@op_opensocial_generate_container_config') ?>
 </p>
 <p>
 <ul>

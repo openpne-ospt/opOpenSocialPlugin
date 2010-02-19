@@ -1,0 +1,58 @@
+op_opensocial_application_config:
+  url: /opOpenSocialPlugin
+  param: { module: opOpenSocialPlugin, action: applicationConfig }
+
+op_opensocial_container_config:
+  url: /opOpenSocialPlugin/containerConfig
+  param: { module: opOpenSocialPlugin, action: containerConfig }
+
+op_opensocial_add:
+  url: /opOpenSocialPlugin/add
+  param: { module: opOpenSocialPlugin, action: add }
+
+op_opensocial_list:
+  url: /opOpenSocialPlugin/list
+  param: { module: opOpenSocialPlugin, action: list }
+
+op_opensocial_info:
+  class: sfDoctrineRoute
+  url: /opOpenSocialPlugin/info/:id
+  param: { module: opOpenSocialPlugin, action: info }
+  requirements: { id: '\d+', sf_method: [get] }
+  options: { model: Application, type: object }
+
+op_opensocial_delete:
+  class: sfDoctrineRoute
+  url: /opOpenSocialPlugin/delete/:id
+  param: { module: opOpenSocialPlugin, action: delete }
+  requirements: { id: '\d+', sf_method: [get, post] }
+  options: { model: Application, type: object }
+
+op_opensocial_update:
+  class: sfDoctrineRoute
+  url: /opOpenSocialPlugin/update/:id
+  param: { module: opOpenSocialPlugin, action: update }
+  requirements: { id: '\d+', sf_method: [post] }
+  options: { model: Application, type: object }
+
+op_opensocial_generate_container_config:
+  url: /opOpenSocialPlugin/generateContainerConfig
+  param: { module: opOpenSocialPlugin, action: generateContainerConfig }
+
+op_opensocial_activate:
+  class: sfDoctrineRoute
+  url: /opOpenSocialPlugin/active/:id
+  param: { module: opOpenSocialPlugin, action: activate }
+  requirements: { id: '\d+', sf_method: [post] }
+  options: { model: Application, type: object }
+
+op_opensocial_inactivate:
+  class: sfDoctrineRoute
+  url: /opOpenSocialPlugin/inactivate/:id
+  param: { module: opOpenSocialPlugin, action: inactivate }
+  requirements: { id: '\d+', sf_method: [post] }
+  options: { model: Application, type: object }
+
+op_opensocial_inactive_list:
+  url: /opOpenSocialPlugin/inactiveList
+  param: { module: opOpenSocialPlugin, action: inactiveList }
