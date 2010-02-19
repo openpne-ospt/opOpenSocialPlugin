@@ -225,6 +225,8 @@ class applicationActions extends sfActions
             $application = Doctrine::getTable('Application')->addApplication($this->form->getValue('application_url'));
             $application->setMemberId($this->getUser()->getMemberId());
             if (ApplicationTable::ADD_APPLICATION_NECESSARY_TO_PERMIT)
+            if ((int)Doctrine::getTable('SnsConfig')->get('add_application_rule', ApplicationTable::ADD_APPLICATION_DENY) ===
+              ApplicationTable::ADD_APPLICATION_NECESSARY_TO_PERMIT)
             {
               $application->setIsActive(false);
             }
