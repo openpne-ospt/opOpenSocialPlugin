@@ -91,6 +91,12 @@ class opOpenSocialPluginFrontendRouteCollection extends sfRouteCollection
         array('id' => '\d+', 'sf_method' => 'post'),
         array('model' => 'Application', 'type' => 'object')
       ),
+      'application_delete' => new sfDoctrineRoute(
+        '/application/delete/:id',
+        array('module' => 'application', 'action' => 'delete'),
+        array('id' => '\d+', 'sf_method' => array('get', 'post')),
+        array('model' => 'Application', 'type' => 'object')
+      ),
       'application_sort' => new sfRoute(
         '/application/sort',
         array('module' => 'application', 'action' => 'sort'),

@@ -155,7 +155,7 @@
         <target>アプリを削除する</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Do you really delete this App?</source>
+        <source>Do you really remove this App?</source>
         <target>本当にこのアプリを削除しますか？</target>
       </trans-unit>
       <trans-unit id="">
@@ -273,6 +273,18 @@
       <trans-unit id="">
         <source>Already using</source>
         <target>すでに使用中です</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Delete this App</source>
+        <target>アプリを削除する</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Do you really delete this App?</source>
+        <target>本当にこのアプリを削除しますか？</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>If you delete this app, this app is deleted from all users.</source>
+        <target>もしアプリを削除すると、利用者からもアプリが削除されます。</target>
       </trans-unit>
     </body>
   </file>

@@ -56,6 +56,7 @@ include_list_box('AuthorInfoList', $authorInfoList, array('title' => __('About A
 $developerInfoList = array(
   __('Gadget XML') => $application->getUrl(),
   __('Update App Info') => get_slot('update_button'),
+  __('Delete App') => link_to(__('Delete'), '@application_delete?id='.$application->getId()),
 );
 ?>
 <?php include_list_box('DeveloperInfoList', $developerInfoList, array('title' => __('Information for Developer'))); ?>

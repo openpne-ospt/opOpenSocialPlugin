@@ -263,13 +263,28 @@ class applicationActions extends sfActions
    *
    * @param sfWebRequest $request A request object
    */
-
   public function executeUpdate(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
     $this->forward404Unless($this->member->getId() === $this->application->getMemberId());
     $this->application->updateApplication($this->getUser()->getCulture());
     $this->redirect('@application_info?id='.$this->application->getId());
+  }
+
+  /**
+   * Executes delete application action
+   *
+   * @param sfWebRequest $request A request object
+   */
+  public function executeDelete(sfWebRequest $request)
+  {
+    $this->forward404Unless($this->member->getId() === $this->application->getMemberId());
+    if ($request->isMethod(sfWebRequest::POST))
+    {
+      $request->checkCSRFProtection();
+      $this->application->delete();
+      $this->redirect('@application_list');
+    }
   }
 
   /**
