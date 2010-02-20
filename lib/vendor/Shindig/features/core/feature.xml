@@ -32,4 +32,8 @@
   <dependency>core.io</dependency>
   <dependency>core.prefs</dependency>
   <dependency>core.util</dependency>
+  <gadget>
+    <!-- for html_sanitize -->
+    <script src="http://google-caja.googlecode.com/svn/trunk/src/com/google/caja/plugin/html-sanitizer.js"></script>
+  </gadget>
 </feature>
