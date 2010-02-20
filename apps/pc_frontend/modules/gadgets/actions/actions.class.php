@@ -26,7 +26,7 @@ class gadgetsActions extends opOpenSocialServletActions
   {
     $class = new JsServlet();
     self::servletExecute($class);
-    return sfView::NONE;
+    exit;
   }
 
   /**
@@ -39,7 +39,7 @@ class gadgetsActions extends opOpenSocialServletActions
     sfConfig::set('sf_web_debug', false);
     $class = new ProxyServlet();
     self::servletExecute($class);
-    return sfView::NONE;
+    exit;
   }
 
   /**
@@ -52,7 +52,7 @@ class gadgetsActions extends opOpenSocialServletActions
     sfConfig::set('sf_web_debug', false);
     $class = new MakeRequestServlet();
     self::servletExecute($class);
-    return sfView::NONE;
+    exit;
   }
 
  /**
@@ -64,7 +64,7 @@ class gadgetsActions extends opOpenSocialServletActions
   {
     $class = new GadgetRenderingServlet();
     self::servletExecute($class);
-    return sfView::NONE;
+    exit;
   }
 
   /**
@@ -76,6 +76,6 @@ class gadgetsActions extends opOpenSocialServletActions
   {
     $class = new MetadataServlet();
     self::servletExecute($class);
-    return sfView::NONE;
+    exit;
   }
 }
