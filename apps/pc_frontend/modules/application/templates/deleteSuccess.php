@@ -7,7 +7,7 @@
 $options = array(
   'title'   => __('Delete the App').": ".$application->getTitle(),
   'body'    => get_slot('body'),
-  'no_url'  => url_for('@application_installed_list'),
+  'no_url'  => url_for('@application_info?id='.$application->getId()),
   'no_method' => 'get',
 );
 

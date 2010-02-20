@@ -275,7 +275,11 @@
         <target>すでに使用中です</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Delete this App</source>
+        <source>Delete App</source>
+        <target>アプリ削除</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Delete the App</source>
         <target>アプリを削除する</target>
       </trans-unit>
       <trans-unit id="">

@@ -283,7 +283,7 @@ class applicationActions extends sfActions
     {
       $request->checkCSRFProtection();
       $this->application->delete();
-      $this->redirect('@application_list');
+      $this->redirect('@my_application_list');
     }
   }
 
