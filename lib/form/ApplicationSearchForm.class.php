@@ -25,10 +25,13 @@ class ApplicationSearchForm extends sfForm
       'users_desc'      => 'Users',
     );
 
+  public function __construct($defaults = array(), $options = array(), $CSRFProtection = false)
+  {
+    parent::__construct($defaults, $options, $CSRFProtection);
+  }
+
   public function configure()
   {
-    $this->localCSRFSecret = false;
-
     $this->setWidgets(array(
       'keyword'    => new sfWidgetFormInput(),
       'order_by'   => new sfWidgetFormChoice(array(
