@@ -13,18 +13,18 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2009-12-22</date>
- <time>10:09:05</time>
+ <date>2010-02-20</date>
+ <time>22:52:37</time>
  <version>
-  <release>0.9.4</release>
-  <api>0.9.4</api>
+  <release>0.9.5</release>
+  <api>0.9.5</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>Added an ability to approve install of the app from SNS admin.</notes>
+ <notes>Fixed error when app was searched.</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="8665be70ae66b94e14c285ff7627543d" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -45,7 +45,7 @@
    <file baseinstalldir="/" md5sum="9ae2c410497583a09e99f7a260ae09ec" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="29852a96cc991ad1056e650e9e7a3d4a" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_bottomSubmenu.php" role="data" />
    <file baseinstalldir="/" md5sum="10d08b1ed197499b5426e4df7c026bd2" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_submenu.php" role="data" />
-   <file baseinstalldir="/" md5sum="6f94f8f3b10cf63ed588f9f02a25443e" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="7898dc5285a170ca2b1eaa8b27aecc04" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b07dff936fad264532c09935c157d792" name="apps/pc_frontend/modules/application/actions/components.class.php" role="data" />
    <file baseinstalldir="/" md5sum="31a9b416e4603892e50fc52658028ae8" name="apps/pc_frontend/modules/application/config/security.yml" role="data" />
    <file baseinstalldir="/" md5sum="038f131f77a771b5661d8e23937e8079" name="apps/pc_frontend/modules/application/config/view.yml" role="data" />
@@ -71,7 +71,7 @@
    <file baseinstalldir="/" md5sum="544d9e2f0baeb5f59f2aa4d6d1060f59" name="config/gadget.yml" role="data" />
    <file baseinstalldir="/" md5sum="a0601f972a9d04c7d7f48444212f3109" name="config/profile_gadget.yml" role="data" />
    <file baseinstalldir="/" md5sum="d0d3d920dc3d6197de04d6d312465181" name="config/routing.yml" role="data" />
-   <file baseinstalldir="/" md5sum="eeb7a3c53baad1edf36608b3b064e75b" name="config/doctrine/schema.yml" role="data" />
+   <file baseinstalldir="/" md5sum="2bd58273bbc9efe8f11bf7625cdc654d" name="config/doctrine/schema.yml" role="data" />
    <file baseinstalldir="/" md5sum="bbde2f831f791dbb65203a3a578dc33c" name="data/fixtures/000_revision.yml" role="data" />
    <file baseinstalldir="/" md5sum="7cf024fd61987701915344f4601ee5da" name="data/fixtures/010_navigation.yml" role="data" />
    <file baseinstalldir="/" md5sum="d72860160b5494de2b8516f7f7e33cba" name="data/fixtures/020_gadget.yml" role="data" />
@@ -93,7 +93,7 @@
    <file baseinstalldir="/" md5sum="2a880a5f2dad9181cb5dc0b25f7f0c75" name="lib/filter/doctrine/PluginMemberApplicationFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="ac61064b9de9b847702e84ac7eb989ed" name="lib/filter/doctrine/PluginMemberApplicationSettingFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="88dac44eec7adb6d2adb0c9f8063ed2f" name="lib/form/AddApplicationForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="2f552075301f682ebfb097ab4e1c3014" name="lib/form/ApplicationSearchForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="46c5474e9d956d5048e733b463b1426e" name="lib/form/ApplicationSearchForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2adc5c0f7ac6c8482a5a0f761cf53f6a" name="lib/form/ApplicationSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="4700c1f19856457440abb5e9b9f15e04" name="lib/form/ApplicationUserSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2c91313dd6f473898b70aa2ac54b1ea3" name="lib/form/doctrine/PluginApplicationForm.class.php" role="data" />
@@ -1453,6 +1453,19 @@
    <date>2009-12-22</date>
    <license>apache</license>
    <notes>Added an ability to approve install of the app from SNS admin.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.5</release>
+    <api>0.9.5</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-02-20</date>
+   <license>apache</license>
+   <notes>Fixed error when app was searched.</notes>
   </release>
  </changelog>
 </package>
