@@ -77,3 +77,7 @@ op_opensocial_delete_consumer_secret:
   param: { module: opOpenSocialPlugin, action:deleteConsumerSecret }
   requirements: { id: '\d+', sf_method: [get, post] }
   options: { model: Application, type: object }
+
+op_opensocial_nodefault:
+  url: /opOpenSocialPlugin/*
+  param: { module: default, action:error }
