@@ -40,8 +40,8 @@ $authorInfoList = array(
   __('Link') => $application->getAuthorLink() ? link_to(null , $application->getAuthorLink(), array('target' => '_blank')) : '',
   __('Quote')   => $application->getAuthorQuote(),
 );
-include_list_box('ApplicationInfoList', $appInfoList, array('title' => __('About App')));
-include_list_box('AuthorInfoList', $authorInfoList, array('title' => __('About Author')));
+op_include_parts('listBox', 'ApplicationInfoList', array('title' => __('About App'), 'list' => $appInfoList));
+op_include_parts('listBox', 'AuthorInfoList', array('title' => __('About Author'), 'list' => $authorInfoList));
 ?>
 
 <?php if ($member->getId() === $application->getMemberId()): ?>
@@ -79,7 +79,7 @@ $developerInfoList = array(
   'Signature method' => 'HMAC-SHA1'
 );
 ?>
-<?php include_list_box('DeveloperInfoList', $developerInfoList, array('title' => __('Information for Developer'))); ?>
+<?php op_include_parts('listBox', 'DeveloperInfoList', array('title' => __('Information for Developer'), 'list' => $developerInfoList)); ?>
 <?php endif; ?>
 <div class="moreInfo">
 <ul class="moreInfo">
