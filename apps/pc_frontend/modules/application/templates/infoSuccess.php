@@ -45,18 +45,38 @@ include_list_box('AuthorInfoList', $authorInfoList, array('title' => __('About A
 ?>
 
 <?php if ($member->getId() === $application->getMemberId()): ?>
-<?php $form = new sfForm(); ?>
+<?php $form = new BaseForm(); ?>
+
 <?php slot('update_button'); ?>
 <?php echo $form->renderFormTag(url_for('@application_update?id='.$application->getId())) ?>
 <?php echo $form->renderHiddenFields() ?>
 <input type="submit" value="<?php echo __('Update') ?>" />
 </form>
 <?php end_slot(); ?>
+
+<?php slot('consumer_secret') ?>
+<div id="oauth_consumer_secret"></div>
+<?php if ($application->getConsumerSecret()): ?>
+<?php echo button_to_remote(__('Show consumer secret'), array(
+  'update' => 'oauth_consumer_secret',
+  'url' => '@application_show_consumer_secret?id='.$application->getId(),
+  'method' => 'get'
+)) ?><br />
+<?php echo button_to(__('Reset consumer secret'), '@application_update_consumer_secret?id='.$application->getId()) ?><br />
+<?php echo button_to(__('Delete consumer secret'), '@application_delete_consumer_secret?id='.$application->getId()) ?>
+<?php else: ?>
+<?php echo button_to(__('Generate consumer secret'), '@application_update_consumer_secret?id='.$application->getId()) ?>
+<?php endif; ?>
+<?php end_slot(); ?>
+
 <?php
 $developerInfoList = array(
   __('Gadget XML') => $application->getUrl(),
   __('Update App Info') => get_slot('update_button'),
-  __('Delete App') => link_to(__('Delete'), '@application_delete?id='.$application->getId()),
+  __('Delete App') => button_to(__('Delete'), '@application_delete?id='.$application->getId()),
+  'Consumer key' => $application->getConsumerKey(),
+  'Consumer secret' => get_slot('consumer_secret'),
+  'Signature method' => 'HMAC-SHA1'
 );
 ?>
 <?php include_list_box('DeveloperInfoList', $developerInfoList, array('title' => __('Information for Developer'))); ?>

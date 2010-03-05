@@ -198,4 +198,59 @@ class opOpenSocialPluginActions extends sfActions
   {
     $this->pager = Doctrine::getTable('Application')->getApplicationListPager($request->getParameter('page'), 20, null, false);
   }
+
+ /**
+  * Executes show consumer secret
+  *
+  * @param sfWebRequest $request
+  */
+  public function executeShowConsumerSecret(sfWebRequest $request)
+  {
+    $this->forward404Unless($this->getRequest()->isXmlHttpRequest());
+    $secret = $this->application->getConsumerSecret();
+    if ($secret)
+    {
+      $this->renderText($secret);
+    }
+
+    return sfView::NONE;
+  }
+
+ /**
+  * Executes update consumer secret
+  *
+  * @param sfWebRequest $request
+  */
+  public function executeUpdateConsumerSecret(sfWebRequest $request)
+  {
+    if ($request->isMethod(sfWebRequest::POST))
+    {
+      if (!$this->application->getConsumerKey())
+      {
+        $this->application->setConsumerKey(opToolkit::generatePasswordString(16, false));
+      }
+      $this->application->setConsumerSecret(opToolkit::generatePasswordString(32));
+      $this->application->save();
+      $this->redirect('@op_opensocial_info?id='.$this->application->getId());
+    }
+
+    return sfView::INPUT;
+  }
+
+ /**
+  * Executes delete consumer secret
+  *
+  * @param sfWebRequest $request
+  */
+  public function executeDeleteConsumerSecret(sfWebRequest $request)
+  {
+    if ($request->isMethod(sfWebRequest::POST))
+    {
+      $this->application->setConsumerSecret('');
+      $this->application->save();
+      $this->redirect('@op_opensocial_info?id='.$this->application->getId());
+    }
+
+    return sfView::INPUT;
+  }
 }

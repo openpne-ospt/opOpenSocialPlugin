@@ -290,6 +290,46 @@
         <source>If you delete this app, this app is deleted from all users.</source>
         <target>もしアプリを削除すると、利用者からもアプリが削除されます。</target>
       </trans-unit>
+      <trans-unit id="">
+        <source>Show consumer secret</source>
+        <target>Consumer secretの表示</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Generate consumer secret</source>
+        <target>Consumer secretの生成</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Reset consumer secret</source>
+        <target>Consumer secretの再設定</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Delete consumer secret</source>
+        <target>Consumer secretの削除</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Delete consumer secret: %0%</source>
+        <target>Consumer secretの削除: %0%</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Delete consumer secret of this app?</source>
+        <target>Consumer secretを削除しますか？</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>It becomes impossible to access with API when the key is deleted.</source>
+        <target>削除すると、APIへのアクセスができなくなります。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Generate or reset consumer secret</source>
+        <target>Consumer secretの生成/再設定</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Generate or reset consumer secret: %0%</source>
+        <target>Consumer secretの生成/再設定: %0%</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Generate or reset consumer secret of this app?</source>
+        <target>Consumer secretを生成/再設定しますか？</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

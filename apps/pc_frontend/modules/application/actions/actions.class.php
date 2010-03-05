@@ -390,4 +390,65 @@ class applicationActions extends sfActions
       return $this->renderText('false');
     }
   }
+
+ /**
+  * Executes show show consumer secret
+  *
+  * @param sfWebRequest $request
+  */
+  public function executeShowConsumerSecret(sfWebRequest $request)
+  {
+    $this->forward404Unless($this->getRequest()->isXmlHttpRequest());
+    $this->forward404Unless($this->member->getId() === $this->application->getMemberId());
+
+    $secret = $this->application->getConsumerSecret();
+    if ($secret)
+    {
+      $this->renderText($secret);
+    }
+
+    return sfView::NONE;
+  }
+
+ /**
+  * Executes update consumer secret
+  *
+  * @param sfWebRequest $request
+  */
+  public function executeUpdateConsumerSecret(sfWebRequest $request)
+  {
+    $this->forward404Unless($this->member->getId() === $this->application->getMemberId());
+
+    if ($request->isMethod(sfWebRequest::POST))
+    {
+      if (!$this->application->getConsumerKey())
+      {
+        $this->application->setConsumerKey(opToolkit::generatePasswordString(16, false));
+      }
+      $this->application->setConsumerSecret(opToolkit::generatePasswordString(32));
+      $this->application->save();
+      $this->redirect('@application_info?id='.$this->application->getId());
+    }
+
+    return sfView::INPUT;
+  }
+
+ /**
+  * Executes delete consumer secret
+  *
+  * @param sfWebRequest $request
+  */
+  public function executeDeleteConsumerSecret(sfWebRequest $request)
+  {
+    $this->forward404Unless($this->member->getId() === $this->application->getMemberId());
+
+    if ($request->isMethod(sfWebRequest::POST))
+    {
+      $this->application->setConsumerSecret('');
+      $this->application->save();
+      $this->redirect('@application_info?id='.$this->application->getId());
+    }
+
+    return sfView::INPUT;
+  }
 }

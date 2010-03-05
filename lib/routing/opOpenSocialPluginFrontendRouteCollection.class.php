@@ -120,7 +120,24 @@ class opOpenSocialPluginFrontendRouteCollection extends sfRouteCollection
         array('id' => '\d+', 'sf_method' => array('post')),
         array('model' => 'MemberApplication', 'type' => 'object')
       ),
-
+      'application_show_consumer_secret' => new sfDoctrineRoute(
+        '/application/showConsumerSecret/:id',
+        array('module' => 'application', 'action' => 'showConsumerSecret'),
+        array('id' => '\d+', 'sf_method' => array('get')),
+        array('model' => 'Application', 'type' => 'object')
+      ),
+      'application_update_consumer_secret' => new sfDoctrineRoute(
+        '/application/updateConsumerSecret/:id',
+        array('module' => 'application', 'action' => 'updateConsumerSecret'),
+        array('id' => '\d+', 'sf_method' => array('get', 'post')),
+        array('model' => 'Application', 'type' => 'object')
+      ),
+      'application_delete_consumer_secret' => new sfDoctrineRoute(
+        '/application/deleteConsumerSecret/:id',
+        array('module' => 'application', 'action' => 'deleteConsumerSecret'),
+        array('id' => '\d+', 'sf_method' => array('get', 'post')),
+        array('model' => 'Application', 'type' => 'object')
+      ),
       'application_nodefaults' => new sfRoute(
         '/application/*',
         array('module' => 'default', 'action' => 'error')

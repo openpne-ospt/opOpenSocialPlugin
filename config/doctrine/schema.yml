@@ -15,6 +15,8 @@ Application:
     scrolling: { type: boolean, notnull: true, default: false }
     singleton: { type: boolean, notnull: true, default: true }
     is_active: { type: boolean, notnull: true, default: true }
+    consumer_key: { type: string(16), default: "", notnull: true }
+    consumer_secret: { type: string(32), default: "", notnull: true }
     title:       { type: string(128) }
     title_url:   { type: string(128) }
     description: { type: string }

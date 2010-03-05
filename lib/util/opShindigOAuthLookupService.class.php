@@ -76,7 +76,38 @@ class opShindigOAuthLookupService extends OAuthLookupService
 
   protected function verify2LeggedOAuth($oauthRequest, $userId, $appUrl)
   {
-    $consumer = $this->dataStore->lookup_consumer($oauthRequest->get_parameter('oauth_consumer_key'));
+    $appId = 0;
+    $consumerKey = $oauthRequest->get_parameter('oauth_consumer_key');
+
+    $application = Doctrine::getTable('Application')->findOneByConsumerKey($consumerKey);
+    if ($application)
+    {
+      if (!($application->getConsumerSecret() && $application->isHadByMember($userId)))
+      {
+        return null;
+      }
+
+      $appId = $application->getId();
+      $consumer = new OAuthConsumer($application->getConsumerKey(), $application->getConsumerSecret());
+    }
+    else
+    {
+      $consumer = $this->dataStore->lookup_consumer($consumerKey);
+
+      if (!($consumerInformation = $this->getConsumerInformation($consumer)))
+      {
+        return null;
+      }
+
+      if (!$this->isAdmin)
+      {
+        if ($consumerInformation->getMemberId() != $userId)
+        {
+          return null;
+        }
+      }
+    }
+
     $signatureMethod = new OAuthSignatureMethod_HMAC_SHA1();
     $oauthSignature  =  $_GET['oauth_signature'];
     $signatureValid  = $signatureMethod->check_signature($oauthRequest, $consumer, null, $oauthSignature);
@@ -86,20 +117,7 @@ class opShindigOAuthLookupService extends OAuthLookupService
       return null;
     }
 
-    if (!($consumerInformation = $this->getConsumerInformation($consumer)))
-    {
-      return null;
-    }
-
-    if (!$this->isAdmin)
-    {
-      if ($consumerInformation->getMemberId() != $userId)
-      {
-        return null;
-      }
-    }
-
-    return new OAuthSecurityToken($userId, $appUrl, 0, 'openpne');
+    return new OAuthSecurityToken($userId, $appUrl, $appId, 'openpne');
   }
 
   protected function verify3LeggedOAuth($oauthRequest, $userId, $appUrl)

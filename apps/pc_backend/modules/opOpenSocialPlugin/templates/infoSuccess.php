@@ -1,3 +1,5 @@
+<?php use_helper('Javascript') ?>
+
 <?php slot('submenu') ?>
 <?php include_partial('submenu') ?>
 <?php end_slot() ?>
@@ -47,6 +49,24 @@
 <?php endif ?>
 </td></tr>
 <tr><th><?php echo __('Quote') ?></th><td><?php echo $application->getAuthorQuote() ?></td></tr>
+<tr><th>Consumer key</th><td><?php echo $application->getConsumerKey() ?></td></tr>
+<tr><th>Consumer secret</th><td>
+
+<div id="oauth_consumer_secret"></div>
+<?php if ($application->getConsumerSecret()): ?>
+<?php echo button_to_remote(__('Show consumer secret'), array(
+  'update' => 'oauth_consumer_secret',
+  'url' => '@op_opensocial_show_consumer_secret?id='.$application->getId(),
+  'method' => 'get'
+)) ?><br />
+<?php echo button_to(__('Reset consumer secret'), '@op_opensocial_update_consumer_secret?id='.$application->getId()) ?><br />
+<?php echo button_to(__('Delete consumer secret'), '@op_opensocial_delete_consumer_secret?id='.$application->getId()) ?>
+<?php else: ?>
+<?php echo button_to(__('Generate consumer secret'), '@op_opensocial_update_consumer_secret?id='.$application->getId()) ?>
+<?php endif; ?>
+
+</td></tr>
+<tr><th>Signature method</th><td>HMAC-SHA1</td></tr>
 <tr><td colspan="2">
 <?php echo button_to(__('Delete'),'@op_opensocial_delete?id='.$sf_request->getParameter('id'), array('style' => 'float:left')) ?> 
 <?php $form = new sfForm() ?>

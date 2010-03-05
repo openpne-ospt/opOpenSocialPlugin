@@ -56,3 +56,24 @@ op_opensocial_inactivate:
 op_opensocial_inactive_list:
   url: /opOpenSocialPlugin/inactiveList
   param: { module: opOpenSocialPlugin, action: inactiveList }
+
+op_opensocial_show_consumer_secret:
+  class: sfDoctrineRoute
+  url: /opOpenSocialPlugin/showConsumerSecret/:id
+  param: { module: opOpenSocialPlugin, action: showConsumerSecret }
+  requirements: { id: '\d+', sf_method: [get] }
+  options: { model: Application, type: object }
+
+op_opensocial_update_consumer_secret:
+  class: sfDoctrineRoute
+  url: /opOpenSocialPlugin/updateConsumerSecret/:id
+  param: { module: opOpenSocialPlugin, action: updateConsumerSecret }
+  requirements: { id: '\d+', sf_method: [get, post] }
+  options: { model: Application, type: object }
+
+op_opensocial_delete_consumer_secret:
+  class: sfDoctrineRoute
+  url: /opOpenSocialPlugin/deleteConsumerSecret/:id
+  param: { module: opOpenSocialPlugin, action:deleteConsumerSecret }
+  requirements: { id: '\d+', sf_method: [get, post] }
+  options: { model: Application, type: object }
