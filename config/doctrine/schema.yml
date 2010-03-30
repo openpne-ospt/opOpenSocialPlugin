@@ -11,7 +11,7 @@ Application:
   columns:
     member_id: { type: integer(4), notnull: false }
     url:       { type: string(128), notnull: true }
-    height:    { type: integer, notnull: true }
+    height:    { type: integer, notnull: false }
     scrolling: { type: boolean, notnull: true, default: false }
     singleton: { type: boolean, notnull: true, default: true }
     is_active: { type: boolean, notnull: true, default: true }
