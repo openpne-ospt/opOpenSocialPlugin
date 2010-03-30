@@ -78,6 +78,7 @@ class PluginApplicationTable extends Doctrine_Table
 
     $translation = $application->Translation[$culture];
     $application->setUrl($gadget['url']);
+    $application->setLinks($gadget['links']);
     $translation->title              = $gadget['title'];
     $translation->title_url          = $gadget['titleUrl'];
     $translation->description        = $gadget['description'];

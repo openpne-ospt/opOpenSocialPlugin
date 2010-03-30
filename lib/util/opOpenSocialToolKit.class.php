@@ -49,7 +49,6 @@ class opOpenSocialToolKit
       ),
       'gadgets' => array(array('url' => $url, 'moduleId' => 1))
     ));
-    $gadgetSigner = Shindig_Config::get('security_token');
     $_GET['nocache'] = 1;
     $handler = new MetadataHandler();
     $response = $handler->process($request);

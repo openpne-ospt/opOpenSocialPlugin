@@ -78,18 +78,9 @@ class opShindigRemoteContentFetcher extends RemoteContentFetcher {
 
     if ($request->isPost())
     {
-      $outPostBody = array();
-      $postBodys = explode('&',$request->getPostBody());
-      foreach ($postBodys as $postBody)
-      {
-        $pb = explode("=",urldecode($postBody));
-        if (count($pb) == 2)
-        {
-          $outPostBody[$pb[0]] = $pb[1];
-        }
-      }
-      $client->setParameterPost($outPostBody);
       $client->setMethod(Zend_Http_Client::POST);
+      $client->setHeaders(Zend_Http_Client::CONTENT_TYPE, Zend_Http_Client::ENC_URLENCODED);
+      $client->setRawData($request->getPostBody());
     }
     else
     {

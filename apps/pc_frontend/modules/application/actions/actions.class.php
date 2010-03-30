@@ -172,6 +172,14 @@ class applicationActions extends sfActions
     {
       $request->checkCSRFProtection();
       $this->memberApplication->delete();
+
+      // to use Lifecycle Event (event.removeapp)
+      $params = array(
+        'memberApplication' => $this->memberApplication,
+      );
+      $event = new sfEvent($this, 'op_opensocial.removeapp', $params);
+      sfContext::getInstance()->getEventDispatcher()->notify($event);
+
       $this->getUser()->setFlash('notice', 'The App was removed successfully.');
       $this->redirect('@my_application_list');
     }

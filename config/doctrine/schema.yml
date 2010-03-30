@@ -15,6 +15,7 @@ Application:
     scrolling: { type: boolean, notnull: true, default: false }
     singleton: { type: boolean, notnull: true, default: true }
     is_active: { type: boolean, notnull: true, default: true }
+    links:     { type: array }
     consumer_key: { type: string(16), default: "", notnull: true }
     consumer_secret: { type: string(32), default: "", notnull: true }
     title:       { type: string(128) }
@@ -85,3 +86,14 @@ ApplicationPersistentData:
   relations:
     Application: { onDelete: CASCADE, foreignAlias: PersistentDatas }
     Member:      { onDelete: CASCADE, foreignAlias: PersistentDatas }
+
+ApplicationLifecycleEventQueue:
+  actAs: [Timestampable]
+  columns:
+    application_id: { type: integer, notnull: true }
+    member_id:      { type: integer(4) }
+    name:           { type: string(128), notnull: true }
+    params:         { type: array }
+  relations:
+    Application: { onDelete: CASCADE }
+    Member:      { onDelete: CASCADE }

@@ -23,8 +23,10 @@ class opOpenSocialPluginConfiguration extends sfPluginConfiguration
       $this->rootDir.'/lib/vendor/Shindig/',
     ));
 
-    $this->dispatcher->connect('op_confirmation.list', array(__CLASS__, 'getConfirmList'));
-    $this->dispatcher->connect('op_confirmation.decision', array(__CLASS__, 'processConfirm'));
+    $this->dispatcher->connect('op_confirmation.list', array($this, 'getConfirmList'));
+    $this->dispatcher->connect('op_confirmation.decision', array($this, 'processConfirm'));
+    $this->dispatcher->connect('op_opensocial.addapp', array($this, 'processAddAppEvent'));
+    $this->dispatcher->connect('op_opensocial.removeapp', array($this, 'processRemoveAppEvent'));
   }
 
   public function getConfirmList(sfEvent $event)
@@ -41,5 +43,81 @@ class opOpenSocialPluginConfiguration extends sfPluginConfiguration
     {
       return Doctrine::getTable('ApplicationInvite')->processApplicationConfirm($event);
     }
+  }
+
+  public function processAddAppEvent(sfEvent $event)
+  {
+    $params = array(
+      'id' => $event['memberApplication']->getMemberId(),
+      'from' => 'gallery',
+    );
+
+    $reason = $event['reason'];
+    if (is_array($reason) && isset($reason['invite']))
+    {
+      $params['from'] = 'invite';
+      $params['invite_from'] = $reason['invite'];
+    }
+
+    return $this->processEvent($event, 'addapp', $params);
+  }
+
+  public function processRemoveAppEvent(sfEvent $event)
+  {
+    $params = array(
+      'id' => $event['memberApplication']->getMemberId(),
+    );
+
+    return $this->processEvent($event, 'removeapp', $params);
+  }
+
+ /**
+  * process lifecycle event
+  *
+  * @param sfEvent $event
+  * @param string  $eventType
+  * @param array   $params
+  * @return boolean
+  */
+  protected function processEvent(sfEvent $event, $eventType, $params = array())
+  {
+    $eventType = 'event.'.$eventType;
+    $params['eventtype'] = $eventType;
+    $links = $event['memberApplication']->getApplication()->getLinks();
+    foreach ($links as $link)
+    {
+      if (isset($link['rel']) && $link['rel'] === $eventType && isset($link['href']))
+      {
+        $memberApplicationId = $event['memberApplication']->getId();
+        $applicationId = $event['memberApplication']->getApplicationId();
+
+        $queue = Doctrine::getTable('ApplicationLifecycleEventQueue')
+          ->findOneByApplicationIdAndMemberIdAndName($applicationId, $params['id'], $eventType);
+        if (!$queue)
+        {
+          $queue = new ApplicationLifecycleEventQueue();
+          $queue->setApplicationId($applicationId);
+
+          if ('event.removeapp' === $eventType)
+          {
+            $delqueue = Doctrine::getTable('ApplicationLifecycleEventQueue')
+              ->findOneByApplicationIdAndMemberIdAndName($applicationId, $params['id'], 'event.addapp');
+            if ($delqueue)
+            {
+              $delqueue->delete();
+              return true;
+            }
+          }
+
+          $queue->setMemberId($params['id']);
+          $queue->setName($eventType);
+          $queue->setParams($params);
+          $queue->save();
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 }
