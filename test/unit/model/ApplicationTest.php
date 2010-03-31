@@ -41,3 +41,7 @@ $t->ok($persistentDatas2 === null, '->getPersistentData() return null when membe
 // ->updateApplication()
 $t->diag('->updateApplication()');
 $t->isa_ok($application2->updateApplication('ja_JP'), 'Application', '->updateApplication() return Application object');
+
+// ->isActive()
+$t->diag('->isActive()');
+$t->isa_ok($application1->isActive(), 'boolean', '->isActive() returns boolean');

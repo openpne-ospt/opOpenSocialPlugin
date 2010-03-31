@@ -84,6 +84,12 @@ class opOpenSocialPluginConfiguration extends sfPluginConfiguration
     $eventType = 'event.'.$eventType;
     $params['eventtype'] = $eventType;
     $links = $event['memberApplication']->getApplication()->getLinks();
+
+    if (!is_array($links))
+    {
+      return false;
+    }
+
     foreach ($links as $link)
     {
       if (isset($link['rel']) && $link['rel'] === $eventType && isset($link['href']))
