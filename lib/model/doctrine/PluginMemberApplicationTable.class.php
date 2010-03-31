@@ -94,7 +94,8 @@ class PluginMemberApplicationTable extends Doctrine_Table
     }
 
     $q = $this->createQuery()
-      ->whereIn('member_id', $friendIds)
+      ->where('application_id = ?', $application->id)
+      ->andWhereIn('member_id', $friendIds)
       ->andWhere('(public_flag = ? OR public_flag = ?)', array('public', 'friends'));
 
     return $q->execute()->toKeyValueArray('id', 'member_id');
