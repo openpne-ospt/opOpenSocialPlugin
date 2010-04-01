@@ -52,6 +52,7 @@ MemberRelationship:
 Application:
   app_1:
     url: "http://example.com/dummy.xml"
+    AdditionalMember: member_1
     Translation:
       ja_JP:
         title: "Test App"
@@ -64,11 +65,12 @@ Application:
         description: "Test App2"
   app_3:
     url: "http://example.com/dummy3.xml"
+    AdditionalMember: member_1
+    is_active: false
     Translation:
       ja_JP:
         title: "Test App3"
         description: "Test App3"
-
 
 MemberApplication:
   member_1_app_1:
