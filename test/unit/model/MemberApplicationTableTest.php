@@ -3,7 +3,7 @@
 include dirname(__FILE__).'/../../bootstrap/unit.php';
 include dirname(__FILE__).'/../../bootstrap/database.php';
 
-$t = new lime_test(2, new lime_output_color());
+$t = new lime_test(4, new lime_output_color());
 
 $application = Doctrine::getTable('Application')->findOneByUrl("http://example.com/dummy.xml");
 $member = Doctrine::getTable('Member')->find(1);
@@ -17,4 +17,11 @@ $t->isa_ok($memberApplication, 'MemberApplication', '->findOneByApplicationAndMe
 
 // ->getMemberApplications()
 $t->diag('->getMemberApplications()');
-$t->isa_ok($table->getMemberApplications(1, 1), 'Doctrine_Collection', '->getMemberApplications() return the Doctrine_Collection object');
+$memberApplications = $table->getMemberApplications($member->id, $member->id);
+$t->isa_ok($memberApplications, 'Doctrine_Collection', '->getMemberApplications() return the Doctrine_Collection object');
+$t->is($memberApplications->count(), 2, '->getMemberApplications() return 2 records');
+
+// ->getInstalledFriendIds()
+$t->diag('->getInstalledFriendIds()');
+$ids = $table->getInstalledFriendIds($application, $member);
+$t->is(array(2 => '2'), $ids, '->getInstalledFriendIds() return installed friend ids');

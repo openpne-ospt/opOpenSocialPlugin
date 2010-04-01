@@ -52,12 +52,15 @@ MemberRelationship:
 Application:
   app_1:
     url: "http://example.com/dummy.xml"
+    AdditionalMember: member_1
     Translation:
       ja_JP:
         title: "Test App"
         description: "Test App"
   app_2:
     url: "http://gist.github.com/raw/183505/a7f3d824cdcbbcf14c06f287537d0acb0b3e5468/gistfile1.xsl"
+    AdditionalMember: member_1
+    is_active: false
     Translation:
       ja_JP:
         title: "Test App2"
@@ -69,12 +72,15 @@ Application:
         title: "Test App3"
         description: "Test App3"
 
-
 MemberApplication:
   member_1_app_1:
     Member: member_1
     Application: app_1
     public_flag: "public"
+  member_2_app_1:
+    Member: member_2
+    Application: app_1
+    public_flag: "friends"
   member_1_app_2:
     Member: member_1
     Application: app_2
@@ -107,3 +113,9 @@ ApplicationPersistentData:
     Member: member_1
     name: "test_key"
     value: "tetete"
+
+ApplicationInvite:
+  app_2_invite_member_2:
+    Application: app_2
+    ToMember: member_2
+    FromMember: member_1

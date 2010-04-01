@@ -17,7 +17,7 @@
  */
 class PluginApplicationTable extends Doctrine_Table
 {
-  const ADD_APPLICATION_DENY = 0; 
+  const ADD_APPLICATION_DENY = 0;
   const ADD_APPLICATION_NECESSARY_TO_PERMIT = 1;
   const ADD_APPLICATION_ALLOW = 2;
 
