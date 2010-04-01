@@ -56,3 +56,7 @@ op_opensocial_inactivate:
 op_opensocial_inactive_list:
   url: /opOpenSocialPlugin/inactiveList
   param: { module: opOpenSocialPlugin, action: inactiveList }
+
+op_opensocial_nodefault:
+  url: /opOpenSocialPlugin/*
+  param: { module: default, action:error }
