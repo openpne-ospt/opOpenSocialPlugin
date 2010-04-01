@@ -9,12 +9,12 @@ $t->diag('->preSave()');
 $object = new MemberApplicationSetting();
 $object->member_application_id = 1;
 $object->name = 'foo';
-$object->preSave();
-$t->is($object->hash, md5('1'.'application'.'foo'));
+$object->save();
+$t->is($object->hash, md5('1'.'application'.'foo'), 'saved hash by ->preSave()');
 
 $object = new MemberApplicationSetting();
 $object->member_application_id = 1;
 $object->type = 'user';
 $object->name = 'foo';
-$object->preSave();
-$t->is($object->hash, md5('1'.'user'.'foo'));
+$object->save();
+$t->is($object->hash, md5('1'.'user'.'foo'), 'saved hash by ->preSave()');
