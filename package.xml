@@ -13,18 +13,18 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-02-20</date>
- <time>22:52:37</time>
+ <date>2010-04-01</date>
+ <time>19:18:53</time>
  <version>
-  <release>0.9.5</release>
-  <api>0.9.5</api>
+  <release>0.9.6</release>
+  <api>0.9.6</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>Fixed error when app was searched.</notes>
+ <notes>Fix unit test</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="8665be70ae66b94e14c285ff7627543d" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -102,12 +102,12 @@
    <file baseinstalldir="/" md5sum="b3e5f77b65c2a6742a619c62b65577e0" name="lib/form/doctrine/PluginMemberApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="9f884bec92e3bd2d956b50e83f755db1" name="lib/form/doctrine/PluginMemberApplicationSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="c4e9ca430b4e641ca72a3b4a0c3f420e" name="lib/helper/OpenSocialHelper.php" role="data" />
-   <file baseinstalldir="/" md5sum="eeb261a7bf701983ae8db70a07047a01" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="a500f6abeb245d98d3d31ec69467fa3e" name="lib/model/doctrine/PluginApplicationPersistentData.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="d6282d429c11eb88519de7c622c49aa4" name="lib/model/doctrine/PluginApplicationPersistentDataTable.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="6c91534d26d43f8588089626ab144f7c" name="lib/model/doctrine/PluginApplicationTable.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="8582f2a482637f21accc7768b51f2b2e" name="lib/model/doctrine/PluginMemberApplication.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="ff0b02d34e0509ebca4f59db0445fadd" name="lib/model/doctrine/PluginMemberApplicationSetting.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="2dd76347d3e65a5a47b0d78836af77e3" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="17074e5ebf1e895307a1874b766189ac" name="lib/model/doctrine/PluginApplicationPersistentData.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="5e59f1588776d175309ad968d99c3cfd" name="lib/model/doctrine/PluginApplicationPersistentDataTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="a6e02561b6c6cd3a917752bcd24edca0" name="lib/model/doctrine/PluginApplicationTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="0cdd6454cee1c094a3ce03199dcc36ff" name="lib/model/doctrine/PluginMemberApplication.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="dfa59c14813a9eecfc1481b5bfc76f21" name="lib/model/doctrine/PluginMemberApplicationSetting.class.php" role="data" />
    <file baseinstalldir="/" md5sum="f736fe8602594a2764747c0190fc56c9" name="lib/model/doctrine/PluginMemberApplicationSettingTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="7e2ea6c00a92aa5b983a027d0c625e11" name="lib/model/doctrine/PluginMemberApplicationTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b6f97cbda864cf8e5908ec9e0440c003" name="lib/routing/opOpenSocialPluginRouting.class.php" role="data" />
@@ -1315,13 +1315,13 @@
    <file baseinstalldir="/" md5sum="fc2d244db0b042977e9563f0a960898b" name="test/bootstrap/database.php" role="data" />
    <file baseinstalldir="/" md5sum="2089e76b9d0ae0fd4d222ee37ea68cb5" name="test/bootstrap/functional.php" role="data" />
    <file baseinstalldir="/" md5sum="4b9770b1215125c0704bfe2931a3215a" name="test/bootstrap/unit.php" role="data" />
-   <file baseinstalldir="/" md5sum="c69af11afc6c4dd5630e77fed71828b8" name="test/fixtures/test_data.yml" role="data" />
+   <file baseinstalldir="/" md5sum="323294d31e28100f93881684efde7258" name="test/fixtures/test_data.yml" role="data" />
    <file baseinstalldir="/" md5sum="3dbb728b843dbf2bb940ed44376b750c" name="test/functional/pc_frontend/skeletonActionsTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="d5a41e05170d2f538b61aa861637c0ff" name="test/unit/model/ApplicationTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="0b33ed3852e6d388a3dc1c805af64955" name="test/unit/model/ApplicationTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="53edeef810d783edef29206f8fa1c779" name="test/unit/model/ApplicationTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="113b5e2094e737f6571c369fe0ef8b8d" name="test/unit/model/ApplicationTest.php" role="data" />
    <file baseinstalldir="/" md5sum="8d7e92d7d339c0a745fbf6e2c4b2c4dc" name="test/unit/model/MemberApplicationSettingTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="38821f5d0d66bd7d6e75a37ece84c1af" name="test/unit/model/MemberApplicationSettingTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="c7ebcc2ae775ba7db7d3cc3bfd1d2700" name="test/unit/model/MemberApplicationTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="a8fac69c6842680f9af741e3b8dc8d2d" name="test/unit/model/MemberApplicationSettingTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="56eed3bdd7a5dc0ddd81473e15ced131" name="test/unit/model/MemberApplicationTableTest.php" role="data" />
    <file baseinstalldir="/" md5sum="1aebe5f62fdd3288036614ced9fd673f" name="test/unit/model/MemberApplicationTest.php" role="data" />
    <file baseinstalldir="/" md5sum="1164ed5f837ff6601bfcca1b88996976" name="web/css/opensocial.css" role="data" />
    <file baseinstalldir="/" md5sum="34764589073718f2a6f5fe73be6c8182" name="web/js/container.js" role="data" />
@@ -1331,6 +1331,7 @@
    <file baseinstalldir="/" md5sum="b8a5ae08d06aad5f3b6bbf627fcb4830" name="web/js/tabs-min.js" role="data" />
    <file baseinstalldir="/" md5sum="385e49d1930c3c9898b0c9089dec09e2" name="web/js/tabs.js" role="data" />
    <file baseinstalldir="/" md5sum="3b83ef96387f14655fc854ddc3c6bd57" name="LICENSE" role="data" />
+   <file baseinstalldir="/" md5sum="b13ec006a5f83dc3b0ac985c778263b9" name="LICENSE.Shindig" role="data" />
   </dir>
  </contents>
  <dependencies>
@@ -1466,6 +1467,19 @@
    <date>2010-02-20</date>
    <license>apache</license>
    <notes>Fixed error when app was searched.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.6</release>
+    <api>0.9.6</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-04-01</date>
+   <license>apache</license>
+   <notes>Fix unit test</notes>
   </release>
  </changelog>
 </package>
