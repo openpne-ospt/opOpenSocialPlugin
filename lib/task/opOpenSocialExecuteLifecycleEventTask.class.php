@@ -25,6 +25,8 @@ class opOpenSocialExecuteLifecycleEventTask extends sfDoctrineBaseTask
     $this->addOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application', true);
     $this->addOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev');
     $this->addOption('consumer-key', null, sfCommandOption::PARAMETER_OPTIONAL, 'The consumer key for signing by OAuth', null);
+    $this->addOption('limit-request', null, sfCommandOption::PARAMETER_OPTIONAL, 'Limit of request', 0);
+    $this->addOption('limit-request-app', null, sfCommandOption::PARAMETER_OPTIONAL, 'Limit of request par an application', 0);
 
     $this->briefDescription = 'Execute lifecycle event';
     $this->detailedDescription = <<<EOF
@@ -87,33 +89,40 @@ EOF;
     $httpOptions['timeout'] = Shindig_Config::get('curl_connection_timeout');
 
     $queueGroups = Doctrine::getTable('ApplicationLifecycleEventQueue')->getQueueGroups();
+
+    $limitRequest = (int)$options['limit-request'];
+    $limitRequestApp = (int)$options['limit-request-app'];
+
+    $allRequest = 0;
     foreach ($queueGroups as $group)
     {
       $application = Doctrine::getTable('Application')->find($group[0]);
       $links = $application->getLinks();
-      $href = null;
-      $method = null;
+      $linkHash = array();
       foreach ($links as $link)
       {
-        if (isset($link['rel']) && $link['rel'] === $group[1] && isset($link['href']))
+        if (isset($link['rel']) && isset($link['href']))
         {
-          $href = $link['href'];
           $method = isset($link['method']) ? strtolower($link['method']) : '';
           $method = ('post' !== $method) ? 'get' : 'post';
-          break;
+          $linkHash[$link['rel']] = array('href' => $link['href'], 'method' => $method);
         }
       }
 
       $queues = Doctrine::getTable('ApplicationLifecycleEventQueue')
-        ->findByApplicationIdAndName($group[0], $group[1]);
-      if ($href && $method)
+        ->getQueuesByApplicationId($group[0], $limitRequestApp);
+
+      foreach ($queues as $queue)
       {
-        $params = array();
-        foreach ($queues as $queue)
+        if (!isset($linkHash[$queue->getName()]))
         {
-          $params = $this->arrayMergeForParameter($params, $queue->getParams());
+          $queue->delete();
+          continue;
         }
-        $oauthRequest = OAuthRequest::from_consumer_and_token($consumer, null, $method, $href, $params);
+        $href = $linkHash[$queue->getName()]['href'];
+        $method = $linkHash[$queue->getName()]['method'];
+
+        $oauthRequest = OAuthRequest::from_consumer_and_token($consumer, null, $method, $href, $queue->getParams());
         $oauthRequest->sign_request($signatureMethod, $consumer, null);
 
         $client = new Zend_Http_Client();
@@ -135,45 +144,17 @@ EOF;
         $response = $client->request();
         if ($response->isSuccessful())
         {
-          $queues->delete();
+          $queue->delete();
         }
-      }
-      else
-      {
-        $queues->delete();
+
+        $allRequest++;
+        if ($limitRequest && $limitRequest <= $allRequest)
+        {
+          break 2;
+        }
       }
       $application->free(true);
       $queues->free(true);
     }
-  }
-
-  protected function arrayMergeForParameter($array1, $array2)
-  {
-    foreach ($array2 as $key => $e)
-    {
-      if (is_numeric($key))
-      {
-        $array1[] = $e;
-      }
-      else
-      {
-        if (isset($array1[$key]))
-        {
-          if (is_array($array1[$key]))
-          {
-            $array1[$key][] = $e;
-          }
-          elseif ($array1[$key] !== $e)
-          {
-            $array1[$key] = array($array1[$key], $e);
-          }
-        }
-        else
-        {
-          $array1[$key] = $e;
-        }
-      }
-    }
-    return $array1;
   }
 }

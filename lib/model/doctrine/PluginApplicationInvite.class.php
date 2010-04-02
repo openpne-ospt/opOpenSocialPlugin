@@ -26,6 +26,11 @@ abstract class PluginApplicationInvite extends BaseApplicationInvite
   */
   public function accept()
   {
-    return $this->getApplication()->addToMember($this->getToMember(), array('is_view_home' => true, 'is_view_profile' => true));
+    return $this->getApplication()->addToMember($this->getToMember(), array(
+      'is_view_home' => true,
+      'is_view_profile' => true
+    ), array(
+      'invite' => $this->getFromMemberId()
+    ));
   }
 }

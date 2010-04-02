@@ -21,13 +21,33 @@ class PluginApplicationLifecycleEventQueueTable extends Doctrine_Table
  /**
   * getQueueGroups
   *
-  * @return Doctrine_Collection
+  * @return array
   */
   public function getQueueGroups()
   {
     return $this->createQuery()
       ->distinct()
-      ->select('application_id, name')
+      ->select('application_id')
       ->execute(array(), Doctrine::HYDRATE_NONE);
+  }
+
+ /**
+  * getQueuesByApplicationId
+  *
+  * @param integer $applicationId
+  * @param integer $limit
+  * @return Doctrine_Collection
+  */
+  public function getQueuesByApplicationId($applicationId, $limit = null)
+  {
+    $query = $this->createQuery()
+      ->where('application_id = ?', $applicationId);
+
+    if (is_numeric($limit) && $limit)
+    {
+      $query->limit($limit);
+    }
+
+    return $query->execute();
   }
 }
