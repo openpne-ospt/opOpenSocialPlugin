@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
     http://pear.php.net/dtd/tasks-1.0.xsd
     http://pear.php.net/dtd/package-2.0
     http://pear.php.net/dtd/package-2.0.xsd">
@@ -13,26 +13,24 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-02-20</date>
- <time>22:41:48</time>
+ <date>2010-04-01</date>
+ <time>16:18:56</time>
  <version>
-  <release>1.0.0</release>
-  <api>1.0.0</api>
+  <release>1.0.1</release>
+  <api>1.0.1</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>
-Added Activity API and an ability to request share app.
- </notes>
+ <notes>Fix some bug and fix unit test</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="8665be70ae66b94e14c285ff7627543d" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="7f2a4c45f28a6277219a8c29e085f695" name="apps/api/modules/social/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="82c4164d360e66e59272919767fb19fd" name="apps/api/modules/social/config/view.yml" role="data" />
-   <file baseinstalldir="/" md5sum="e3dec80b73af9dd641c3aecbe4d7172b" name="apps/pc_backend/config/routing.yml" role="data" />
+   <file baseinstalldir="/" md5sum="ef3fafd566ee883567faece04776efda" name="apps/pc_backend/config/routing.yml" role="data" />
    <file baseinstalldir="/" md5sum="4d3b7befda6ff841cf403600e722b3b3" name="apps/pc_backend/i18n/messages.ja.xml" role="data" />
    <file baseinstalldir="/" md5sum="d7e85e98175ffc9e8e8175fd84e0d5eb" name="apps/pc_backend/modules/opOpenSocialPlugin/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="8e5175367d113c46694961ddca8ae03c" name="apps/pc_backend/modules/opOpenSocialPlugin/config/view.yml" role="data" />
@@ -57,7 +55,7 @@ Added Activity API and an ability to request share app.
    <file baseinstalldir="/" md5sum="f7f37d0484aa4bf4fcf3840441298f8b" name="apps/pc_frontend/modules/application/templates/canvasSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="8f85cc6c2591b668507f45e3ba5a1b12" name="apps/pc_frontend/modules/application/templates/deleteSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="3cba46c56b9e8792a99f9aacc1f8581d" name="apps/pc_frontend/modules/application/templates/gallerySuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="4608bf9535c4a5e83b8d63546666e85a" name="apps/pc_frontend/modules/application/templates/infoSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="3808e23b5ddf50750edd82b8128a064b" name="apps/pc_frontend/modules/application/templates/infoSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="6626dc341192173cf3c9811704b5849e" name="apps/pc_frontend/modules/application/templates/installedListSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="b1b63bb5a83b3fc40cfd6fbee7a4c6fa" name="apps/pc_frontend/modules/application/templates/installSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="f9b85124bca3c3f9a3b37bd7db4a1c7d" name="apps/pc_frontend/modules/application/templates/inviteListSuccess.php" role="data" />
@@ -117,16 +115,16 @@ Added Activity API and an ability to request share app.
    <file baseinstalldir="/" md5sum="b3e5f77b65c2a6742a619c62b65577e0" name="lib/form/doctrine/PluginMemberApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="9f884bec92e3bd2d956b50e83f755db1" name="lib/form/doctrine/PluginMemberApplicationSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="5ec21563c0216bc2a8404750bca3335d" name="lib/helper/OpenSocialHelper.php" role="data" />
-   <file baseinstalldir="/" md5sum="eeb261a7bf701983ae8db70a07047a01" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="92ea21522a207737b11d45b7d80f2486" name="lib/model/doctrine/PluginApplicationInvite.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="86b5bf51fd6b031e5e6e337639a2de0b" name="lib/model/doctrine/PluginApplicationInviteTable.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="a500f6abeb245d98d3d31ec69467fa3e" name="lib/model/doctrine/PluginApplicationPersistentData.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="d6282d429c11eb88519de7c622c49aa4" name="lib/model/doctrine/PluginApplicationPersistentDataTable.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="6c91534d26d43f8588089626ab144f7c" name="lib/model/doctrine/PluginApplicationTable.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="8582f2a482637f21accc7768b51f2b2e" name="lib/model/doctrine/PluginMemberApplication.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="ff0b02d34e0509ebca4f59db0445fadd" name="lib/model/doctrine/PluginMemberApplicationSetting.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="2dd76347d3e65a5a47b0d78836af77e3" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4624ba56bd45e2e1247aee09df4db3a3" name="lib/model/doctrine/PluginApplicationInvite.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="471faf8e7b3fa32a3cb2d03c9010bdb9" name="lib/model/doctrine/PluginApplicationInviteTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="17074e5ebf1e895307a1874b766189ac" name="lib/model/doctrine/PluginApplicationPersistentData.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="5e59f1588776d175309ad968d99c3cfd" name="lib/model/doctrine/PluginApplicationPersistentDataTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="a6e02561b6c6cd3a917752bcd24edca0" name="lib/model/doctrine/PluginApplicationTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="0cdd6454cee1c094a3ce03199dcc36ff" name="lib/model/doctrine/PluginMemberApplication.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="dfa59c14813a9eecfc1481b5bfc76f21" name="lib/model/doctrine/PluginMemberApplicationSetting.class.php" role="data" />
    <file baseinstalldir="/" md5sum="f736fe8602594a2764747c0190fc56c9" name="lib/model/doctrine/PluginMemberApplicationSettingTable.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="59a946e7d5604235c83ea2b433c3743a" name="lib/model/doctrine/PluginMemberApplicationTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="e0743c68b8a7bc160093c10770a7092c" name="lib/model/doctrine/PluginMemberApplicationTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="0252a8822e1362f954af26d00290ca70" name="lib/routing/opOpenSocialPluginFrontendRouteCollection.class.php" role="data" />
    <file baseinstalldir="/" md5sum="453394094822803b67bba9a906850ac7" name="lib/routing/opOpenSocialRoute.class.php" role="data" />
    <file baseinstalldir="/" md5sum="e44c12703d771a1a5d2736113b219a49" name="lib/task/opOpenSocialGeneratekeyTask.class.php" role="data" />
@@ -1386,13 +1384,15 @@ Added Activity API and an ability to request share app.
    <file baseinstalldir="/" md5sum="fc2d244db0b042977e9563f0a960898b" name="test/bootstrap/database.php" role="data" />
    <file baseinstalldir="/" md5sum="2089e76b9d0ae0fd4d222ee37ea68cb5" name="test/bootstrap/functional.php" role="data" />
    <file baseinstalldir="/" md5sum="4b9770b1215125c0704bfe2931a3215a" name="test/bootstrap/unit.php" role="data" />
-   <file baseinstalldir="/" md5sum="c69af11afc6c4dd5630e77fed71828b8" name="test/fixtures/test_data.yml" role="data" />
+   <file baseinstalldir="/" md5sum="9b71d03235c4c3491e3e66bd901b8ad3" name="test/fixtures/test_data.yml" role="data" />
    <file baseinstalldir="/" md5sum="3dbb728b843dbf2bb940ed44376b750c" name="test/functional/pc_frontend/skeletonActionsTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="d5a41e05170d2f538b61aa861637c0ff" name="test/unit/model/ApplicationTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="0b33ed3852e6d388a3dc1c805af64955" name="test/unit/model/ApplicationTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="b552298accd07cfe6b3787ac690ad487" name="test/unit/model/ApplicationInviteTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="de63408abbd1be9a96b4b5ea4b0454cc" name="test/unit/model/ApplicationInviteTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="53edeef810d783edef29206f8fa1c779" name="test/unit/model/ApplicationTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="113b5e2094e737f6571c369fe0ef8b8d" name="test/unit/model/ApplicationTest.php" role="data" />
    <file baseinstalldir="/" md5sum="8d7e92d7d339c0a745fbf6e2c4b2c4dc" name="test/unit/model/MemberApplicationSettingTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="38821f5d0d66bd7d6e75a37ece84c1af" name="test/unit/model/MemberApplicationSettingTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="c7ebcc2ae775ba7db7d3cc3bfd1d2700" name="test/unit/model/MemberApplicationTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="a8fac69c6842680f9af741e3b8dc8d2d" name="test/unit/model/MemberApplicationSettingTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="bb2c14067399ebb7ef3c13622ac79a78" name="test/unit/model/MemberApplicationTableTest.php" role="data" />
    <file baseinstalldir="/" md5sum="1aebe5f62fdd3288036614ced9fd673f" name="test/unit/model/MemberApplicationTest.php" role="data" />
    <file baseinstalldir="/" md5sum="1164ed5f837ff6601bfcca1b88996976" name="web/css/opensocial.css" role="data" />
    <file baseinstalldir="/" md5sum="71b3307db0cad37f36b4cbafe75e1823" name="web/js/container.js" role="data" />
@@ -1434,9 +1434,7 @@ Added Activity API and an ability to request share app.
    </stability>
    <date>2009-02-05</date>
    <license>Apache</license>
-   <notes>
-First release
-   </notes>
+   <notes>First release</notes>
   </release>
   <release>
    <version>
@@ -1449,9 +1447,7 @@ First release
    </stability>
    <date>2009-02-06</date>
    <license>Apache</license>
-   <notes>
-Fixed some security hole and changed base language from Japanese to English on the pc_frontend.
-   </notes>
+   <notes>Fixed some security hole and changed base language from Japanese to English on the pc_frontend.</notes>
   </release>
   <release>
    <version>
@@ -1464,9 +1460,7 @@ Fixed some security hole and changed base language from Japanese to English on t
    </stability>
    <date>2009-02-25</date>
    <license>Apache</license>
-   <notes>
-Added an ability to render iframes of the outer OpenSocial container and fixed the PersistentAPI.
-   </notes>
+   <notes>Added an ability to render iframes of the outer OpenSocial container and fixed the PersistentAPI.</notes>
   </release>
   <release>
    <version>
@@ -1479,9 +1473,7 @@ Added an ability to render iframes of the outer OpenSocial container and fixed t
    </stability>
    <date>2009-09-08</date>
    <license>apache</license>
-   <notes>
-This version is compatible with Doctrine.
-   </notes>
+   <notes>This version is compatible with Doctrine.</notes>
   </release>
   <release>
    <version>
@@ -1494,9 +1486,7 @@ This version is compatible with Doctrine.
    </stability>
    <date>2009-10-07</date>
    <license>apache</license>
-   <notes>
-The preseted profile item was made to correspond to API
-   </notes>
+   <notes>The preseted profile item was made to correspond to API</notes>
   </release>
   <release>
    <version>
@@ -1509,9 +1499,7 @@ The preseted profile item was made to correspond to API
    </stability>
    <date>2009-11-24</date>
    <license>apache</license>
-   <notes>
-Fixed MemberApplicationSetting model, because index key is too long.
-   </notes>
+   <notes>Fixed MemberApplicationSetting model, because index key is too long.</notes>
   </release>
   <release>
    <version>
@@ -1524,9 +1512,7 @@ Fixed MemberApplicationSetting model, because index key is too long.
    </stability>
    <date>2009-12-05</date>
    <license>apache</license>
-   <notes>
-Added an ability for Albums API.
-   </notes>
+   <notes>Added an ability for Albums API.</notes>
   </release>
   <release>
    <version>
@@ -1539,9 +1525,7 @@ Added an ability for Albums API.
    </stability>
    <date>2009-12-22</date>
    <license>apache</license>
-   <notes>
-Added an ability to approve install of the app from SNS admin.
-   </notes>
+   <notes>Added an ability to approve install of the app from SNS admin.</notes>
   </release>
   <release>
    <version>
@@ -1554,9 +1538,20 @@ Added an ability to approve install of the app from SNS admin.
    </stability>
    <date>2010-02-20</date>
    <license>apache</license>
-   <notes>
-Added Activity API and an ability to request share app.
-   </notes>
+   <notes>Added Activity API and an ability to request share app.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-04-01</date>
+   <license>apache</license>
+   <notes>Fix some bug and fix unit test</notes>
   </release>
  </changelog>
 </package>
