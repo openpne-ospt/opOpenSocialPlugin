@@ -40,7 +40,7 @@
 <tr><th><?php echo __('Aboutme') ?></th><td><?php echo $application->getAuthorAboutme() ?></td></tr>
 <tr><th><?php echo __('Photo') ?></th><td>
 <?php if($application->getAuthorPhoto()) : ?>
-<?php echo image_tag($application->getAuthorPhoto(), array('alt' => $application->getAuthor())) ?> 
+<?php echo image_tag($application->getAuthorPhoto(), array('alt' => $application->getAuthor())) ?>
 <?php endif ?>
 </td></tr>
 <tr><th><?php echo __('Link') ?></th><td>
@@ -49,6 +49,8 @@
 <?php endif ?>
 </td></tr>
 <tr><th><?php echo __('Quote') ?></th><td><?php echo $application->getAuthorQuote() ?></td></tr>
+
+<tr><th colspan="2"><?php echo __('Information for Developer') ?></th></tr>
 <tr><th>Consumer key</th><td><?php echo $application->getConsumerKey() ?></td></tr>
 <tr><th>Consumer secret</th><td>
 
