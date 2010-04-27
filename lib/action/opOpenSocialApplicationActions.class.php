@@ -54,13 +54,22 @@ abstract class opOpenSocialApplicationActions extends sfActions
   */
   protected function processAdd(sfWebRequest $request)
   {
+    $this->forward404Unless($this->application->isActive());
+
     $memberApplication = Doctrine::getTable('MemberApplication')->findOneByApplicationAndMember($this->application, $this->member);
     if ($memberApplication)
     {
       return $memberApplication;
     }
 
-    $this->forward404Unless($this->application->isActive());
+    if ($request->hasParameter('invite'))
+    {
+      $invite = Doctrine::getTable('ApplicationInvite')->find($request->getParameter('invite'));
+      if ($invite)
+      {
+        $this->forward404Unless($invite->getToMemberId() == $this->getUser()->getMemberId());
+      }
+    }
 
     if ($request->isMethod(sfWebRequest::POST))
     {
@@ -74,7 +83,14 @@ abstract class opOpenSocialApplicationActions extends sfActions
       {
       }
 
-      return $this->application->addToMember($this->member, array('is_view_home' => true, 'is_view_profile' => true));
+      if (isset($invite) && ($invite instanceof ApplicationInvite))
+      {
+        return $invite->accept();
+      }
+      else
+      {
+        return $this->application->addToMember($this->member, array('is_view_home' => true, 'is_view_profile' => true));
+      }
     }
   }
 

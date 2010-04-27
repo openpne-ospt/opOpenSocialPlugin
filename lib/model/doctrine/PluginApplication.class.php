@@ -52,6 +52,9 @@ abstract class PluginApplication extends BaseApplication
       $memberApplication->setApplicationSetting($name, $value);
     }
 
+    $invites = Doctrine::getTable('ApplicationInvite')->findByApplicationIdAndToMemberId($this->getId(), $member->getId());
+    $invites->delete();
+
     return $memberApplication;
   }
 
