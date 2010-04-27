@@ -137,8 +137,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     {
       $query = Doctrine::getTable('ActivityData')->createQuery()
         ->whereIn('member_id', $ids)
-        ->andWhere('(public_flag = ? OR public_flag = ?)', array(ActivityDataTable::PUBLIC_FLAG_OPEN, ActivityDataTable::PUBLIC_FLAG_SNS))
-        ->andWhere('is_pc = ?', true);
+        ->andWhere('(public_flag = ? OR public_flag = ?)', array(ActivityDataTable::PUBLIC_FLAG_OPEN, ActivityDataTable::PUBLIC_FLAG_SNS));
 
       if (count($activityIds))
       {
@@ -150,6 +149,12 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
         {
           $query->andWhereIn('id', $activityIds);
         }
+      }
+
+      if ($appId)
+      {
+        $query->andWhere('foreign_table = ?', Doctrine::getTable('Application')->getTableName())
+          ->andWhere('foreign_id = ?', $appId);
       }
 
       $totalSize = $query->count();
@@ -263,8 +268,8 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       if (sfConfig::get('opensocial_activity_post_limit_time', 30))
       {
         $object = Doctrine::getTable('ActivityData')->createQuery()
-          ->where('foreign_table = ?', $memberApplication->getTable()->getTableName())
-          ->andWhere('foreign_id = ?', $memberApplication->getId())
+          ->where('foreign_table = ?', Doctrine::getTable('Application')->getTableName())
+          ->andWhere('foreign_id = ?', $memberApplication->getApplicationId())
           ->andWhere('member_id = ?', $member->getId())
           ->orderBy('created_at DESC')
           ->fetchOne();
@@ -295,16 +300,21 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       $sourceName = $application->getTitle();
       if (!$sourceName)
       {
-        $translation = $application->Translation[0];
-        $sourceName = $translation->title;
+        $translations = $application->Translation;
+        $keys = $translations->getKeys();
+        if (count($keys))
+        {
+          $translation = $translations[$keys[0]];
+          $sourceName = $translation->title;
+        }
       }
 
       sfContext::getInstance()->getConfiguration()->loadHelpers(array('opUtil'));
       $options['source'] = $sourceName;
       $options['source_uri'] = app_url_for('pc_frontend', '@application_info?id='.$application->getId(), true);
 
-      $options['foreign_table'] = $memberApplication->getTable()->getTableName();
-      $options['foreign_id'] = $memberApplication->getId();
+      $options['foreign_table'] = Doctrine::getTable('Application')->getTableName();
+      $options['foreign_id'] = $memberApplication->getApplicationId();
     }
 
     if (isset($activity['url']) && $activity['url'])
@@ -320,8 +330,6 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       }
       $options['url'] = $url;
     }
-
-    $options['is_mobile'] = false;
 
     Doctrine::getTable('ActivityData')->updateActivity($targetUserId, $activity['title'], $options);
   }

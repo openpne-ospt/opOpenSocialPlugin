@@ -89,3 +89,13 @@
 <?php endif; ?>
 </td></tr>
 </table>
+
+<?php if (isset($mobileForm)): ?>
+<h3><?php echo __('Mobile App Configuration') ?></h3>
+<?php echo $mobileForm->renderFormTag(url_for('@op_opensocial_info?id='.$application->id)) ?>
+<table>
+<?php echo $mobileForm ?>
+<tr><td colspan="2"><input type="submit" value="<?php echo __('Save') ?>" /></td></tr>
+</table>
+</form>
+<?php endif; ?>

@@ -43,7 +43,7 @@ class ApplicationSearchForm extends sfForm
     $this->widgetSchema->setNameFormat('application[%s]');
   }
 
-  public function getPager($page = 1, $size = 20, $isCheckActive = false)
+  public function getPager($page = 1, $size = 20, $isCheckActive = false, $isPc = null, $isMobile = null)
   {
     if (!$this->isValid())
     {
@@ -56,6 +56,15 @@ class ApplicationSearchForm extends sfForm
     if ($isCheckActive)
     {
       $query->where('a.is_active = ?', true);
+    }
+
+    if (null !== $isPc)
+    {
+      $query->andWhere('a.is_pc = ?', $isPc);
+    }
+    if (null !== $isMobile)
+    {
+      $query->andWhere('a.is_mobile = ?', $isMobile);
     }
 
     $keywords = $this->getValue('keyword');

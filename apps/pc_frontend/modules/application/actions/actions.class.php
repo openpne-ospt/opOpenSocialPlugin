@@ -13,39 +13,22 @@
  *
  * @package    OpenPNE
  * @subpackage opOpenSocialPlugin
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
-class applicationActions extends sfActions
+class applicationActions extends opOpenSocialApplicationActions
 {
   public function preExecute()
   {
-    if (is_callable(array($this->getRoute(), 'getObject')))
-    {
-      $object = $this->getRoute()->getObject();
-      if ($object instanceof MemberApplication)
-      {
-        $this->memberApplication = $object;
-        $this->application       = $this->memberApplication->getApplication();
-        $this->member            = $this->memberApplication->getMember();
-      }
-      elseif ($object instanceof Application)
-      {
-        $this->application = $object;
-      }
-      elseif ($object instanceof Member)
-      {
-        $this->member = $object;
-      }
-    }
-
-    if (empty($this->member))
-    {
-      $this->member = $this->getUser()->getMember();
-    }
-    elseif ($this->member->getId() != $this->getUser()->getMemberId())
+    parent::preExecute();
+    if ($this->member->getId() != $this->getUser()->getMemberId())
     {
       sfConfig::set('sf_nav_type', 'friend');
       sfConfig::set('sf_nav_id', $this->member->getId());
+    }
+
+    if (isset($this->application))
+    {
+      $this->forward404Unless($this->application->getIsPc());
     }
   }
 
@@ -85,7 +68,7 @@ class applicationActions extends sfActions
       );
     }
 
-    $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($ownerId);
+    $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($ownerId, null, true, true);
   }
 
   /**
@@ -123,7 +106,7 @@ class applicationActions extends sfActions
     $this->searchForm->bind($request->getParameter('application'));
     if ($this->searchForm->isValid())
     {
-      $this->pager = $this->searchForm->getPager($request->getParameter('page', 1), 20, true);
+      $this->pager = $this->searchForm->getPager($request->getParameter('page', 1), 20, true, true);
     }
   }
 
@@ -134,54 +117,10 @@ class applicationActions extends sfActions
    */
   public function executeAdd(sfWebRequest $request)
   {
-    $memberApplication = Doctrine::getTable('MemberApplication')->findOneByApplicationAndMember($this->application, $this->member);
-    if ($memberApplication)
+    $memberApplication = $this->processAdd($request);
+    if ($memberApplication instanceof MemberApplication)
     {
       $this->redirect('@application_canvas?id='.$memberApplication->getId());
-    }
-
-    $this->forward404Unless($this->application->isActive());
-
-    if ($request->isMethod(sfWebRequest::POST))
-    {
-      $request->checkCSRFProtection();
-      try 
-      {
-        $application = Doctrine::getTable('Application')->addApplication($this->application->getUrl());
-        $this->application = $application;
-      }
-      catch (Exception $e)
-      {
-      }
-
-      $memberApplication = $this->application->addToMember($this->member, array('is_view_home' => true, 'is_view_profile' => true));
-      $this->redirect('@application_canvas?id='.$memberApplication->getId());
-    }
-  }
-
-  /**
-   * Executes remove action
-   *
-   * @param sfWebRequest $request A request object
-   */
-  public function executeRemove(sfWebRequest $request)
-  {
-    $this->forward404If($this->getUser()->getMemberId() != $this->memberApplication->getMember()->getId());
-
-    if ($request->isMethod(sfWebRequest::POST))
-    {
-      $request->checkCSRFProtection();
-      $this->memberApplication->delete();
-
-      // to use Lifecycle Event (event.removeapp)
-      $params = array(
-        'memberApplication' => $this->memberApplication,
-      );
-      $event = new sfEvent($this, 'op_opensocial.removeapp', $params);
-      sfContext::getInstance()->getEventDispatcher()->notify($event);
-
-      $this->getUser()->setFlash('notice', 'The App was removed successfully.');
-      $this->redirect('@my_application_list');
     }
   }
 
@@ -197,12 +136,12 @@ class applicationActions extends sfActions
 
   /**
    * Executes info action
-   * 
+   *
    * @param sfWebRequest $request A request object
-   */ 
+   */
   public function executeInfo(sfWebRequest $request)
   {
-    $this->memberListPager = $this->application->getMemberListPager(1, 9, true); 
+    $this->memberListPager = $this->application->getMemberListPager(1, 9, true);
   }
 
  /**
@@ -297,7 +236,7 @@ class applicationActions extends sfActions
 
   /**
    * Executes sort application
-   * 
+   *
    * @param sfWebRequest $request A request object
    */
   public function executeSort(sfWebRequest $request)
@@ -357,40 +296,11 @@ class applicationActions extends sfActions
   {
     $this->forward404Unless($this->getRequest()->isXmlHttpRequest());
     $request->checkCSRFProtection();
-
     $this->getResponse()->setContentType('application/json');
 
-    $fromMember = $this->getUser()->getMember();
-    $this->forward404Unless($this->application->isHadByMember($fromMember->getId()));
-
-    $ids = $request->getParameter('ids', array());
-    $isValid = true;
-
-    foreach ($ids as $id)
+    $result = $this->processInvite($request);
+    if ($result)
     {
-      $memberRelationship = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($fromMember->getId(), $id);
-      if ($memberRelationship && !$memberRelationship->isFriend())
-      {
-        $isValid = false;
-      }
-    }
-
-    if ($isValid)
-    {
-      $resultIds = array();
-      foreach ($ids as $id)
-      {
-        $applicationInvite = Doctrine::getTable('ApplicationInvite')->findOneByApplicationIdAndToMemberId($this->application->getId(), $id);
-        if (!$applicationInvite)
-        {
-          $applicationInvite = new ApplicationInvite();
-          $applicationInvite->setApplication($this->application);
-          $applicationInvite->setToMemberId($id);
-          $applicationInvite->setFromMemberId($fromMember->getId());
-          $applicationInvite->save();
-          $resultIds[] = $id;
-        }
-      }
       return $this->renderText(json_encode($resultIds));
     }
     else

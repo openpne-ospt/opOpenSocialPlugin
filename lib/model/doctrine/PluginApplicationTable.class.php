@@ -94,6 +94,27 @@ class PluginApplicationTable extends Doctrine_Table
     $translation->author_quote       = $gadget['authorQuote'];
     $translation->settings           = $gadget['userPrefs'];
     $translation->views              = $gadget['views'];
+
+    if (isset($gadget['views']['mobile']))
+    {
+      if (!(
+        isset($gadget['views']['mobile']['type']) &&
+        'URL' === strtoupper($gadget['views']['mobile']['type'])
+      ))
+      {
+        throw new Exception();
+      }
+    }
+
+    $application->setIsPc(true);
+    if (count($gadget['views']) == 1)
+    {
+      if (isset($gadget['view']['mobile']))
+      {
+        $application->setIsPc(false);
+      }
+    }
+
     if ($gadget['scrolling'] == 'true')
     {
       $application->setScrolling(true);

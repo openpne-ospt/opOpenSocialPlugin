@@ -18,7 +18,7 @@ op_opensocial_info:
   class: sfDoctrineRoute
   url: /opOpenSocialPlugin/info/:id
   param: { module: opOpenSocialPlugin, action: info }
-  requirements: { id: '\d+', sf_method: [get] }
+  requirements: { id: '\d+', sf_method: [get, put] }
   options: { model: Application, type: object }
 
 op_opensocial_delete:

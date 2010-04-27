@@ -34,21 +34,29 @@ class PluginMemberApplicationTable extends Doctrine_Table
   }
 
  /**
-  * get member applications
+  * get member applications query
   *
   * @param integer $memberId
   * @param integer $viewerId
-  * @return Doctrine_Collection
+  * @param boolean $isCheckActive
+  * @param boolean $isPc
+  * @param boolean $isMobile
+  * @return Doctrine_Query
   */
-  public function getMemberApplications($memberId, $viewerId = null, $isCheckActive = true)
+  protected function getMemberApplicationsQuery($memberId = null, $viewerId = null, $isCheckActive = true, $isPc = null, $isMobile = null)
   {
-    if ($viewerId === null)
+    if (null === $memberId)
+    {
+      $memberId = sfContext::getInstance()->getUser()->getMemberId();
+    }
+
+    if (null === $viewerId)
     {
       $viewerId = sfContext::getInstance()->getUser()->getMemberId();
     }
 
     $q = $this->createQuery('ma')
-      ->where('member_id = ?', $memberId);
+      ->where('ma.member_id = ?', $memberId);
     if ($memberId != $viewerId)
     {
       $dql = 'ma.public_flag = ?';
@@ -63,14 +71,65 @@ class PluginMemberApplicationTable extends Doctrine_Table
       $q->andWhere('('.$dql.')', $dqlParams);
     }
 
-    if ($isCheckActive)
+    if ($isCheckActive || null !== $isPc || null !== $isMobile)
     {
-      $q->innerJoin('ma.Application a')
-        ->andWhere('is_active = ?', true);
+      $q->innerJoin('ma.Application a');
     }
 
-    $q->orderBy('sort_order');
-    return $q->execute();
+    if ($isCheckActive)
+    {
+      $q->andWhere('a.is_active = ?', true);
+    }
+
+    if (null !== $isPc)
+    {
+      $q->andWhere('a.is_pc = ?', $isPc);
+    }
+
+    if (null !== $isMobile)
+    {
+      $q->andWhere('a.is_mobile = ?', $isMobile);
+    }
+
+    $q->orderBy('ma.sort_order');
+    return $q;
+  }
+
+ /**
+  * get member applications
+  *
+  * @param integer $memberId
+  * @param integer $viewerId
+  * @param boolean $isCheckActive
+  * @param boolean $isPc
+  * @param boolean $isMobile
+  * @return Doctrine_Collection
+  */
+  public function getMemberApplications($memberId = null, $viewerId = null, $isCheckActive = true, $isPc = null, $isMobile = null)
+  {
+    return $this->getMemberApplicationsQuery($memberId, $viewerId, $isCheckActive, $isPc, $isMobile)->execute();
+  }
+
+ /**
+  * get member application list pager
+  *
+  * @param integer $page
+  * @param integer $size
+  * @param integer $memberId
+  * @param integer $viewerId
+  * @param boolean $isCheckActive
+  * @param boolean $isPc
+  * @param boolean $isMobile
+  * @return sfDoctrinePager
+  */
+  public function getMemberApplicationListPager($page = 1, $size = 20, $memberId = null, $viewerId = null, $isCheckActive = true, $isPc = null, $isMobile = null)
+  {
+    $pager = new sfDoctrinePager('MemberApplication', $size);
+    $q = $this->getMemberApplicationsQuery($memberId, $viewerId, $isCheckActive, $isPc, $isMobile);
+    $pager->setQuery($q);
+    $pager->setPage($page);
+    $pager->init();
+    return $pager;
   }
 
  /**

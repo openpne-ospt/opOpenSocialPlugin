@@ -65,7 +65,7 @@ abstract class PluginApplication extends BaseApplication
   {
     if ($memberId === null)
     {
-      sfContext::getInstance()->getUser()->getMemberId();
+      $memberId = sfContext::getInstance()->getUser()->getMemberId();
     }
 
     $result = Doctrine::getTable('MemberApplication')->createQuery()
@@ -131,7 +131,6 @@ abstract class PluginApplication extends BaseApplication
     {
       $memberId = array($memberId);
     }
-
     if (!is_array($name))
     {
       $name = array($name);
@@ -145,7 +144,7 @@ abstract class PluginApplication extends BaseApplication
     return Doctrine::getTable('ApplicationPersistentData')->createQuery()
       ->where('application_id = ?', $this->getId())
       ->andWhereIn('member_id', $memberId)
-      ->andWhereIn('name', $name)
+      ->andWhereIn('name', array_values($name))
       ->execute();
   }
 

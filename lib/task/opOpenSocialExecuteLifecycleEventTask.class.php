@@ -44,49 +44,12 @@ EOF;
     new sfDatabaseManager($this->configuration);
     sfContext::createInstance($this->createConfiguration('pc_frontend', 'prod'), 'pc_frontend');
 
-    if (isset($options['consumer-key']) && $options['consumer-key'])
-    {
-      $consumerKey = $options['consumer-key'];
-    }
-    else
-    {
-      $this->configuration->loadHelpers(array('opUtil'));
-      $baseUrl = sfConfig::get('op_base_url');
-      if ('/' === substr($baseUrl, -1))
-      {
-        $baseUrl = substr($baseUrl, 0, strlen($baseUrl) - 1);
-      }
-      $consumerKey = $baseUrl.app_url_for('pc_frontend', '@opensocial_certificates');
-    }
+    $consumerKey = (isset($options['consumer-key']) && $options['consumer-key']) ?
+      $options['consumer-key'] :
+      opOpenSocialToolKit::getOAuthConsumerKey();
     $consumer = new OAuthConsumer($consumerKey, null, null);
     $signatureMethod = new OAuthSignatureMethod_RSA_SHA1_opOpenSocialPlugin();
-    $proxyUrl = Shindig_Config::get('proxy');
-    $httpOptions = array();
-    if (!empty($proxyUrl))
-    {
-      $httpOptions['adapter'] = 'Zend_Http_Client_Adapter_Proxy';
-      $proxy = parse_url($proxyUrl);
-      if (isset($proxy['host']))
-      {
-        $httpOptions['proxy_host'] = $proxy['host'];
-      }
-
-      if (isset($proxy['port']))
-      {
-        $httpOptions['proxy_port'] = $proxy['port'];
-      }
-
-      if (isset($proxy['user']))
-      {
-        $httpOptions['proxy_user'] = $proxy['user'];
-      }
-
-      if (isset($proxy['pass']))
-      {
-        $httpOptions['proxy_pass'] = $proxy['pass'];
-      }
-    }
-    $httpOptions['timeout'] = Shindig_Config::get('curl_connection_timeout');
+    $httpOptions = opOpenSocialToolKit::getHttpOptions();
 
     $queueGroups = Doctrine::getTable('ApplicationLifecycleEventQueue')->getQueueGroups();
 

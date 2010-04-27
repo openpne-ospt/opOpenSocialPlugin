@@ -112,4 +112,116 @@ class opOpenSocialToolKit
     }
     return false;
   }
+
+ /**
+  * get consumer key for RSA-SHA1
+  *
+  * @return OAuthConsumer
+  */
+  static public function getOAuthConsumerKey()
+  {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('opUtil'));
+    $baseUrl = sfConfig::get('op_base_url');
+    if ('/' === substr($baseUrl, -1))
+    {
+      $baseUrl = substr($baseUrl, 0, strlen($baseUrl) - 1);
+    }
+    return $baseUrl.app_url_for('pc_frontend', '@opensocial_certificates');
+}
+
+ /**
+  * get http option for Zend_Http_Client
+  *
+  * @return array
+  */
+  static public function getHttpOptions()
+  {
+    $proxyUrl = Shindig_Config::get('proxy');
+    $httpOptions = array();
+    if (!empty($proxyUrl))
+    {
+      $httpOptions['adapter'] = 'Zend_Http_Client_Adapter_Proxy';
+      $proxy = parse_url($proxyUrl);
+      if (isset($proxy['host']))
+      {
+        $httpOptions['proxy_host'] = $proxy['host'];
+      }
+
+      if (isset($proxy['port']))
+      {
+        $httpOptions['proxy_port'] = $proxy['port'];
+      }
+
+      if (isset($proxy['user']))
+      {
+        $httpOptions['proxy_user'] = $proxy['user'];
+      }
+
+      if (isset($proxy['pass']))
+      {
+        $httpOptions['proxy_pass'] = $proxy['pass'];
+      }
+    }
+    $httpOptions['timeout'] = Shindig_Config::get('curl_connection_timeout');
+    return $httpOptions;
+  }
+
+  static public function getProxyHeaders($request, $isStripUid = true)
+  {
+    $results = array();
+    if ($request->getHttpHeader('User-Agent'))
+    {
+      $userAgent = $request->getHttpHeader('User-Agent');
+      if ($isStripUid)
+      {
+        if (preg_match('#^(DoCoMo/1\.0.*)/(ser.*)$#', $userAgent, $match))
+        {
+          $userAgent = $match[1];
+        }
+        elseif (preg_match('#^(DoCoMo/2\.0) (.*)\((.*);(ser.*)\)$#', $userAgent, $match))
+        {
+          $userAgent = $match[1].' '.$match[2].'('.$match[3].')';
+        }
+        elseif (preg_match('#^((SoftBank|Vodafone|J-PHONE)/.*/.*)(/SN\S*) (.*)$#', $userAgent, $match))
+        {
+          $userAgent = $match[1].' '.$match[4];
+        }
+      }
+      $results['User-Agent'] = $userAgent;
+    }
+
+    if (!$isStripUid)
+    {
+      $headerNames = array('X-DCMGUID', 'X-UP-SUBNO','X-JPHONE-UID');
+      foreach ($headerNames as $name)
+      {
+        if ($request->getHttpHeader($name))
+        {
+          $results[$name] = $request->getHttpHeader($name);
+        }
+      }
+    }
+
+    $pathArray = $request->getPathInfoArray();
+
+    foreach ($pathArray as $name => $value)
+    {
+      if (preg_match('/^HTTP_(X_(UP|JPHONE)_.*)$/', $name, $match))
+      {
+        $name = strtr($match[1], '_', '-');
+        if ($name !== 'X-JPHONE-UID' && $name !== 'X-UP-SUBNO')
+        {
+          $results[$name] = $value;
+        }
+      }
+    }
+
+    $name = 'X-S-DISPLAY-INFO';
+    if ($request->getHttpHeader($name))
+    {
+      $results[$name] = $request->getHttpHeader($name);
+    }
+
+    return $results;
+  }
 }

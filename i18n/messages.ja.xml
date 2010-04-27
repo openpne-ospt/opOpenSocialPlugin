@@ -7,6 +7,10 @@
         <target>アプリ</target>
       </trans-unit>
       <trans-unit id="">
+        <source>My Apps</source>
+        <target>マイアプリ</target>
+      </trans-unit>
+      <trans-unit id="">
         <source>App Gallery</source>
         <target>アプリギャラリー</target>
       </trans-unit>
@@ -329,6 +333,50 @@
       <trans-unit id="">
         <source>Generate or reset consumer secret of this app?</source>
         <target>Consumer secretを生成/再設定しますか？</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Invite App</source>
+        <target>アプリへ招待</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>1 member has been selected.</source>
+        <target>1人を選択しています。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>%0% members has been selected.</source>
+        <target>%0%人を選択しています。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Select the member who wants to invite to this App.</source>
+        <target>招待したいメンバーを選択してください。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Back to the App</source>
+        <target>アプリへ戻る</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Previous</source>
+        <target>前へ</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Next</source>
+        <target>次へ</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Use this App</source>
+        <target>このアプリをつかう</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Remove this from this App</source>
+        <target>マイアプリから削除</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Enable mobile Apps</source>
+        <target>モバイルアプリを有効にする</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Mobile App Configuration</source>
+        <target>モバイルアプリ設定</target>
       </trans-unit>
     </body>
   </file>

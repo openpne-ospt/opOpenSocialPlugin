@@ -119,6 +119,23 @@ class opOpenSocialPluginActions extends sfActions
    */
   public function executeInfo(sfWebRequest $request)
   {
+    $views = $this->application->getViews();
+    $isUseMobileApp =
+      Doctrine::getTable('SnsConfig')->get('opensocial_is_enable_mobile', false) && isset($views['mobile']);
+    if ($isUseMobileApp)
+    {
+      $this->mobileForm = new MobileApplicationConfigForm($this->application);
+      if ($request->isMethod(sfWebRequest::PUT))
+      {
+        $this->mobileForm->bind($request->getParameter('application'));
+        if ($this->mobileForm->isValid())
+        {
+          $this->mobileForm->save();
+          $this->getUser()->setFlash('notice', 'Saved.');
+          $this->redirect('@op_opensocial_info?id='.$this->application->getId());
+        }
+      }
+    }
   }
 
   /**
