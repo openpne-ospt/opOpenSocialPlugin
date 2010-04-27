@@ -13,7 +13,7 @@
  *
  * @package    OpenPNE
  * @subpackage opOpenSocialPlugin
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 class applicationComponents extends sfComponents
 {
@@ -126,6 +126,6 @@ class applicationComponents extends sfComponents
   */
   public function executeCautionAboutApplicationInvite(sfWebRequest $request)
   {
-    $this->count = Doctrine::getTable('ApplicationInvite')->findByToMemberId($this->getUser()->getMemberId())->count();
+    $this->count = Doctrine::getTable('ApplicationInvite')->getInvitesByToMemberId(null, true)->count();
   }
 }

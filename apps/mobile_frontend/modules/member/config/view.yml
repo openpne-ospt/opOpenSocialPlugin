@@ -1,0 +1,7 @@
+homeSuccess:
+  customize:
+    cautionAbountApplicationInvite:
+      template: [application, cautionAboutApplicationInvite]
+      parts   : [information]
+      target  : [bottom]
+      is_component: true
