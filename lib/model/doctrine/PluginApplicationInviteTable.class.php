@@ -34,7 +34,7 @@ class PluginApplicationInviteTable extends Doctrine_Table
 
     if (null !== $isPc)
     {
-      $quer->andWhere('a.is_pc = ?', $isPc);
+      $query->andWhere('a.is_pc = ?', $isPc);
     }
 
     if (null !== $isMobile)
@@ -56,22 +56,28 @@ class PluginApplicationInviteTable extends Doctrine_Table
     {
       $application = $invite->getApplication();
       $fromMember = $invite->getFromMember();
+      $appList = array(
+        );
+      $appList = array(
+        'App name' => array(
+          'text' => $application->getTitle(),
+        ),
+        'Member who invited this' => array(
+          'text' => $fromMember->getName(),
+          'link' => '@obj_member_profile?id='.$fromMember->getId()
+        )
+      );
+      if ($isPc)
+      {
+        $appList['App name']['link'] = '@application_info?id='.$application->getId();
+      }
       $list[] = array(
         'id' => $invite->getId(),
         'image' => array(
           'url' => $fromMember->getImageFileName(),
           'link' => '@obj_member_profile?id='.$fromMember->getId(),
         ),
-        'list' => array(
-          'App name' => array(
-            'text' => $application->getTitle(),
-            'link' => '@application_info?id='.$application->getId()
-          ),
-          'Member who invited this' => array(
-            'text' => $fromMember->getName(),
-            'link' => '@obj_member_profile?id='.$fromMember->getId()
-          )
-        ),
+        'list' => $appList
       );
     }
 
