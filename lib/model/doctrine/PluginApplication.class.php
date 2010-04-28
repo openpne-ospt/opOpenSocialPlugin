@@ -172,6 +172,12 @@ abstract class PluginApplication extends BaseApplication
     return (bool)$this->getIsActive();
   }
 
+ /**
+  * get application types.
+  * The application type is 'pc' or 'mobile'.
+  *
+  * @return array
+  */
   public function getApplicationTypes()
   {
     $views = $this->getViews();

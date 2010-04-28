@@ -2,8 +2,10 @@
 
 include dirname(__FILE__).'/../../bootstrap/unit.php';
 include dirname(__FILE__).'/../../bootstrap/database.php';
+sfContext::createInstance($configuration);
+sfContext::getInstance()->getUser()->setMemberId(1);
 
-$t = new lime_test(10, new lime_output_color());
+$t = new lime_test(12, new lime_output_color());
 
 $application1 = Doctrine::getTable('Application')->findOneByUrl("http://example.com/dummy.xml");
 $application2 = Doctrine::getTable('Application')->findOneByUrl("http://gist.github.com/raw/183505/a7f3d824cdcbbcf14c06f287537d0acb0b3e5468/gistfile1.xsl");
@@ -20,6 +22,7 @@ $t->ok(is_array($applicationSettings) && count($applicationSettings) === 1, '->a
 
 // ->isHadByMember()
 $t->diag('->isHadByMember()');
+$t->ok($application1->isHadByMember(), '->isHadByMember() return true when the member has the application');
 $t->ok($application1->isHadByMember(1), '->isHadByMember() return true when the member has the application');
 $t->ok(!$application1->isHadByMember(999), '->isHadByMember() return false when the member has not the application');
 
@@ -45,3 +48,7 @@ $t->isa_ok($application2->updateApplication('ja_JP'), 'Application', '->updateAp
 // ->isActive()
 $t->diag('->isActive()');
 $t->isa_ok($application1->isActive(), 'boolean', '->isActive() returns boolean');
+
+// ->getApplicationTypes()
+$t->diag('->getApplicationTypes()');
+$t->is($application1->getApplicationTypes(), array('pc'), '->getApplicationTypes() returns array of type');
