@@ -76,30 +76,43 @@ class PluginApplicationTable extends Doctrine_Table
 
     $gadget = opOpenSocialToolKit::fetchGadgetMetadata($url, $culture);
 
-    $translation = $application->Translation[$culture];
-    $application->setUrl($gadget['url']);
-    $application->setLinks($gadget['links']);
-    $translation->title              = $gadget['title'];
-    $translation->title_url          = $gadget['titleUrl'];
-    $translation->description        = $gadget['description'];
-    $translation->directory_title    = $gadget['directoryTitle'];
-    $translation->screenshot         = $gadget['screenshot'];
-    $translation->thumbnail          = $gadget['thumbnail'];
-    $translation->author             = $gadget['author'];
-    $translation->author_aboutme     = $gadget['authorAboutme'];
-    $translation->author_affiliation = $gadget['authorAffiliation'];
-    $translation->author_email       = $gadget['authorEmail'];
-    $translation->author_photo       = $gadget['authorPhoto'];
-    $translation->author_link        = $gadget['authorLink'];
-    $translation->author_quote       = $gadget['authorQuote'];
-    $translation->settings           = $gadget['userPrefs'];
-    $translation->views              = $gadget['views'];
+    $prefs = array();
+    foreach ($gadget->gadgetSpec->userPrefs as $pref)
+    {
+      $prefs[$pref['name']] = $pref;
+    }
 
-    if (isset($gadget['views']['mobile']))
+    $views = array();
+    foreach ($gadget->gadgetSpec->views as $name => $view)
+    {
+      unset($view['content']);
+      $views[$name] = $view;
+    }
+
+    $translation = $application->Translation[$culture];
+    $application->setUrl($url);
+    $application->setLinks($gadget->gadgetSpec->links);
+    $translation->title              = $gadget->getTitle();
+    $translation->title_url          = $gadget->getTitleUrl();
+    $translation->description        = $gadget->getDescription();
+    $translation->directory_title    = $gadget->getDirectoryTitle();
+    $translation->screenshot         = $gadget->getScreenShot();
+    $translation->thumbnail          = $gadget->getThumbnail();
+    $translation->author             = $gadget->getAuthor();
+    $translation->author_aboutme     = $gadget->getAuthorAboutme();
+    $translation->author_affiliation = $gadget->getAuthorAffiliation();
+    $translation->author_email       = $gadget->getAuthorEmail();
+    $translation->author_photo       = $gadget->getAuthorPhoto();
+    $translation->author_link        = $gadget->getAuthorLink();
+    $translation->author_quote       = $gadget->getAuthorQuote();
+    $translation->settings           = $prefs;
+    $translation->views              = $views;
+
+    if (isset($views['mobile']))
     {
       if (!(
-        isset($gadget['views']['mobile']['type']) &&
-        'URL' === strtoupper($gadget['views']['mobile']['type'])
+        isset($views['mobile']['type']) &&
+        'URL' === strtoupper($views['mobile']['type'])
       ))
       {
         throw new Exception();
@@ -107,15 +120,15 @@ class PluginApplicationTable extends Doctrine_Table
     }
 
     $application->setIsPc(true);
-    if (count($gadget['views']) == 1)
+    if (count($views) == 1)
     {
-      if (isset($gadget['view']['mobile']))
+      if (isset($views['mobile']))
       {
         $application->setIsPc(false);
       }
     }
 
-    if ($gadget['scrolling'] == 'true')
+    if ($gadget->getScrolling() == 'true')
     {
       $application->setScrolling(true);
     }
@@ -124,7 +137,8 @@ class PluginApplicationTable extends Doctrine_Table
       $application->setScrolling(false);
     }
 
-    if ($gadget['singleton'] == 'true' || empty($gadget['singleton']))
+    $singleton = $gadget->getSingleton();
+    if ($singleton == 'true' || empty($singleton))
     {
       $application->setSingleton(true);
     }
@@ -133,7 +147,8 @@ class PluginApplicationTable extends Doctrine_Table
       $application->setSingleton(false);
     }
 
-    $application->setHeight(!empty($gadget['height']) ? $gadget['height'] : 0);
+    $height = $gadget->getHeight();
+    $application->setHeight(!empty($height) ? $height : 0);
     $application->save();
     return $application;
   }
