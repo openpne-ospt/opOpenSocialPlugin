@@ -128,6 +128,14 @@ class PluginApplicationTable extends Doctrine_Table
       }
     }
 
+    if ($application->getIsMobile())
+    {
+      if (!isset($views['mobile']))
+      {
+        $application->setIsMobile(false);
+      }
+    }
+
     if ($gadget->getScrolling() == 'true')
     {
       $application->setScrolling(true);

@@ -72,6 +72,7 @@ op_include_parts('listBox', 'AuthorInfoList', array('title' => __('About Author'
 <?php
 $developerInfoList = array(
   __('Gadget XML') => $application->getUrl(),
+  __('App Type') => implode(', ', $application->getApplicationTypes()->getRawValue()),
   __('Update App Info') => get_slot('update_button'),
   __('Delete App') => button_to(__('Delete'), '@application_delete?id='.$application->getId()),
   'Consumer key' => $application->getConsumerKey(),
@@ -83,7 +84,7 @@ $developerInfoList = array(
 <?php endif; ?>
 <div class="moreInfo">
 <ul class="moreInfo">
-<?php if ($application->isActive()): ?>
+<?php if ($application->isActive() && $application->getIsPc()): ?>
 <li><?php echo link_to(__('Add this App'), '@application_add?id='.$application->getId()) ?></li>
 <?php endif; ?>
 <li><?php echo link_to_function(__('Back to previous page'), 'history.back()') ?></li>

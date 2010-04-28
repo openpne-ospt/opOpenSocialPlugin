@@ -25,11 +25,6 @@ class applicationActions extends opOpenSocialApplicationActions
       sfConfig::set('sf_nav_type', 'friend');
       sfConfig::set('sf_nav_id', $this->member->getId());
     }
-
-    if (isset($this->application))
-    {
-      $this->forward404Unless($this->application->getIsPc());
-    }
   }
 
   /**
@@ -39,6 +34,7 @@ class applicationActions extends opOpenSocialApplicationActions
    */
   public function executeCanvas(sfWebRequest $request)
   {
+    $this->forward404Unless($this->application->getIsPc());
     $this->forward404Unless($this->memberApplication->isViewable());
     $this->forward404Unless($this->application->isActive());
   }
@@ -78,6 +74,7 @@ class applicationActions extends opOpenSocialApplicationActions
    */
   public function executeSetting(sfWebRequest $request)
   {
+    $this->forward404Unless($this->application->getIsPc());
     $this->forward404If($this->getUser()->getMemberId() != $this->memberApplication->getMember()->getId());
     $this->settingForm     = new ApplicationSettingForm(array(), array('member_application' => $this->memberApplication));
     $this->userSettingForm = new ApplicationUserSettingForm(array(), array('member_application' => $this->memberApplication));
@@ -117,11 +114,23 @@ class applicationActions extends opOpenSocialApplicationActions
    */
   public function executeAdd(sfWebRequest $request)
   {
+    $this->forward404Unless($this->application->getIsPc());
     $memberApplication = $this->processAdd($request);
     if ($memberApplication instanceof MemberApplication)
     {
       $this->redirect('@application_canvas?id='.$memberApplication->getId());
     }
+  }
+
+  /**
+   * Executes remove action
+   *
+   * @param sfWebRequest $request A request object
+   */
+  public function executeRemove(sfWebRequest $request)
+  {
+    $this->forward404Unless($this->application->getIsPc());
+    return parent::executeRemove($request);
   }
 
  /**
@@ -141,6 +150,11 @@ class applicationActions extends opOpenSocialApplicationActions
    */
   public function executeInfo(sfWebRequest $request)
   {
+    $this->forward404Unless(
+      $this->application->getIsPc() ||
+      $this->getUser()->getMemberId() == $this->application->getMemberId()
+    );
+
     $this->memberListPager = $this->application->getMemberListPager(1, 9, true);
   }
 
@@ -265,6 +279,7 @@ class applicationActions extends opOpenSocialApplicationActions
   */
   public function executeInvite(sfWebRequest $request)
   {
+    $this->forward404Unless($this->application->getIsPc());
     $fromMember = $this->getUser()->getMember();
     $this->forward404Unless($this->application->isHadByMember($fromMember->getId()));
     $this->pager = Doctrine::getTable('MemberRelationship')->getFriendListPager($fromMember->getId(), 1, 15);
@@ -280,6 +295,7 @@ class applicationActions extends opOpenSocialApplicationActions
   public function executeInviteList(sfWebRequest $request)
   {
     $this->forward404Unless($this->getRequest()->isXmlHttpRequest());
+    $this->forward404Unless($this->application->getIsPc());
 
     $fromMember = $this->getUser()->getMember();
     $this->forward404Unless($this->application->isHadByMember($fromMember->getId()));
@@ -296,6 +312,8 @@ class applicationActions extends opOpenSocialApplicationActions
   {
     $this->forward404Unless($this->getRequest()->isXmlHttpRequest());
     $request->checkCSRFProtection();
+    $this->forward404Unless($this->application->getIsPc());
+
     $this->getResponse()->setContentType('application/json');
 
     $result = $this->processInvite($request);

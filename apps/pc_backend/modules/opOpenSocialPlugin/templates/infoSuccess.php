@@ -10,6 +10,7 @@
 
 <table>
 <tr><th colspan="2"><?php echo __('About App') ?></th></tr>
+<tr><th><?php echo __('App Type') ?></th><td><?php echo implode(', ', $application->getApplicationTypes()->getRawValue()) ?></td></tr>
 <tr><th><?php echo __('Name') ?></th><td><?php echo $application->getTitle() ?></td></tr>
 <tr><th><?php echo __('Status') ?></th><td><?php echo $application->isActive() ? __('Active') : __('Inactive') ?></td></tr>
 <?php if ($application->getMemberId()): ?>

@@ -47,7 +47,9 @@ if ($isOwner)
 <li><?php echo link_to_app_setting(__('Settings'), $mid); ?></li>
 <li><?php echo link_to(__('Remove'), '@application_remove?id='.$mid); ?></li>
 <?php else : ?>
+<?php if ($application->getIsPc()): ?>
 <li><?php echo link_to(__('Add this App'), '@application_add?id='.$application->getId()) ?></li>
+<?php endif; ?>
 <?php endif ?>
 <?php else: ?>
 <?php echo __('This is waiting to approval by the SNS administrator.') ?>

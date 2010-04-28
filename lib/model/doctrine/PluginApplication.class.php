@@ -171,4 +171,27 @@ abstract class PluginApplication extends BaseApplication
   {
     return (bool)$this->getIsActive();
   }
+
+  public function getApplicationTypes()
+  {
+    $views = $this->getViews();
+    if (1 === count($views))
+    {
+      if (isset($views['mobile']))
+      {
+        return array('mobile');
+      }
+      else
+      {
+        return array('pc');
+      }
+    }
+
+    if (isset($views['mobile']))
+    {
+      return array('pc', 'mobile');
+    }
+
+    return array('pc');
+  }
 }

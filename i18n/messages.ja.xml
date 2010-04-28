@@ -35,6 +35,10 @@
         <target>アプリ情報</target>
       </trans-unit>
       <trans-unit id="">
+        <source>App Type</source>
+        <target>アプリの種類</target>
+      </trans-unit>
+      <trans-unit id="">
         <source>Name</source>
         <target>名前</target>
       </trans-unit>
@@ -371,12 +375,20 @@
         <target>マイアプリから削除</target>
       </trans-unit>
       <trans-unit id="">
+        <source>Mobile App Configuration</source>
+        <target>モバイルアプリ設定</target>
+      </trans-unit>
+      <trans-unit id="">
         <source>Enable mobile Apps</source>
         <target>モバイルアプリを有効にする</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Mobile App Configuration</source>
-        <target>モバイルアプリ設定</target>
+        <source>Enable mobile App</source>
+        <target>モバイルアプリを有効にする</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>%0% is already using</source>
+        <target>%0%はすでにアプリを利用しています</target>
       </trans-unit>
     </body>
   </file>
