@@ -39,7 +39,19 @@ class opShindigOAuthLookupService extends OAuthLookupService
   {
     try
     {
-      $postBody = file_get_contents('php://input');
+      if (!isset($GLOBALS['HTTP_RAW_POST_DATA'])) {
+        $tmp = file_get_contents('php://input');
+        if (!empty($tmp)) {
+          $GLOBALS['HTTP_RAW_POST_DATA'] = $tmp;
+        }
+      }
+      if (isset($GLOBALS['HTTP_RAW_POST_DATA'])) {
+        $postBody = $GLOBALS['HTTP_RAW_POST_DATA'];
+        if (get_magic_quotes_gpc()) {
+          $postBody = stripslashes($postBody);
+        }
+      }
+
       $acceptedContentTypes = array('application/atom+xml', 'application/xml', 'application/json');
       if (!empty($postBody))
       {
@@ -57,7 +69,6 @@ class opShindigOAuthLookupService extends OAuthLookupService
           }
         }
       }
-
       if ($oauthRequest->get_parameter('oauth_token') === null)
       {
         return $this->verify2LeggedOAuth($oauthRequest, $userId, $appUrl);
