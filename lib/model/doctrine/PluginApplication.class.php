@@ -15,7 +15,7 @@
  *
  * @package    opOpenSocialPlugin
  * @subpackage model
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 abstract class PluginApplication extends BaseApplication
 {
@@ -53,9 +53,9 @@ abstract class PluginApplication extends BaseApplication
   */
   public function isHadByMember($memberId = null)
   {
-    if ($memberId === null)
+    if (null === $memberId)
     {
-      sfContext::getInstance()->getUser()->getMemberId();
+      $memberId = sfContext::getInstance()->getUser()->getMemberId();
     }
 
     $result = Doctrine::getTable('MemberApplication')->createQuery()
