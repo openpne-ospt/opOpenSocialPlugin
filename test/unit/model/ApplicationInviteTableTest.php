@@ -4,7 +4,7 @@ include dirname(__FILE__).'/../../bootstrap/unit.php';
 include dirname(__FILE__).'/../../bootstrap/database.php';
 sfContext::createInstance($configuration);
 
-$t = new lime_test(10, new lime_output_color());
+$t = new lime_test(8, new lime_output_color());
 
 $table = Doctrine::getTable('ApplicationInvite');
 $member2 = Doctrine::getTable('Member')->find(2);
@@ -25,11 +25,6 @@ $event = new sfEvent(null, 'name', array(
   'is_accepted' => true,
 ));
 $t->ok($table->processApplicationConfirm($event), '->processApplicationConfirm() returns true');
-$invite = $table->find(1);
-$t->ok(!$invite, 'invite object was deleted');
-$memberApplication = Doctrine::getTable('MemberApplication')
-  ->findOneByMemberIdAndApplicationId(2, 2);
-$t->isa_ok($memberApplication, 'MemberApplication', 'create member application object by ->processApplicationConfirm()');
 
 // create new invite object
 $invite = new ApplicationInvite();
