@@ -3,6 +3,7 @@ options:
 
 Application:
   actAs:
+    opActivityCascadingBehavior:
     I18n:
       fields: [title, title_url, description, directory_title, screenshot, thumbnail, author, author_aboutme, author_affiliation, author_email, author_photo, author_link, author_quote, settings, views, version]
       length: 5
@@ -40,7 +41,6 @@ Application:
     Members: { foreignAlias: Applications, class: Member, refClass: MemberApplication }
 
 MemberApplication:
-  actAs: [opActivityCascadingBehavior]
   columns:
     member_id:      { type: integer(4), notnull: true }
     application_id: { type: integer, notnull: true }
