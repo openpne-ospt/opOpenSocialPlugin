@@ -13,7 +13,7 @@
  *
  * @package    opOpenSocialPlugin
  * @subpackage model
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 class PluginApplicationTable extends Doctrine_Table
 {
@@ -76,24 +76,38 @@ class PluginApplicationTable extends Doctrine_Table
 
     $gadget = opOpenSocialToolKit::fetchGadgetMetadata($url, $culture);
 
+    $prefs = array();
+    foreach ($gadget->gadgetSpec->userPrefs as $pref)
+    {
+      $prefs[$pref['name']] = $pref;
+    }
+
+    $views = array();
+    foreach ($gadget->gadgetSpec->views as $name => $view)
+    {
+      unset($view['content']);
+      $views[$name] = $view;
+    }
+
     $translation = $application->Translation[$culture];
-    $application->setUrl($gadget['url']);
-    $translation->title              = $gadget['title'];
-    $translation->title_url          = $gadget['titleUrl'];
-    $translation->description        = $gadget['description'];
-    $translation->directory_title    = $gadget['directoryTitle'];
-    $translation->screenshot         = $gadget['screenshot'];
-    $translation->thumbnail          = $gadget['thumbnail'];
-    $translation->author             = $gadget['author'];
-    $translation->author_aboutme     = $gadget['authorAboutme'];
-    $translation->author_affiliation = $gadget['authorAffiliation'];
-    $translation->author_email       = $gadget['authorEmail'];
-    $translation->author_photo       = $gadget['authorPhoto'];
-    $translation->author_link        = $gadget['authorLink'];
-    $translation->author_quote       = $gadget['authorQuote'];
-    $translation->settings           = $gadget['userPrefs'];
-    $translation->views              = $gadget['views'];
-    if ($gadget['scrolling'] == 'true')
+    $application->setUrl($url);
+    $translation->title              = $gadget->getTitle();
+    $translation->title_url          = $gadget->getTitleUrl();
+    $translation->description        = $gadget->getDescription();
+    $translation->directory_title    = $gadget->getDirectoryTitle();
+    $translation->screenshot         = $gadget->getScreenShot();
+    $translation->thumbnail          = $gadget->getThumbnail();
+    $translation->author             = $gadget->getAuthor();
+    $translation->author_aboutme     = $gadget->getAuthorAboutme();
+    $translation->author_affiliation = $gadget->getAuthorAffiliation();
+    $translation->author_email       = $gadget->getAuthorEmail();
+    $translation->author_photo       = $gadget->getAuthorPhoto();
+    $translation->author_link        = $gadget->getAuthorLink();
+    $translation->author_quote       = $gadget->getAuthorQuote();
+    $translation->settings           = $prefs;
+    $translation->views              = $views;
+
+    if ($gadget->getScrolling() == 'true')
     {
       $application->setScrolling(true);
     }
@@ -102,7 +116,8 @@ class PluginApplicationTable extends Doctrine_Table
       $application->setScrolling(false);
     }
 
-    if ($gadget['singleton'] == 'true' || empty($gadget['singleton']))
+    $singleton = $gadget->getSingleton();
+    if ($singleton == 'true' || empty($singleton))
     {
       $application->setSingleton(true);
     }
@@ -111,7 +126,8 @@ class PluginApplicationTable extends Doctrine_Table
       $application->setSingleton(false);
     }
 
-    $application->setHeight(!empty($gadget['height']) ? $gadget['height'] : 0);
+    $height = $gadget->getHeight();
+    $application->setHeight(!empty($height) ? $height : 0);
     $application->save();
     return $application;
   }
