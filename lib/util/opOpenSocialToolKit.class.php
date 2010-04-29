@@ -13,7 +13,7 @@
  *
  * @package    opOpenSocialPlugin
  * @subpackage util
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 class opOpenSocialToolKit
 {
@@ -40,30 +40,16 @@ class opOpenSocialToolKit
   {
     $cul = split('_', $culture);
 
-    $request = self::arrayToObject(array(
-      'context' => array(
-        'country'   => isset($cul[1]) ? $cul[1] : 'ALL',
-        'language'  => $cul[0],
-        'view'      => 'default',
-        'container' => 'openpne'
-      ),
-      'gadgets' => array(array('url' => $url, 'moduleId' => 1))
-    ));
-    $gadgetSigner = Shindig_Config::get('security_token');
     $_GET['nocache'] = 1;
-    $handler = new MetadataHandler();
-    $response = $handler->process($request);
-
-    if (!is_array($response) || count($response) <= 0)
-    {
-      throw new Exception();
-    }
-    if (isset($response[0]['errors']))
-    {
-      throw new Exception();
-    }
-
-    return $response[0];
+    $context = new MetadataGadgetContext(self::arrayToObject(array(
+      'country'   => isset($cul[1]) ? $cul[1] : 'ALL',
+      'language'  => $cul[0],
+      'view'      => 'default',
+      'container' => 'openpne',
+    )), $url);
+    $gadgetServer = new GadgetFactory($context, null);
+    $gadgets = $gadgetServer->createGadget();
+    return $gadgets;
   }
 
  /**
