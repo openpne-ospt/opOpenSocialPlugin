@@ -15,7 +15,7 @@
  *
  * @package    opOpenSocialPlugin
  * @subpackage model
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 abstract class PluginApplication extends BaseApplication
 {
@@ -41,6 +41,9 @@ abstract class PluginApplication extends BaseApplication
     {
       $memberApplication->setApplicationSetting($name, $value);
     }
+
+    $invites = Doctrine::getTable('ApplicationInvite')->findByApplicationIdAndToMemberId($this->getId(), $member->getId());
+    $invites->delete();
 
     return $memberApplication;
   }

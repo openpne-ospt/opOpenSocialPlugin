@@ -13,7 +13,7 @@
  *
  * @package    OpenPNE
  * @subpackage opOpenSocialPlugin
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 class applicationActions extends sfActions
 {
@@ -134,18 +134,27 @@ class applicationActions extends sfActions
    */
   public function executeAdd(sfWebRequest $request)
   {
+    $this->forward404Unless($this->application->isActive());
+
     $memberApplication = Doctrine::getTable('MemberApplication')->findOneByApplicationAndMember($this->application, $this->member);
     if ($memberApplication)
     {
       $this->redirect('@application_canvas?id='.$memberApplication->getId());
     }
 
-    $this->forward404Unless($this->application->isActive());
+    if ($request->hasParameter('invite'))
+    {
+      $invite = Doctrine::getTable('ApplicationInvite')->find($request->getParameter('invite'));
+      if ($invite)
+      {
+        $this->forward404Unless($invite->getToMemberId() == $this->getUser()->getMemberId());
+      }
+    }
 
     if ($request->isMethod(sfWebRequest::POST))
     {
       $request->checkCSRFProtection();
-      try 
+      try
       {
         $application = Doctrine::getTable('Application')->addApplication($this->application->getUrl());
         $this->application = $application;
@@ -154,8 +163,19 @@ class applicationActions extends sfActions
       {
       }
 
-      $memberApplication = $this->application->addToMember($this->member, array('is_view_home' => true, 'is_view_profile' => true));
-      $this->redirect('@application_canvas?id='.$memberApplication->getId());
+      if (isset($invite) && ($invite instanceof ApplicationInvite))
+      {
+        $memberApplication = $invite->accept();
+      }
+      else
+      {
+        $memberApplication = $this->application->addToMember($this->member, array('is_view_home' => true, 'is_view_profile' => true));
+      }
+
+      if ($memberApplication instanceof MemberApplication)
+      {
+        $this->redirect('@application_canvas?id='.$memberApplication->getId());
+      }
     }
   }
 

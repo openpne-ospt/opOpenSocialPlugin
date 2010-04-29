@@ -8,7 +8,7 @@
 <?php endif; ?>
 </div>
 <div class="info">
-<?php echo __('Do you wish to install this App?') ?><br> 
+<?php echo __('Do you wish to install this App?') ?><br>
 <?php echo __('The App might use your profile and your %friend% information.', array('%friend%' => $op_term['friend']->pluralize())) ?>
 </div>
 </div>
@@ -16,9 +16,12 @@
 <?php end_slot() ?>
 
 <?php op_include_parts('yesNo', 'AddApplicationBox', array(
-  'title'      => __('Add App: %0%', array('%0%' => $application->getTitle())), 
+  'title'      => __('Add App: %0%', array('%0%' => $application->getTitle())),
   'body'       => get_slot('box_body'),
-  'yes_form'   => new sfForm(),
+  'yes_url'    => url_for('@application_add?id='.$application->getId().($sf_params->has('invite') ? '&invite='.$sf_params->get('invite') : '')),
+  'yes_form'   => new BaseForm(),
   'yes_method' => 'post',
   'no_url'     => url_for('@application_gallery'),
+  'no_from'    => new BaseForm(array(), array(), null),
+  'no_method'  => 'get',
 )) ?>

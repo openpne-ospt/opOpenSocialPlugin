@@ -13,7 +13,7 @@
  *
  * @package    opOpenSocialPlugin
  * @subpackage model
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 class PluginApplicationInviteTable extends Doctrine_Table
 {
@@ -59,12 +59,10 @@ class PluginApplicationInviteTable extends Doctrine_Table
 
     if ($event['is_accepted'])
     {
-      $memberApplication = $invite->accept();
-      $invite->delete();
       $action = $event->getSubject();
       if ($action instanceof sfAction)
       {
-        $action->redirect('@application_canvas?id='.$memberApplication->getId());
+        $action->redirect('@application_add?id='.$invite->getApplicationId().'&invite='.$invite->getId());
       }
     }
     else
