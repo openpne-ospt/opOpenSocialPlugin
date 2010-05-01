@@ -1,0 +1,142 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en" datatype="plaintext">
+    <body>
+      <trans-unit id="">
+        <source>You've gotten %0% invitations to app.</source>
+        <target>%0%件のｱﾌﾟﾘへの招待があります</target>
+      </trans-unit>
+
+      <trans-unit id="">
+        <source>Add App</source>
+        <target>ｱﾌﾟﾘ追加</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Do you wish to install this App?</source>
+        <target>このｱﾌﾟﾘを追加しますか？</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>The App might use your profile and your %friend% information.</source>
+        <target>ｱﾌﾟﾘはあなたのﾌﾟﾛﾌｨｰﾙ情報や、%friend%情報を扱うことがあります。</target>
+      </trans-unit>
+
+      <trans-unit id="">
+        <source>App Gallery</source>
+        <target>ｱﾌﾟﾘｷﾞｬﾗﾘｰ</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Search Apps</source>
+        <target>ｱﾌﾟﾘ検索</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Keyword</source>
+        <target>ｷｰﾜｰﾄﾞ</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Order by</source>
+        <target>並び順</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Newest</source>
+        <target>新着順</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Oldest</source>
+        <target>古い順</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Users</source>
+        <target>ﾕｰｻﾞ数</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Your search queries did not match any Apps.</source>
+        <target>ｱﾌﾟﾘが見つかりませんでした。</target>
+      </trans-unit>
+
+      <trans-unit id="">
+        <source>About App</source>
+        <target>このｱﾌﾟﾘについて</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Author</source>
+        <target>作成者</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Use this App</source>
+        <target>このｱﾌﾟﾘをつかう</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Remove this from this App</source>
+        <target>ﾏｲｱﾌﾟﾘから削除</target>
+      </trans-unit>
+
+      <trans-unit id="">
+        <source>Invite App</source>
+        <target>ｱﾌﾟﾘへ招待</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>1 member has been selected.</source>
+        <target>1人を選択しています。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>%0% members has been selected.</source>
+        <target>%0%人を選択しています。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Select the member who wants to invite to this App.</source>
+        <target>招待したいﾒﾝﾊﾞｰを選択してください。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Back to the App</source>
+        <target>ｱﾌﾟﾘへ戻る</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Previous</source>
+        <target>前へ</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Next</source>
+        <target>次へ</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>%0% is already using</source>
+        <target>%0%はすでにｱﾌﾟﾘを利用しています</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Invite</source>
+        <target>招待</target>
+      </trans-unit>
+
+      <trans-unit id="">
+        <source>My Apps</source>
+        <target>ﾏｲｱﾌﾟﾘ</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>You haven't the app.</source>
+        <target>ｱﾌﾟﾘを持っていません。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>The Apps can be added from %0%.</source>
+        <target>%0%からｱﾌﾟﾘを追加することができます。</target>
+      </trans-unit>
+
+      <trans-unit id="">
+        <source>Remove the App</source>
+        <target>ｱﾌﾟﾘを削除する</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Do you really remove this App?</source>
+        <target>本当にこのｱﾌﾟﾘを削除しますか？</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>The App was removed successfully.</source>
+        <target>アプリを削除しました。</target>
+      </trans-unit>
+
+      <trans-unit id="">
+        <source>Error</source>
+        <target>ｴﾗｰ</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

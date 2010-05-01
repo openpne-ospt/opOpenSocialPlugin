@@ -11,6 +11,18 @@
         <target>SNSメンバーのアプリ追加を許可</target>
       </trans-unit>
       <trans-unit id="">
+        <source>Deny</source>
+        <target>禁止</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>The SNS administrator's permission is necessary</source>
+        <target>SNS管理者の許可が必要</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Allow</source>
+        <target>許可</target>
+      </trans-unit>
+      <trans-unit id="">
         <source>Continuous activity post prohibition time (s)</source>
         <target>アクティビティの連続投稿禁止時間(秒)</target>
       </trans-unit>
@@ -117,6 +129,110 @@
       <trans-unit id="">
         <source>The app can be installed from %0%.</source>
         <target>アプリは %0% からインストールすることができます。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Keyword</source>
+        <target>キーワード</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Order by</source>
+        <target>並び順</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Newest</source>
+        <target>新着順</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Oldest</source>
+        <target>古い順</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>About App</source>
+        <target>アプリ詳細</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>App Type</source>
+        <target>アプリの種類</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Name</source>
+        <target>名前</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Status</source>
+        <target>状態</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Screen Shot</source>
+        <target>スクリーンショット</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Thumbnail</source>
+        <target>サムネイル</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Discription</source>
+        <target>詳細</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Users</source>
+        <target>ユーザ数</target>
+      </trans-unit>
+      <trans-unit>
+        <source>App Users</source>
+        <target>アプリ利用者</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Members that has "%0%"</source>
+        <target>「%0%」を利用しているメンバー</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>About Author</source>
+        <target>作成者詳細</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Author</source>
+        <target>作成者</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Affiliation</source>
+        <target>所属</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Aboutme</source>
+        <target>作者について</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Photo</source>
+        <target>写真</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Link</source>
+        <target>リンク</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Quote</source>
+        <target>引用</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Information for Developer</source>
+        <target>開発者向け情報</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Update</source>
+        <target>更新</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Enable mobile Apps</source>
+        <target>モバイルアプリを有効にする</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Mobile App Configuration</source>
+        <target>モバイルアプリ設定</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Enable mobile App</source>
+        <target>モバイルアプリを有効にする</target>
       </trans-unit>
     </body>
   </file>

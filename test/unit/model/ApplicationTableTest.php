@@ -12,9 +12,9 @@ $table = Doctrine::getTable('Application');
 $t->diag('->getAddApplicationRuleChoices()');
 $t->is($table->getAddApplicationRuleChoices(),
   array(
-    0 => '禁止',
-    1 => 'SNS管理者の許可が必要',
-    2 => '許可',
+    0 => 'Deny',
+    1 => 'The SNS administrator\'s permission is necessary',
+    2 => 'Allow',
 ), '->getAddApplicationRuleChoices() returns array of choices correctly');
 
 
