@@ -13,18 +13,18 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-04-01</date>
- <time>19:18:53</time>
+ <date>2010-05-02</date>
+ <time>01:25:19</time>
  <version>
-  <release>0.9.6</release>
-  <api>0.9.6</api>
+  <release>0.9.7</release>
+  <api>0.9.7</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>Fix unit test</notes>
+ <notes>Fixed API bug.</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="8665be70ae66b94e14c285ff7627543d" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -102,10 +102,10 @@
    <file baseinstalldir="/" md5sum="b3e5f77b65c2a6742a619c62b65577e0" name="lib/form/doctrine/PluginMemberApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="9f884bec92e3bd2d956b50e83f755db1" name="lib/form/doctrine/PluginMemberApplicationSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="c4e9ca430b4e641ca72a3b4a0c3f420e" name="lib/helper/OpenSocialHelper.php" role="data" />
-   <file baseinstalldir="/" md5sum="2dd76347d3e65a5a47b0d78836af77e3" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="8bad658fda0b00ffa86c1e5487cb7e06" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
    <file baseinstalldir="/" md5sum="17074e5ebf1e895307a1874b766189ac" name="lib/model/doctrine/PluginApplicationPersistentData.class.php" role="data" />
    <file baseinstalldir="/" md5sum="5e59f1588776d175309ad968d99c3cfd" name="lib/model/doctrine/PluginApplicationPersistentDataTable.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="a6e02561b6c6cd3a917752bcd24edca0" name="lib/model/doctrine/PluginApplicationTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="d114b0e489ed35aae91d0e5c164777d6" name="lib/model/doctrine/PluginApplicationTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="0cdd6454cee1c094a3ce03199dcc36ff" name="lib/model/doctrine/PluginMemberApplication.class.php" role="data" />
    <file baseinstalldir="/" md5sum="dfa59c14813a9eecfc1481b5bfc76f21" name="lib/model/doctrine/PluginMemberApplicationSetting.class.php" role="data" />
    <file baseinstalldir="/" md5sum="f736fe8602594a2764747c0190fc56c9" name="lib/model/doctrine/PluginMemberApplicationSettingTable.class.php" role="data" />
@@ -120,10 +120,10 @@
    <file baseinstalldir="/" md5sum="30c4b794bb75d82d081e7a4ac285c924" name="lib/util/opOpenSocialContainerConfig.class.php" role="data" />
    <file baseinstalldir="/" md5sum="602ac86576727dd9b147ce187cb87379" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
    <file baseinstalldir="/" md5sum="e25ac6b226ceac7374836f0760c63528" name="lib/util/opOpenSocialSupportedFieldExport.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="0bfe68a4eb21c0647e3ccf670ae6d4c6" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="cc15be422877a0b37ea4b502fbfd4791" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
    <file baseinstalldir="/" md5sum="cbf66fb53f75fe4e033da6b9a1e4a328" name="lib/util/opShindigBlobCrypter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="d6136d94b4ffd2b098f602aff4610e3c" name="lib/util/opShindigCrypto.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="a236cc1f081db04c20f6c965bbaf364d" name="lib/util/opShindigOAuthLookupService.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="360946c100cd06dcba9e0f044072a3a1" name="lib/util/opShindigOAuthLookupService.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b30aef3d7613967a8362f157ebcd7db0" name="lib/util/opShindigRemoteContent.class.php" role="data" />
    <file baseinstalldir="/" md5sum="87d39858e0dc2cedbb466b4d645d2d01" name="lib/util/opShindigRemoteContentFetcher.class.php" role="data" />
    <file baseinstalldir="/" md5sum="ad4e715a8546df8e6e01f6166344c163" name="lib/util/opShindigSecurityToken.class.php" role="data" />
@@ -1480,6 +1480,19 @@
    <date>2010-04-01</date>
    <license>apache</license>
    <notes>Fix unit test</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.7</release>
+    <api>0.9.7</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-05-02</date>
+   <license>apache</license>
+   <notes>Fixed API bug.</notes>
   </release>
  </changelog>
 </package>
