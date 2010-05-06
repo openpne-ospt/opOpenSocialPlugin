@@ -322,13 +322,13 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       $url = $activity['url'];
       if (0 === strpos($url, 'http'))
       {
-        $options = sfContext::getInstance()->getRouting()->getOptions();
-        if (!preg_match('#^https?://'.preg_quote($options['context']['host']).'#', $url))
+        $routingOptions = sfContext::getInstance()->getRouting()->getOptions();
+        if (!preg_match('#^https?://'.preg_quote($routingOptions['context']['host']).'#', $url))
         {
           throw new SocialSpiException("Bad URL", ResponseError::$BAD_REQUEST);
         }
       }
-      $options['url'] = $url;
+      $options['uri'] = $url;
     }
 
     Doctrine::getTable('ActivityData')->updateActivity($targetUserId, $activity['title'], $options);
