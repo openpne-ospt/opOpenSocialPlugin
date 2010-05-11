@@ -153,6 +153,13 @@ class opOpenSocialToolKit
     return $httpOptions;
   }
 
+ /**
+  * getProxyHeaders
+  *
+  * @param sfWebRequest $request
+  * @param boolean      $isStripUid
+  * @return array
+  */
   static public function getProxyHeaders($request, $isStripUid = true)
   {
     $results = array();
@@ -210,5 +217,55 @@ class opOpenSocialToolKit
     }
 
     return $results;
+  }
+
+ /**
+  * rewriteBodyForMobile
+  *
+  * @param sfAction $action
+  * @param string   $body
+  * @return string
+  */
+  static public function rewriteBodyForMobile(sfAction $action, $body)
+  {
+    $patterns = array();
+    $replacements = array();
+
+    $patterns[] = "/<\?xml(.*)encoding=(?:\"|').*(?:\"|')/iu";
+    $replacements[] = '<?xml${1}encoding="shift-jis"';
+
+    $patterns[] = "/<meta(.*)content=\"(.*);\s*charset=(.*)(;.*)?\"(.*)>/";
+    $replacements[] = '<meta${1}content="${2}; charset=shift-jis${4}"${5}>';
+
+    $partials = array(
+      $action->getPartial('global/partsPageTitle', array('title' => $action->application->getTitle())),
+      $action->getPartial('application/renderFooter', array('application' => $action->application))
+    );
+
+    if ($action->getRequest()->getMobile()->isDoCoMo() && opConfig::get('font_size'))
+    {
+      $pattern_start_tag = '/(<td.*?>)/';
+      $replacement_start_tag = '$1<font size="2">';
+      $pattern_end_tag = '</td>';
+      $replacement_end_tag = '</font></td>';
+      $partials = preg_replace($pattern_start_tag, $replacement_start_tag, $partials);
+      $partials = str_replace($pattern_end_tag, $replacement_end_tag, $partials);
+      foreach ($partials as &$partial)
+      {
+        $partial = '<font size="2">'.$partial.'</font>';
+      }
+    }
+
+    $patterns[] = "/<body.*>/iu";
+    $replacements[] = '${0}'.$partials[0];
+
+    $patterns[] = "/<\/body>/iu";
+    $replacements[] = $partials[1].'${0}';
+
+    $inviteUrl = $action->getController()->genUrl('@application_invite?id='.$action->memberApplication->getId());
+    $patterns[] = "/<a(.*)href=(?:'|\")(invite:friends)(.*)(?:'|\")(.*)>/iU";
+    $replacements[] = '<a${1}href="'.$inviteUrl.'${3}"${4}>';
+
+    return mb_convert_encoding(preg_replace($patterns, $replacements, $body), 'SJIS-win', 'UTF-8');
   }
 }

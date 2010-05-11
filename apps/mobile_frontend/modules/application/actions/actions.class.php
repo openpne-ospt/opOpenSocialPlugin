@@ -185,14 +185,12 @@ class applicationActions extends opOpenSocialApplicationActions
     if ($response->isSuccessful())
     {
       $contentType = $response->getHeader('Content-Type');
-      if (0 === strpos($contentType, 'text/'))
+
+      if (preg_match('#^(text/html|application/xhtml\+xml|application/xml|text/xml)#', $contentType, $match))
       {
-        // rewrite invite url
-        $inviteUrl = $this->getController()->genUrl('@application_invite?id='.$this->memberApplication->getId());
-        $pattern = "/<a(.*)href=(?:'|\")(invite:friends)(.*)(?:'|\")(.*)>/iU";
-        $replacement = '<a${1}href="'.$inviteUrl.'${3}"${4}>';
-        $this->body = preg_replace($pattern, $replacement, $response->getBody());
-        return sfView::SUCCESS;
+        header('Content-Type: '.$match[0].'; charset=Shift_JIS');
+        echo opOpenSocialToolKit::rewriteBodyForMobile($this, $response->getBody());
+        exit;
       }
       else
       {
