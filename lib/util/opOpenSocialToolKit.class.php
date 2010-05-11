@@ -38,7 +38,7 @@ class opOpenSocialToolKit
    */
   static public function fetchGadgetMetadata($url, $culture)
   {
-    $cul = split('_', $culture);
+    $cul = explode('_', $culture);
 
     $_GET['nocache'] = 1;
     $context = new MetadataGadgetContext(self::arrayToObject(array(
