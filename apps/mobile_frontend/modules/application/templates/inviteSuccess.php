@@ -1,5 +1,6 @@
 <?php op_mobile_page_title(__('Invite App'), $application->getTitle()) ?>
 
+<?php if ($pager instanceof sfPager && $pager->getNbResults()): ?>
 <?php echo __('Select the member who wants to invite to this App.') ?>
 
 <hr color="<?php echo $op_color['core_color_12']?>">
@@ -62,6 +63,9 @@ op_include_list('memberList', $list);
 <input type="submit" value="<?php echo __('Invite') ?>" name="invite">
 </center>
 </form>
+<?php else: ?>
+<?php echo __('%Friend% does not exist.') ?>
+<?php endif; ?>
 <?php slot('op_mobile_footer_menu') ?>
 <?php echo link_to(__('Back to the App'),
   '@application_render?id='.$application->id.($sf_params->has('callback') ? '&url='.urlencode($sf_params->get('callback')) : '')); ?>
