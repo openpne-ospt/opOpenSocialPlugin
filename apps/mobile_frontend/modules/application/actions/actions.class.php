@@ -133,7 +133,7 @@ class applicationActions extends opOpenSocialApplicationActions
 
     $this->memberApplication = Doctrine::getTable('MemberApplication')
       ->findOneByApplicationAndMember($this->application, $this->member);
-    $this->forward404Unless($this->memberApplication);
+    $this->redirectUnless($this->memberApplication, '@application_info?id='.$this->application->getId());
 
     $views = $this->application->getViews();
     $this->forward404Unless(
