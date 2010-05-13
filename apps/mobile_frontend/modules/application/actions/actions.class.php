@@ -148,6 +148,7 @@ class applicationActions extends opOpenSocialApplicationActions
     $zendUri->setQuery('');
     $zendUri->setFragment('');
     $url = $zendUri->getUri();
+    $query = array();
     parse_str($queryString, $query);
 
     $params = array(
@@ -160,8 +161,6 @@ class applicationActions extends opOpenSocialApplicationActions
     $consumer = new OAuthConsumer(opOpenSocialToolKit::getOAuthConsumerKey(), null, null);
     $signatureMethod = new OAuthSignatureMethod_RSA_SHA1_opOpenSocialPlugin();
     $httpOptions = opOpenSocialToolKit::getHttpOptions();
-    $oauthRequest = OAuthRequest::from_consumer_and_token($consumer, null, $method, $url, $params);
-    $oauthRequest->sign_request($signatureMethod, $consumer, null);
 
     $client = new Zend_Http_Client();
     if ('POST' !== $method)
@@ -176,6 +175,9 @@ class applicationActions extends opOpenSocialApplicationActions
       $client->setHeaders(Zend_Http_Client::CONTENT_TYPE, Zend_Http_Client::ENC_URLENCODED);
       $client->setRawData(OAuthUtil::build_http_query($params));
     }
+    $oauthRequest = OAuthRequest::from_consumer_and_token($consumer, null, $method, $url, $params);
+    $oauthRequest->sign_request($signatureMethod, $consumer, null);
+
     $client->setConfig($httpOptions);
     $client->setUri($url);
     $client->setHeaders($oauthRequest->to_header());
