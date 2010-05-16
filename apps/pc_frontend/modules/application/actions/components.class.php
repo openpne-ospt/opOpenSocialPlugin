@@ -104,7 +104,7 @@ class applicationComponents extends sfComponents
   */
   public function executeRenderHomeApplications(sfWebRequest $request)
   {
-    $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($this->getUser()->getMemberId());
+    $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications(null, null, true, true, false);
   }
 
  /**
@@ -116,7 +116,7 @@ class applicationComponents extends sfComponents
   {
     $ownerId  = $request->getParameter('id', $this->getUser()->getMemberId());
     $viewerId = $this->getUser()->getMemberId();
-    $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($ownerId, $viewerId);
+    $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($ownerId, null, true, true, false);
   }
 
  /**
