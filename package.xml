@@ -13,11 +13,11 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-05-02</date>
- <time>00:59:52</time>
+ <date>2010-05-16</date>
+ <time>19:53:23</time>
  <version>
-  <release>1.1.1</release>
-  <api>1.1.1</api>
+  <release>1.1.2</release>
+  <api>1.1.2</api>
  </version>
  <stability>
   <release>beta</release>
@@ -25,7 +25,7 @@
  </stability>
  <license>apache</license>
  <notes>
-Support Mobile App
+Fixed some bug on the mobile.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -34,18 +34,18 @@ Support Mobile App
    <file baseinstalldir="/" md5sum="82c4164d360e66e59272919767fb19fd" name="apps/api/modules/social/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="7981d028691a2f81c32d4dd79d6d54e3" name="apps/mobile_frontend/config/routing.yml" role="data" />
    <file baseinstalldir="/" md5sum="5bbb37dca03a238b3f6161bb7e8ede40" name="apps/mobile_frontend/i18n/messages.ja.xml" role="data" />
-   <file baseinstalldir="/" md5sum="46f28671ef5b27c44d81435488bacd11" name="apps/mobile_frontend/modules/application/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="68037282c85e768840ff44d5f38852be" name="apps/mobile_frontend/modules/application/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="230d1d35180ee2643456b3202e7bb681" name="apps/mobile_frontend/modules/application/actions/components.class.php" role="data" />
    <file baseinstalldir="/" md5sum="31a9b416e4603892e50fc52658028ae8" name="apps/mobile_frontend/modules/application/config/security.yml" role="data" />
    <file baseinstalldir="/" md5sum="57559fbb734c09fe83cd0a1d65c96a23" name="apps/mobile_frontend/modules/application/templates/addSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="21be2daa57e54e6dc5fa136fb7c954d7" name="apps/mobile_frontend/modules/application/templates/gallerySuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="e04a8c48c4c2ae7cd4d560aed40fc879" name="apps/mobile_frontend/modules/application/templates/infoSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="b4f34cb262346a226a78999ab1d13996" name="apps/mobile_frontend/modules/application/templates/inviteSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="15bca29e7fe3ac2b361786c3dc46c3d5" name="apps/mobile_frontend/modules/application/templates/inviteSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="b733f3d3ae9380829e0466d1629f36ae" name="apps/mobile_frontend/modules/application/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="1a67740c413f87818aed84441f8dcff4" name="apps/mobile_frontend/modules/application/templates/removeSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="e154c685631b18766f4bd225f73a3403" name="apps/mobile_frontend/modules/application/templates/renderError.php" role="data" />
-   <file baseinstalldir="/" md5sum="b267034a98b7ab28a3997047d355d70e" name="apps/mobile_frontend/modules/application/templates/renderSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="29e3771deb72ce7af65c84fbb65f6a35" name="apps/mobile_frontend/modules/application/templates/_cautionAboutApplicationInvite.php" role="data" />
+   <file baseinstalldir="/" md5sum="3d5851ca46e107e3542b84af33397da3" name="apps/mobile_frontend/modules/application/templates/_renderFooter.php" role="data" />
    <file baseinstalldir="/" md5sum="96380c7d40eb590eb2adee8b7b60fd3f" name="apps/mobile_frontend/modules/member/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="ecaf9e64e4a504c01e75298fb2ee9f98" name="apps/pc_backend/config/routing.yml" role="data" />
    <file baseinstalldir="/" md5sum="b3db49379cc5c1f750b14d8edc8ed3d9" name="apps/pc_backend/i18n/messages.ja.xml" role="data" />
@@ -69,7 +69,7 @@ Support Mobile App
    <file baseinstalldir="/" md5sum="9bcd264b0bf4680e97cede14e4a8cc31" name="apps/pc_frontend/config/routing.yml" role="data" />
    <file baseinstalldir="/" md5sum="c7e9ba229409c53e4c9b48ab4d2587cf" name="apps/pc_frontend/i18n/messages.ja.xml" role="data" />
    <file baseinstalldir="/" md5sum="786f69bab71ba0fb755f4f8502e15c13" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="f92cf601670dff6438526a1a9b0c8866" name="apps/pc_frontend/modules/application/actions/components.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="1c1931d0faf623f194e9df38040ffaa7" name="apps/pc_frontend/modules/application/actions/components.class.php" role="data" />
    <file baseinstalldir="/" md5sum="31a9b416e4603892e50fc52658028ae8" name="apps/pc_frontend/modules/application/config/security.yml" role="data" />
    <file baseinstalldir="/" md5sum="57d3e957bc51aece25bf81abf22362b8" name="apps/pc_frontend/modules/application/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="5b12c51a9c552720d650537d44fccdaf" name="apps/pc_frontend/modules/application/templates/addSuccess.php" role="data" />
@@ -168,11 +168,11 @@ Support Mobile App
    <file baseinstalldir="/" md5sum="7b6b8023f1e6fec80cf8b0dcd4754413" name="lib/update/0_8_1_to_0_8_2_dev_200902121145.php" role="data" />
    <file baseinstalldir="/" md5sum="989398cee6e728b4e9186a9929c158af" name="lib/update/0_8_2_dev_200902121145_to_0_8_2_dev_200902121523.php" role="data" />
    <file baseinstalldir="/" md5sum="b5422b69c1d5b40ab7bb6ea108ed7244" name="lib/util/opCacheStorageFile.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="7e018b6029eff6a073a7f5dc3d6fc150" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="72c7a5839f4164a3e9623816dca5afe6" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
    <file baseinstalldir="/" md5sum="002c3b479feec777a5a4372105fc8e02" name="lib/util/opOpenSocialContainerConfig.class.php" role="data" />
    <file baseinstalldir="/" md5sum="efd15276efda7a749b3b0b156bd847b0" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
    <file baseinstalldir="/" md5sum="e25ac6b226ceac7374836f0760c63528" name="lib/util/opOpenSocialSupportedFieldExport.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="ec1aa85cba37faa6567724555f887c9d" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="bee627f1d4b8be0d365158632167dc68" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
    <file baseinstalldir="/" md5sum="cbf66fb53f75fe4e033da6b9a1e4a328" name="lib/util/opShindigBlobCrypter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="1385f56583d51028cfd0cff1c4d23453" name="lib/util/opShindigCrypto.class.php" role="data" />
    <file baseinstalldir="/" md5sum="355f32c20f03191c256a3743c1050ec1" name="lib/util/opShindigOAuthLookupService.class.php" role="data" />
@@ -1620,6 +1620,21 @@ Add an ability for the lifecycle-event.
    <license>apache</license>
    <notes>
 Support Mobile App
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-05-16</date>
+   <license>apache</license>
+   <notes>
+Fixed some bug on the mobile.
    </notes>
   </release>
  </changelog>
