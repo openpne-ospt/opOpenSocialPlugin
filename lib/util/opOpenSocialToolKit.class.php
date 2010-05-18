@@ -231,10 +231,10 @@ class opOpenSocialToolKit
     $patterns = array();
     $replacements = array();
 
-    $patterns[] = "/<\?xml(.*)encoding=(?:\"|').*(?:\"|')/iu";
+    $patterns[] = "/<\?xml(.*)encoding=(?:\"|').*(?:\"|')/iU";
     $replacements[] = '<?xml${1}encoding="shift-jis"';
 
-    $patterns[] = "/<meta(.*)content=\"(.*);\s*charset=(.*)(;.*)?\"(.*)>/";
+    $patterns[] = "/<meta(.*)content=\"(.*);\s*charset=(.*)(;.*)?\"(.*)>/iU";
     $replacements[] = '<meta${1}content="${2}; charset=shift-jis${4}"${5}>';
 
     $partials = array(
@@ -256,10 +256,10 @@ class opOpenSocialToolKit
       }
     }
 
-    $patterns[] = "/<body.*>/iu";
+    $patterns[] = "/<body.*>/iU";
     $replacements[] = '${0}'.$partials[0];
 
-    $patterns[] = "/<\/body>/iu";
+    $patterns[] = "/<\/body>/i";
     $replacements[] = $partials[1].'${0}';
 
     $inviteUrl = $action->getController()->genUrl('@application_invite?id='.$action->memberApplication->getId());
