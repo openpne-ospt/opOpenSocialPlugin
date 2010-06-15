@@ -13,7 +13,7 @@
 <?php echo image_tag('no_image.gif', array('size' => '120x120')) ?>
 <?php endif; ?>
 <br>
-<?php echo sprintf('%s(%d)', $application->getTitle(), $application->getMembers()->count()) ?>
+<?php echo sprintf('%s(%d)', $application->getTitle(), $application->countMembers()) ?>
 </td>
 <td valign="top">
 <?php if ($application->getDescription()): ?>

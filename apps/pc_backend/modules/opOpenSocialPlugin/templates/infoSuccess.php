@@ -33,7 +33,7 @@
 <?php endif ?>
 </td></tr>
 <tr><th><?php echo __('Description') ?></th><td><?php echo $application->getDescription() ?></td></tr>
-<tr><th><?php echo __('Users') ?></th><td><?php echo $application->getMembers()->count() ?></td></tr>
+<tr><th><?php echo __('Users') ?></th><td><?php echo $application->countMembers() ?></td></tr>
 <tr><th><?php echo __('Last Updated') ?></th><td><?php echo $application->getUpdatedAt() ?></td></tr>
 <tr><th colspan="2"><?php echo __('About Author') ?></th></tr>
 <tr><th><?php echo __('Name') ?></th><td><?php echo $application->getAuthorEmail() ? mail_to($application->getAuthorEmail(), $application->getAuthor(), array('encode' => true)) : $application->getAuthor() ?></td></tr>

@@ -11,5 +11,5 @@
 </p>
 <p class="text"><?php echo sprintf('%s(%d)',
   link_to_if($application->getTitleUrl(), $options->object->getTitle(), $application->getTitleUrl(), array('target' => '_blank')),
-  $application->getMembers()->count()
+  $application->countMembers()
 ) ?></p>
