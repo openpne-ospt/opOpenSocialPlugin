@@ -266,6 +266,58 @@ class opOpenSocialToolKit
     $patterns[] = "/<a(.*)href=(?:'|\")(invite:friends)(.*)(?:'|\")(.*)>/iU";
     $replacements[] = '<a${1}href="'.$inviteUrl.'${3}"${4}>';
 
-    return mb_convert_encoding(preg_replace($patterns, $replacements, $body), 'SJIS-win', 'UTF-8');
+    if ($action->getRequest()->getMobile()->isEZweb())
+    {
+      $body = preg_replace_callback('/\xEE[\xB1-\xB3\xB5-\xB6\xBD-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF]/',
+        array(__CLASS__, 'convertEZwebEmoji'), $body);
+    }
+    elseif ($action->getRequest()->getMobile()->isSoftBank())
+    {
+      $body = preg_replace_callback('/\xEE[\x80-\x81\x84-\x85\x88-\x89\x8C-\x8D\x90-\x91\x94][\x80-\xBF]/',
+        array(__CLASS__, 'convertSoftBankEmoji'), $body);
+    }
+
+    return OpenPNE_KtaiEmoji::convertEmoji(mb_convert_encoding(preg_replace($patterns, $replacements, $body), 'SJIS-win', 'UTF-8'));
+  }
+
+  protected static function convertEZwebEmoji($matches)
+  {
+    $unicode = mb_convert_encoding($matches[0], 'UCS2', 'UTF-8');
+    return OpenPNE_KtaiEmoji::convertEZwebEmojiToOpenPNEFormat(pack('C*', ord($unicode[0]) + 0x7, ord($unicode[1])));
+  }
+
+  protected static function convertSoftBankEmoji($matches)
+  {
+    $unicode = mb_convert_encoding($matches[0], 'UCS2', 'UTF-8');
+    $unicode = array(ord($unicode[0]), ord($unicode[1]));
+    $bias = array(0x19, 0x40);
+    switch($unicode[0])
+    {
+      case 0xE1 :
+        $bias[0] = 0x16;
+        break;
+      case 0xE2 :
+        $bias[0] = 0x15;
+        $bias[1] = 0xA0;
+        break;
+      case 0xE3 :
+      case 0xE5 :
+        $bias[0] = 0x16;
+        $bias[1] = 0xA0;
+        break;
+      case 0xE4 :
+        $bias[0] = 0x17;
+        break;
+    }
+
+    if ($bias[1] == 0x40)
+    {
+      if ($unicode[1] >= 0x40)
+      {
+        $bias[1]++;
+      }
+    }
+
+    return OpenPNE_KtaiEmoji::convertSoftBankEmojiToOpenPNEFormat(pack('C*', $unicode[0] + $bias[0], $unicode[1] + $bias[1]));
   }
 }
