@@ -18,16 +18,19 @@
 abstract class opOpenSocialLocationAbstract
 {
   protected
-    $request = null;
+    $request = null,
+    $user = null,
+    $params = null;
 
-  public function __construct(opWebRequest $request)
+  public function __construct(opWebRequest $request, opSecurityUser $user)
   {
     $this->request = $request;
+    $this->user = $user;
   }
 
-  abstract public function renderGetLocationCell($callback, array $params);
+  abstract public function renderGetLocationCell($callback);
 
-  abstract public function renderGetLocationGps($callback, array $params);
+  abstract public function renderGetLocationGps($callback);
 
   public function fetchLocation()
   {
@@ -97,8 +100,35 @@ abstract class opOpenSocialLocationAbstract
     );
   }
 
+  public function setParameters(array $params)
+  {
+    sfContext::getInstance()->getUser()->setFlash('op_opensocial_location_params', serialize($params));
+  }
+
   public function getParameter($name, $default = null)
   {
-    return $this->request->getParameter($name, $default);
+    if (null === $this->params)
+    {
+      if (sfContext::getInstance()->getUser()->hasFlash('op_opensocial_location_params'))
+      {
+        $this->params = unserialize(sfContext::getInstance()->getUser()->getFlash('op_opensocial_location_params'));
+      }
+      else
+      {
+        $this->params = array();
+      }
+    }
+
+    if (is_array($this->params) && isset($this->params[$name]))
+    {
+      return $this->params[$name];
+    }
+
+    if ($this->request->hasParameter($name))
+    {
+      return $this->request->getParameter($name, $default);
+    }
+
+    return $default;
   }
 }

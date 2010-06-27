@@ -158,6 +158,21 @@ class applicationActions extends opOpenSocialApplicationActions
     $params = array_merge($query, $params);
     $method = $request->isMethod(sfWebRequest::POST) ? 'POST' : 'GET';
 
+    unset($params['lat']);
+    unset($params['lon']);
+    unset($params['geo']);
+    if ($request->hasParameter('l') && $this->getUser()->hasFlash('op_opensocial_location'))
+    {
+      $method = ('p' == $request->getParameter('l')) ? 'POST' : 'GET';
+      $location = unserialize($this->getUser()->getFlash('op_opensocial_location'));
+      if (isset($location['lat']) && isset($location['lon']) && isset($location['geo']))
+      {
+        $params['lat'] = $location['lat'];
+        $params['lon'] = $location['lon'];
+        $params['geo'] = $location['geo'];
+      }
+    }
+
     $consumer = new OAuthConsumer(opOpenSocialToolKit::getOAuthConsumerKey(), null, null);
     $signatureMethod = new OAuthSignatureMethod_RSA_SHA1_opOpenSocialPlugin();
     $httpOptions = opOpenSocialToolKit::getHttpOptions();
@@ -202,5 +217,74 @@ class applicationActions extends opOpenSocialApplicationActions
       }
     }
     return sfView::ERROR;
+  }
+
+  protected function processLocation(sfWebRequest $request)
+  {
+    $this->memberApplication = Doctrine::getTable('MemberApplication')
+      ->findOneByApplicationAndMember($this->application, $this->member);
+    $this->redirectUnless($this->memberApplication, '@application_info?id='.$this->application->getId());
+    $this->location = opOpenSocialLocation::createInstance($request, $this->getUser());
+  }
+
+
+ /**
+  * Executes location action
+  *
+  * @param sfWebRequest $request
+  */
+  public function executeLocation(sfWebRequest $request)
+  {
+    try
+    {
+      $this->processLocation($request);
+    }
+    catch (LogicException $e)
+    {
+      return sfView::ERROR;
+    }
+
+    $this->forward404Unless(in_array($request->getParameter('type'), array('cell', 'gps')));
+    $params = array();
+    if ($request->hasParameter('callback'))
+    {
+      $params['callback'] = $request->getParameter('callback');
+    }
+    $params['method'] = $request->isMethod(sfWebRequest::GET) ? 'GET' : 'POST';
+    $t = opToolkit::getRandom();
+    $this->getUser()->setFlash('op_opensocial_location_t', $t);
+    $params['t'] = $t;
+    $this->location->setParameters($params);
+  }
+
+ /**
+  * Executes accept location action
+  *
+  * @param sfWebRequest $request
+  */
+  public function executeAcceptLocation(sfWebRequest $request)
+  {
+    try
+    {
+      $this->processLocation($request);
+    }
+    catch (LogicException $e)
+    {
+      $this->redirect404();
+    }
+
+    $t = $this->location->getParameter('t');
+    if ($t == $this->getUser()->getFlash('op_opensocial_location_t'))
+    {
+      $this->getUser()->setFlash('op_opensocial_location', serialize($this->location->fetchLocation()));
+    }
+    $callback = $this->location->getParameter('callback');
+    $uri = '@application_render?id='.$this->application->id;
+    if ($callback)
+    {
+      $uri .= '&url='.$callback;
+    }
+    $uri .= '&l='.('GET' == $this->location->getParameter('method') ? 'g' : 'p');
+    $this->redirect($uri);
   }
 }

@@ -17,23 +17,18 @@
  */
 class opOpenSocialLocationSoftbank extends opOpenSocialLocationAbstract
 {
-  public function renderGetLocationCell($callback, array $params)
+  public function renderGetLocationCell($callback)
   {
-    if ($this->request->getMobile()->isType3GC())
-    {
-      $p = count($params) ? '&'.http_build_query($params) : '';
-      $result = '<form action="location:cell?url='.$callback.$p.'" method="POST">
+    $result = '<form action="location:cell?url='.$callback.'" method="POST">
 <input type="submit" value="'.__('Yes').'">
 </form>';
-    }
 
     return $result;
   }
 
-  public function renderGetLocationGps($callback, array $params)
+  public function renderGetLocationGps($callback)
   {
-    $p = count($params) ? '&'.http_build_query($params) : '';
-    $result = '<form action="location:gps?url='.$callback.$p.'" method="POST">
+    $result = '<form action="location:gps?url='.$callback.'" method="POST">
 <input type="submit" value="'.__('Yes').'">
 </form>';
 

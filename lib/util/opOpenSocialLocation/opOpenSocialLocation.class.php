@@ -30,7 +30,7 @@ class opOpenSocialLocation
     {
       $className .= 'EZweb';
     }
-    elseif ($mobile->isSoftbank())
+    elseif ($mobile->isSoftbank() && $mobile->isType3GC())
     {
       $className .= 'Softbank';
     }

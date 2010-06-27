@@ -266,6 +266,14 @@ class opOpenSocialToolKit
     $patterns[] = "/<a(.*)href=(?:'|\")(invite:friends)(.*)(?:'|\")(.*)>/iU";
     $replacements[] = '<a${1}href="'.$inviteUrl.'${3}"${4}>';
 
+    $locationUrl = $action->getController()->genUrl('@application_location?id='.$action->application->getId());
+    $patterns[] = "/<a(.*)href=(?:'|\")(location:)(cell|gps)(?:\?(.*))?(?:'|\")(.*)>/iU";
+    $replacements[] = '<a${1}href="'.$locationUrl.'?type=${3}&${4}"${5}>';
+
+    $patterns[] = "/<form(.*)action=(?:'|\")(location:)(cell|gps)(?:'|\")(.*)>/iU";
+    $replacements[] = '<form${1}action="'.$locationUrl.'"${4}>
+<input type="hidden" name="type" value="${3}">';
+
     if ($action->getRequest()->getMobile()->isEZweb())
     {
       $body = preg_replace_callback('/\xEE[\xB1-\xB3\xB5-\xB6\xBD-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF]/',

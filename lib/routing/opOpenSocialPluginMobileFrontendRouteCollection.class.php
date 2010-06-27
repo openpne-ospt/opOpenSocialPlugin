@@ -27,6 +27,18 @@ class opOpenSocialPluginMobileFrontendRouteCollection extends opOpenSocialPlugin
           array('id' => '\d+', 'sf_method' => array('get', 'post')),
           array('model' => 'Application', 'type' => 'object')
         ),
+        'application_location' => new sfDoctrineRoute(
+          '/application/location/:id',
+          array('module' => 'application', 'action' => 'location'),
+          array('id' => '\d+', 'sf_method' => array('get', 'post')),
+          array('model' => 'Application', 'type' => 'object')
+        ),
+        'application_accept_location' => new sfDoctrineRoute(
+          '/application/acceptLocation/:id',
+          array('module' => 'application', 'action' => 'acceptLocation'),
+          array('id' => '\d+', 'sf_method' => array('get', 'post')),
+          array('model' => 'Application', 'type' => 'object')
+        ),
       );
   }
 }
