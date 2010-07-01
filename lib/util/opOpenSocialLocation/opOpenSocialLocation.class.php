@@ -17,7 +17,7 @@
  */
 class opOpenSocialLocation
 {
-  public static function createInstance(opWebRequest $request)
+  public static function createInstance(opWebRequest $request, opSecurityUser $user)
   {
     $mobile = $request->getMobile();
 
@@ -39,6 +39,6 @@ class opOpenSocialLocation
       throw new LogicException("This UserAgent isn't supported.");
     }
 
-    return new $className($request);
+    return new $className($request, $user);
   }
 }
