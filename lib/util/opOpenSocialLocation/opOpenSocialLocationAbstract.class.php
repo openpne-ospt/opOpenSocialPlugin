@@ -22,7 +22,7 @@ abstract class opOpenSocialLocationAbstract
     $user = null,
     $params = null;
 
-  public function __construct(opWebRequest $request, opSecurityUser $user)
+  public function __construct(sfWebRequest $request, sfSecurityUser $user)
   {
     $this->request = $request;
     $this->user = $user;

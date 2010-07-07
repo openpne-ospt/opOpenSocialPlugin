@@ -17,7 +17,7 @@
  */
 class opOpenSocialLocation
 {
-  public static function createInstance(opWebRequest $request, opSecurityUser $user)
+  public static function createInstance(sfWebRequest $request, sfSecurityUser $user)
   {
     $mobile = $request->getMobile();
 
