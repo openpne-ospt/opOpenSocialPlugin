@@ -46,10 +46,10 @@ class opOpenSocialMobileRewriter
     $patterns = array();
     $replacements = array();
 
-    $patterns[] = "/<\?xml(.*)encoding=(?:\"|').*(?:\"|')/iU";
+    $patterns[] = "/<\?xml(.*)encoding=[\"'].*[\"']/iU";
     $replacements[] = '<?xml${1}encoding="shift-jis"';
 
-    $patterns[] = "/<meta(.*)content=\"(.*);\s*charset=(.*)(;.*)?\"(.*)>/iU";
+    $patterns[] = "/<meta(.*)content=[\"'](.*);\s*charset=(.*)(;.*)?[\"'](.*)>/iU";
     $replacements[] = '<meta${1}content="${2}; charset=shift-jis${4}"${5}>';
 
     $partials = array(
@@ -78,8 +78,8 @@ class opOpenSocialMobileRewriter
     $replacements[] = $partials[1].'${0}';
 
     $urlPatterns = array(
-      "/<(a)(.*)href=(?:'|\")([a-zA-Z]+):([a-zA-Z]+)(?:\?(.*))?(?:'|\")(.*)>/iU",
-      "/<(form)(.*)action=(?:'|\")([a-zA-Z]+):([a-zA-Z]+)(?:\?(.*))?(?:'|\")(.*)>/iU"
+      "/<(a)(.*)href=[\"']([a-zA-Z]+):([a-zA-Z]+)(?:\?(.*))?[\"'](.*)>/iU",
+      "/<(form)(.*)action=[\"']([a-zA-Z]+):([a-zA-Z]+)(?:\?(.*))?[\"'](.*)>/iU"
     );
     $body = preg_replace_callback($urlPatterns, array($this, 'rewriteUrl'), $body);
 
