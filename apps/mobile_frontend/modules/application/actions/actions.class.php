@@ -206,7 +206,8 @@ class applicationActions extends opOpenSocialApplicationActions
       if (preg_match('#^(text/html|application/xhtml\+xml|application/xml|text/xml)#', $contentType, $match))
       {
         header('Content-Type: '.$match[0].'; charset=Shift_JIS');
-        echo opOpenSocialToolKit::rewriteBodyForMobile($this, $response->getBody());
+        $rewriter = new opOpenSocialMobileRewriter($this);
+        echo $rewriter->rewrite($response->getBody());
         exit;
       }
       else

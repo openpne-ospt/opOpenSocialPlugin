@@ -1,0 +1,18 @@
+# This file exists to configure rewriting of url on the mobile.
+#
+# The following literals in uri will be replaced.
+#
+# %uid% to member_id (owner)
+# %aid% to application_id
+# %mid% to member_application_id
+
+invite:
+  allow_types: ['friends']
+  allow_tags: ['a']
+  uri: '@application_invite?id=%mid%'
+
+location:
+  allow_types: ['cell', 'gps']
+  allow_tags: ['a', 'form']
+  type_param_name: 'type'
+  uri: '@application_location?id=%aid%'
