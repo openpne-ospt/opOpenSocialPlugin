@@ -131,12 +131,12 @@ class opOpenSocialMobileRewriter
             $uri .= $info['type_param_name'].'='.$matches[4];
           }
           $url = $this->genUrl($uri);
-          return '<a'.$matches[2].'href="'.$url.'"'.$matches[6].'>';
+          return '<a'.$matches[2].'href="'.htmlspecialchars($url, ENT_QUOTES, 'UTF-8').'"'.$matches[6].'>';
         }
         else
         {
           $url = $this->genUrl($uri);
-          $result = '<form'.$matches[2].'action="'.$url.'"'.$matches[6].'>';
+          $result = '<form'.$matches[2].'action="'.htmlspecialchars($url, ENT_QUOTES, 'UTF-8').'"'.$matches[6].'>';
           if (isset($info['type_param_name']) && $info['type_param_name'])
           {
             $result .= "\n".'<input type="hidden" name="'.$info['type_param_name'].'" value="'.$matches[4].'">';
