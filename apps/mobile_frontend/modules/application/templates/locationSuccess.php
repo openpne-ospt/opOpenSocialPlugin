@@ -5,9 +5,9 @@
 </div>
 <div align="center">
 <?php if ('gps' == $sf_params->get('type')): ?>
-<?php echo $location->getRawValue()->renderGetLocationGps(url_for('@application_accept_location?id='.$application->id, true)) ?>
+<?php echo $location->getRawValue()->renderGetLocationGps(url_for('@application_accept_location?id='.$application->id.'&tk='.$tk, true)) ?>
 <?php else: ?>
-<?php echo $location->getRawValue()->renderGetLocationCell(url_for('@application_accept_location?id='.$application->id, true)) ?>
+<?php echo $location->getRawValue()->renderGetLocationCell(url_for('@application_accept_location?id='.$application->id.'&tk='.$tk, true)) ?>
 <?php endif; ?>
 <form action="<?php echo url_for('@application_render?id='.$application->id) ?>" method="<?php echo $sf_context->getRequest()->isMethod(sfWebRequest::GET) ? 'GET' : 'POST' ?>">
 <?php if($sf_params->has('callback')): ?>

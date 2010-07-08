@@ -251,8 +251,9 @@ class applicationActions extends opOpenSocialApplicationActions
       $params['callback'] = $request->getParameter('callback');
     }
     $params['method'] = $request->isMethod(sfWebRequest::GET) ? 'GET' : 'POST';
-    $t = opToolkit::getRandom();
-    $this->getUser()->setFlash('op_opensocial_location_t', $t);
+    $this->tk = opToolkit::getRandom('12');
+    $t        = opToolkit::getRandom();
+    $this->getUser()->setFlash('op_opensocial_location_t_'.$this->tk, $t);
     $params['t'] = $t;
     $this->location->setParameters($params);
   }
@@ -274,7 +275,7 @@ class applicationActions extends opOpenSocialApplicationActions
     }
 
     $t = $this->location->getParameter('t');
-    if ($t == $this->getUser()->getFlash('op_opensocial_location_t'))
+    if ($t == $this->getUser()->getFlash('op_opensocial_location_t_'.$request->getParameter('tk')))
     {
       $this->getUser()->setFlash('op_opensocial_location', serialize($this->location->fetchLocation()));
     }

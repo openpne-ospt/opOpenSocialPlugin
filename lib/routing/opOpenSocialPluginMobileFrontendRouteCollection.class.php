@@ -34,7 +34,7 @@ class opOpenSocialPluginMobileFrontendRouteCollection extends opOpenSocialPlugin
           array('model' => 'Application', 'type' => 'object')
         ),
         'application_accept_location' => new sfDoctrineRoute(
-          '/application/acceptLocation/:id',
+          '/application/acceptLocation/:id/:tk',
           array('module' => 'application', 'action' => 'acceptLocation'),
           array('id' => '\d+', 'sf_method' => array('get', 'post')),
           array('model' => 'Application', 'type' => 'object')
