@@ -20,7 +20,7 @@ class opOpenSocialLocationSoftbank extends opOpenSocialLocationAbstract
   public function renderGetLocationCell($callback)
   {
     $result = '<form action="location:cell?url='.$callback.'" method="POST">
-<input type="submit" value="'.__('Yes').'">
+<input type="submit" value="'.__('Yes').'"><br>
 </form>';
 
     return $result;
@@ -29,7 +29,7 @@ class opOpenSocialLocationSoftbank extends opOpenSocialLocationAbstract
   public function renderGetLocationGps($callback)
   {
     $result = '<form action="location:gps?url='.$callback.'" method="POST">
-<input type="submit" value="'.__('Yes').'">
+<input type="submit" value="'.__('Yes').'"><br>
 </form>';
 
     return $result;

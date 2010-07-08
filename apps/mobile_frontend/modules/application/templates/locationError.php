@@ -1,7 +1,7 @@
 <?php op_mobile_page_title($application->getTitle(), __('Error')) ?>
 
 <div class="block">
-あなたの端末では位置情報の取得が出来ません。
+<?php echo __("Your cellphone can't send your location.") ?>
 </div>
 
 <div align="center">

@@ -32,7 +32,7 @@ class opOpenSocialLocationDocomo extends opOpenSocialLocationAbstract
     }
 
     $result .= '
-<input type="submit" value="'.__('Yes').'">
+<input type="submit" value="'.__('Yes').'"><br>
 </form>';
 
     return $result;
@@ -47,7 +47,7 @@ class opOpenSocialLocationDocomo extends opOpenSocialLocationAbstract
     }
 
     $result = '<form action="'.$callback.($p ? '?'.$p : '').'" method="POST" lcs>';
-    $result .= '<input type="submit" value="'.__('Yes').'">';
+    $result .= '<input type="submit" value="'.__('Yes').'"><br>';
     $result .= '</form>';
     return $result;
   }

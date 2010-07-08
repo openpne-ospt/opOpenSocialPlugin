@@ -20,7 +20,7 @@ class opOpenSocialLocationEZweb extends opOpenSocialLocationAbstract
   public function renderGetLocationCell($callback)
   {
     $result = '<form action="device:location?url='.urlencode($callback).'" method="POST">
-<input type="submit" value="'.__('Yes').'">
+<input type="submit" value="'.__('Yes').'"><br>
 </form>';
 
     return $result;
@@ -29,7 +29,7 @@ class opOpenSocialLocationEZweb extends opOpenSocialLocationAbstract
   public function renderGetLocationGps($callback)
   {
     $result = '<form action="device:gpsone?url='.urlencode($callback).'&ver=1&datum=0&unit=0&acry=0&number=0" method="POST">
-<input type="submit" value="'.__('Yes').'">
+<input type="submit" value="'.__('Yes').'"><br>
 </form>
 ';
 

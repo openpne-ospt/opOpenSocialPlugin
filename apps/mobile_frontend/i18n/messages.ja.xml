@@ -137,6 +137,15 @@
         <source>Error</source>
         <target>ｴﾗｰ</target>
       </trans-unit>
+
+      <trans-unit id="">
+        <source>Do you send your location to this App?</source>
+        <target>このｱﾌﾟﾘに位置情報を送信します。よろしいですか？</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Your cellphone can't send your location.</source>
+        <target>お使いの端末では位置情報を送信することはできません。</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
