@@ -13,11 +13,11 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-05-16</date>
- <time>19:53:23</time>
+ <date>2010-07-13</date>
+ <time>12:29:06</time>
  <version>
-  <release>1.1.2</release>
-  <api>1.1.2</api>
+  <release>1.1.3</release>
+  <api>1.1.3</api>
  </version>
  <stability>
   <release>beta</release>
@@ -25,7 +25,7 @@
  </stability>
  <license>apache</license>
  <notes>
-Fixed some bug on the mobile.
+Supported location service, and added an ability to extend url of replacing on the mobile.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -33,15 +33,17 @@ Fixed some bug on the mobile.
    <file baseinstalldir="/" md5sum="7f2a4c45f28a6277219a8c29e085f695" name="apps/api/modules/social/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="82c4164d360e66e59272919767fb19fd" name="apps/api/modules/social/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="7981d028691a2f81c32d4dd79d6d54e3" name="apps/mobile_frontend/config/routing.yml" role="data" />
-   <file baseinstalldir="/" md5sum="5bbb37dca03a238b3f6161bb7e8ede40" name="apps/mobile_frontend/i18n/messages.ja.xml" role="data" />
-   <file baseinstalldir="/" md5sum="68037282c85e768840ff44d5f38852be" name="apps/mobile_frontend/modules/application/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="3f3b79e1a761c1e454397562040801f4" name="apps/mobile_frontend/i18n/messages.ja.xml" role="data" />
+   <file baseinstalldir="/" md5sum="3f0dad0ec50534f9e15b184146a45b3e" name="apps/mobile_frontend/modules/application/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="230d1d35180ee2643456b3202e7bb681" name="apps/mobile_frontend/modules/application/actions/components.class.php" role="data" />
    <file baseinstalldir="/" md5sum="31a9b416e4603892e50fc52658028ae8" name="apps/mobile_frontend/modules/application/config/security.yml" role="data" />
    <file baseinstalldir="/" md5sum="57559fbb734c09fe83cd0a1d65c96a23" name="apps/mobile_frontend/modules/application/templates/addSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="21be2daa57e54e6dc5fa136fb7c954d7" name="apps/mobile_frontend/modules/application/templates/gallerySuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="e04a8c48c4c2ae7cd4d560aed40fc879" name="apps/mobile_frontend/modules/application/templates/infoSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="9b237be3543e1c7ac9bb45c5458f8e58" name="apps/mobile_frontend/modules/application/templates/infoSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="15bca29e7fe3ac2b361786c3dc46c3d5" name="apps/mobile_frontend/modules/application/templates/inviteSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="b733f3d3ae9380829e0466d1629f36ae" name="apps/mobile_frontend/modules/application/templates/listSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="43ab54b588e25f77cda11818776dfb07" name="apps/mobile_frontend/modules/application/templates/locationError.php" role="data" />
+   <file baseinstalldir="/" md5sum="325121126a24540baca8b0f684b7b67f" name="apps/mobile_frontend/modules/application/templates/locationSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="1a67740c413f87818aed84441f8dcff4" name="apps/mobile_frontend/modules/application/templates/removeSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="e154c685631b18766f4bd225f73a3403" name="apps/mobile_frontend/modules/application/templates/renderError.php" role="data" />
    <file baseinstalldir="/" md5sum="29e3771deb72ce7af65c84fbb65f6a35" name="apps/mobile_frontend/modules/application/templates/_cautionAboutApplicationInvite.php" role="data" />
@@ -61,7 +63,7 @@ Fixed some bug on the mobile.
    <file baseinstalldir="/" md5sum="05e6b5d4edc994538bd436d517b134c3" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/deleteSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="33152a0075d52bdfc8d8765b4a84495f" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/generateContainerConfigSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="b1cfaa7bfc49a177c73ee5cb6e411df7" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/inactiveListSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="aab1588fc53e7155a9bcf870402f8109" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/infoSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="190845d045185c5b49c20d89c8ebdb23" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/infoSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="cf594b2769a566c41c4f81b48077199f" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="7763d4deca10c31295628051408a1ee0" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/updateConsumerSecretInput.php" role="data" />
    <file baseinstalldir="/" md5sum="29852a96cc991ad1056e650e9e7a3d4a" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_bottomSubmenu.php" role="data" />
@@ -97,10 +99,11 @@ Fixed some bug on the mobile.
    <file baseinstalldir="/" md5sum="82c4164d360e66e59272919767fb19fd" name="apps/pc_frontend/modules/gadgets/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="210f9c1470a35aa9d65afa92a28676c1" name="apps/pc_frontend/modules/member/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="bd948e6ed748743fc3107e0f8328cb85" name="apps/pc_frontend/modules/opensocial/actions/actions.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="03acac39384c21f45be8b34f3baf309c" name="apps/pc_frontend/templates/_partsApplicationImageBox.php" role="data" />
+   <file baseinstalldir="/" md5sum="2d337de6124c43bb98569cece648fb96" name="apps/pc_frontend/templates/_partsApplicationImageBox.php" role="data" />
    <file baseinstalldir="/" md5sum="56cf6cb8413c39625afa73736df6e800" name="config/confirmation.yml" role="data" />
    <file baseinstalldir="/" md5sum="544d9e2f0baeb5f59f2aa4d6d1060f59" name="config/gadget.yml" role="data" />
    <file baseinstalldir="/" md5sum="1359c0fd5a0a76ab451599ba450c4118" name="config/opOpenSocialPluginConfiguration.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="9d5f2b037091370ee95eb037c0dbc6af" name="config/op_opensocial_mobile_rewrite_url.yml" role="data" />
    <file baseinstalldir="/" md5sum="a0601f972a9d04c7d7f48444212f3109" name="config/profile_gadget.yml" role="data" />
    <file baseinstalldir="/" md5sum="d0d3d920dc3d6197de04d6d312465181" name="config/routing.yml" role="data" />
    <file baseinstalldir="/" md5sum="01e41b46a35fa01a03bc88a02546a451" name="config/doctrine/schema.yml" role="data" />
@@ -147,7 +150,7 @@ Fixed some bug on the mobile.
    <file baseinstalldir="/" md5sum="b3e5f77b65c2a6742a619c62b65577e0" name="lib/form/doctrine/PluginMemberApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="9f884bec92e3bd2d956b50e83f755db1" name="lib/form/doctrine/PluginMemberApplicationSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="5ec21563c0216bc2a8404750bca3335d" name="lib/helper/OpenSocialHelper.php" role="data" />
-   <file baseinstalldir="/" md5sum="f1957f675d64052e92324b95e7b92f2f" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="b66f43b0965f99f399d5e6767b16604f" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
    <file baseinstalldir="/" md5sum="d86063841d8176429bd72f39079f4e3d" name="lib/model/doctrine/PluginApplicationInvite.class.php" role="data" />
    <file baseinstalldir="/" md5sum="4e0e3a9f03b99ffba649395bd687f9f8" name="lib/model/doctrine/PluginApplicationInviteTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="f065ba3801e35de4587d144f5bd710ae" name="lib/model/doctrine/PluginApplicationLifecycleEventQueue.class.php" role="data" />
@@ -160,7 +163,7 @@ Fixed some bug on the mobile.
    <file baseinstalldir="/" md5sum="f736fe8602594a2764747c0190fc56c9" name="lib/model/doctrine/PluginMemberApplicationSettingTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="7ec768a82d347f4de065b7ec7efb8029" name="lib/model/doctrine/PluginMemberApplicationTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="4f3b78e7b72f8b8555549405e9090572" name="lib/routing/opOpenSocialPluginFrontendRouteCollection.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="bfd2d69ccc4687a41df649fa9940e983" name="lib/routing/opOpenSocialPluginMobileFrontendRouteCollection.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="f9b2d8eff9ab593b3dfa06b414637d16" name="lib/routing/opOpenSocialPluginMobileFrontendRouteCollection.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b1512c8a15b96123f8d59095afc18b70" name="lib/routing/opOpenSocialPluginPcFrontendRouteCollection.class.php" role="data" />
    <file baseinstalldir="/" md5sum="453394094822803b67bba9a906850ac7" name="lib/routing/opOpenSocialRoute.class.php" role="data" />
    <file baseinstalldir="/" md5sum="833418b899800fda2ee350e91900b404" name="lib/task/opOpenSocialExecuteLifecycleEventTask.class.php" role="data" />
@@ -170,9 +173,10 @@ Fixed some bug on the mobile.
    <file baseinstalldir="/" md5sum="b5422b69c1d5b40ab7bb6ea108ed7244" name="lib/util/opCacheStorageFile.class.php" role="data" />
    <file baseinstalldir="/" md5sum="72c7a5839f4164a3e9623816dca5afe6" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
    <file baseinstalldir="/" md5sum="002c3b479feec777a5a4372105fc8e02" name="lib/util/opOpenSocialContainerConfig.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="bcf00e04d42a800a47fb68494c30f6f3" name="lib/util/opOpenSocialMobileRewriter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="efd15276efda7a749b3b0b156bd847b0" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
    <file baseinstalldir="/" md5sum="e25ac6b226ceac7374836f0760c63528" name="lib/util/opOpenSocialSupportedFieldExport.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="bee627f1d4b8be0d365158632167dc68" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="9ebf218ffe1a31b61070df05a8aaec16" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
    <file baseinstalldir="/" md5sum="cbf66fb53f75fe4e033da6b9a1e4a328" name="lib/util/opShindigBlobCrypter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="1385f56583d51028cfd0cff1c4d23453" name="lib/util/opShindigCrypto.class.php" role="data" />
    <file baseinstalldir="/" md5sum="355f32c20f03191c256a3743c1050ec1" name="lib/util/opShindigOAuthLookupService.class.php" role="data" />
@@ -180,6 +184,11 @@ Fixed some bug on the mobile.
    <file baseinstalldir="/" md5sum="0906aff3e7cca74630bf81a0c9608355" name="lib/util/opShindigRemoteContentFetcher.class.php" role="data" />
    <file baseinstalldir="/" md5sum="ad4e715a8546df8e6e01f6166344c163" name="lib/util/opShindigSecurityToken.class.php" role="data" />
    <file baseinstalldir="/" md5sum="adaae384b2baa13c57ba91e80585cb29" name="lib/util/opShindigSecurityTokenDecoder.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="e9d4b35fbd00f6228ae3d2d78216785d" name="lib/util/opOpenSocialLocation/opOpenSocialLocation.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="56b0f29ca3ba4bae7773a61803078a20" name="lib/util/opOpenSocialLocation/opOpenSocialLocationAbstract.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="6aacc49f295e682a13804a96517f3526" name="lib/util/opOpenSocialLocation/opOpenSocialLocationDocomo.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="1bd84a58ad9358f597be97dea4b8b7ec" name="lib/util/opOpenSocialLocation/opOpenSocialLocationEZweb.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="9dbfb9bb532787e670b3df2d6b3b1147" name="lib/util/opOpenSocialLocation/opOpenSocialLocationSoftbank.class.php" role="data" />
    <file baseinstalldir="/" md5sum="e8c88502956d49c24845a800aae405f1" name="lib/vendor/OAuth/OAuthSignature_Method_RSA_SHA1_opOpenSocialPlugin.class.php" role="data" />
    <file baseinstalldir="/" md5sum="c4e657b93cfc22c87c96a4a875800fb1" name="lib/vendor/PEAR/Crypt/Blowfish.php" role="data" />
    <file baseinstalldir="/" md5sum="17c8e5751cda3c6d03e0e8d9ae37a239" name="lib/vendor/PEAR/Crypt/Blowfish/CBC.php" role="data" />
@@ -1428,7 +1437,7 @@ Fixed some bug on the mobile.
    <file baseinstalldir="/" md5sum="de63408abbd1be9a96b4b5ea4b0454cc" name="test/unit/model/ApplicationInviteTest.php" role="data" />
    <file baseinstalldir="/" md5sum="f147b05c0a0fb098e0f5849b09168f2c" name="test/unit/model/ApplicationLifecycleEventQueueTableTest.php" role="data" />
    <file baseinstalldir="/" md5sum="968f2575bb7bad0b0b1a156592becdcd" name="test/unit/model/ApplicationTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="caa543997b635069e447e48a676b2e51" name="test/unit/model/ApplicationTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="7eb4f91634b284f5613a0b02f06f7ee2" name="test/unit/model/ApplicationTest.php" role="data" />
    <file baseinstalldir="/" md5sum="8d7e92d7d339c0a745fbf6e2c4b2c4dc" name="test/unit/model/MemberApplicationSettingTableTest.php" role="data" />
    <file baseinstalldir="/" md5sum="a8fac69c6842680f9af741e3b8dc8d2d" name="test/unit/model/MemberApplicationSettingTest.php" role="data" />
    <file baseinstalldir="/" md5sum="be22a7007726e5386df41428b1c4a484" name="test/unit/model/MemberApplicationTableTest.php" role="data" />
@@ -1635,6 +1644,21 @@ Support Mobile App
    <license>apache</license>
    <notes>
 Fixed some bug on the mobile.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-07-13</date>
+   <license>apache</license>
+   <notes>
+Supported location service, and added an ability to extend url of replacing on the mobile.
    </notes>
   </release>
  </changelog>
