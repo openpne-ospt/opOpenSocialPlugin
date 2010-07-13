@@ -13,18 +13,18 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-05-02</date>
- <time>01:25:19</time>
+ <date>2010-07-13</date>
+ <time>14:00:17</time>
  <version>
-  <release>0.9.7</release>
-  <api>0.9.7</api>
+  <release>0.9.8</release>
+  <api>0.9.8</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>Fixed API bug.</notes>
+ <notes>Fixed slow page.</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="8665be70ae66b94e14c285ff7627543d" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -41,7 +41,7 @@
    <file baseinstalldir="/" md5sum="63fbfefde41d5967de6b7495cf641085" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/deleteSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="33152a0075d52bdfc8d8765b4a84495f" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/generateContainerConfigSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="dd1412841a7b7058b359c122f58329ea" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/inactiveListSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="dd44eef260dca8518fa7fc6fd391fe7b" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/infoSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="c15d35091a68fa2222edb4290d893f80" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/infoSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="9ae2c410497583a09e99f7a260ae09ec" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="29852a96cc991ad1056e650e9e7a3d4a" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_bottomSubmenu.php" role="data" />
    <file baseinstalldir="/" md5sum="10d08b1ed197499b5426e4df7c026bd2" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_submenu.php" role="data" />
@@ -66,7 +66,7 @@
    <file baseinstalldir="/" md5sum="9ab6e65abb675ae54132af5e4eaad8c1" name="apps/pc_frontend/modules/gadgets/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="82c4164d360e66e59272919767fb19fd" name="apps/pc_frontend/modules/gadgets/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="bd948e6ed748743fc3107e0f8328cb85" name="apps/pc_frontend/modules/opensocial/actions/actions.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="03acac39384c21f45be8b34f3baf309c" name="apps/pc_frontend/templates/_partsApplicationImageBox.php" role="data" />
+   <file baseinstalldir="/" md5sum="2d337de6124c43bb98569cece648fb96" name="apps/pc_frontend/templates/_partsApplicationImageBox.php" role="data" />
    <file baseinstalldir="/" md5sum="db58b497c90d7a913bbcd79b108d6d2a" name="config/config.php" role="data" />
    <file baseinstalldir="/" md5sum="544d9e2f0baeb5f59f2aa4d6d1060f59" name="config/gadget.yml" role="data" />
    <file baseinstalldir="/" md5sum="a0601f972a9d04c7d7f48444212f3109" name="config/profile_gadget.yml" role="data" />
@@ -102,7 +102,7 @@
    <file baseinstalldir="/" md5sum="b3e5f77b65c2a6742a619c62b65577e0" name="lib/form/doctrine/PluginMemberApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="9f884bec92e3bd2d956b50e83f755db1" name="lib/form/doctrine/PluginMemberApplicationSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="c4e9ca430b4e641ca72a3b4a0c3f420e" name="lib/helper/OpenSocialHelper.php" role="data" />
-   <file baseinstalldir="/" md5sum="8bad658fda0b00ffa86c1e5487cb7e06" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="0bc2c4e72749e7d1e902ef65d7f62644" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
    <file baseinstalldir="/" md5sum="17074e5ebf1e895307a1874b766189ac" name="lib/model/doctrine/PluginApplicationPersistentData.class.php" role="data" />
    <file baseinstalldir="/" md5sum="5e59f1588776d175309ad968d99c3cfd" name="lib/model/doctrine/PluginApplicationPersistentDataTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="d114b0e489ed35aae91d0e5c164777d6" name="lib/model/doctrine/PluginApplicationTable.class.php" role="data" />
@@ -1318,7 +1318,7 @@
    <file baseinstalldir="/" md5sum="323294d31e28100f93881684efde7258" name="test/fixtures/test_data.yml" role="data" />
    <file baseinstalldir="/" md5sum="3dbb728b843dbf2bb940ed44376b750c" name="test/functional/pc_frontend/skeletonActionsTest.php" role="data" />
    <file baseinstalldir="/" md5sum="53edeef810d783edef29206f8fa1c779" name="test/unit/model/ApplicationTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="113b5e2094e737f6571c369fe0ef8b8d" name="test/unit/model/ApplicationTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="b5fb8517d43364d563fb39b5196d9592" name="test/unit/model/ApplicationTest.php" role="data" />
    <file baseinstalldir="/" md5sum="8d7e92d7d339c0a745fbf6e2c4b2c4dc" name="test/unit/model/MemberApplicationSettingTableTest.php" role="data" />
    <file baseinstalldir="/" md5sum="a8fac69c6842680f9af741e3b8dc8d2d" name="test/unit/model/MemberApplicationSettingTest.php" role="data" />
    <file baseinstalldir="/" md5sum="56eed3bdd7a5dc0ddd81473e15ced131" name="test/unit/model/MemberApplicationTableTest.php" role="data" />
@@ -1493,6 +1493,19 @@
    <date>2010-05-02</date>
    <license>apache</license>
    <notes>Fixed API bug.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.8</release>
+    <api>0.9.8</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-07-13</date>
+   <license>apache</license>
+   <notes>Fixed slow page.</notes>
   </release>
  </changelog>
 </package>
