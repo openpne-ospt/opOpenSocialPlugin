@@ -757,11 +757,11 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     // block check
     if ($token->getViewerId())
     {
+      $blockedIds = Doctrine::getTable('MemberRelationship')->getBlockedMemberIdsByTo($token->getViewerId());
+
       foreach ($ids as $k => $id)
       {
-        $relation = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($id, $token->getViewerId());
-
-        if ($relation && $relation->getIsAccessBlock())
+        if (isset($blockedIds[$id]))
         {
           unset($ids[$k]);
         }
