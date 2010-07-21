@@ -178,9 +178,9 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     foreach ($activities as $activity)
     {
       $a = array();
-      $a['id'] = $activity->getId();
-      $a['userId'] = $activity->getMemberId();
-      $a['title'] = $activity->getBody();
+      $a['id']         = $activity->getId();
+      $a['userId']     = $activity->getMemberId();
+      $a['title']      = opOpenSocialToolKit::convertEmojiForApi($activity->getBody());
       $a['postedTime'] = date(DATE_ATOM, strtotime($activity->getCreatedAt()));
 
       if ($activity->getUri())
@@ -573,9 +573,9 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     foreach ($objects as $object)
     {
       $result = array();
-      $result['id'] = $object->getId();
-      $result['title'] = $object->getTitle();
-      $result['description'] = $object->getBody();
+      $result['id']             = $object->getId();
+      $result['title']          = opOpenSocialToolKit::convertEmojiForApi($object->getTitle());
+      $result['description']    = opOpenSocialToolKit::convertEmojiForApi($object->getBody());
       $result['mediaItemCount'] = 0;
       if ($object->getAlbumImages())
       {
@@ -682,16 +682,16 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     {
       foreach ($objects as $object)
       {
-        $result['albumId'] = $object->getId();
-        $result['created'] = $object->getCreatedAt();
-        $result['description'] = $object->getDescription();
-        $result['fileSize'] = $object->getFilesize();
-        $result['id']       = $object->getId();
+        $result['albumId']      = $object->getId();
+        $result['created']      = $object->getCreatedAt();
+        $result['description']  = opOpenSocialToolKit::convertEmojiForApi($object->getDescription());
+        $result['fileSize']     = $object->getFilesize();
+        $result['id']           = $object->getId();
         $result['lastUpdated']  = $object->getUpdatedAt();
         $result['thumbnailUrl'] = '';
-        $result['title']    = $object->getDescription();
-        $result['type']     = 'IMAGE';
-        $result['url']      = '';
+        $result['title']        = $object->getDescription();
+        $result['type']         = 'IMAGE';
+        $result['url']          = '';
         if ($object->getFile())
         {
           sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'sfImage'));

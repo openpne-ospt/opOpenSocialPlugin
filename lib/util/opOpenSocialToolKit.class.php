@@ -114,7 +114,7 @@ class opOpenSocialToolKit
       $baseUrl = substr($baseUrl, 0, strlen($baseUrl) - 1);
     }
     return $baseUrl.app_url_for('pc_frontend', '@opensocial_certificates');
-}
+  }
 
  /**
   * get http option for Zend_Http_Client
@@ -217,5 +217,61 @@ class opOpenSocialToolKit
     }
 
     return $results;
+  }
+
+  static protected function convertEmojiCallback($matches)
+  {
+    $o_code    = $matches[1];
+    $c_carrier = sfConfig::get('op_opensocial_api_emoji_carrier', 'i');
+    $o_carrier = $o_code[0];
+    $o_id      = substr($o_code, 2);
+    $ktaiEmoji = OpenPNE_KtaiEmoji::getInstance();
+
+    if ($c_carrier == $o_carrier)
+    {
+      $emojiString = $ktaiEmoji->convert_emoji($o_code, $c_carrier);
+      if ($emojiString)
+      {
+        if ('i' === $c_carrier)
+        {
+          return mb_convert_encoding($emojiString, 'UTF-8', 'SJIS-win');
+        }
+
+        return $emojiString;
+      }
+    }
+    elseif (isset($ktaiEmoji->relation_list[$o_carrier][$c_carrier][$o_id]))
+    {
+      return self::convertEmoji($ktaiEmoji->relation_list[$o_carrier][$c_carrier][$o_id]);
+    }
+
+    return '〓';
+  }
+
+  static protected function convertEmoji($str)
+  {
+    $pattern = '/\[([ies]:[0-9]{1,3})\]/';
+    return preg_replace_callback($pattern, array(self, 'convertEmojiCallback'), $str);
+  }
+
+ /**
+  * convertEmojiForApi
+  *
+  * @param string $str
+  * @return string
+  */
+  static public function convertEmojiForApi($str)
+  {
+    if (sfConfig::get('op_opensocial_api_is_strip_emoji', false))
+    {
+      $pattern = '/\[([ies]:[0-9]{1,3})\]/';
+      return preg_replace($pattern, '', $str);
+    }
+    elseif (sfConfig::get('op_opensocial_api_is_convert_emoji', false))
+    {
+      return self::convertEmoji($str);
+    }
+
+    return $str;
   }
 }

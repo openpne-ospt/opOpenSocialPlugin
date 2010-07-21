@@ -126,12 +126,12 @@ class opOpenSocialProfileExport extends opProfileExport
   /**
    * get profile datas
    *
-   * @prams array $allowed
+   * @param array $allowed
    * @return array
    */
   public function getData($allowed = array())
   {
-    $result = array();
+    $result  = array();
     $allowed = array_merge($this->forceFields, $allowed);
     $isBlock = false;
 
@@ -158,7 +158,7 @@ class opOpenSocialProfileExport extends opProfileExport
         else
         {
           $methodName = $this->getGetterMethodName($k);
-          $result[$k] = $this->$methodName();
+          $result[$k] = opOpenSocialToolKit::convertEmojiForApi($this->$methodName());
         }
       }
     }
