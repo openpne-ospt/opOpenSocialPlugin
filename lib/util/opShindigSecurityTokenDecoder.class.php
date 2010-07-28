@@ -27,7 +27,7 @@ class opShindigSecurityTokenDecoder extends SecurityTokenDecoder
   private $CONTAINER_INDEX = 6;
 
   /**
-   * 
+   *
    * @see BasicSecurityTokenDecoder::createToken()
    */
   public function createToken($stringToken)

@@ -230,7 +230,7 @@ class opOpenSocialContainerConfig
     $replace = array(
       '/#sns_url#/'     => addcslashes($snsUrl, '/'),
       '/#shindig_url#/' => addcslashes($shindigUrl, '/'),
-      '/#api_url#/'     => addcslashes($apiUrl, '/'), 
+      '/#api_url#/'     => addcslashes($apiUrl, '/'),
     );
 
     return preg_replace(array_keys($replace), $replace, $json);

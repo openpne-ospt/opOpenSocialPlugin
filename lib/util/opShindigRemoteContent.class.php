@@ -10,7 +10,7 @@
 
 /**
  * opShindigRemoteContent
- * 
+ *
  * @package    opOpenSocialPlugin
  * @subpackage util
  * @author     Shogo Kawahara <kawahara@tejimaya.net>

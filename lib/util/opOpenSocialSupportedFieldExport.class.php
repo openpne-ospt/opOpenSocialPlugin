@@ -129,7 +129,7 @@ class opOpenSocialSupportedFieldExport
   {
     $result = array();
     $unstructured = false;
-    
+
     if ($this->isExistProfile('op_preset_region'))
     {
       $result[] = 'region';

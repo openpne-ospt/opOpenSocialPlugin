@@ -114,7 +114,7 @@ class ApplicationSearchForm extends sfForm
       }
       $query->orderBy($orderByDql);
     }
-    
+
     $pager = new sfDoctrinePager('Application', $size);
     $pager->setQuery($query);
     $pager->getPage($page);

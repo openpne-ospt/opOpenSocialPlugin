@@ -29,10 +29,10 @@ class opShindigRemoteContentFetcher extends RemoteContentFetcher {
         {
           $key = trim(substr($header, 0, strpos($header, ':')));
           $val = trim(substr($header, strpos($header, ':') + 1));
-          if (strcmp($key, "User-Agent") != 0 && 
-            strcasecmp($key, "Transfer-Encoding") != 0 && 
-            strcasecmp($key, "Cache-Control") != 0 && 
-            strcasecmp($key, "Expries") != 0 && 
+          if (strcmp($key, "User-Agent") != 0 &&
+            strcasecmp($key, "Transfer-Encoding") != 0 &&
+            strcasecmp($key, "Cache-Control") != 0 &&
+            strcasecmp($key, "Expries") != 0 &&
             strcasecmp($key, "Content-Length") != 0)
           {
             $outHeaders[$key] = $val;

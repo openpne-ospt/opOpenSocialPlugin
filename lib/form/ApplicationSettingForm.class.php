@@ -41,7 +41,7 @@ class ApplicationSettingForm extends sfForm
     $this->setValidators(array(
       'public_flag' => new sfValidatorChoice(array('choices' => array_keys(self::$publicFlagChoices))),
     ));
-    
+
     if (opOpenSocialToolKit::isEnableHomeGadget())
     {
       $this->setWidget('is_view_home', new sfWidgetFormInputCheckbox());
@@ -75,7 +75,7 @@ class ApplicationSettingForm extends sfForm
     {
       throw $this->getErrorSchema();
     }
-    
+
     $values = $this->getValues();
 
     $this->memberApplication->setPublicFlag($values['public_flag']);
