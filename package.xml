@@ -13,19 +13,19 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-07-13</date>
- <time>12:29:06</time>
+ <date>2010-07-28</date>
+ <time>23:44:47</time>
  <version>
-  <release>1.1.3</release>
-  <api>1.1.3</api>
+  <release>1.2.0</release>
+  <api>1.2.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license>apache</license>
  <notes>
-Supported location service, and added an ability to extend url of replacing on the mobile.
+Stable release for OpenPNE3.6
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -130,7 +130,7 @@ Supported location service, and added an ability to extend url of replacing on t
    <file baseinstalldir="/" md5sum="2e82aaa99828c55663ada70a4c9dc3e9" name="data/migrations/1.1.1/016_change_foreign_table_of_activity.php" role="data" />
    <file baseinstalldir="/" md5sum="f1be38d3e039eb205f40eff48083f6c0" name="i18n/api.ja.xml" role="data" />
    <file baseinstalldir="/" md5sum="468b2b33e81093039b8fe80f889153ef" name="lib/action/opOpenSocialApplicationActions.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="7558244e3007206fd0911c579d551076" name="lib/action/opOpenSocialServletActions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4671ac3da48a7e07ef5d2dd83f8db934" name="lib/action/opOpenSocialServletActions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="9d57a35297f95abd163fb64dcb96d33a" name="lib/filter/doctrine/PluginApplicationFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b29e6b2c09d4ac6b3d675a4ae08a1a64" name="lib/filter/doctrine/PluginApplicationInviteFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="62d15cad4cba2fcbf97dea26a603186b" name="lib/filter/doctrine/PluginApplicationLifecycleEventQueueFormFilter.class.php" role="data" />
@@ -139,8 +139,8 @@ Supported location service, and added an ability to extend url of replacing on t
    <file baseinstalldir="/" md5sum="2a880a5f2dad9181cb5dc0b25f7f0c75" name="lib/filter/doctrine/PluginMemberApplicationFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="ac61064b9de9b847702e84ac7eb989ed" name="lib/filter/doctrine/PluginMemberApplicationSettingFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="88dac44eec7adb6d2adb0c9f8063ed2f" name="lib/form/AddApplicationForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="3e7e87978ad6549365f9c275fbae4d4f" name="lib/form/ApplicationSearchForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="2adc5c0f7ac6c8482a5a0f761cf53f6a" name="lib/form/ApplicationSettingForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="566a59a69f5876a42122cbad1854c486" name="lib/form/ApplicationSearchForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="2bdc0bb9abd12d06aac79c7be42a53c1" name="lib/form/ApplicationSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="4700c1f19856457440abb5e9b9f15e04" name="lib/form/ApplicationUserSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2c91313dd6f473898b70aa2ac54b1ea3" name="lib/form/doctrine/PluginApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2e8fd0c3d854d32ac05f49600488d0f9" name="lib/form/doctrine/PluginApplicationInviteForm.class.php" role="data" />
@@ -149,14 +149,14 @@ Supported location service, and added an ability to extend url of replacing on t
    <file baseinstalldir="/" md5sum="114454e02e1ec5b69ae8a3492d973166" name="lib/form/doctrine/PluginApplicationTranslationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b3e5f77b65c2a6742a619c62b65577e0" name="lib/form/doctrine/PluginMemberApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="9f884bec92e3bd2d956b50e83f755db1" name="lib/form/doctrine/PluginMemberApplicationSettingForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="5ec21563c0216bc2a8404750bca3335d" name="lib/helper/OpenSocialHelper.php" role="data" />
+   <file baseinstalldir="/" md5sum="64000b075bc48eb24858b5cbcfbb43d7" name="lib/helper/OpenSocialHelper.php" role="data" />
    <file baseinstalldir="/" md5sum="b66f43b0965f99f399d5e6767b16604f" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
    <file baseinstalldir="/" md5sum="d86063841d8176429bd72f39079f4e3d" name="lib/model/doctrine/PluginApplicationInvite.class.php" role="data" />
    <file baseinstalldir="/" md5sum="4e0e3a9f03b99ffba649395bd687f9f8" name="lib/model/doctrine/PluginApplicationInviteTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="f065ba3801e35de4587d144f5bd710ae" name="lib/model/doctrine/PluginApplicationLifecycleEventQueue.class.php" role="data" />
    <file baseinstalldir="/" md5sum="889ae9e79179e2016beadacbd44cf47a" name="lib/model/doctrine/PluginApplicationLifecycleEventQueueTable.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="a500f6abeb245d98d3d31ec69467fa3e" name="lib/model/doctrine/PluginApplicationPersistentData.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="d6282d429c11eb88519de7c622c49aa4" name="lib/model/doctrine/PluginApplicationPersistentDataTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="17074e5ebf1e895307a1874b766189ac" name="lib/model/doctrine/PluginApplicationPersistentData.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="5e59f1588776d175309ad968d99c3cfd" name="lib/model/doctrine/PluginApplicationPersistentDataTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b88fed67cda9cb8c8b531474ebf5ea04" name="lib/model/doctrine/PluginApplicationTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="0cdd6454cee1c094a3ce03199dcc36ff" name="lib/model/doctrine/PluginMemberApplication.class.php" role="data" />
    <file baseinstalldir="/" md5sum="dfa59c14813a9eecfc1481b5bfc76f21" name="lib/model/doctrine/PluginMemberApplicationSetting.class.php" role="data" />
@@ -171,19 +171,19 @@ Supported location service, and added an ability to extend url of replacing on t
    <file baseinstalldir="/" md5sum="7b6b8023f1e6fec80cf8b0dcd4754413" name="lib/update/0_8_1_to_0_8_2_dev_200902121145.php" role="data" />
    <file baseinstalldir="/" md5sum="989398cee6e728b4e9186a9929c158af" name="lib/update/0_8_2_dev_200902121145_to_0_8_2_dev_200902121523.php" role="data" />
    <file baseinstalldir="/" md5sum="b5422b69c1d5b40ab7bb6ea108ed7244" name="lib/util/opCacheStorageFile.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="72c7a5839f4164a3e9623816dca5afe6" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="002c3b479feec777a5a4372105fc8e02" name="lib/util/opOpenSocialContainerConfig.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="80fa513ac4a9c3cdd9805cc3cc8b5ccd" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="a6ec4f4df695c4c02f2aa42cb3ed3817" name="lib/util/opOpenSocialContainerConfig.class.php" role="data" />
    <file baseinstalldir="/" md5sum="bcf00e04d42a800a47fb68494c30f6f3" name="lib/util/opOpenSocialMobileRewriter.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="efd15276efda7a749b3b0b156bd847b0" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="e25ac6b226ceac7374836f0760c63528" name="lib/util/opOpenSocialSupportedFieldExport.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="9ebf218ffe1a31b61070df05a8aaec16" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="be4668d8bb757271cf5f015ba7247359" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="c91b6019ee8ccb0ed7af2f5e4c80d98a" name="lib/util/opOpenSocialSupportedFieldExport.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="d3de62f6c58e0cef6a8a6715e6a71a1f" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
    <file baseinstalldir="/" md5sum="cbf66fb53f75fe4e033da6b9a1e4a328" name="lib/util/opShindigBlobCrypter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="1385f56583d51028cfd0cff1c4d23453" name="lib/util/opShindigCrypto.class.php" role="data" />
    <file baseinstalldir="/" md5sum="355f32c20f03191c256a3743c1050ec1" name="lib/util/opShindigOAuthLookupService.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="b30aef3d7613967a8362f157ebcd7db0" name="lib/util/opShindigRemoteContent.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="0906aff3e7cca74630bf81a0c9608355" name="lib/util/opShindigRemoteContentFetcher.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="033680de9ecb48e1132045d15a9f1e5c" name="lib/util/opShindigRemoteContent.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="fda1c44a3ab43a73af978b640325ee92" name="lib/util/opShindigRemoteContentFetcher.class.php" role="data" />
    <file baseinstalldir="/" md5sum="ad4e715a8546df8e6e01f6166344c163" name="lib/util/opShindigSecurityToken.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="adaae384b2baa13c57ba91e80585cb29" name="lib/util/opShindigSecurityTokenDecoder.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="bf8bae5cc232cffe8b00c9cb29576e11" name="lib/util/opShindigSecurityTokenDecoder.class.php" role="data" />
    <file baseinstalldir="/" md5sum="e9d4b35fbd00f6228ae3d2d78216785d" name="lib/util/opOpenSocialLocation/opOpenSocialLocation.class.php" role="data" />
    <file baseinstalldir="/" md5sum="56b0f29ca3ba4bae7773a61803078a20" name="lib/util/opOpenSocialLocation/opOpenSocialLocationAbstract.class.php" role="data" />
    <file baseinstalldir="/" md5sum="6aacc49f295e682a13804a96517f3526" name="lib/util/opOpenSocialLocation/opOpenSocialLocationDocomo.class.php" role="data" />
@@ -1659,6 +1659,21 @@ Fixed some bug on the mobile.
    <license>apache</license>
    <notes>
 Supported location service, and added an ability to extend url of replacing on the mobile.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-07-28</date>
+   <license>apache</license>
+   <notes>
+Stable release for OpenPNE3.6
    </notes>
   </release>
  </changelog>
