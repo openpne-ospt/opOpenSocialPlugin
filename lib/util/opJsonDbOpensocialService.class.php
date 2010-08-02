@@ -48,7 +48,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       if (CollectionOptions::HAS_APP_FILTER === $options->getFilterBy() && $token->getAppId())
       {
         $memberApplications = Doctrine::getTable('MemberApplication')->createQuery()
-          ->where('application_id', $token->getAppId())
+          ->where('application_id = ?', $token->getAppId())
           ->execute();
         if (count($memberApplications))
         {
