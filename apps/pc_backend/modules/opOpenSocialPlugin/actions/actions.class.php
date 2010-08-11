@@ -158,9 +158,12 @@ class opOpenSocialPluginActions extends sfActions
 
     if ($request->isMethod(sfRequest::POST))
     {
+      $request->checkCSRFProtection();
       $application->delete();
       return $this->redirect('opOpenSocialPlugin/list');
     }
+
+    $this->form = new sfForm();
 
     return sfView::SUCCESS;
   }
@@ -172,9 +175,10 @@ class opOpenSocialPluginActions extends sfActions
    */
   public function executeUpdateApplication(sfWebRequest $request)
   {
+    $request->checkCSRFProtection();
     $application = ApplicationPeer::retrieveByPk($request->getParameter('id'));
     $this->forward404Unless($application);
-    
+
     ApplicationPeer::updateApplication($request->getParameter('id'), $this->getUser()->getCulture());
 
     $this->redirect('opOpenSocialPlugin/info?id='.$application->getId());

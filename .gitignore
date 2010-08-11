@@ -1,0 +1,6 @@
+/certs/
+/lib/model/map/
+/lib/model/om/
+/lib/form/base/
+/lib/filter/base/
+/lib_for_shindig/OpenPNEService.php

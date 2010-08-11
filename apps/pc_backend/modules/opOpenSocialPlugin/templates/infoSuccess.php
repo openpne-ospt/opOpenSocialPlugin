@@ -41,7 +41,11 @@
 </td></tr>
 <tr><th><?php echo __('引用') ?></th><td><?php echo $application->getAuthorQuote() ?></td></tr>
 <tr><td colspan="2">
-<?php echo link_to(__('削除'),'opOpenSocialPlugin/deleteApplication?id='.$sf_request->getParameter('id')) ?> 
-<?php echo link_to(__('更新'),'opOpenSocialPlugin/updateApplication?id='.$sf_request->getParameter('id')) ?>
+<?php $form = new sfForm() ?>
+<?php echo button_to(__('削除'),'opOpenSocialPlugin/deleteApplication?id='.$sf_request->getParameter('id'), array('style' => 'float:left')) ?> 
+<form action="<?php echo url_for('opOpenSocialPlugin/updateApplication?id='.$sf_request->getParameter('id')) ?>" method="POST">
+<?php echo $form->renderHiddenFields() ?>
+<input type="submit" value="<?php echo __('更新') ?>" />
+</form>
 </td></tr>
 </table>
