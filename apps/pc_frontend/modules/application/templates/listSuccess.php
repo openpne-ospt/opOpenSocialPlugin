@@ -30,9 +30,10 @@
 
 <?php if ($isOwner) : ?>
 <?php echo sortable_element('order', array(
-  'url'    => '@application_sort',
-  'tag'    => 'div',
-  'only'   => 'sortable'
+  'url'  => '@application_sort',
+  'tag'  => 'div',
+  'only' => 'sortable',
+  'with' => 'Sortable.serialize("order")+"&'.urlencode($form->getCSRFFieldName()).'='.urlencode($form->getCSRFToken()).'"'
 )); ?>
 <div class="moreInfo">
 <ul class="moreInfo">
