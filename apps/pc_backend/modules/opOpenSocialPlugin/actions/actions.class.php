@@ -242,6 +242,7 @@ class opOpenSocialPluginActions extends sfActions
   {
     if ($request->isMethod(sfWebRequest::POST))
     {
+      $request->checkCSRFProtection();
       if (!$this->application->getConsumerKey())
       {
         $this->application->setConsumerKey(opToolkit::generatePasswordString(16, false));
@@ -263,6 +264,7 @@ class opOpenSocialPluginActions extends sfActions
   {
     if ($request->isMethod(sfWebRequest::POST))
     {
+      $request->checkCSRFProtection();
       $this->application->setConsumerSecret('');
       $this->application->save();
       $this->redirect('@op_opensocial_info?id='.$this->application->getId());
