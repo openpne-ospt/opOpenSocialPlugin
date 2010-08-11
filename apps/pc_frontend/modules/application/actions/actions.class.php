@@ -86,6 +86,8 @@ class applicationActions extends sfActions
     }
 
     $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($ownerId);
+
+    $this->form = new sfForm();
   }
 
   /**
@@ -281,6 +283,7 @@ class applicationActions extends sfActions
   {
     if ($this->getRequest()->isXmlHttpRequest())
     {
+      $request->checkCSRFProtection();
       $memberId = $this->getUser()->getMember()->getId();
       $order = $request->getParameter('order');
       foreach ($order as $key => $value)
