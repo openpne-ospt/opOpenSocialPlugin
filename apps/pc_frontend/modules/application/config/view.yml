@@ -6,6 +6,10 @@ gallerySuccess:
   stylesheets:
     - /opOpenSocialPlugin/css/opensocial
 
+addSuccess:
+  stylesheets:
+    - /opOpenSocialPlugin/css/opensocial
+
 canvasSuccess:
   javascripts:
     - /application/webprefix

@@ -27,9 +27,10 @@
 if ($isOwner)
 {
 echo sortable_element('order', array(
-  'url'    => 'application/sortApplication',
-  'tag'    => 'div',
-  'only'   => 'sortable'
+  'url'  => 'application/sortApplication',
+  'tag'  => 'div',
+  'only' => 'sortable',
+  'with' => 'Sortable.serialize("order")+"&'.urlencode($tokenForm->getCSRFFieldName()).'='.urlencode($tokenForm->getCSRFToken()).'"'
 ));
 } ?>
 <?php endif ?>

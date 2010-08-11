@@ -114,6 +114,22 @@
         <source>Add home and your profile.</source>
         <target>ホームとプロフィールに表示する。</target>
       </trans-unit>
+      <trans-unit id="">
+        <source>Add Applicationand your profile.</source>
+        <target>ホームとプロフィールに表示する。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Add Application: %0%</source>
+        <target>アプリケーション追加: %0%</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Do you wish to install this Application?</source>
+        <target>このアプリケーションを追加しますか？</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>The Application might use your profile and your friends information.</source>
+        <target>アプリはあなたのプロフィール情報や、フレンド情報を扱うことがあります。</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -97,7 +97,9 @@ class applicationActions extends sfActions
       $memberApp = MemberApplicationPeer::addApplicationToMember($application, $memberId);
       $this->redirect('application/canvas?id='.$memberApp->getId());
     }
-    
+
+    $this->tokenForm = new sfForm();
+
     return sfView::SUCCESS;
   }
 
@@ -187,13 +189,23 @@ class applicationActions extends sfActions
    */
   public function executeAdd(sfWebRequest $request)
   {
-    $application = ApplicationPeer::retrieveByPK($request->getParameter('id'));
-    $this->forward404Unless($application);
+    $memberApp = MemberApplicationPeer::retrieveByApplicationIdAndMemberId($request->getParameter('id'), $this->getUser()->getMemberId());
+    if ($memberApp)
+    {
+      $this->redirect('application/canvas?id='.$memberApp->getId());
+    }
+
+    $this->application = ApplicationPeer::retrieveByPK($request->getParameter('id'));
+    $this->forward404Unless($this->application);
 
     $memberId = $this->getUser()->getMemberId();
 
-    $memberApp = MemberApplicationPeer::addApplicationToMember($application, $memberId);
-    $this->redirect('application/canvas?id='.$memberApp->getId());
+    if ($request->isMethod(sfWebRequest::POST))
+    {
+      $request->checkCSRFProtection();
+      $memberApp = MemberApplicationPeer::addApplicationToMember($this->application, $memberId);
+      $this->redirect('application/canvas?id='.$memberApp->getId());
+    }
   }
 
   /**
@@ -213,6 +225,7 @@ class applicationActions extends sfActions
 
     if ($request->isMethod(sfRequest::POST))
     {
+      $request->checkCSRFProtection();
       $memberApp->delete();
 
       $this->getUser()->setFlash('notice', 'The application was removed successfully.');
@@ -256,6 +269,7 @@ class applicationActions extends sfActions
   {
     if ($this->getRequest()->isXmlHttpRequest())
     {
+      $request->checkCSRFProtection();
       $memberId = $this->getUser()->getMember()->getId();
       $order = $request->getParameter('order');
       foreach ($order as $key => $value)
