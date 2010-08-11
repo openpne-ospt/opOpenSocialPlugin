@@ -65,6 +65,8 @@ class applicationActions extends opOpenSocialApplicationActions
     }
 
     $this->memberApplications = Doctrine::getTable('MemberApplication')->getMemberApplications($ownerId, null, true, true);
+
+    $this->form = new BaseForm();
   }
 
   /**
@@ -257,6 +259,7 @@ class applicationActions extends opOpenSocialApplicationActions
   {
     if ($this->getRequest()->isXmlHttpRequest())
     {
+      $request->checkCSRFProtection();
       $memberId = $this->getUser()->getMember()->getId();
       $order = $request->getParameter('order');
       foreach ($order as $key => $value)
@@ -269,6 +272,7 @@ class applicationActions extends opOpenSocialApplicationActions
         }
       }
     }
+
     return sfView::NONE;
   }
 
@@ -357,6 +361,7 @@ class applicationActions extends opOpenSocialApplicationActions
 
     if ($request->isMethod(sfWebRequest::POST))
     {
+      $request->checkCSRFProtection();
       if (!$this->application->getConsumerKey())
       {
         $this->application->setConsumerKey(opToolkit::generatePasswordString(16, false));
@@ -380,6 +385,7 @@ class applicationActions extends opOpenSocialApplicationActions
 
     if ($request->isMethod(sfWebRequest::POST))
     {
+      $request->checkCSRFProtection();
       $this->application->setConsumerSecret('');
       $this->application->save();
       $this->redirect('@application_info?id='.$this->application->getId());
