@@ -13,18 +13,18 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-07-13</date>
- <time>14:00:17</time>
+ <date>2010-08-11</date>
+ <time>11:33:12</time>
  <version>
-  <release>0.9.8</release>
-  <api>0.9.8</api>
+  <release>0.9.8.1</release>
+  <api>0.9.8.1</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>Fixed slow page.</notes>
+ <notes>Fixed security issues.</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="8665be70ae66b94e14c285ff7627543d" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -45,7 +45,7 @@
    <file baseinstalldir="/" md5sum="9ae2c410497583a09e99f7a260ae09ec" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="29852a96cc991ad1056e650e9e7a3d4a" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_bottomSubmenu.php" role="data" />
    <file baseinstalldir="/" md5sum="10d08b1ed197499b5426e4df7c026bd2" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_submenu.php" role="data" />
-   <file baseinstalldir="/" md5sum="7898dc5285a170ca2b1eaa8b27aecc04" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="7e22390bb3315ae919482e5741b87486" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b07dff936fad264532c09935c157d792" name="apps/pc_frontend/modules/application/actions/components.class.php" role="data" />
    <file baseinstalldir="/" md5sum="31a9b416e4603892e50fc52658028ae8" name="apps/pc_frontend/modules/application/config/security.yml" role="data" />
    <file baseinstalldir="/" md5sum="038f131f77a771b5661d8e23937e8079" name="apps/pc_frontend/modules/application/config/view.yml" role="data" />
@@ -55,7 +55,7 @@
    <file baseinstalldir="/" md5sum="52a775dbd6f53b396bb49cda668eb77a" name="apps/pc_frontend/modules/application/templates/infoSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="6626dc341192173cf3c9811704b5849e" name="apps/pc_frontend/modules/application/templates/installedListSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="b1b63bb5a83b3fc40cfd6fbee7a4c6fa" name="apps/pc_frontend/modules/application/templates/installSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="f555decccb39bb31a9bb608bf70fccf2" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="ce3859d277a3de08c9b30b385b6c8483" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="6fd67e8d0e83b5ef85eb54b0670f590b" name="apps/pc_frontend/modules/application/templates/memberSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="5396b3bef9b9c94fdcc63018715e81d8" name="apps/pc_frontend/modules/application/templates/removeSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="6ec8f603d2f244895165f728b44096c5" name="apps/pc_frontend/modules/application/templates/settingSuccess.php" role="data" />
@@ -1506,6 +1506,19 @@
    <date>2010-07-13</date>
    <license>apache</license>
    <notes>Fixed slow page.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.8.1</release>
+    <api>0.9.8.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-08-11</date>
+   <license>apache</license>
+   <notes>Fixed security issues.</notes>
   </release>
  </changelog>
 </package>
