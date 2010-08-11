@@ -13,11 +13,11 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-07-28</date>
- <time>23:44:47</time>
+ <date>2010-08-11</date>
+ <time>11:14:37</time>
  <version>
-  <release>1.2.0</release>
-  <api>1.2.0</api>
+  <release>1.2.0.1</release>
+  <api>1.2.0.1</api>
  </version>
  <stability>
   <release>stable</release>
@@ -25,7 +25,7 @@
  </stability>
  <license>apache</license>
  <notes>
-Stable release for OpenPNE3.6
+Fixed security issues.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -51,7 +51,7 @@ Stable release for OpenPNE3.6
    <file baseinstalldir="/" md5sum="96380c7d40eb590eb2adee8b7b60fd3f" name="apps/mobile_frontend/modules/member/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="ecaf9e64e4a504c01e75298fb2ee9f98" name="apps/pc_backend/config/routing.yml" role="data" />
    <file baseinstalldir="/" md5sum="b3db49379cc5c1f750b14d8edc8ed3d9" name="apps/pc_backend/i18n/messages.ja.xml" role="data" />
-   <file baseinstalldir="/" md5sum="178e115b21bfe997f7ea02530aa674d2" name="apps/pc_backend/modules/opOpenSocialPlugin/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4c0175a978a300fb05d2092629a8611a" name="apps/pc_backend/modules/opOpenSocialPlugin/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="8e5175367d113c46694961ddca8ae03c" name="apps/pc_backend/modules/opOpenSocialPlugin/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="00ec0338d34d41f81164f5e9078337c4" name="apps/pc_backend/modules/opOpenSocialPlugin/lib/ApplicationConfigForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="13f5129ff68ba7690471faf709479f8f" name="apps/pc_backend/modules/opOpenSocialPlugin/lib/ContainerConfigForm.class.php" role="data" />
@@ -70,7 +70,7 @@ Stable release for OpenPNE3.6
    <file baseinstalldir="/" md5sum="d69ae0e1cc8be9b805e8f0b0a9d9fc3a" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_submenu.php" role="data" />
    <file baseinstalldir="/" md5sum="9bcd264b0bf4680e97cede14e4a8cc31" name="apps/pc_frontend/config/routing.yml" role="data" />
    <file baseinstalldir="/" md5sum="c7e9ba229409c53e4c9b48ab4d2587cf" name="apps/pc_frontend/i18n/messages.ja.xml" role="data" />
-   <file baseinstalldir="/" md5sum="786f69bab71ba0fb755f4f8502e15c13" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="8e415110f864b6fa90d312698b0bd9f8" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="1c1931d0faf623f194e9df38040ffaa7" name="apps/pc_frontend/modules/application/actions/components.class.php" role="data" />
    <file baseinstalldir="/" md5sum="31a9b416e4603892e50fc52658028ae8" name="apps/pc_frontend/modules/application/config/security.yml" role="data" />
    <file baseinstalldir="/" md5sum="57d3e957bc51aece25bf81abf22362b8" name="apps/pc_frontend/modules/application/config/view.yml" role="data" />
@@ -84,7 +84,7 @@ Stable release for OpenPNE3.6
    <file baseinstalldir="/" md5sum="b1b63bb5a83b3fc40cfd6fbee7a4c6fa" name="apps/pc_frontend/modules/application/templates/installSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="f9b85124bca3c3f9a3b37bd7db4a1c7d" name="apps/pc_frontend/modules/application/templates/inviteListSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="2467a9d9a7369f2852856e98c72e8709" name="apps/pc_frontend/modules/application/templates/inviteSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="f555decccb39bb31a9bb608bf70fccf2" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="ce3859d277a3de08c9b30b385b6c8483" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="6fd67e8d0e83b5ef85eb54b0670f590b" name="apps/pc_frontend/modules/application/templates/memberSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="995cb5c023e190cecd538242bf07eaa7" name="apps/pc_frontend/modules/application/templates/removeSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="1852f856ddc400e1d26dbe63e52f5360" name="apps/pc_frontend/modules/application/templates/settingSuccess.php" role="data" />
@@ -1674,6 +1674,21 @@ Supported location service, and added an ability to extend url of replacing on t
    <license>apache</license>
    <notes>
 Stable release for OpenPNE3.6
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0.1</release>
+    <api>1.2.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-08-11</date>
+   <license>apache</license>
+   <notes>
+Fixed security issues.
    </notes>
   </release>
  </changelog>
