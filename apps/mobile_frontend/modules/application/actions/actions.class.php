@@ -142,7 +142,23 @@ class applicationActions extends opOpenSocialApplicationActions
       isset($views['mobile']['href']) &&
       'URL' === strtoupper($views['mobile']['type'])
     );
-    $url = $request->getParameter('url', $views['mobile']['href']);
+
+    $method = $request->isMethod(sfWebRequest::POST) ? 'POST' : 'GET';
+
+    if (!isset($this->redirectCount))
+    {
+      $this->redirectCount = 0;
+    }
+
+    if (isset($this->redirectUrl))
+    {
+      $url = $this->redirectUrl;
+      $method = 'GET';
+    }
+    else
+    {
+      $url = $request->getParameter('url', $views['mobile']['href']);
+    }
     $zendUri = Zend_Uri_Http::fromString($url);
     $queryString = $zendUri->getQuery();
     $zendUri->setQuery('');
@@ -156,7 +172,6 @@ class applicationActions extends opOpenSocialApplicationActions
       'opensocial_owner_id'  => $this->member->getId()
     );
     $params = array_merge($query, $params);
-    $method = $request->isMethod(sfWebRequest::POST) ? 'POST' : 'GET';
 
     unset($params['lat']);
     unset($params['lon']);
@@ -199,6 +214,7 @@ class applicationActions extends opOpenSocialApplicationActions
     $client->setHeaders(opOpenSocialToolKit::getProxyHeaders($request, sfConfig::get('op_opensocial_is_strip_uid', true)));
 
     $response = $client->request();
+
     if ($response->isSuccessful())
     {
       $contentType = $response->getHeader('Content-Type');
@@ -217,6 +233,46 @@ class applicationActions extends opOpenSocialApplicationActions
         exit;
       }
     }
+    elseif (
+      $response->isRedirect() && ($location = $response->getHeader('location')) &&
+      $this->redirectCount < sfConfig::get('op_opensocial_maxredirects', 5)
+    )
+    {
+      if (Zend_Uri_Http::check($location))
+      {
+        $this->redirectUrl = $location;
+      }
+      else
+      {
+        $uri = $client->getUri();
+        if (strpos($location, '?') !== false)
+        {
+          list($location, $query) = explode('?', $location, 2);
+        }
+        else
+        {
+          $query = '';
+        }
+        $uri->setQuery($query);
+
+        if(strpos($location, '/') === 0)
+        {
+          $uri->setPath($location);
+        }
+        else
+        {
+          $path = $uri->getPath();
+          $path = rtrim(substr($path, 0, strrpos($path, '/')), "/");
+          $uri->setPath($path . '/' . $location);
+        }
+
+        $this->redirectUrl = $uri->getUri();
+      }
+      $this->redirectCount++;
+
+      return $this->executeRender($request);
+    }
+
     return sfView::ERROR;
   }
 
