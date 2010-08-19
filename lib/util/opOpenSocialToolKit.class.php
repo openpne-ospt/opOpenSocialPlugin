@@ -150,6 +150,7 @@ class opOpenSocialToolKit
       }
     }
     $httpOptions['timeout'] = Shindig_Config::get('curl_connection_timeout');
+    $httpOptions['maxredirects'] = 0;
     return $httpOptions;
   }
 
