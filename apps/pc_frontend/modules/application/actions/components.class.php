@@ -32,7 +32,7 @@ class applicationComponents extends sfComponents
     }
 
     $culture = $this->getUser()->getCulture();
-    $culture = split("_",$culture);
+    $culture = explode("_", $culture);
     $this->application = $this->memberApplication->getApplication();
     $this->height      = $this->application->getHeight() ? $this->application->getHeight() : 200;
 
