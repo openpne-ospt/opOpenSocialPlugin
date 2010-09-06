@@ -213,7 +213,15 @@ class applicationActions extends opOpenSocialApplicationActions
     $client->setHeaders($oauthRequest->to_header());
     $client->setHeaders(opOpenSocialToolKit::getProxyHeaders($request, sfConfig::get('op_opensocial_is_strip_uid', true)));
 
-    $response = $client->request();
+    try
+    {
+      $response = $client->request();
+    }
+    catch (Zend_Http_Client_Exception $e)
+    {
+      $this->logMessage($e->getMessage(), 'err');
+      return sfView::ERROR;
+    }
 
     if ($response->isSuccessful())
     {
