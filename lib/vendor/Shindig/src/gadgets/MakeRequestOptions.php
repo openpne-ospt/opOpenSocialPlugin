@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -75,6 +75,7 @@ class MakeRequestOptions {
   private $oauthRequestTokenSecret;
   private $oauthUseToken;
   private $oauthClientState;
+  private $oauthReceivedCallback;
   private $noCache;
   private $refreshInterval;
   private $numEntries;
@@ -199,6 +200,7 @@ class MakeRequestOptions {
             ->setOAuthRequestToken(MakeRequestOptions::getRequestParam('OAUTH_REQUEST_TOKEN'))
             ->setOAuthRequestTokenSecret(MakeRequestOptions::getRequestParam('OAUTH_REQUEST_TOKEN_SECRET'))
             ->setOAuthUseToken(MakeRequestOptions::getRequestParam('OAUTH_USE_TOKEN'))
+            ->setOAuthReceivedCallback(MakeRequestOptions::getRequestParam('OAUTH_RECEIVED_CALLBACK'))
             ->setOAuthClientState(MakeRequestOptions::getRequestParam('oauthState'))
             ->setSecurityTokenString(MakeRequestOptions::getRequestParam('st'));
 
@@ -229,7 +231,7 @@ class MakeRequestOptions {
     $options = new MakeRequestOptions($href);
     $options->setHttpMethod($request->getMethod())
             ->setRequestBody($request->getParameter('body'))
-            ->setRequestHeaders($request->getParameter('headers'))
+            ->setRequestHeaders($request->getParameter('headers', array()))
             ->setResponseFormat($request->getParameter('format'))
             ->setAuthz($request->getParameter('authz'))
             ->setSignViewer($request->getParameter('sign_viewer'))     
@@ -243,12 +245,12 @@ class MakeRequestOptions {
             ->setOAuthRequestToken($request->getParameter('oauth_request_token'))
             ->setOAuthRequestTokenSecret($request->getParameter('oauth_request_token_secret'))
             ->setOAuthUseToken($request->getParameter('oauth_use_token'))
+            ->setOAuthReceivedCallback($request->getParameter('oauth_received_callback'))
             ->setOAuthClientState($request->getParameter('oauth_state')) // Not in osapi.http spec, but nice to support
-            ->setSecurityTokenString(urlencode(base64_encode($request->getToken()->toSerialForm())));
+            ->setSecurityTokenString($request->getToken()->toSerialForm());
 
-    return $options;
-  }
-
+   return $options;
+ }
   /**
    * Gets the configured URL.
    *
@@ -608,6 +610,17 @@ class MakeRequestOptions {
     return isset($this->oauthClientState) ? $this->oauthClientState : null;
   }
 
+  public function setOAuthReceivedCallback($oauthReceivedCallback) {
+    if (isset($oauthReceivedCallback)) {
+      $this->oauthReceivedCallback = $oauthReceivedCallback;
+    }
+    return $this;
+  }
+
+  public function getOAuthReceivedCallback() {
+    return isset($this->oauthReceivedCallback) ? $this->oauthReceivedCallback : "";
+  }
+
   /**
    * Gets all of the configured OAuth parameters as an OAuthRequestParams
    * object.
@@ -621,6 +634,7 @@ class MakeRequestOptions {
         OAuthRequestParams::$REQUEST_TOKEN_PARAM => $this->getOAuthRequestToken(),
         OAuthRequestParams::$REQUEST_TOKEN_SECRET_PARAM => $this->getOAuthRequestTokenSecret(),
         OAuthRequestParams::$BYPASS_SPEC_CACHE_PARAM => $this->getNoCache(),
+        OAuthRequestParams::$RECEIVED_CALLBACK_PARAM => $this->getOAuthReceivedCallback(),
         OAuthRequestParams::$CLIENT_STATE_PARAM => $this->getOAuthClientState()
     ));
   }

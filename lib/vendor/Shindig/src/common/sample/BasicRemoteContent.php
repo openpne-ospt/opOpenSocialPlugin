@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -157,6 +157,7 @@ class BasicRemoteContent extends RemoteContent {
           // prefer to use the servers notion of the time since there could be a clock-skew, but otherwise use our own
           $date = $request->getResponseHeader('Date') != null ? $request->getResponseHeader('Date') : gmdate('D, d M Y H:i:s', $_SERVER['REQUEST_TIME']) . ' GMT';
           // convert both dates to unix epoch seconds, and calculate the TTL
+          date_default_timezone_set('GMT');
           $date = strtotime($date);
           $expires = strtotime($expires);
           $ttl = $expires - $date;

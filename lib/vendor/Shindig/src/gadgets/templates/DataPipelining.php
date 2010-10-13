@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -122,12 +122,12 @@ class DataPipelining {
       if (isset($val['id'])) {
         $key = $val['id'];
         // Pick up only the actual data part of the response, so we can do direct variable resolution
-        if (isset($val['data']['list'])) {
-          $dataContext[$key] = $val['data']['list'];
-        } elseif (isset($val['data']['entry'])) {
-          $dataContext[$key] = $val['data']['entry'];
-        } elseif (isset($val['data'])) {
-          $dataContext[$key] = $val['data'];
+        if (isset($val['result']['list'])) {
+          $dataContext[$key] = $val['result']['list'];
+        } elseif (isset($val['result']['entry'])) {
+          $dataContext[$key] = $val['result']['entry'];
+        } elseif (isset($val['result'])) {
+          $dataContext[$key] = $val['result'];
         }
       }
     }
@@ -136,8 +136,8 @@ class DataPipelining {
 
   /**
    * Peforms the actual http fetching of the data-pipelining requests, all social requests
-   * are made to $_SERVER['SERVER_NAME'] (the virtual host name of this server) / (optional) web_prefix / social / rpc, and
-   * the httpRequest's are made to $_SERVER['SERVER_NAME'] (the virtual host name of this server) / (optional) web_prefix / gadgets / makeRequest
+   * are made to $_SERVER['HTTP_HOST'] (the virtual host name of this server) / (optional) web_prefix / social / rpc, and
+   * the httpRequest's are made to $_SERVER['HTTP_HOST'] (the virtual host name of this server) / (optional) web_prefix / gadgets / makeRequest
    * both request types use the current security token ($_GET['st']) when performing the requests so they happen in the correct context
    *
    * @param array $requests
@@ -180,7 +180,7 @@ class DataPipelining {
     }
     if (count($jsonRequests)) {
       // perform social api requests
-      $request = new RemoteContentRequest('http://'.$_SERVER['SERVER_NAME'] . Shindig_Config::get('web_prefix') . '/social/rpc?st=' . urlencode($securityToken) . '&format=json', "Content-Type: application/json\n", json_encode($jsonRequests));
+      $request = new RemoteContentRequest('http://'.$_SERVER['HTTP_HOST'] . Shindig_Config::get('web_prefix') . '/rpc?st=' . urlencode($securityToken) . '&format=json', "Content-Type: application/json\n", json_encode($jsonRequests));
       $request->setMethod('POST');
       $remoteFetcherClass = Shindig_Config::get('remote_content_fetcher');
       $remoteFetcher = new $remoteFetcherClass();
@@ -191,7 +191,7 @@ class DataPipelining {
     if (count($httpRequests)) {
       $requestQueue = array();
       foreach ($httpRequests as $request) {
-        $req = new RemoteContentRequest($_SERVER['SERVER_NAME'] . Shindig_Config::get('web_prefix') . '/gadgets/makeRequest?url=' . urlencode($request['url']) . '&st=' . urlencode($securityToken) . (! empty($request['queryStr']) ? '&' . $request['queryStr'] : ''));
+        $req = new RemoteContentRequest($_SERVER['HTTP_HOST'] . Shindig_Config::get('web_prefix') . '/gadgets/makeRequest?url=' . urlencode($request['url']) . '&st=' . urlencode($securityToken) . (! empty($request['queryStr']) ? '&' . $request['queryStr'] : ''));
         $req->getOptions()->ignoreCache = $context->getIgnoreCache();
         $req->setNotSignedUri($request['url']);
         $requestQueue[] = $req;
@@ -225,15 +225,15 @@ class DataPipelining {
               'error' => array(
                 'code' => $statusCode,
                 'message' => $statusCodeMessage,
-                'data' => array(
+                'result' => array(
                   'content' => $content,
                   'headers' => $headers
                 )
               )
             );
           }
-          //$toAdd[$id] = array('id' => $id, 'data' => $httpRequests[$url]['format'] == 'json' ? json_decode($resp[$url]['body'], true) : $resp[$url]['body']);
-          $decodedResponse[] = array('id' => $id, 'data' => $toAdd);
+          //$toAdd[$id] = array('id' => $id, 'result' => $httpRequests[$url]['format'] == 'json' ? json_decode($resp[$url]['body'], true) : $resp[$url]['body']);
+          $decodedResponse[] = array('id' => $id, 'result' => $toAdd);
         }
       }
     }
@@ -282,12 +282,12 @@ class DataPipelining {
     foreach ($array as $val) {
       if (isset($val['id'])) {
         $key = $val['id'];
-        if (isset($val['data']['list'])) {
-          $result[$key] = $val['data']['list'];
-        } elseif (isset($val['data']['entry'])) {
-          $result[$key] = $val['data']['entry'];
-        } elseif (isset($val['data'])) {
-          $result[$key] = $val['data'];
+        if (isset($val['result']['list'])) {
+          $result[$key] = $val['result']['list'];
+        } elseif (isset($val['result']['entry'])) {
+          $result[$key] = $val['result']['entry'];
+        } elseif (isset($val['result'])) {
+          $result[$key] = $val['result'];
         }
       }
     }

@@ -77,6 +77,25 @@ $shindigConfig = array(
   'default_js_prefix' => '/gadgets/js/',
   'default_iframe_prefix' => '/gadgets/ifr?',
 
+ 'servlet_map' => array( 
+   '/container' => 'ContentFilesServlet',
+   '/samplecontainer' => 'ContentFilesServlet',
+   '/gadgets/resources' => 'ResourcesFilesServlet',
+   '/gadgets/js' => 'JsServlet', 
+   '/gadgets/proxy' => 'ProxyServlet', 
+   '/gadgets/makeRequest' => 'MakeRequestServlet', 
+   '/gadgets/ifr' => 'GadgetRenderingServlet', 
+   '/gadgets/metadata' => 'MetadataServlet', 
+   '/gadgets/oauthcallback' => 'OAuthCallbackServlet', 
+   '/gadgets/api/rpc' => 'JsonRpcServlet', 
+   '/gadgets/api/rest' => 'DataServiceServlet', 
+   '/social/rest' => 'DataServiceServlet',
+   '/social/rpc' => 'CompatibilityJsonRpcServlet',
+   '/rpc' => 'JsonRpcServlet', 
+   '/public.crt' => 'CertServlet', 
+   '/public.cer' => 'CertServlet', 
+ ), 
+ 
   // The X-XRDS-Location value for your implementing container, see http://code.google.com/p/partuza/source/browse/trunk/Library/XRDS.php for an example
   'xrds_location' => '',
 
@@ -97,9 +116,13 @@ $shindigConfig = array(
 
   // The locations of the various required components on disk. If you did a normal svn checkout there's no need to change these
   'base_path' => realpath(dirname(__FILE__) . '/..') . '/',
-  'features_path' => realpath(dirname(__FILE__) . '/../../features/src/main/javascript/features') . '/',
+  'features_path' => array(
+    realpath(dirname(__FILE__) . '/../../features/src/main/javascript/features') . '/',
+    realpath(dirname(__FILE__) . '/../../extras/src/main/javascript/features-extras') . '/',
+  ),
   'container_path' => realpath(dirname(__FILE__) . '/../../config') . '/',
-  'javascript_path' => realpath(dirname(__FILE__) . '/../../javascript') . '/',
+  'javascript_path' => realpath(dirname(__FILE__) . '/../../content') . '/',
+  'resources_path' => realpath(dirname(__FILE__) . '/../external/resources') . '/',
 
   // The OAuth SSL certificates to use, and the pass phrase for the private key
   'private_key_file' => realpath(dirname(__FILE__) . '/../certs') . '/private.key',
@@ -107,10 +130,16 @@ $shindigConfig = array(
   'private_key_phrase' => 'partuza',
 
   // the path to the json db file, used only if your using the JsonDbOpensocialService example/demo service
-  'jsondb_path' => realpath(dirname(__FILE__) . '/../../javascript/sampledata') . '/canonicaldb.json',
+  'jsondb_path' => realpath(dirname(__FILE__) . '/../../content/sampledata') . '/canonicaldb.json',
 
   // Force these libraries to be external (included through <script src="..."> tags), this way they could be cached by the browser
-  'focedJsLibs' => '',
+  // these libraries will be included regardless of the features the gadget requests
+  // example: 'dynamic-height:views' includes the features dynamic-height and views
+  'forcedJsLibs' => '',
+
+  // Force these js libraries to be appended to each gadget regardless if the gadget requested them or not
+  // This can be useful to overwrite existing methods of other javascript packages
+  'forcedAppendedJsLibs' => array(),
 
   // After checking the internal __autoload function, shindig can also call the 'extension_autoloader' function to load an
   // unknown custom class, this is particuarly useful for when intergrating shindig into an existing framework that also depends on autoloading
@@ -126,6 +155,47 @@ $shindigConfig = array(
   // The OAuth Store is used to store the (gadgets/)oauth proxy credentials it obtained on behalf of the user/gadget combo
   'oauth_store' => 'BasicOAuthStore',
 
+ 
+  // handler for ApiServlet
+  'service_handler' => array(
+    'people' => 'PersonHandler',
+    'activities' => 'ActivityHandler',
+    'appdata' => 'AppDataHandler',
+    'groups' => 'GroupHandler',
+    'messages' => 'MessagesHandler',
+    'cache'  => 'InvalidateHandler',
+    'system' => 'SystemHandler',
+    'albums' => 'AlbumHandler',
+    'mediaitems' => 'MediaItemHandler',
+    'http' => 'HttpHandler',
+  ),
+ 
+  // class is the name of the concrete input converter class
+  // targetField is the name of the field where the decoded array will be inserted
+  // into the params array or null if you want to overwrite params with the decoded
+  // array or false if you do not want to add the decoded params
+  'service_input_converter' => array(
+    'people' => array('class' => 'InputPeopleConverter', 'targetField' => false),
+    'activities' => array('class' => 'InputActivitiesConverter', 'targetField' => 'activity'),
+    'appdata' => array('class' => 'InputAppDataConverter', 'targetField' => 'data'),
+    'messages' => array('class' => 'InputMessagesConverter', 'targetField' => 'entity'),
+    'cache'  => array('class' => 'InputInvalidateConverter', 'targetField' => null),
+    'albums' => array('class' => 'InputAlbumsConverter', 'targetField' => 'album'),
+    'mediaitems' => array('class' => 'InputMediaItemsConverter', 'targetField' => 'mediaItem'),
+  ),
+ 
+ 
+  'gadget_class' => 'Gadget',
+  'gadget_context_class' => 'GadgetContext',
+  'gadget_factory_class' => 'GadgetFactory',
+  'gadget_spec_parser' => 'GadgetSpecParser',
+  'gadget_spec_class' => 'GadgetSpec',
+  'substitution_class' => 'Substitutions',
+  'proxy_handler' => 'ProxyHandler',
+  'makerequest_handler' => 'MakeRequestHandler',
+  'makerequest_class' => 'MakeRequest',
+  'container_config_class' => 'ContainerConfig',
+
   // Caching back-end's to use. Shindig ships with CacheStorageFile, CacheStorageApc and CacheStorageMemcache support
   // The data cache is primarily used for remote content (proxied files, gadget spec, etc)
   // and the feature_cache is used to cache the parsed features xml structure and javascript
@@ -138,6 +208,7 @@ $shindigConfig = array(
   'person_service' => 'JsonDbOpensocialService',
   'activity_service' => 'JsonDbOpensocialService',
   'app_data_service' => 'JsonDbOpensocialService',
+  'group_service' => 'JsonDbOpensocialService',
   'messages_service' => 'JsonDbOpensocialService',
   'invalidate_service' => 'DefaultInvalidateService',
   'album_service' => 'JsonDbOpensocialService',
@@ -156,11 +227,12 @@ $shindigConfig = array(
   'cache_memcache_pconnect' => true,
   'cache_time' => 24 * 60 * 60,
   // If you use CacheStorageFile as caching backend, this is the directory where it stores the temporary files
-  'cache_root' => '/tmp/shindig',
+  'cache_root' => sys_get_temp_dir() . '/shindig',
 
   // connection timeout setting for all curl requests, set this time something low if you want errors reported
   // quicker to the end user, and high (between 10 and 20) if your on a slow connection
   'curl_connection_timeout' => '10',
+  'curl_request_timeout' => '10',
 
   // If your development server is behind a proxy, enter the proxy details here in 'proxy.host.com:port' format.
   'proxy' => '',

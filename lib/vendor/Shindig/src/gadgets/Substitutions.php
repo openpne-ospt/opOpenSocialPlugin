@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -19,9 +19,9 @@
  */
 
 class Substitutions {
-  private $types = array('MESSAGE' => 'MSG', 'BIDI' => 'BIDI', 'USER_PREF' => 'UP', 'MODULE' => 'MODULE');
+  protected $types = array('MESSAGE' => 'MSG', 'BIDI' => 'BIDI', 'USER_PREF' => 'UP', 'MODULE' => 'MODULE');
   
-  private $substitutions = array();
+  protected $substitutions = array();
 
   public function __construct() {
     foreach ($this->types as $type) {

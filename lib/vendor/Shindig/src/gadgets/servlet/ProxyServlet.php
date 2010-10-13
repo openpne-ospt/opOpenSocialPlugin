@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -33,14 +33,16 @@ class ProxyServlet extends HttpServlet {
     try {
       // Make sure the HttpServlet doesn't overwrite our headers
       $this->noHeaders = true;
-      $context = new GadgetContext('GADGET');
+      $contextClass = Shindig_Config::get('gadget_context_class');
+      $context = new $contextClass('GADGET');
       $url = (isset($_GET['url']) ? $_GET['url'] : (isset($_POST['url']) ? $_POST['url'] : false));
       $url = urldecode($url);
       if (! $url) {
         header("HTTP/1.0 400 Bad Request", true);
         echo "<html><body><h1>400 - Missing url parameter</h1></body></html>";
       }
-      $proxyHandler = new ProxyHandler($context);
+      $proxyHandlerClass = Shindig_Config::get('proxy_handler');
+      $proxyHandler = new $proxyHandlerClass($context);
       $proxyHandler->fetch($url);
     } catch (Exception $e) {
       // catch all exceptions and give a 500 server error

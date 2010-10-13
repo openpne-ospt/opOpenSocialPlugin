@@ -1,6 +1,5 @@
 <?php
-
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -68,6 +67,7 @@ class ContentRewriter extends DomRewriter {
     $url = Shindig_Config::get('web_prefix') . '/gadgets/proxy?url=' . urlencode($url);
     $url .= '&refresh=' . (isset($this->rewrite['expires']) && is_numeric($this->rewrite['expires']) ? $this->rewrite['expires'] : '3600');
     $url .= '&gadget=' . urlencode($this->context->getUrl());
+    $url .= '&st=' . urlencode($this->context->getRawToken());
     return $url;
   }
 
@@ -80,7 +80,7 @@ class ContentRewriter extends DomRewriter {
     $included = $excluded = false;
     if (isset($this->rewrite['include-url'])) {
       foreach ($this->rewrite['include-url'] as $includeUrl) {
-        if ($includeUrl == '*' || strpos($url, $includeUrl) !== false) {
+        if ($includeUrl == '*' || $includeUrl == '.*' || strpos($url, $includeUrl) !== false) {
           $included = true;
           break;
         }
@@ -88,7 +88,7 @@ class ContentRewriter extends DomRewriter {
     }
     if (isset($this->rewrite['exclude-url'])) {
       foreach ($this->rewrite['exclude-url'] as $excludeUrl) {
-        if ($excludeUrl == '*' || strpos($url, $excludeUrl) !== false) {
+        if ($excludeUrl == '*' || $includeUrl == '.*' || strpos($url, $excludeUrl) !== false) {
           $excluded = true;
           break;
         }

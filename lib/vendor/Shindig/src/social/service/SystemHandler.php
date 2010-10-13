@@ -56,8 +56,9 @@ class SystemHandler extends DataRequestHandler {
   }
 
   public function handleListMethods(RequestItem $request) {
-  	$containerConfig = new ContainerConfig(Shindig_Config::get('container_path'));
-  	$gadgetConfig = $containerConfig->getConfig('default', 'gadgets.features');
+    $containerConfigClass = Shindig_Config::get('container_config_class');
+    $containerConfig = new $containerConfigClass(Shindig_Config::get('container_path'));
+    $gadgetConfig = $containerConfig->getConfig('default', 'gadgets.features');
     if (! isset($gadgetConfig['osapi.services']) || count($gadgetConfig['osapi.services']) == 1) {
       // this should really be set in config/container.js, but if not, we build a complete default set so at least most of it works out-of-the-box
       $gadgetConfig['osapi.services'] = array(
@@ -75,8 +76,10 @@ class SystemHandler extends DataRequestHandler {
               "mediaitems.get", "albums.create",
               "appdata.delete", "people.update",
               "appdata.create"),
-          'http://%host%/gadgets/api/rpc' => array('cache.invalidate'));
+          'http://%host%/gadgets/api/rpc' => array('cache.invalidate',
+              'http.head', 'http.get', 'http.put',
+              'http.post', 'http.delete'));
     }
-	  return $gadgetConfig['osapi.services'];
+    return $gadgetConfig['osapi.services'];
   }
 }

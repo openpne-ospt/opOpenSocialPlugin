@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,7 +25,7 @@ require 'src/gadgets/GadgetFeatureRegistry.php';
 /**
  * This event handler deals with the /js/core:caja:etc.js request which content type=url gadgets can use
  * to retrieve our features javascript code, or used to make the most frequently used part of the feature
- * library external, and hence cachable by the browser
+ * library external, and hence cachable by the browser.
  */
 class JsServlet extends HttpServlet {
 
@@ -54,7 +54,8 @@ class JsServlet extends HttpServlet {
     }
     $found = array();
     $missing = array();
-    $context = new GadgetContext('GADGET');
+    $contextClass = Shindig_Config::get('gadget_context_class');
+    $context = new $contextClass('GADGET');
     $registry = new GadgetFeatureRegistry(Shindig_Config::get('features_path'));
     if ($registry->resolveFeatures($needed, $found, $missing)) {
       $isGadgetContext = !isset($_GET["c"]) || $_GET['c'] == 0 ? true : false;

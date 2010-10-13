@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -19,7 +19,6 @@
  */
 
 require_once 'src/common/HttpServlet.php';
-require_once 'src/common/JsMin.php';
 require_once 'src/common/SecurityTokenDecoder.php';
 require_once 'src/common/SecurityToken.php';
 require_once 'src/common/BlobCrypter.php';
@@ -40,14 +39,15 @@ require_once 'src/gadgets/rewrite/GadgetRewriter.php';
 require_once 'src/gadgets/rewrite/DomRewriter.php';
 
 class GadgetRenderingServlet extends HttpServlet {
-  private $context;
+  protected $context;
 
   public function doGet() {
     try {
       if (empty($_GET['url'])) {
         throw new GadgetException("Missing required parameter: url");
       }
-      $this->context = new GadgetContext('GADGET');
+      $contextClass = Shindig_Config::get('gadget_context_class');
+      $this->context = new $contextClass('GADGET');
       $gadgetSigner = Shindig_Config::get('security_token_signer');
       $gadgetSigner = new $gadgetSigner();
       try {
@@ -60,7 +60,8 @@ class GadgetRenderingServlet extends HttpServlet {
           $token = '';
         }
       }
-      $gadgetSpecFactory = new GadgetFactory($this->context, $token);
+      $factoryClass = Shindig_Config::get('gadget_factory_class');
+      $gadgetSpecFactory = new $factoryClass($this->context, $token);
       $gadget = $gadgetSpecFactory->createGadget();
       $this->setCachingHeaders();
       $this->renderGadget($gadget);
@@ -69,7 +70,7 @@ class GadgetRenderingServlet extends HttpServlet {
     }
   }
 
-  private function renderGadget(Shindig_Gadget $gadget) {
+  protected function renderGadget(Shindig_Gadget $gadget) {
     $view = $gadget->getView($this->context->getView());
     if ($view['type'] == 'URL') {
       require_once "src/gadgets/render/GadgetUrlRenderer.php";
@@ -86,7 +87,7 @@ class GadgetRenderingServlet extends HttpServlet {
     $gadgetRenderer->renderGadget($gadget, $view);
   }
 
-  private function setCachingHeaders() {
+  protected function setCachingHeaders() {
     $this->setContentType("text/html; charset=UTF-8");
     if ($this->context->getIgnoreCache()) {
       // no cache was requested, set non-caching-headers
@@ -100,7 +101,7 @@ class GadgetRenderingServlet extends HttpServlet {
     }
   }
 
-  private function showError($e) {
+  protected function showError($e) {
     header("HTTP/1.0 400 Bad Request", true, 400);
     echo "<html><body>";
     echo "<h1>Error</h1>";

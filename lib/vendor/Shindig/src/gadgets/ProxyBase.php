@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -34,7 +34,8 @@ class ProxyBase {
     if (isset($makeRequest)) {
       $this->makeRequest = $makeRequest;
     } else {
-      $this->makeRequest = new MakeRequest();
+      $makeRequestClass = Shindig_Config::get('makerequest_class');
+      $this->makeRequest = new $makeRequestClass();
     }
   }
 

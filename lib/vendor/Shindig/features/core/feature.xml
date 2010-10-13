@@ -24,7 +24,7 @@
     core.* libs.
   -->
   <name>core</name>
-  <dependency>core.auth</dependency>
+  <dependency>shindig.auth</dependency>
   <dependency>core.config</dependency>
   <dependency>core.json</dependency>
   <dependency>core.legacy</dependency>
@@ -34,6 +34,6 @@
   <dependency>core.util</dependency>
   <gadget>
     <!-- for html_sanitize -->
-    <script src="http://google-caja.googlecode.com/svn/trunk/src/com/google/caja/plugin/html-sanitizer.js"></script>
+    <script src="res://com/google/caja/plugin/html-sanitizer-minified.js"></script>
   </gadget>
 </feature>

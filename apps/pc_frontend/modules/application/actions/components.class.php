@@ -49,7 +49,7 @@ class applicationComponents extends sfComponents
     $opOpenSocialContainerConfig = new opOpenSocialContainerConfig();
     $containerName = $opOpenSocialContainerConfig->getContainerName();
 
-    $securityToken = opShindigSecurityToken::createFromValues(
+    $securityToken = BasicSecurityToken::createFromValues(
       $this->memberApplication->getMemberId(),  // owner
       $viewerId,                                // viewer
       $this->application->getId(),              // app id
@@ -70,7 +70,6 @@ class applicationComponents extends sfComponents
       'lang'      => $culture[0],
       'view'      => $this->view,
       'parent'    => $this->getRequest()->getUri(),
-      'st'        => base64_encode($securityToken->toSerialForm()),
       'url'       => $this->application->getUrl(),
     );
 
@@ -89,11 +88,11 @@ class applicationComponents extends sfComponents
       {
         $shindigUrl .= '/';
       }
-      $this->iframeUrl = $shindigUrl.'gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.$this->rpcToken;
+      $this->iframeUrl = $shindigUrl.'gadgets/ifr?'.http_build_query($getParams).'&st='.$securityToken->toSerialForm().'#rpctoken='.$this->rpcToken;
     }
     else
     {
-      $this->iframeUrl = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'#rpctoken='.$this->rpcToken;
+      $this->iframeUrl = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'&st='.$securityToken->toSerialForm().'#rpctoken='.$this->rpcToken;
     }
   }
 

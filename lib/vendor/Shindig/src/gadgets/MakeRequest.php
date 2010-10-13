@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -111,7 +111,8 @@ class MakeRequest {
           break;
       }
     }
-    if (strpos($result->getResponseContent(), '\u')) {
+    if ((strpos($result->getContentType(), 'text') !== false || strpos($result->getContentType(), 'application') !== false)
+            && strpos($result->getResponseContent(), '\u')) {
     	$result->setResponseContent($this->decodeUtf8($result->getResponseContent()));
     }
 
@@ -159,9 +160,12 @@ class MakeRequest {
       // (since RemoteContentRquest checks if its false)
       // so the request to POST is still honored
       $request = new RemoteContentRequest($params->getHref(), null, $params->getRequestBody());
-    } else {
+    } else if ($method == 'DELETE' || $method == 'GET' || $method == 'HEAD') {
       $request = new RemoteContentRequest($params->getHref());
+    } else {
+      throw new Exception("Invalid HTTP method.");
     }
+    $request->setMethod($method);
     if ($signer) {
       switch ($params->getAuthz()) {
         case 'SIGNED':
@@ -210,8 +214,8 @@ class MakeRequest {
     if (preg_match("/&#[xX][0-9a-zA-Z]{2,8};/", $content)) {
       $content = preg_replace("/&#[xX]([0-9a-zA-Z]{2,8});/e", "'&#'.hexdec('$1').';'", $content);
     }
-    if (preg_match("/\\\\[uU][0-9a-zA-Z]{2,8}/", $content)) {
-      $content = preg_replace("/\\\\[uU]([0-9a-zA-Z]{2,8})/e", "'&#'.hexdec('$1').';'", $content);
+    if (preg_match("/\\\\(u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/", $content)) {
+      $content = preg_replace("/\\\\(u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/e", "'&#'.hexdec('$1').';'", $content);
     }
     return mb_decode_numericentity($content, array(0x0, 0xFFFF, 0, 0xFFFF), 'UTF-8');
   }

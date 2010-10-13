@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,7 +22,7 @@ class GadgetUrlRenderer extends GadgetRenderer {
 
   /**
    * Renders an 'URL' type view (where the iframe is redirected to the specified url)
-   * This is more a legacy iGoogle support feature then something that should be actually
+   * This is more a legacy iGoogle support feature than something that should be actually
    * used. Proxied content is the socially aware (and higher performance) version of this
    * See GadgetHrefRenderer for it's implementation.
    *
@@ -30,27 +30,45 @@ class GadgetUrlRenderer extends GadgetRenderer {
    * @param Array $view
    */
   public function renderGadget(Shindig_Gadget $gadget, $view) {
-    // Preserve existing query string parameters.
-    $redirURI = $view['href'];
-    $queryStr = strpos($redirURI, '?') !== false ? substr($redirURI, strpos($redirURI, '?')) : '';
-    $query = $queryStr;
-    $query .= $this->getPrefsQueryString($gadget->gadgetSpec->userPrefs);
-    $features = array();
-    $forcedLibs = Shindig_Config::get('focedJsLibs');
-    if ($forcedLibs == null) {
-      $features = $gadget->features;
-    } else {
-      $features = explode(':', $forcedLibs);
-    }
-    $query .= $this->appendLibsToQuery($features);
-    $query .= '&lang=' . urlencode(isset($_GET['lang']) ? $_GET['lang'] : 'en');
-    $query .= '&country=' . urlencode(isset($_GET['country']) ? $_GET['country'] : 'US');
-    if (substr($query, 0, 1) == '&') {
-      $query = '?' . substr($query, 1);
-    }
-    $redirURI .= $query;
+    $redirURI = $this->getSubstitutedUrl($gadget, $view);
     header('Location: ' . $redirURI);
   }
+
+  /**
+   * retrieves url of content tag and substitutes it
+   *
+   * @param Gadget $gadget
+   * @param string $view
+   * @return string
+   */
+  public function getSubstitutedUrl(Shindig_Gadget $gadget, $view) {
+    // Preserve existing query string parameters.
+    $redirURI = $view['href'];
+    $query = $this->getPrefsQueryString($gadget->gadgetSpec->userPrefs);
+
+    // deal with features
+    $registry = $this->context->getRegistry();
+    // since the URL mode doesn't actually have the gadget XML body, it can't inline
+    // the javascript content anyway - thus could us just ignore the 'forcedJsLibs' part.
+    $sortedFeatures = array();
+    $registry->sortFeatures($gadget->features, $sortedFeatures);
+
+    $query .= $this->appendLibsToQuery($sortedFeatures);
+    $query .= '&lang=' . urlencode(isset($_GET['lang']) ? $_GET['lang'] : 'en');
+    $query .= '&country=' . urlencode(isset($_GET['country']) ? $_GET['country'] : 'US');
+
+    $redirURI = $gadget->substitutions->substituteUri(null, $redirURI);
+    if (strpos($redirURI, '?') !== false) {
+      $redirURI = $redirURI . $query;
+    } elseif (substr($query, 0, 1) == '&') {
+      $redirURI = $redirURI . '?' . substr($query, 1);
+    } else {
+      $redirURI = $redirURI . '?' . $query;
+    }
+    
+    return $redirURI;
+  }
+
 
   /**
    * Returns the requested libs (from getjsUrl) with the libs_param_name prepended

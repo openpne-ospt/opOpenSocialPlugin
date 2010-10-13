@@ -1,6 +1,5 @@
 <?php
-
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,12 +26,14 @@ class GadgetSpecException extends Exception {
  */
 class GadgetSpecParser {
 
+  protected $context;
+
   /**
    * Parses the $xmlContent into a Gadget class
    *
    * @param string $xmlContent
    */
-  public function parse($xmlContent) {
+  public function parse($xmlContent, GadgetContext $context) {
     libxml_use_internal_errors(true);
     $doc = new DOMDocument();
     if (! $doc->loadXML($xmlContent, LIBXML_NOCDATA)) {
@@ -41,7 +42,8 @@ class GadgetSpecParser {
     //TODO: we could do a XSD schema validation here, but both the schema and most of the gadgets seem to have some form of schema
     // violatons, so it's not really practical yet (and slow)
     // $doc->schemaValidate('gadget.xsd');
-    $gadget = new GadgetSpec();
+    $gadgetSpecClass = Shindig_Config::get('gadget_spec_class');
+    $gadget = new $gadgetSpecClass();
     $gadget->checksum = md5($xmlContent);
     $this->parseModulePrefs($doc, $gadget);
     $this->parseUserPrefs($doc, $gadget);
@@ -215,7 +217,8 @@ class GadgetSpecParser {
    */
   private function parseFeatures(DOMElement &$modulePrefs, GadgetSpec &$gadget) {
     $gadget->requiredFeatures = $gadget->optionalFeatures = array();
-    if (($requiredNodes = $modulePrefs->getElementsByTagName('Require')) != null) {
+    $requiredNodes = $modulePrefs->getElementsByTagName('Require');
+    if ($requiredNodes->length != 0) {
       foreach ($requiredNodes as $requiredFeature) {
         $gadget->requiredFeatures[] = $requiredFeature->getAttribute('feature');
         if ($requiredFeature->getAttribute('feature') == 'content-rewrite') {
@@ -225,7 +228,8 @@ class GadgetSpecParser {
         }
       }
     }
-    if (($optionalNodes = $modulePrefs->getElementsByTagName('Optional')) != null) {
+    $optionalNodes = $modulePrefs->getElementsByTagName('Optional');
+    if ($optionalNodes->length != 0) {
       foreach ($optionalNodes as $optionalFeature) {
         $gadget->optionalFeatures[] = $optionalFeature->getAttribute('feature');
         // Content-rewrite is a special case since it has Params as child nodes
@@ -389,10 +393,8 @@ class GadgetSpecParser {
     if (($localeNodes = $modulePrefs->getElementsByTagName('Locale')) != null) {
       foreach ($localeNodes as $node) {
         $messageBundle = array();
-        if (($messageBundleNode = $node->getElementsByTagName('messagebundle')) != null && $messageBundleNode->length > 0) {
+        if (($messages = $node->getElementsByTagName('msg')) != null && $messages->length > 0) {
           // parse inlined messages
-          $messageBundleNode = $messageBundleNode->item(0);
-          $messages = $messageBundleNode->getElementsByTagName('msg');
           foreach ($messages as $msg) {
             $messageBundle[$msg->getAttribute('name')] = trim($msg->nodeValue);
           }

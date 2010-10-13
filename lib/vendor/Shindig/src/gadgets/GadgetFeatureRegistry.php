@@ -1,6 +1,5 @@
 <?php
-
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -19,20 +18,37 @@
  * under the License.
  */
 
+require_once 'external/jsmin-php/jsmin.php';
+
 /**
  * Class that deals with the processing, loading and dep resolving of the gadget features
  * Features are javascript libraries that provide an API, like 'opensocial' or 'settitle'
  *
  */
 class GadgetFeatureRegistry {
-  public $features;
-  private $coreDone = false;
-  private $coreFeaturs;
-
+  public $features = array();
+  private $coreFeatures;
+  private $sortedFeatures;
+  
   public function __construct($featurePath) {
-    $this->registerFeatures($featurePath);
+    if (is_array($featurePath)) {
+      foreach ($featurePath as $path) {
+        $this->registerFeatures($path);
+      }
+    } else {
+      $this->registerFeatures($featurePath);
+    }
+    $this->processFeatures();
   }
 
+  public function getFeaturesContent($features, GadgetContext $context, $isGadgetContext) {
+    $ret = '';
+    foreach ($features as $feature) {
+      $ret .= $this->getFeatureContent($feature, $context, $isGadgetContext);
+    }
+    return $ret;
+  }
+  
   public function getFeatureContent($feature, GadgetContext $context, $isGadgetContext) {
     if (empty($feature)) return '';
     if (!isset($this->features[$feature])) {
@@ -57,9 +73,9 @@ class GadgetFeatureRegistry {
         case 'URL':
           $request = new RemoteContentRequest($entry['content']);
           $request->getOptions()->ignoreCache = $context->getIgnoreCache();
-          $context->getHttpFetcher()->fetch($request);
-          if ($request->getHttpCode() == '200') {
-            $ret .= $request->getResponseContent()."\n";
+          $response = $context->getHttpFetcher()->fetch($request);
+          if ($response->getHttpCode() == '200') {
+            $ret .= $response->getResponseContent()."\n";
           }
           break;
         case 'FILE':
@@ -82,9 +98,7 @@ class GadgetFeatureRegistry {
     $resultsFound = array();
     $resultsMissing = array();
     if (! count($needed)) {
-      // Shortcut for gadgets that don't have any explicit dependencies.
-      $resultsFound = $this->coreFeatures;
-      return true;
+      $needed = $this->coreFeatures;
     }
     foreach ($needed as $featureName) {
       $feature = isset($this->features[$featureName]) ? $this->features[$featureName] : null;
@@ -96,7 +110,19 @@ class GadgetFeatureRegistry {
     }
     return count($resultsMissing) == 0;
   }
-
+  
+  public function sortFeatures($features, &$sortedFeatures) {
+    if (empty($features)) {
+      return;
+    }
+    $sortedFeatures = array();
+    foreach ($this->sortedFeatures as $feature) {
+      if (in_array($feature, $features)) {
+        $sortedFeatures[] = $feature;
+      }
+    }
+  }
+  
   private function addFeatureToResults(&$results, $feature) {
     if (in_array($feature['name'], $results)) {
       return;
@@ -115,7 +141,6 @@ class GadgetFeatureRegistry {
    * @param string $featurePath path to scan
    */
   private function registerFeatures($featurePath) {
-    $this->features = array();
     // Load the features from the shindig/features/features.txt file
     $featuresFile = $featurePath . '/features.txt';
     if (Shindig_File::exists($featuresFile)) {
@@ -130,6 +155,12 @@ class GadgetFeatureRegistry {
         }
       }
     }
+  }
+
+  /**
+   * gets core features and sorts features
+   */
+  private function processFeatures() {
     // Determine the core features
     $this->coreFeatures = array();
     foreach ($this->features as $entry) {
@@ -142,10 +173,46 @@ class GadgetFeatureRegistry {
       if ($entry == null) {
         continue;
       }
-      if (strtolower(substr($entry['name'], 0, strlen('core'))) != 'core') {
+      $featureName = strtolower(substr($entry['name'], 0, strlen('core')));
+      if ($featureName != 'core' && $featureName != 'glob' && $entry['name'] != 'shindig.auth') {
         $this->features[$key]['deps'] = array_merge($entry['deps'], $this->coreFeatures);
       }
     }
+    // Topologically sort all features according to their dependency
+    $features = array();
+    foreach ($this->features as $feature) {
+      $features[] = $feature['name'];
+    }
+    $sortedFeatures = array();
+    $reverseDeps = array();
+    foreach ($features as $feature) {
+      $reverseDeps[$feature] = array();
+    }
+    $depCount = array();
+    foreach ($features as $feature) {
+      $deps = $this->features[$feature]['deps'];
+      $deps = array_uintersect($deps, $features, "strcasecmp");
+      $depCount[$feature] = count($deps);
+      foreach ($deps as $dep) {
+        $reverseDeps[$dep][] = $feature;
+      }
+    }
+    while (! empty($depCount)) {
+      $fail = true;
+      foreach ($depCount as $feature => $count) {
+        if ($count != 0) continue;
+        $fail = false;
+        $sortedFeatures[] = $feature;
+        foreach ($reverseDeps[$feature] as $reverseDep) {
+          $depCount[$reverseDep] -= 1;
+        }
+        unset($depCount[$feature]);
+      }
+      if ($fail && ! empty($depCount)) {
+        throw new GadgetException("Sorting feature dependence failed: it contains ring!");
+      }
+    }
+    $this->sortedFeatures = $sortedFeatures;
   }
 
   /**
@@ -208,23 +275,34 @@ class GadgetFeatureRegistry {
         $content = (string)$script;
       } else {
         $content = trim($attributes['src']);
+        $url = parse_url($content);
 
-        // Make html-santitization work see SHINDIG-346
-        if ($content == 'res://com/google/caja/plugin/html-sanitizer.js') { 
-          $content= 'http://google-caja.googlecode.com/svn/trunk/src/com/google/caja/plugin/html-sanitizer.js'; 
-        } 
-
-        if (strtolower(substr($content, 0, strlen("http://"))) == "http://" || strtolower(substr($content, 0, strlen("https://"))) == "https://") {
-          $type = 'URL';
-        } else {
+        if (! isset($url['scheme']) || ! isset($url['path']) || ! isset($url['host'])) {
           $type = 'FILE';
-          // skip over any java resource files (res://) since we don't support them
-          if (substr($content, 0, 6) == 'res://') {
-            continue;
-          }
           $content = $content;
+        } else {
+          $type = false;
+          switch ($url['scheme']) {
+            case 'res':
+              $type = 'URL';
+              $scheme = (! isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
+              $content = $scheme . '://' . (Shindig_Config::get('http_host') ? Shindig_Config::get('http_host') : $_SERVER['HTTP_HOST']) . '/gadgets/resources/' . $url['host'] . $url['path'];
+              break;
+            case 'http':
+            case 'https':
+              $type = 'URL';
+              break;
+            default:
+              $type = 'FILE';
+              $content = $content;
+          }
         }
       }
+
+      if (! $type) {
+        continue;
+      }
+
       $library = array('type' => $type, 'content' => $content);
       if ($library != null) {
         if ($isContainer) {

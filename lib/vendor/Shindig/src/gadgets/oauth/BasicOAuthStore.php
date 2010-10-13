@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -18,14 +18,11 @@
  * under the License.
  */
 
-class OAuthNoDataException extends Exception {
-}
-
 class BasicOAuthStore implements OAuthStore {
-  
+
   private $consumerInfos = array();
   private $tokens = array();
-  
+
   private $defaultConsumerKey;
   private $defaultConsumerSecret;
 
@@ -57,7 +54,7 @@ class BasicOAuthStore implements OAuthStore {
 
   public function getOAuthAccessorProviderKey(ProviderKey $providerKey, ProviderInfo $provInfo) {
     if ($provInfo == null) {
-      throw new OAuthNoDataException("must pass non-null provider info to getOAuthAccessor");
+      throw new ShindigOAuthNoDataException("must pass non-null provider info to getOAuthAccessor");
     }
     //AccesorInfo
     $result = new AccesorInfo();
@@ -69,11 +66,11 @@ class BasicOAuthStore implements OAuthStore {
     if (isset($this->consumerInfos[$key])) {
       $consumerKeyAndSecret = $this->consumerInfos[$key];
     } else {
-      throw new OAuthNoDataException("The Key was invalid for consumerInfos, maybe your oauth.json configuration is wrong.");
+      throw new ShindigOAuthNoDataException("Invalid or missing consumer key, please check your oauth.json configuration.");
     }
     if ($consumerKeyAndSecret == null) {
       if ($this->defaultConsumerKey == null || $this->defaultConsumerSecret == null) {
-        throw new OAuthNoDataException("ConsumerKeyAndSecret was null in oauth store");
+        throw new ShindigOAuthNoDataException("ConsumerKeyAndSecret was null in oauth store");
       } else {
         $consumerKeyAndSecret = new ConsumerKeyAndSecret($this->defaultConsumerKey, $this->defaultConsumerSecret, OAuthStoreVars::$KeyType['RSA_PRIVATE']);
       }
@@ -81,7 +78,7 @@ class BasicOAuthStore implements OAuthStore {
     //OAuthServiceProvider
     $oauthProvider = $provInfo->getProvider();
     if (! isset($oauthProvider)) {
-      throw new OAuthNoDataException("OAuthService provider was null in provider info");
+      throw new ShindigOAuthNoDataException("OAuthService provider was null in provider info");
     }
     // Accesing the class
     $usePublicKeyCrypto = ($consumerKeyAndSecret->getKeyType() == OAuthStoreVars::$KeyType['RSA_PRIVATE']);
@@ -93,7 +90,7 @@ class BasicOAuthStore implements OAuthStore {
     } else {
       $result->setSignatureType(OAuthStoreVars::$SignatureType['HMAC_SHA1']);
     }
-    
+
     $result->setAccessor(new OAuthAccessor($consumer));
     return $result;
   }
@@ -105,6 +102,10 @@ class BasicOAuthStore implements OAuthStore {
 
   public function setTokenAndSecret($tokenKey, $tokenInfo) {
     $this->tokens[md5(serialize($tokenKey))] = $tokenInfo;
+  }
+
+  public function removeTokenAndSecret($tokenKey) {
+    unset($this->tokens[md5(serialize($tokenKey))]);
   }
 
   private function getTokenInfo($tokenKey) {

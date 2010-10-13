@@ -17,15 +17,10 @@
   specific language governing permissions and limitations under the License.
 -->
 <feature>
-  <name>core.auth</name>
-  <dependency>core.config</dependency>
-  <dependency>core.util</dependency>
-  <gadget>
-    <script src="auth.js"/>
-    <script src="auth-init.js"/>
-  </gadget>
-  <container>
-    <script src="auth.js"/>
-    <script src="auth-init.js"/>
-  </container>
+  <!--
+    A blank feature whose name starts with the special string "core."
+    Gadget developers may include this if they prefer that the renderer
+    omit *all* core JavaScript from output.
+  -->
+  <name>core.none</name>
 </feature>

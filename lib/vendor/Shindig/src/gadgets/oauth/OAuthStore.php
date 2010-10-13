@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -23,6 +23,8 @@ interface OAuthStore {
   public function setOAuthConsumerKeyAndSecret($providerKey, $keyAndSecret);
 
   public function setTokenAndSecret($tokenKey, $tokenInfo);
+
+  public function removeTokenAndSecret($tokenKey);
 
   /**
    * Retrieve an OAuthAccessor that is ready to sign OAuthMessages for

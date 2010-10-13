@@ -9,6 +9,8 @@ $shindigConfig = array(
 
   'allow_plaintext_token' => false,
 
+  'render_token_required' => true,
+
   'web_prefix' => $webprefix,
   'default_js_prefix' => $webprefix.'/gadgets/js/',
   'default_iframe_prefix' => $webprefix.'/gadgets/ifr?',
@@ -20,18 +22,22 @@ $shindigConfig = array(
   'token_max_age'    => Doctrine::getTable('SnsConfig')->get('shindig_token_max_age', 60*60),
 
   'base_path'      => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/lib/vendor/Shindig/',
-  'features_path'  => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/lib/vendor/Shindig/features/',
+  'features_path'  => array(
+    sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/lib/vendor/Shindig/features/'
+  ),
   'container_path' => sfConfig::get('sf_app_cache_dir').'/plugins/opOpenSocialPlugin',
 
-  'private_key_file'  => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/private.key', 
+  'private_key_file'  => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/private.key',
   'public_key_file'   => sfConfig::get('sf_plugins_dir').'/opOpenSocialPlugin/certs/public.crt',
-  'private_key_phrase' => Doctrine::getTable('SnsConfig')->get('shindig_private_key_phrase', ""), 
+  'private_key_phrase' => Doctrine::getTable('SnsConfig')->get('shindig_private_key_phrase', ""),
 
   'remote_content'         => 'opShindigRemoteContent',
   'remote_content_fetcher' => 'opShindigRemoteContentFetcher',
   'security_token_signer'  => 'opShindigSecurityTokenDecoder',
   'security_token'         => 'opShindigSecurityToken',
   'oauth_lookup_service'   => 'opShindigOAuthLookupService',
+
+  'gadget_class' => 'Shindig_Gadget',
 
   'data_cache'    => 'opCacheStorageFile',
   'feature_cache' => 'opCacheStorageFile',

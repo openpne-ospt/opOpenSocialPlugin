@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,7 +30,7 @@ class RpcRequestItem extends RequestItem {
       throw new SocialSpiException("Missing method in RPC call");
     }
     parent::__construct($rpc['method'], $rpc['method'], $token);
-    if (isset($rpc->params)) {
+    if (isset($rpc['params'])) {
       $this->data = $rpc['params'];
     } else {
       $this->data = array();

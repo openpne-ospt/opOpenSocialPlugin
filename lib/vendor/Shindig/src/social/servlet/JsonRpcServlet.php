@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,6 +22,8 @@
  * JSON-RPC handler servlet.
  */
 class JsonRpcServlet extends ApiServlet {
+
+  protected $resultKey = 'result';
 
   /**
    * Single request through GET
@@ -114,11 +116,11 @@ class JsonRpcServlet extends ApiServlet {
         // FIXME this is a little hacky because of the field names in the RestfulCollection
         $converted->list = $converted->entry;
         unset($converted->entry);
-        $result['data'] = $converted;
+        $result[$this->resultKey] = $converted;
       } elseif ($response instanceof DataCollection) {
-        $result["data"] = $converted->getEntry();
+        $result[$this->resultKey] = $converted->getEntry();
       } else {
-        $result["data"] = $converted;
+        $result[$this->resultKey] = $converted;
       }
     }
     return $result;

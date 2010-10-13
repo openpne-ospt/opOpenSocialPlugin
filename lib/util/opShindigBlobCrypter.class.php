@@ -18,21 +18,6 @@
  */
 class opShindigBlobCrypter extends BasicBlobCrypter
 {
-  // Labels for key derivation
-  private $CIPHER_KEY_LABEL = 0;
-  private $HMAC_KEY_LABEL = 1;
-
-  /** Key used for time stamp (in seconds) of data */
-  public $TIMESTAMP_KEY = "t";
-
-  /** minimum length of master key */
-  public $MASTER_KEY_MIN_LEN = 16;
-
-  /** allow three minutes for clock skew */
-  private $CLOCK_SKEW_ALLOWANCE = 180;
-
-  private $UTF8 = "UTF-8";
-
   /**
    * @see BasicBlobCrypter::warp()
    */
@@ -52,23 +37,13 @@ class opShindigBlobCrypter extends BasicBlobCrypter
     return $b64;
   }
 
-  private function serializeAndTimestamp(Array $in) {
-    $encoded = "";
-    foreach ($in as $key => $val)
-    {
-      $encoded .= urlencode($key) . "=" . urlencode($val) . "&";
-    }
-    $encoded .= $this->TIMESTAMP_KEY . "=" . time();
-    return $encoded;
-  }
-
   /**
    * @see BasicBlobCrypter::unwrap();
    */
   public function unwrap($in, $maxAgeSec) {
     if ($this->allowPlaintextToken && count(explode(':', $in)) == 7)
     {
-      $data = explode(":", $in);
+      $data = $this->parseToken($in);
       $out = array();
       $out['o'] = $data[0];
       $out['v'] = $data[1];
@@ -105,23 +80,4 @@ class opShindigBlobCrypter extends BasicBlobCrypter
     }
     return $out;
   }
-
-  private function deserialize($plain)
-  {
-    $map = array();
-    parse_str($plain, $map);
-    return $map;
-  }
-
-  private function checkTimestamp(Array $out, $maxAge)
-  {
-    $minTime = (int)$out[$this->TIMESTAMP_KEY] - $this->CLOCK_SKEW_ALLOWANCE;
-    $maxTime = (int)$out[$this->TIMESTAMP_KEY] + $maxAge + $this->CLOCK_SKEW_ALLOWANCE;
-    $now = time();
-    if (! ($minTime < $now && $now < $maxTime))
-    {
-      throw new BlobExpiredException("Security token expired");
-    }
-  }
-
 }
