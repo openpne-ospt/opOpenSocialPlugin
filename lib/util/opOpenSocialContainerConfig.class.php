@@ -72,7 +72,7 @@ class opOpenSocialContainerConfig
     {
       return true;
     }
-    
+
     $json = self::generate($snsUrl, $shindigUrl);
 
     if (!is_dir($dirname))
@@ -90,6 +90,34 @@ class opOpenSocialContainerConfig
     return false;
   }
 
+  protected function loadTemplate($templateFile)
+  {
+    if (!is_readable($templateFile))
+    {
+      throw new Exception('template of container configuration is not readable.');
+    }
+
+    $str = file_get_contents($templateFile);
+
+    if (empty($str))
+    {
+      throw new Exception('template of container configuration is empty.');
+    }
+
+    // remove comment
+    $str = preg_replace('@/\\*.*?\\*/@s', '', $str);
+    $str = preg_replace('/(?<!http:|https:|")\/\/.*$/m', '', $str);
+
+    $result = json_decode($str, true);
+
+    if (null === $result)
+    {
+      throw new Exception('template of container configuration is not json data.');
+    }
+
+    return $result;
+  }
+
   /**
    * generate a configutaion
    *
@@ -97,84 +125,21 @@ class opOpenSocialContainerConfig
    * @param string $snsUrl
    * @param string $shindigUrl
    * @param string $apiUrl
-   * @return string 
+   * @return string
    */
-  public function generate($snsUrl = null, $shindigUrl = null, $apiUrl = null)
+  public function generate($snsUrl = null, $shindigUrl = null, $apiUrl = null, $templateFile = null)
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset'));
 
-    //Template
-    $containerTemplate = array(
-      'gadgets.container' => array(),
-      'gadgets.parent' => null,
-      'gadgets.lockedDomainRequired' => false,
-      'gadgets.lockedDomainSuffix' => '-a.example.com:8080',
-      'gadgets.iframeBaseUri' => '/gadgets/ifr',
-      'gadgets.jsUriTemplate' => '#shindig_url#gadgets/js/%js%',
-      'gadgets.oauthGadgetCallbackTemplate' => '#shindig_url#/gadgets/oauthcallback',
-      'gadgets.securityTokenType' => 'secure',
-      'gadgets.osDataUri' => '#api_url#social/rpc',
-      'gadgets.features' => array(
-        'core.io' => array(
-          'proxyUrl' => '#shindig_url#gadgets/proxy?refresh=%refresh%&url=%url%',
-          'jsonProxyUrl' => '#shindig_url#gadgets/makeRequest',
-        ),
-        'views' => array(
-          'profile' => array(
-            'isOnlyVisible' => false,
-            'urlTemplate' => '#sns_url#member/{var}',
-            'aliases' => array('DASHBOARD', 'default')
-          ),
-          'canvas' => array(
-            'isOnlyVisible' => true,
-            'urlTemplate' => '#sns_url#application/canvas/id/{var}',
-          )
-        ),
-        'rpc' => array(
-          'parentRelayUrl' => '#sns_url#opOpenSocialPlugin/js/rpc_relay.html',
-          'useLegacyProtocol' => false
-        ),
-        'skins' => array(
-          'properties' => array(
-            'BG_COLOR' => '',
-            'BG_IMAGE' => '',
-            'BG_POSITION' => '',
-            'BG_REPEAT' => '',
-            'FONT_COLOR' => '',
-            'ANCHOR_COLOR' => ''
-          )
-        ),
-        'opensocial' => array(
-          'path'           => '#api_url#social/rpc',
-          'invalidatePath' => '#shindig_url#gadgets/api/rpc',
-          'domain' => 'shindig',
-          'enableCaja' => false,
-          'supportedFields' => array()
-        ),
-        'osapi.services' => array(
-          'gadgets.rpc' => array('container.listMethods'),
-          '#api_url#social/rpc' => array(
-            'system.listMethods',
-            'people.get',
-            'appdata.get',
-            'appdata.update',
-            'appdata.delete',
-          ),
-          '#shindig_url#gadgets/api/rpc' => array('cache.invalidate')
-        ),
-        'osapi' => array(
-          'endPoint' => array('#api_url#social/rpc', '#shindig_url#gadgets/api/rpc')
-        ),
-        'osml' => array(
-          'library' => 'config/OSML_library.xml'
-        )
-      ),
-    );
+    if (null === $templateFile)
+    {
+      $templateFile = dirname(__FILE__).'/../vendor/Shindig/config/container.js';
+    }
 
-    $containerTemplate['gadgets.container'][] = $this->containerName;
+    $containerTemplate = $this->loadTemplate($templateFile);
 
     $request = sfContext::getInstance()->getRequest();
-    if ($snsUrl === null)
+    if (null === $snsUrl)
     {
       $snsUrl = $request->getUriPrefix().$request->getRelativeUrlRoot().'/';
       if($this->isDevEnvironment)
@@ -183,7 +148,7 @@ class opOpenSocialContainerConfig
       }
     }
 
-    if ($apiUrl === null)
+    if (null === $apiUrl)
     {
       if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
       {
@@ -204,7 +169,7 @@ class opOpenSocialContainerConfig
       }
     }
 
-    if ($shindigUrl === null)
+    if (null === $shindigUrl)
     {
       if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
       {
@@ -216,6 +181,31 @@ class opOpenSocialContainerConfig
       }
     }
 
+    // override container template
+    $containerTemplate['gadgets.container'] = array($this->containerName);
+    $containerTemplate['gadgets.jsUriTemplate'] = $shindigUrl.'gadgets/js/%js%';
+
+    $jsUrl = parse_url($shindigUrl.'gadgets/js');
+
+    $containerTemplate['gadgets.uri.js.host'] = $jsUrl['scheme'].'://'.$jsUrl['host'].(isset($jsUrl['port']) ? $jsUrl['port'] : '').'/';
+    $containerTemplate['gadgets.uri.js.path'] = $jsUrl['path'];
+
+    $containerTemplate['gadgets.securityTokenType'] = 'secure';
+    $containerTemplate['gadgets.osDataUri'] = $apiUrl.'social/rpc';
+
+    $features =& $containerTemplate['gadgets.features'];
+
+    $features['core.io']['proxyUrl']     = $shindigUrl.'gadgets/proxy?refresh=%refresh%&url=%url%';
+    $features['core.io']['jsonProxyUrl'] = $shindigUrl.'gadgets/makeRequest';
+
+    $features['views']['profile']['urlTemplate'] = $snsUrl.'member/{var}';
+    $features['views']['canvas']['urlTemplate']  = $snsUrl.'application/canvas/id/{var}';
+
+    $features['rpc']['parentRelayUr'] = $snsUrl.'opOpenSocialPlugin/js/rpc_relay.html';
+
+    $features['opensocial']['path']           =$apiUrl.'social/rpc';
+    $features['opensocial']['invalidatePath'] = $shindigUrl.'gadgets/api/rpc';
+
     $export = new opOpenSocialProfileExport();
 
     $supportedFields = $export->getSupportedFields();
@@ -224,15 +214,20 @@ class opOpenSocialContainerConfig
       'mediaItem' => array('id', 'albumId', 'created', 'description', 'fileSize', 'lastUpdated', 'thumbnailUrl', 'title', 'type', 'url')
     ));
 
-    $containerTemplate['gadgets.features']['opensocial']['supportedFields'] = $supportedFields;
-    $json = json_encode($containerTemplate);
+    $features['opensocial']['supportedFields'] = $supportedFields;
 
-    $replace = array(
-      '/#sns_url#/'     => addcslashes($snsUrl, '/'),
-      '/#shindig_url#/' => addcslashes($shindigUrl, '/'),
-      '/#api_url#/'     => addcslashes($apiUrl, '/'),
+    $features['osapi.services'][$apiUrl.'social/rpc'] = array(
+      'system.listMethods',
+      'people.get',
+      'appdata.get',
+      'appdata.update',
+      'appdata.delete',
     );
 
-    return preg_replace(array_keys($replace), $replace, $json);
+    $features['oapi']['endPoint'] = array($apiUrl.'/social/rpc');
+
+    $json = json_encode($containerTemplate);
+
+    return $json;
   }
 }
