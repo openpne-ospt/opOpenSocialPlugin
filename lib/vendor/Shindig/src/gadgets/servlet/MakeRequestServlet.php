@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,7 +26,7 @@ require 'src/common/RemoteContentRequest.php';
 require 'src/common/RemoteContent.php';
 require 'src/common/Cache.php';
 require 'src/common/RemoteContentFetcher.php';
-require 'src/gadgets/oauth/OAuth.php';
+require 'src/common/ShindigOAuth.php';
 require 'src/gadgets/oauth/OAuthStore.php';
 
 class MakeRequestServlet extends HttpServlet {
@@ -34,9 +34,11 @@ class MakeRequestServlet extends HttpServlet {
   public function doGet() {
     try {
       $this->noHeaders = true;
-      $context = new GadgetContext('GADGET');
+      $contextClass = Shindig_Config::get('gadget_context_class');
+      $context = new $contextClass('GADGET');
       $makeRequestParams = MakeRequestOptions::fromCurrentRequest();
-      $makeRequestHandler = new MakeRequestHandler($context);
+      $makeRequestHandlerClass = Shindig_Config::get('makerequest_handler');
+      $makeRequestHandler = new $makeRequestHandlerClass($context);
       $makeRequestHandler->fetchJson($makeRequestParams);
     } catch (MakeRequestParameterException $e) {
       // Something was misconfigured in the request

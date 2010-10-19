@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -33,20 +33,25 @@ abstract class GadgetRenderer {
    * generates the library string (core:caja:etc.js) including a checksum of all the
    * javascript content (?v=<md5 of js>) for cache busting
    *
-   * @param string $libs
+   * @param array $features
    * @param Gadget $gadget
    * @return string the list of libraries in core:caja:etc.js?v=checksum> format
    */
   protected function getJsUrl($features) {
-    $ret = '';
     if (! is_array($features) || ! count($features)) {
-      $ret = 'core';
-    } else {
-      $ret = implode(':', $features);
+      return 'null';
     }
+    $registry = $this->context->getRegistry();
+    // Given the JsServlet automatically expends the js library, we just need
+    // to include the "leaf" nodes of the features.
+    $ret = $features;
+    foreach ($features as $feature) {
+      $depFeatures = $registry->features[$feature]['deps'];
+      $ret = array_diff($ret, $depFeatures);
+    }
+    $ret = implode(':', $ret);
     $cache = Cache::createCache(Shindig_Config::get('feature_cache'), 'FeatureCache');
     if (($md5 = $cache->get(md5('getJsUrlMD5'))) === false) {
-      $registry = $this->context->getRegistry();
       $features = $registry->features;
 
       // Build a version string from the md5() checksum of all included javascript

@@ -19,7 +19,8 @@
 -->
 <feature>
   <name>osapi</name>
-  <dependency>core.auth</dependency>
+  <dependency>globals</dependency>
+  <dependency>shindig.auth</dependency>
   <dependency>core.config</dependency>
   <dependency>core.io</dependency>
   <dependency>core.json</dependency>

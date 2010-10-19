@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -48,7 +48,7 @@ class ContainerConfig {
 
   private function loadFromFile($file) {
     $contents = file_get_contents($file);
-    $contents = self::removeComments($contents);
+    $contents = $this->removeComments($contents);
     $config = json_decode($contents, true);
     if ($config == $contents) {
       throw new Exception("Failed to json_decode the container configuration");
@@ -63,12 +63,12 @@ class ContainerConfig {
     }
   }
 
-  public static function removeComments($str) {
+  public function removeComments($str) {
     // remove /* */ style comments
     $str = preg_replace('@/\\*.*?\\*/@s', '', $str);
     // remove // style comments, but keep 'http://' 'https://' and '"//'
-    // for example: "gadgets.oauthGadgetCallbackTemplate" : "//%host%/gadgets/oauthcallback"
-    $str = preg_replace('/[^http:\/\/|^https:\/\/|"\/\/]\/\/.*$/m', '', $str);
+    // for example: "gadgets.uri.oauth.callbackTemplate" : "//%host%/gadgets/oauthcallback"
+    $str = preg_replace('/(?<!http:|https:|")\/\/.*$/m', '', $str);
     return $str;
   }
 

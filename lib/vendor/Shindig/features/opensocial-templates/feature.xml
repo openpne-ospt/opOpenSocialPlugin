@@ -31,7 +31,9 @@ This should not be used in a production setting.
 -->
 <feature>
   <name>opensocial-templates</name>
+  <dependency>globals</dependency>
   <dependency>opensocial-data-context</dependency>
+  <dependency>jsondom</dependency>
   <dependency>security-token</dependency>
   <dependency>xmlutil</dependency>
   <gadget>

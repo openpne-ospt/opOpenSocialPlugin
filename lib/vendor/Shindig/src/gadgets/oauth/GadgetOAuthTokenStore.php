@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -91,6 +91,10 @@ class GadgetOAuthTokenStore {
       throw new Exception("found empty userId in TokenKey");
     }
     $this->store->setTokenAndSecret($tokenKey, $tokenInfo);
+  }
+
+  public function removeTokenAndSecret(TokenKey $tokenKey) {
+    $this->store->removeTokenAndSecret($tokenKey);
   }
 
   /**

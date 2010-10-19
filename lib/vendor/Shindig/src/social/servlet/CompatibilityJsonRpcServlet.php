@@ -1,3 +1,4 @@
+<?php
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,11 +19,8 @@
  */
 
 /**
- * @fileoverview
- *
- * Bootstraps auth.js.
+ * JSON-RPC handler servlet. for older clients going to /social/rpc endpoint
  */
-
-var shindig = shindig || {};
-
-shindig.auth = new shindig.Auth();
+class CompatibilityJsonRpcServlet extends JsonRpcServlet {
+    protected $resultKey = 'data';
+}

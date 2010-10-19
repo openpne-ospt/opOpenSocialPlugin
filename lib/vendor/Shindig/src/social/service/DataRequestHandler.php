@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -92,9 +92,11 @@ abstract class DataRequestHandler {
    *  @param parameters url parameters to get request type(people/activity)
    */
   public function getSupportedFields($parameters) {
-    $context = new GadgetContext('GADGET');
+    $contextClass = Shindig_Config::get('gadget_context_class');
+    $context = new $contextClass('GADGET');
     $container = $context->getContainer();
-    $containerConfig = new ContainerConfig(Shindig_Config::get('container_path'));
+    $containerConfigClass = Shindig_Config::get('container_config_class');
+    $containerConfig = new $containerConfigClass(Shindig_Config::get('container_path'));
     $config = $containerConfig->getConfig($container, 'gadgets.features');
     $version = $this->getOpenSocialVersion($config);
     $supportedFields = $config[$version]['supportedFields'];

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,15 +27,10 @@
  */
 abstract class InputConverter {
 
-  abstract public function convertPeople($requestParam);
+  abstract public function convertAtom($requestParam);
 
-  abstract public function convertActivities($requestParam);
+  abstract public function convertJson($requestParam);
 
-  abstract public function convertAppData($requestParam);
+  abstract public function convertXml($requestParam);
 
-  abstract public function convertMessages($requestParam);
-  
-  abstract public function convertAlbums($requestParam);
-  
-  abstract public function convertMediaItems($requestParam);
 }

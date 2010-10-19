@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -144,12 +144,12 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
       if (isset($val['id'])) {
         $key = $val['id'];
         // Pick up only the actual data part of the response, so we can do direct variable resolution
-        if (isset($val['data']['list'])) {
-          $this->dataContext[$key] = $val['data']['list'];
-        } elseif (isset($val['data']['entry'])) {
-          $this->dataContext[$key] = $val['data']['entry'];
-        } elseif (isset($val['data'])) {
-          $this->dataContext[$key] = $val['data'];
+        if (isset($val['result']['list'])) {
+          $this->dataContext[$key] = $val['result']['list'];
+        } elseif (isset($val['result']['entry'])) {
+          $this->dataContext[$key] = $val['result']['entry'];
+        } elseif (isset($val['result'])) {
+          $this->dataContext[$key] = $val['result'];
         } else {
           $this->dataContext[$key] = $val;
         }
@@ -298,39 +298,67 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
   }
 
   public function getJavaScripts() {
+    $registry = $this->context->getRegistry();
     $forcedJsLibs = $this->getForcedJsLibs();
-    $externalScript = false;
-    if (! empty($forcedJsLibs)) {
-      // if some of the feature libraries are externalized (through a browser cachable <script src="/gadgets/js/opensocial-0.9:settitle.js"> type url)
-      // we inject the tag and don't inline those libs (and their dependencies)
-      $forcedJsLibs = explode(':', $forcedJsLibs);
-      $externalScript = Shindig_Config::get('default_js_prefix') . $this->getJsUrl($forcedJsLibs, $this->gadget) . "&container=" . $this->context->getContainer();
-      $registry = $this->context->getRegistry();
-      $missing = array();
-      $registry->resolveFeatures($forcedJsLibs, $forcedJsLibs, $missing);
+    $forcedAppendJsLibs = Shindig_Config::get('forcedAppendedJsLibs');
+    $externFeatures = $forcedJsLibs;
+    $inlineFeatures = array();
+    foreach ($this->gadget->features as $feature) {
+      if (! in_array($feature, $forcedJsLibs) &&
+          ! in_array($feature, $forcedAppendJsLibs)) {
+        $inlineFeatures[] = $feature;
+      }
+    }
+    $sortedExternFeatures = array();
+    $sortedInlineFeatures = array();
+    $registry->sortFeatures($externFeatures, $sortedExternFeatures);
+    $registry->sortFeatures($inlineFeatures, $sortedInlineFeatures);
+
+    // append additional js libs from config to the end of the javascript block
+    // this allows custom overloading of other javascript libraries
+    foreach ($forcedAppendJsLibs as $jsLib) {
+      $sortedInlineFeatures[] = $jsLib;
+    }
+
+    // if some of the feature libraries are externalized (through a browser cachable <script src="/gadgets/js/opensocial-0.9:settitle.js"> type url)
+    // we inject the tag and don't inline those libs (and their dependencies)
+    $scripts = array();
+    if (! empty($sortedExternFeatures)) {
+      $scripts[] = array(
+          'type' => 'extern',
+          'content' => Shindig_Config::get('default_js_prefix') . $this->getJsUrl($sortedExternFeatures) . "&container=" . $this->context->getContainer()
+      );
     }
     $script = '';
-    foreach ($this->gadget->features as $feature) {
-      if (! is_array($forcedJsLibs) || (is_array($forcedJsLibs) && ! in_array($feature, $forcedJsLibs))) {
-        $script .= $this->context->getRegistry()->getFeatureContent($feature, $this->context, true);
-      }
+    foreach ($sortedInlineFeatures as $feature) {
+      $script .= $registry->getFeatureContent($feature, $this->context, true);
     }
     // Add the JavaScript initialization strings for the configuration, localization and preloads
     $script .= "\n";
-    $script .= $this->appendJsConfig($this->gadget, count($forcedJsLibs));
+    $script .= $this->appendJsConfig($this->gadget, $sortedExternFeatures, $sortedInlineFeatures);
     $script .= $this->appendMessages($this->gadget);
+    $script .= $this->appendPreferences($this->gadget);
     $script .= $this->appendPreloads($this->gadget);
     if (count($this->dataInserts)) {
       foreach ($this->dataInserts as $data) {
         $key = $data['id'];
-        $data = json_encode($data['data']);
+        $data = json_encode($data['result']);
         $script .= "opensocial.data.DataContext.putDataSet(\"$key\", $data);\n";
+      }
+    }
+    if ($this->gadget->gadgetSpec->templatesRequireLibraries) {
+      foreach ($this->gadget->gadgetSpec->templatesRequireLibraries as $url => $library) {
+        $script .= "os.Loader.loadContent(" . json_encode($library) . ", '" . $url . "');\n";
       }
     }
     if ($this->gadget->gadgetSpec->templatesDisableAutoProcessing) {
       $script .= "opensocial.template.Container.disableAutoProcessing();\n";
     }
-    return array('inline' => $script, 'external' => $externalScript);
+    $scripts[] = array(
+        'type' => 'inline',
+        'content' => $script
+    );
+    return $scripts;
   }
 
   /**
@@ -345,64 +373,78 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
     $styleNode->setAttribute('type', 'text/css');
     $styleNode->appendChild($doc->createTextNode(Shindig_Config::get('gadget_css')));
     $node->appendChild($styleNode);
+
     // Inject the OpenSocial feature javascripts
     $scripts = $this->getJavaScripts();
-    if ($scripts['external']) {
+    foreach ($scripts as $script) {
       $scriptNode = $doc->createElement('script');
-      $scriptNode->setAttribute('src', $scripts['external']);
+      if ($script['type'] == 'inline') {
+        $scriptNode->setAttribute('type', 'text/javascript');
+        $scriptNode->appendChild($doc->createTextNode($script['content']));
+      } else {
+        $scriptNode->setAttribute('src', $script['content']);
+      }
       $node->appendChild($scriptNode);
     }
-    $scriptNode = $doc->createElement('script');
-    $scriptNode->setAttribute('type', 'text/javascript');
-    $scriptNode->appendChild($doc->createTextNode($scripts['inline']));
-    $node->appendChild($scriptNode);
   }
 
   /**
    * Retrieve the forced javascript libraries (if any), using either the &libs= from the query
    * or if that's empty, from the config
    *
-   * @return unknown
+   * @return array contains the names of forced external javascript libs. 
    */
   private function getForcedJsLibs() {
     $forcedJsLibs = $this->context->getForcedJsLibs();
     // allow the &libs=.. param to override our forced js libs configuration value
     if (empty($forcedJsLibs)) {
-      $forcedJsLibs = Shindig_Config::get('focedJsLibs');
+      $forcedJsLibs = Shindig_Config::get('forcedJsLibs');
     }
-    return $forcedJsLibs;
+    if (empty($forcedJsLibs)) {
+      return array();
+    } else {
+      $features = explode(':', $forcedJsLibs);
+      // expend features here
+      $resultsFound = array();
+      $resultsMissing = array();
+      $registry = $this->context->getRegistry();
+      $registry->resolveFeatures($features, $resultsFound, $resultsMissing);
+      return $resultsFound;
+    }
   }
 
   /**
    * Appends the javascript features configuration string
    *
    * @param Gadget $gadget
-   * @param unknown_type $hasForcedLibs
+   * @param $externFeatures
+   * @param $inlineFeatures
    * @return string
    */
-  private function appendJsConfig(Shindig_Gadget $gadget, $hasForcedLibs) {
+  private function appendJsConfig(Shindig_Gadget $gadget, $externFeatures, $inlineFeatures) {
     $container = $this->context->getContainer();
     $containerConfig = $this->context->getContainerConfig();
-    //TODO some day we should parse the forcedLibs too, and include their config selectivly as well for now we just include everything if forced libs is set.
-    if ($hasForcedLibs) {
-      $gadgetConfig = $containerConfig->getConfig($container, 'gadgets.features');
-    } else {
-      $gadgetConfig = array();
-      $featureConfig = $containerConfig->getConfig($container, 'gadgets.features');
-      foreach ($gadget->getJsLibraries() as $library) {
-        $feature = $library->getFeatureName();
-        if (! isset($gadgetConfig[$feature]) && ! empty($featureConfig[$feature])) {
-          $gadgetConfig[$feature] = $featureConfig[$feature];
-        }
+    $gadgetConfig = array();
+    $featureConfig = $containerConfig->getConfig($container, 'gadgets.features');
+    
+    // TODO some day we should parse the forcedLibs too, and include their config selectivly as well.
+    // For now we just include everything.
+    $features = array_merge($externFeatures, $inlineFeatures, array('osapi.services'));
+    foreach ($features as $feature) {
+      if (! isset($gadgetConfig[$feature]) && ! empty($featureConfig[$feature])) {
+        $gadgetConfig[$feature] = $featureConfig[$feature];
       }
     }
+    
     // Add gadgets.util support. This is calculated dynamically based on request inputs.
     // See java/org/apache/shindig/gadgets/render/RenderingContentRewriter.java for reference.
     $requires = array();
-    foreach ($gadget->features as $feature) {
+    foreach ($features as $feature) {
       $requires[$feature] = new EmptyClass();
     }
     $gadgetConfig['core.util'] = $requires;
+    
+    // following are some quick-fixes for osml and osapi.
     if (isset($gadgetConfig['osml'])) {
       unset($gadgetConfig['osml']);
     }
@@ -410,7 +452,7 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
       // this should really be set in config/container.js, but if not, we build a complete default set so at least most of it works out-of-the-box
       $gadgetConfig['osapi.services'] = array(
           'gadgets.rpc' => array('container.listMethods'),
-          'http://%host%/social/rpc' => array("messages.update", "albums.update",
+          'http://%host%/rpc' => array("messages.update", "albums.update",
               "activities.delete", "activities.update",
               "activities.supportedFields", "albums.get",
               "activities.get", "mediaitems.update",
@@ -423,7 +465,9 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
               "mediaitems.get", "albums.create",
               "appdata.delete", "people.update",
               "appdata.create"),
-          'http://%host%/gadgets/api/rpc' => array('cache.invalidate'));
+          'http://%host%/gadgets/api/rpc' => array('cache.invalidate',
+              'http.head', 'http.get', 'http.put',
+              'http.post', 'http.delete'));
     }
     return "gadgets.config.init(" . json_encode($gadgetConfig) . ");\n";
   }
@@ -435,11 +479,19 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
    * @return string
    */
   private function appendMessages(Shindig_Gadget $gadget) {
-    $msgs = '';
-    if (! empty($gadget->gadgetSpec->locales)) {
-      $msgs = json_encode($gadget->gadgetSpec->locales);
-    }
+    $msgs = json_encode($this->dataContext['Msg']);
     return "gadgets.Prefs.setMessages_($msgs);\n";
+  }
+
+  /**
+   * Injects the pre-defined user preferences into the javascript api
+   *
+   * @param Gadget $gadget
+   * @return string
+   */
+  private function appendPreferences(Shindig_Gadget $gadget) {
+    $prefs = json_encode($this->dataContext['UserPrefs']);
+    return "gadgets.Prefs.setDefaultPrefs_($prefs);\n";
   }
 
   /**

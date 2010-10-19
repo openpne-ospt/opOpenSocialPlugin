@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,7 +28,8 @@ class MetadataHandler {
         $gadgetModuleId = $gadget->moduleId;
         $context = new MetadataGadgetContext($requests->context, $gadgetUrl);
         $token = $this->getSecurityToken();
-        $gadgetServer = new GadgetFactory($context, $token);
+        $factoryClass = Shindig_Config::get('gadget_factory_class');
+        $gadgetServer = new $factoryClass($context, $token);
         $gadget = $gadgetServer->createGadget($gadgetUrl);
         $response[] = $this->makeResponse($gadget, $gadgetModuleId, $gadgetUrl, $context);
       } catch (Exception $e) {
@@ -52,9 +53,6 @@ class MetadataHandler {
       } else {
         return null;
       }
-    }
-    if (count(explode(':', $token)) != 7) {
-      $token = urldecode(base64_decode($token));
     }
     $gadgetSigner = Shindig_Config::get('security_token_signer');
     $gadgetSigner = new $gadgetSigner();

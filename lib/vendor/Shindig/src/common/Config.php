@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,20 +28,32 @@ class ConfigException extends Exception {
 class Shindig_Config {
   private static $config = false;
 
-  static private function loadConfig() {
+  static public function loadConfig($local = 'local') {
     global $shindigConfig;
     if (! self::$config) {
       // load default configuration
-      include_once 'config/container.php';
+      require realpath(dirname(__FILE__) . "/../../config") . '/container.php';
       self::$config = $shindigConfig;
-      $localConfigPath = realpath(dirname(__FILE__) . "/../../config/local.php");
-      if (file_exists($localConfigPath)) {
-        // include local.php if it exists and merge the config arrays.
-        // the second array values overwrites the first one's
-        include_once $localConfigPath;
-        self::$config = array_merge(self::$config, $shindigConfig);
+      if ($local) {
+        $localConfigPath = realpath(dirname(__FILE__) . "/../../config") . '/' . $local . '.php';
+        if (file_exists($localConfigPath)) {
+          // include local.php if it exists and merge the config arrays.
+          // the second array values overwrites the first one's
+          require $localConfigPath;
+          self::$config = array_merge(self::$config, $shindigConfig);
+        }
       }
     }
+  }
+  
+  /**
+   * Merges the given array with the config array. It uses the keys/values from config/container.php.
+   */
+  static function setConfig($tconfig) {
+    if (!is_array(self::$config))
+      self::loadConfig();
+    
+    self::$config = array_merge(self::$config, $tconfig);
   }
 
   static function get($key) {
@@ -51,7 +63,7 @@ class Shindig_Config {
     if (isset(self::$config[$key])) {
       return self::$config[$key];
     } else {
-      throw new ConfigException("Invalid Config Key");
+      throw new ConfigException("Invalid Config Key " . $key);
     }
   }
 

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -129,7 +129,7 @@ abstract class RequestItem {
     } elseif ($sortOrder == CollectionOptions::SORT_ORDER_ASCENDING || $sortOrder == CollectionOptions::SORT_ORDER_DESCENDING) {
       return $sortOrder;
     } else {
-      throw new SocialSpiException("Parameter " . sef::$SORT_ORDER . " (" . $sortOrder . ") is not valid.", ResponseError::$BAD_REQUEST);
+      throw new SocialSpiException("Parameter " . self::$SORT_ORDER . " (" . $sortOrder . ") is not valid.", ResponseError::$BAD_REQUEST);
     }
   }
 

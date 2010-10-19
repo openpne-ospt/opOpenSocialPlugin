@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -23,8 +23,10 @@
  */
 class BasicGadgetSpecFactory {
   private $cache;
+  private $context;
 
   public function getGadgetSpec(GadgetContext $context) {
+    $this->context = $context;
     return $this->getGadgetSpecUri($context->getUrl(), $context->getIgnoreCache());
   }
 
@@ -44,10 +46,10 @@ class BasicGadgetSpecFactory {
     $remoteContentRequest->getOptions()->ignoreCache = $ignoreCache;
     $remoteContent = new BasicRemoteContent();
     $spec = $remoteContent->fetch($remoteContentRequest);
-    
-    $gadgetSpecParser = new GadgetSpecParser();
-    $gadgetSpec = $gadgetSpecParser->parse($spec->getResponseContent());
+
+    $gadgetSpecParserClass = Shindig_Config::get('gadget_spec_parser');
+    $gadgetSpecParser = new $gadgetSpecParserClass();
+    $gadgetSpec = $gadgetSpecParser->parse($spec->getResponseContent(), $this->context);
     return $gadgetSpec;
   }
-
 }

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -55,38 +55,16 @@ class SigningFetcher extends RemoteContentFetcher {
   private $fetcher;
 
   /**
-   * Constructor based on signing with the given PrivateKey object.
+   * Constructor based on signing with the given PrivateKey object, as returned
+   * from the openssl_pkey_get_private method.
    *
    * @param RemoteContentFetcher $fetcher
    * @param keyName name of the key to include in the request
-   * @param privateKey the key to use for the signing
+   * @param privateKey A key resource identifier, as returned from
+   *     openssl_pkey_get_private
    * @return SigningFetcher
    */
-  public static function makeFromPrivateKey(RemoteContentFetcher $fetcher, $keyName, $privateKey) {
-    return new SigningFetcher($fetcher, $keyName, $privateKey);
-  }
-
-  /**
-   * Constructor based on signing with the given PrivateKey object.
-   *
-   * @param RemoteContentFetcher $fetcher
-   * @param keyName name of the key to include in the request
-   * @param privateKey base64 encoded private key
-   * @return SigningFetcher
-   */
-  public static function makeFromB64PrivateKey(RemoteContentFetcher $fetcher, $keyName, $privateKey) {
-    return new SigningFetcher($fetcher, $keyName, $privateKey);
-  }
-
-  /**
-   * Constructor based on signing with the given PrivateKey object.
-   *
-   * @param RemoteContentFetcher $fetcher
-   * @param keyName name of the key to include in the request
-   * @param privateKey DER encoded private key
-   * @return SigningFetcher
-   */
-  public static function makeFromPrivateKeyBytes(RemoteContentFetcher $fetcher, $keyName, $privateKey) {
+  public static function makeFromOpenSslPrivateKey(RemoteContentFetcher $fetcher, $keyName, $privateKey) {
     return new SigningFetcher($fetcher, $keyName, $privateKey);
   }
 
@@ -116,41 +94,28 @@ class SigningFetcher extends RemoteContentFetcher {
       // any OAuth or OpenSocial parameters injected by the client
       $parsedUri = parse_url($url);
       $resource = $url;
-      $queryParams = array();
-      if (isset($parsedUri['query'])) {
-        parse_str($parsedUri['query'], $queryParams);
-        // strip out all opensocial_* and oauth_* params so they can't be spoofed by the client
-        foreach ($queryParams as $key => $val) {
-          if ((strtolower(substr($key, 0, strlen('opensocial_'))) == 'opensocial_') || (strtolower(substr($key, 0, strlen('oauth_'))) == 'oauth_')) {
-            unset($queryParams[$key]);
-          }
-        }
-        $queryParams = $this->sanitize($queryParams);
-      }
       $contentType = $request->getHeader('Content-Type');
       $signBody = (stripos($contentType, 'application/x-www-form-urlencoded') !== false || $contentType == null);
+      $msgParams = array();
+      $postParams = array();
       if ($request->getPostBody()) {
         if ($signBody) {
-          $postParams = array();
           // on normal application/x-www-form-urlencoded type post's encode and parse the post vars
           parse_str($request->getPostBody(), $postParams);
           $postParams = $this->sanitize($postParams);
         } else {
           // on any other content-type of post (application/{json,xml,xml+atom}) use the body signing hash
           // see http://oauth.googlecode.com/svn/spec/ext/body_hash/1.0/drafts/4/spec.html for details
-          $queryParams['oauth_body_hash'] = base64_encode(sha1($request->getPostBody(), true));
+          $msgParams['oauth_body_hash'] = base64_encode(sha1($request->getPostBody(), true));
         }
       }
-      $msgParams = array();
-      $msgParams = array_merge($msgParams, $queryParams);
       if ($signBody && isset($postParams)) {
         $msgParams = array_merge($msgParams, $postParams);
       }
       $this->addOpenSocialParams($msgParams, $request->getToken(), $request->getOptions()->ownerSigned, $request->getOptions()->viewerSigned);
       $this->addOAuthParams($msgParams, $request->getToken());
       $consumer = new OAuthConsumer(NULL, NULL, NULL);
-      $consumer->setProperty(OAuthSignatureMethod_RSA_SHA1::$PRIVATE_KEY, $this->privateKeyObject);
-      $signatureMethod = new OAuthSignatureMethod_RSA_SHA1();
+      $signatureMethod = new ShindigRsaSha1SignatureMethod($this->privateKeyObject, null);
       $req_req = OAuthRequest::from_consumer_and_token($consumer, NULL, $method, $resource, $msgParams);
       $req_req->sign_request($signatureMethod, $consumer, NULL);
       // Rebuild the query string, including all of the parameters we added.
@@ -165,25 +130,24 @@ class SigningFetcher extends RemoteContentFetcher {
           if ($postData === false) {
             $postData = array();
           }
-          $postData[] = OAuthUtil::urlencodeRFC3986($key) . "=" . OAuthUtil::urlencodeRFC3986($param);
+          $postData[] = OAuthUtil::urlencode_rfc3986($key) . "=" . OAuthUtil::urlencode_rfc3986($param);
         }
         if ($postData !== false) {
           $postData = implode("&", $postData);
         }
       }
-      $newQuery = '';
+      $newQueryParts = array();
       foreach ($req_req->get_parameters() as $key => $param) {
         if (! isset($forPost[$key])) {
-          $newQuery .= urlencode($key) . '=' . urlencode($param) . '&';
+          if (!is_array($param)) {
+            $newQueryParts[] = urlencode($key) . '=' . urlencode($param);
+          } else {
+            foreach($param as $elem) {
+              $newQueryParts[] = urlencode($key) . '=' . urlencode($elem);
+            }
+          }
         }
-      }
-      // and stick on the original query params too
-      if (isset($parsedUri['query']) && ! empty($parsedUri['query'])) {
-        $oldQuery = array();
-        parse_str($parsedUri['query'], $oldQuery);
-        foreach ($oldQuery as $key => $val) {
-          $newQuery .= urlencode($key) . '=' . urlencode($val) . '&';
-        }
+        $newQuery = implode('&', $newQueryParts);
       }
       // Careful here; the OAuth form encoding scheme is slightly different than
       // the normal form encoding scheme, so we have to use the OAuth library
@@ -224,20 +188,20 @@ class SigningFetcher extends RemoteContentFetcher {
   }
 
   private function addOAuthParams(&$msgParams, SecurityToken $token) {
-    $msgParams[OAuth::$OAUTH_TOKEN] = '';
+    $msgParams[ShindigOAuth::$OAUTH_TOKEN] = '';
     $domain = $token->getDomain();
     if ($domain != null) {
-      $msgParams[OAuth::$OAUTH_CONSUMER_KEY] = $domain;
+      $msgParams[ShindigOAuth::$OAUTH_CONSUMER_KEY] = $domain;
     }
     if ($this->keyName != null) {
       $msgParams[SigningFetcher::$XOAUTH_PUBLIC_KEY_OLD] = $this->keyName;
       $msgParams[SigningFetcher::$XOAUTH_PUBLIC_KEY_NEW] = $this->keyName;
     }
-    $nonce = OAuthRequest::generate_nonce();
-    $msgParams[OAuth::$OAUTH_NONCE] = $nonce;
+    $nonce = ShindigOAuthRequest::generate_nonce();
+    $msgParams[ShindigOAuth::$OAUTH_NONCE] = $nonce;
     $timestamp = time();
-    $msgParams[OAuth::$OAUTH_TIMESTAMP] = $timestamp;
-    $msgParams[OAuth::$OAUTH_SIGNATURE_METHOD] = OAuth::$RSA_SHA1;
+    $msgParams[ShindigOAuth::$OAUTH_TIMESTAMP] = $timestamp;
+    $msgParams[ShindigOAuth::$OAUTH_SIGNATURE_METHOD] = ShindigOAuth::$RSA_SHA1;
   }
 
   /**

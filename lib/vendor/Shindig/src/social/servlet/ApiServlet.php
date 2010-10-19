@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -18,30 +18,28 @@
  * under the License.
  */
 
-require 'src/social/service/DataRequestHandler.php';
-require 'src/common/SecurityToken.php';
-require 'src/common/BlobCrypter.php';
-require 'src/social/converters/InputConverter.php';
-require 'src/social/converters/InputJsonConverter.php';
-require 'src/social/converters/OutputConverter.php';
-require 'src/social/converters/OutputJsonConverter.php';
-require 'src/social/service/RequestItem.php';
-require 'src/social/service/RestRequestItem.php';
-require 'src/social/service/RpcRequestItem.php';
-require 'src/social/spi/GroupId.php';
-require 'src/social/spi/UserId.php';
-require 'src/social/spi/CollectionOptions.php';
-require 'src/common/Cache.php';
-require 'src/social/model/ComplexField.php';
-require 'src/social/model/Name.php';
-require 'src/social/model/Enum.php';
-require 'src/social/model/Person.php';
-require 'src/social/model/ListField.php';
-require 'src/social/model/Photo.php';
-require 'src/social/spi/RestfulCollection.php';
-require 'src/social/spi/DataCollection.php';
-require 'src/social/service/ResponseItem.php';
-//require 'src/social/oauth/OAuth.php';
+require_once 'src/social/service/DataRequestHandler.php';
+require_once 'src/common/SecurityToken.php';
+require_once 'src/common/BlobCrypter.php';
+require_once 'src/social/converters/InputConverter.php';
+require_once 'src/social/converters/OutputConverter.php';
+require_once 'src/social/service/RequestItem.php';
+require_once 'src/social/service/RestRequestItem.php';
+require_once 'src/social/service/RpcRequestItem.php';
+require_once 'src/social/spi/GroupId.php';
+require_once 'src/social/spi/UserId.php';
+require_once 'src/social/spi/CollectionOptions.php';
+require_once 'src/common/Cache.php';
+require_once 'src/social/model/ComplexField.php';
+require_once 'src/social/model/Name.php';
+require_once 'src/social/model/Enum.php';
+require_once 'src/social/model/Person.php';
+require_once 'src/social/model/ListField.php';
+require_once 'src/social/model/Photo.php';
+require_once 'src/social/spi/RestfulCollection.php';
+require_once 'src/social/spi/DataCollection.php';
+require_once 'src/social/service/ResponseItem.php';
+require_once 'src/common/ShindigOAuth.php';
 
 /**
  * Common base class for API servlets.
@@ -50,15 +48,6 @@ abstract class ApiServlet extends HttpServlet {
   public $handlers = array();
 
   protected static $DEFAULT_ENCODING = "UTF-8";
-
-  public static $PEOPLE_ROUTE = "people";
-  public static $ACTIVITY_ROUTE = "activities";
-  public static $APPDATA_ROUTE = "appdata";
-  public static $MESSAGE_ROUTE = "messages";
-  public static $INVALIDATE_ROUTE = "cache";
-  public static $SYSTEM_ROUTE = "system";
-  public static $ALBUM_ROUTE = "albums";
-  public static $MEDIA_ITEM_ROUTE = "mediaitems";
 
   public function __construct() {
     parent::__construct();
@@ -129,9 +118,6 @@ abstract class ApiServlet extends HttpServlet {
         return null;
       }
     }
-    if (count(explode(':', $token)) != 7) {
-      $token = urldecode(base64_decode($token));
-    }
     $gadgetSigner = Shindig_Config::get('security_token_signer');
     $gadgetSigner = new $gadgetSigner();
     return $gadgetSigner->createToken($token);
@@ -148,53 +134,22 @@ abstract class ApiServlet extends HttpServlet {
    */
   protected function handleRequestItem(RequestItem $requestItem) {
     // lazy initialization of the service handlers, no need to instance them all for each request
-    if (! isset($this->handlers[$requestItem->getService()])) {
-      switch ($requestItem->getService()) {
-        case self::$PEOPLE_ROUTE:
-          require_once 'src/social/spi/PersonService.php';
-          require_once 'src/social/service/PersonHandler.php';
-          $this->handlers[self::$PEOPLE_ROUTE] = new PersonHandler();
-          break;
-        case self::$ACTIVITY_ROUTE:
-          require_once 'src/social/spi/ActivityService.php';
-          require_once 'src/social/service/ActivityHandler.php';
-          $this->handlers[self::$ACTIVITY_ROUTE] = new ActivityHandler();
-          break;
-        case self::$APPDATA_ROUTE:
-          require_once 'src/social/spi/AppDataService.php';
-          require_once 'src/social/service/AppDataHandler.php';
-          $this->handlers[self::$APPDATA_ROUTE] = new AppDataHandler();
-          break;
-        case self::$MESSAGE_ROUTE:
-          require_once 'src/social/spi/MessagesService.php';
-          require_once 'src/social/service/MessagesHandler.php';
-          $this->handlers[self::$MESSAGE_ROUTE] = new MessagesHandler();
-          break;
-        case self::$INVALIDATE_ROUTE:
-          require_once 'src/social/spi/InvalidateService.php';
-          require_once 'src/social/service/InvalidateHandler.php';
-          $this->handlers[self::$INVALIDATE_ROUTE] = new InvalidateHandler();
-          break;
-        case self::$SYSTEM_ROUTE:
-          require_once 'src/social/service/SystemHandler.php';
-          $this->handlers[self::$SYSTEM_ROUTE] = new SystemHandler();
-          break;
-        case self::$ALBUM_ROUTE:
-          require_once 'src/social/spi/AlbumService.php';
-          require_once 'src/social/service/AlbumHandler.php';
-          $this->handlers[self::$ALBUM_ROUTE] = new AlbumHandler();
-          break;
-        case self::$MEDIA_ITEM_ROUTE:
-          require_once 'src/social/spi/MediaItemService.php';
-          require_once 'src/social/service/MediaItemHandler.php';
-          $this->handlers[self::$MEDIA_ITEM_ROUTE] = new MediaItemHandler();
-          break;
-        default:
-          throw new SocialSpiException("The service " . $requestItem->getService() . " is not implemented", ResponseError::$NOT_IMPLEMENTED);
-          break;
+ 
+    $service = $requestItem->getService();
+ 
+    if (! isset($this->handlers[$service])) {
+ 
+      $handlerClasses = Shindig_Config::get('service_handler');
+ 
+      if (isset($handlerClasses[$service])) {
+          $handlerClass = $handlerClasses[$service];
+          $this->handlers[$service] = new $handlerClass();
+      } else {
+          throw new SocialSpiException("The service " . $service . " is not implemented", ResponseError::$NOT_IMPLEMENTED);
       }
+ 
     }
-    $handler = $this->handlers[$requestItem->getService()];
+    $handler = $this->handlers[$service];
     return $handler->handleItem($requestItem);
   }
 
