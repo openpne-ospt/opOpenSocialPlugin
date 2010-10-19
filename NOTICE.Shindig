@@ -1,5 +1,5 @@
 Apache Shindig
-Copyright 2009 The Apache Software Foundation
+Copyright 2010 The Apache Software Foundation
 
 This product includes software developed at
 The Apache Software Foundation (http://www.apache.org/).
@@ -31,4 +31,12 @@ Sebastian Bergmann (http://www.phpunit.de/).
 This product includes software (JSMin) developed by
 Douglas Crockford  (http://www.crockford.com/). 
 
+This product includes software (OAuth.php) developed by 
+Andy Smith (http://oauth.googlecode.com/svn/code/php/LICENSE.txt)
+
+This product includs software (OpenAjax Hub) developed by 
+OpenAjax Alliance (http://www.openajax.org/)
+
+This product includs software (CodeMirror) developed by 
+Marijn Haverbeke (http://codemirror.net/)
 
