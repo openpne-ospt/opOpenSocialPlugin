@@ -37,8 +37,8 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
   public function getPeople($userId, $groupId, CollectionOptions $options, $fields, SecurityToken $token)
   {
     $ids = $this->getIdSet($userId, $groupId, $token);
-    $first = $options->getStartIndex();
-    $max   = $options->getCount();
+    $first = $this->fixStartIndex($options->getStartIndex());
+    $max   = $this->fixCount($options->getCount());
     $ret = array();
 
     $members = array();
@@ -68,14 +68,6 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       $totalSize = $query->count();
 
       $query->orderBy('id');
-      if (!($first !== false && is_numeric($first) && $first >= 0))
-      {
-        $first = 0;
-      }
-      if (!($max !== false && is_numeric($max) && $max > 0))
-      {
-        $max = 20;
-      }
       $query->offset($first);
       $query->limit($max);
 
@@ -130,6 +122,8 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
   public function getActivities($userIds, $groupId, $appId, $sortBy, $filterBy, $filterOp, $filterValue, $startIndex, $count, $fields, $activityIds ,$token)
   {
     $ids = $this->getIdSet($userIds, $groupId, $token);
+    $startIndex = $this->fixStartIndex($startIndex);
+    $count      = $this->fixCount($count);
     $ret = array();
 
     $activities = array();
@@ -155,14 +149,6 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       $totalSize = $query->count();
 
       $query->orderBy('created_at DESC');
-      if (!($startIndex !== false && is_numeric($startIndex) && $startIndex >= 0))
-      {
-        $startIndex = 0;
-      }
-      if (!($count !== false && is_numeric($count) && $count > 0))
-      {
-        $count = 20;
-      }
       $query->offset($startIndex);
       $query->limit($count);
       $activities = $query->execute();
@@ -518,8 +504,8 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
     }
 
-    $first = $collectionOptions->getStartIndex();
-    $max   = $collectionOptions->getCount();
+    $first = $this->fixStartIndex($collectionOptions->getStartIndex());
+    $max   = $this->fixCount($collectionOptions->getCount());
 
     if (!is_object($userId))
     {
@@ -548,14 +534,6 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
         $query->andWhereIn('id', $albumIds);
       }
 
-      if (!($first !== false && is_numeric($first) && $first >= 0))
-      {
-        $first = 0;
-      }
-      if (!($max !== false && is_numeric($max) && $max > 0))
-      {
-        $max = 20;
-      }
       $query->offset($first);
       $query->limit($max);
 
@@ -611,8 +589,8 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
     }
 
-    $first = $collectionOptions->getStartIndex();
-    $max   = $collectionOptions->getCount();
+    $first = $this->fixStartIndex($collectionOptions->getStartIndex());
+    $max   = $this->fixCount($collectionOptions->getCount());
 
     if (!is_object($userId))
     {
@@ -644,14 +622,6 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       ->where('album_id = ?', $albumObject->getId());
     $totalSize = $query->count();
 
-    if (!($first !== false && is_numeric($first) && $first >= 0))
-    {
-      $first = 0;
-    }
-    if (!($max !== false && is_numeric($max) && $max > 0))
-    {
-      $max = 20;
-    }
     $query->offset($first);
     $query->limit($max);
 
@@ -761,5 +731,30 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     }
 
     return $ids;
+  }
+
+  protected function fixStartIndex($startIndex = null)
+  {
+    if (!($startIndex !== false && is_numeric($startIndex) && $startIndex >= 0))
+    {
+      return 0;
+    }
+
+    return $startIndex;
+  }
+
+  protected function fixCount($count = null)
+  {
+    if (!($count !== false && is_numeric($count) && $count > 0))
+    {
+      return RequestItem::$DEFAULT_COUNT;
+    }
+
+    if ($count > sfConfig::get('op_opensocial_api_max_count', 100))
+    {
+      return sfConfig::get('op_opensocial_api_max_count', 100);
+    }
+
+    return $count;
   }
 }
