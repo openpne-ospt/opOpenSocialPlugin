@@ -19,12 +19,14 @@ class opOpenSocialMobileRewriter
 {
   protected
     $action = null,
-    $rewriteUrlConfig = null;
+    $rewriteUrlConfig = null,
+    $encoding = null;
 
  /**
   * constractor
   *
   * @param sfAction $action
+  * @param string   $contentType
   */
   public function __construct(sfAction $action)
   {
@@ -36,21 +38,60 @@ class opOpenSocialMobileRewriter
   }
 
   /**
+   * get encoding
+   *
+   * @param string $body
+   * @param string $contentType
+   */
+  protected function getEncoding($body, $contentType)
+  {
+    if (null === $this->encoding)
+    {
+      $this->encoding = 'UTF-8';
+      if (preg_match("/<meta.*content=[\"'].*;\s*charset=(.*)(;.*)?[\"'](.*)>/iU", $body, $match) && 'shift_jis' === strtolower($match[1]))
+      {
+        $this->encoding = 'SJIS-win';
+      }
+      elseif (preg_match("/<\?xml.*encoding=[\"'](.*)[\"']/iU", $body, $match) && 'shift_jis' === strtolower($match[1]))
+      {
+        $this->encoding = 'SJIS-win';
+      }
+      else
+      {
+        $cts = explode(';', $contentType);
+        foreach ($cts as $ct)
+        {
+          $ct = strtolower(trim($ct));
+          if (0 === strpos($ct, 'charset=') && 'shift_jis' === substr($ct, 8))
+          {
+            $this->encoding = 'SJIS-win';
+          }
+        }
+      }
+    }
+
+    return $this->encoding;
+  }
+
+  /**
    * rewrite
    *
    * @param string $body
    * @return string
    */
-  public function rewrite($body)
+  public function rewrite($body, $contentType, $isAutoConvert = false)
   {
     $patterns = array();
     $replacements = array();
 
-    $patterns[] = "/<\?xml(.*)encoding=[\"'].*[\"']/iU";
-    $replacements[] = '<?xml${1}encoding="shift-jis"';
+    if ($isAutoConvert)
+    {
+      $patterns[] = "/<\?xml(.*)encoding=[\"'].*[\"']/iU";
+      $replacements[] = '<?xml${1}encoding="shift-jis"';
 
-    $patterns[] = "/<meta(.*)content=[\"'](.*);\s*charset=(.*)(;.*)?[\"'](.*)>/iU";
-    $replacements[] = '<meta${1}content="${2}; charset=shift-jis${4}"${5}>';
+      $patterns[] = "/<meta(.*)content=[\"'](.*);\s*charset=(.*)(;.*)?[\"'](.*)>/iU";
+      $replacements[] = '<meta${1}content="${2}; charset=shift-jis${4}"${5}>';
+    }
 
     $partials = array(
       $this->action->getPartial('global/partsPageTitle', array('title' => $this->action->application->getTitle())),
@@ -71,6 +112,14 @@ class opOpenSocialMobileRewriter
       }
     }
 
+    if (!$isAutoConvert && 'UTF-8' !== $this->getEncoding($body, $contentType))
+    {
+      foreach ($partials as &$partial)
+      {
+        $partial = mb_convert_encoding($partial, $this->getEncoding($body, $contentType), 'UTF-8');
+      }
+    }
+
     $patterns[] = "/<body.*>/iU";
     $replacements[] = '${0}'.$partials[0];
 
@@ -83,18 +132,24 @@ class opOpenSocialMobileRewriter
     );
     $body = preg_replace_callback($urlPatterns, array($this, 'rewriteUrl'), $body);
 
-    if ($this->action->getRequest()->getMobile()->isEZweb())
+    if ($isAutoConvert)
     {
-      $body = preg_replace_callback('/\xEE[\xB1-\xB3\xB5-\xB6\xBD-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF]/',
-        array($this, 'convertEZwebEmoji'), $body);
-    }
-    elseif ($this->action->getRequest()->getMobile()->isSoftBank())
-    {
-      $body = preg_replace_callback('/\xEE[\x80-\x81\x84-\x85\x88-\x89\x8C-\x8D\x90-\x91\x94][\x80-\xBF]/',
-        array($this, 'convertSoftBankEmoji'), $body);
+      // for Emoji
+      if ($this->action->getRequest()->getMobile()->isEZweb())
+      {
+        $body = preg_replace_callback('/\xEE[\xB1-\xB3\xB5-\xB6\xBD-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF]/',
+          array($this, 'convertEZwebEmoji'), $body);
+      }
+      elseif ($this->action->getRequest()->getMobile()->isSoftBank())
+      {
+        $body = preg_replace_callback('/\xEE[\x80-\x81\x84-\x85\x88-\x89\x8C-\x8D\x90-\x91\x94][\x80-\xBF]/',
+          array($this, 'convertSoftBankEmoji'), $body);
+      }
+
+      return OpenPNE_KtaiEmoji::convertEmoji(mb_convert_encoding(preg_replace($patterns, $replacements, $body), 'SJIS-win', 'UTF-8'));
     }
 
-    return OpenPNE_KtaiEmoji::convertEmoji(mb_convert_encoding(preg_replace($patterns, $replacements, $body), 'SJIS-win', 'UTF-8'));
+    return preg_replace($patterns, $replacements, $body);
   }
 
   protected function genUrl($uri)

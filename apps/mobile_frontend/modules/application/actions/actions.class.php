@@ -192,6 +192,9 @@ class applicationActions extends opOpenSocialApplicationActions
     $signatureMethod = new OAuthSignatureMethod_RSA_SHA1_opOpenSocialPlugin();
     $httpOptions = opOpenSocialToolKit::getHttpOptions();
 
+    // for BC 1.2
+    $isAutoConvert = sfConfig::get('op_opensocial_is_auto_convert_encoding', false);
+
     $client = new Zend_Http_Client();
     if ('POST' !== $method)
     {
@@ -200,7 +203,8 @@ class applicationActions extends opOpenSocialApplicationActions
     }
     else
     {
-      $params = array_merge($params, $request->getPostParameters());
+      $postParameters = $isAutoConvert ? $this->getPostParameters() : $_POST;
+      $params = array_merge($params, $postParameters);
       $client->setMethod(Zend_Http_Client::POST);
       $client->setHeaders(Zend_Http_Client::CONTENT_TYPE, Zend_Http_Client::ENC_URLENCODED);
       $client->setRawData(OAuthUtil::build_http_query($params));
@@ -212,6 +216,14 @@ class applicationActions extends opOpenSocialApplicationActions
     $client->setUri($url);
     $client->setHeaders($oauthRequest->to_header());
     $client->setHeaders(opOpenSocialToolKit::getProxyHeaders($request, sfConfig::get('op_opensocial_is_strip_uid', true)));
+    if ($isAutoConvert)
+    {
+      $client->setHeaders('Accept-Charset: UTF-8');
+    }
+    else
+    {
+      $client->setHeaders('Accept-Charset: Shift_JIS, UTF-8');
+    }
 
     try
     {
@@ -229,14 +241,21 @@ class applicationActions extends opOpenSocialApplicationActions
 
       if (preg_match('#^(text/html|application/xhtml\+xml|application/xml|text/xml)#', $contentType, $match))
       {
-        header('Content-Type: '.$match[0].'; charset=Shift_JIS');
+        if ($isAutoConvert)
+        {
+          header('Content-Type: '.$match[0].'; charset=Shift_JIS');
+        }
+        else
+        {
+          header('Content-Type: '.$contentType);
+        }
         $rewriter = new opOpenSocialMobileRewriter($this);
-        echo $rewriter->rewrite($response->getBody());
+        echo $rewriter->rewrite($response->getBody(), $contentType, $isAutoConvert);
         exit;
       }
       else
       {
-        header('Content-Type: '.$response->getHeader('Content-Type'));
+        header('Content-Type: '.$contentType);
         echo $response->getBody();
         exit;
       }
