@@ -54,3 +54,9 @@ $shindigConfig = array(
 
   'curl_connection_timeout' => '15',
 );
+if (sfContext::hasInstance())
+{
+  $event = new sfEvent(null, 'op_opensocial.post_container_configuration');
+  sfContext::getInstance()->getEventDispatcher()->filter($event, $shindigConfig);
+  $shindigConfig = $event->getReturnValue();
+}
