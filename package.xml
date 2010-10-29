@@ -13,18 +13,48 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-07-13</date>
- <time>14:00:17</time>
+ <developer>
+  <name>Ryosuke Kunitada</name>
+  <user>kunitada</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>Ryosuke Kunitada</name>
+  <user>kunitada</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>tozuka</name>
+  <user>tozuka</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>Kousuke Ebihara</name>
+  <user>ebihara</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>Minoru Takai</name>
+  <user>takai</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <date>2010-10-29</date>
+ <time>23:07:19</time>
  <version>
-  <release>0.9.8</release>
-  <api>0.9.8</api>
+  <release>0.9.9</release>
+  <api>0.9.9</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>Fixed slow page.</notes>
+ <notes>fixed JSON-RPC API because friend data can&apos;t be fetched.</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="8665be70ae66b94e14c285ff7627543d" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -45,8 +75,8 @@
    <file baseinstalldir="/" md5sum="9ae2c410497583a09e99f7a260ae09ec" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="29852a96cc991ad1056e650e9e7a3d4a" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_bottomSubmenu.php" role="data" />
    <file baseinstalldir="/" md5sum="10d08b1ed197499b5426e4df7c026bd2" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_submenu.php" role="data" />
-   <file baseinstalldir="/" md5sum="7898dc5285a170ca2b1eaa8b27aecc04" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="b07dff936fad264532c09935c157d792" name="apps/pc_frontend/modules/application/actions/components.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="7e22390bb3315ae919482e5741b87486" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="31776e4938894f4bbd026ed82fff2b0b" name="apps/pc_frontend/modules/application/actions/components.class.php" role="data" />
    <file baseinstalldir="/" md5sum="31a9b416e4603892e50fc52658028ae8" name="apps/pc_frontend/modules/application/config/security.yml" role="data" />
    <file baseinstalldir="/" md5sum="038f131f77a771b5661d8e23937e8079" name="apps/pc_frontend/modules/application/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="7c775fdfcd4de179b3c3354078b59b10" name="apps/pc_frontend/modules/application/templates/addSuccess.php" role="data" />
@@ -55,7 +85,7 @@
    <file baseinstalldir="/" md5sum="52a775dbd6f53b396bb49cda668eb77a" name="apps/pc_frontend/modules/application/templates/infoSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="6626dc341192173cf3c9811704b5849e" name="apps/pc_frontend/modules/application/templates/installedListSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="b1b63bb5a83b3fc40cfd6fbee7a4c6fa" name="apps/pc_frontend/modules/application/templates/installSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="f555decccb39bb31a9bb608bf70fccf2" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="ce3859d277a3de08c9b30b385b6c8483" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="6fd67e8d0e83b5ef85eb54b0670f590b" name="apps/pc_frontend/modules/application/templates/memberSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="5396b3bef9b9c94fdcc63018715e81d8" name="apps/pc_frontend/modules/application/templates/removeSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="6ec8f603d2f244895165f728b44096c5" name="apps/pc_frontend/modules/application/templates/settingSuccess.php" role="data" />
@@ -116,7 +146,7 @@
    <file baseinstalldir="/" md5sum="7b6b8023f1e6fec80cf8b0dcd4754413" name="lib/update/0_8_1_to_0_8_2_dev_200902121145.php" role="data" />
    <file baseinstalldir="/" md5sum="989398cee6e728b4e9186a9929c158af" name="lib/update/0_8_2_dev_200902121145_to_0_8_2_dev_200902121523.php" role="data" />
    <file baseinstalldir="/" md5sum="b5422b69c1d5b40ab7bb6ea108ed7244" name="lib/util/opCacheStorageFile.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="d2d15cb1d3d91f6f6b1060a687e29b2d" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="f6bd059cc551fcd24deae456e2a6035a" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
    <file baseinstalldir="/" md5sum="30c4b794bb75d82d081e7a4ac285c924" name="lib/util/opOpenSocialContainerConfig.class.php" role="data" />
    <file baseinstalldir="/" md5sum="602ac86576727dd9b147ce187cb87379" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
    <file baseinstalldir="/" md5sum="e25ac6b226ceac7374836f0760c63528" name="lib/util/opOpenSocialSupportedFieldExport.class.php" role="data" />
@@ -1293,7 +1323,7 @@
    <file baseinstalldir="/" md5sum="108c54a11e6d5aa411e56bbb92cf2441" name="lib/vendor/Shindig/src/social/service/ResponseError.php" role="data" />
    <file baseinstalldir="/" md5sum="d18254e5a695389cfeced8bdf2080672" name="lib/vendor/Shindig/src/social/service/ResponseItem.php" role="data" />
    <file baseinstalldir="/" md5sum="fc072c311ca667ac61981171636da799" name="lib/vendor/Shindig/src/social/service/RestRequestItem.php" role="data" />
-   <file baseinstalldir="/" md5sum="619066021fb66038c2922b75f4ecc244" name="lib/vendor/Shindig/src/social/service/RpcRequestItem.php" role="data" />
+   <file baseinstalldir="/" md5sum="4b7b0892e81e5a2402eaf883058029a7" name="lib/vendor/Shindig/src/social/service/RpcRequestItem.php" role="data" />
    <file baseinstalldir="/" md5sum="3e9795d990882f3207e1a0217a8a18f5" name="lib/vendor/Shindig/src/social/service/SocialSpiException.php" role="data" />
    <file baseinstalldir="/" md5sum="452ca6e015a178aa7d2dbcc3a2e848a6" name="lib/vendor/Shindig/src/social/service/SystemHandler.php" role="data" />
    <file baseinstalldir="/" md5sum="a21a8295efd744e41e2707307dcf86ae" name="lib/vendor/Shindig/src/social/servlet/ApiServlet.php" role="data" />
@@ -1332,6 +1362,9 @@
    <file baseinstalldir="/" md5sum="385e49d1930c3c9898b0c9089dec09e2" name="web/js/tabs.js" role="data" />
    <file baseinstalldir="/" md5sum="3b83ef96387f14655fc854ddc3c6bd57" name="LICENSE" role="data" />
    <file baseinstalldir="/" md5sum="b13ec006a5f83dc3b0ac985c778263b9" name="LICENSE.Shindig" role="data" />
+   <file baseinstalldir="/" md5sum="6f0fddefbb129ef8f518d73a05887029" name="NOTICE" role="data" />
+   <file baseinstalldir="/" md5sum="cd8c9159349deca6e89820b20324ac7d" name="NOTICE.Shindig" role="data" />
+   <file baseinstalldir="/" md5sum="a849e1ed9d48be4696085908d12bbcd6" name="README" role="data" />
   </dir>
  </contents>
  <dependencies>
@@ -1506,6 +1539,19 @@
    <date>2010-07-13</date>
    <license>apache</license>
    <notes>Fixed slow page.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.9</release>
+    <api>0.9.9</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-10-29</date>
+   <license>apache</license>
+   <notes>fixed JSON-RPC API because friend data can&apos;t be fetched.</notes>
   </release>
  </changelog>
 </package>
