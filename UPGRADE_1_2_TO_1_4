@@ -1,0 +1,21 @@
+=======================
+Upgrade from 1.2 to 1.4
+=======================
+
+This document provides about upgrade from opOpenSocialPlugin 1.2
+to opOpenSocialPlugin 1.4.
+
+If you upgrade this version, you need install OpenPNE 3.6.0 or later.
+
+Way to upgrade
+==============
+
+If you want to use inner OpenSocial container like opOpenSocialPlugin 1.2,
+you must add a following configuration to OpenPNE.yml:
+
+  opensocial_is_allow_inner_container: true
+
+And if you want to use auto convert encoding about mobile apps like opOpenSocialPlugin 1.2
+you must add a following configuration to OpenPNE.yml:
+
+  opensocial_is_auto_convert_encoding: true
