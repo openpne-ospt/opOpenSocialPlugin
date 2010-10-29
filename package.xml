@@ -13,11 +13,41 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-07-28</date>
- <time>23:44:47</time>
+ <developer>
+  <name>Ryosuke Kunitada</name>
+  <user>kunitada</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>Ryosuke Kunitada</name>
+  <user>kunitada</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>tozuka</name>
+  <user>tozuka</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>Kousuke Ebihara</name>
+  <user>ebihara</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>Minoru Takai</name>
+  <user>takai</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <date>2010-10-29</date>
+ <time>22:49:51</time>
  <version>
-  <release>1.2.0</release>
-  <api>1.2.0</api>
+  <release>1.2.1</release>
+  <api>1.2.1</api>
  </version>
  <stability>
   <release>stable</release>
@@ -25,7 +55,7 @@
  </stability>
  <license>apache</license>
  <notes>
-Stable release for OpenPNE3.6
+fixed JSON-RPC API because friend data can&apos;t be fetched.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -34,7 +64,7 @@ Stable release for OpenPNE3.6
    <file baseinstalldir="/" md5sum="82c4164d360e66e59272919767fb19fd" name="apps/api/modules/social/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="7981d028691a2f81c32d4dd79d6d54e3" name="apps/mobile_frontend/config/routing.yml" role="data" />
    <file baseinstalldir="/" md5sum="3f3b79e1a761c1e454397562040801f4" name="apps/mobile_frontend/i18n/messages.ja.xml" role="data" />
-   <file baseinstalldir="/" md5sum="3f0dad0ec50534f9e15b184146a45b3e" name="apps/mobile_frontend/modules/application/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="832a5b1a47154f4f57fc3152dbf181af" name="apps/mobile_frontend/modules/application/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="230d1d35180ee2643456b3202e7bb681" name="apps/mobile_frontend/modules/application/actions/components.class.php" role="data" />
    <file baseinstalldir="/" md5sum="31a9b416e4603892e50fc52658028ae8" name="apps/mobile_frontend/modules/application/config/security.yml" role="data" />
    <file baseinstalldir="/" md5sum="57559fbb734c09fe83cd0a1d65c96a23" name="apps/mobile_frontend/modules/application/templates/addSuccess.php" role="data" />
@@ -51,7 +81,7 @@ Stable release for OpenPNE3.6
    <file baseinstalldir="/" md5sum="96380c7d40eb590eb2adee8b7b60fd3f" name="apps/mobile_frontend/modules/member/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="ecaf9e64e4a504c01e75298fb2ee9f98" name="apps/pc_backend/config/routing.yml" role="data" />
    <file baseinstalldir="/" md5sum="b3db49379cc5c1f750b14d8edc8ed3d9" name="apps/pc_backend/i18n/messages.ja.xml" role="data" />
-   <file baseinstalldir="/" md5sum="178e115b21bfe997f7ea02530aa674d2" name="apps/pc_backend/modules/opOpenSocialPlugin/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4c0175a978a300fb05d2092629a8611a" name="apps/pc_backend/modules/opOpenSocialPlugin/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="8e5175367d113c46694961ddca8ae03c" name="apps/pc_backend/modules/opOpenSocialPlugin/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="00ec0338d34d41f81164f5e9078337c4" name="apps/pc_backend/modules/opOpenSocialPlugin/lib/ApplicationConfigForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="13f5129ff68ba7690471faf709479f8f" name="apps/pc_backend/modules/opOpenSocialPlugin/lib/ContainerConfigForm.class.php" role="data" />
@@ -70,8 +100,8 @@ Stable release for OpenPNE3.6
    <file baseinstalldir="/" md5sum="d69ae0e1cc8be9b805e8f0b0a9d9fc3a" name="apps/pc_backend/modules/opOpenSocialPlugin/templates/_submenu.php" role="data" />
    <file baseinstalldir="/" md5sum="9bcd264b0bf4680e97cede14e4a8cc31" name="apps/pc_frontend/config/routing.yml" role="data" />
    <file baseinstalldir="/" md5sum="c7e9ba229409c53e4c9b48ab4d2587cf" name="apps/pc_frontend/i18n/messages.ja.xml" role="data" />
-   <file baseinstalldir="/" md5sum="786f69bab71ba0fb755f4f8502e15c13" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="1c1931d0faf623f194e9df38040ffaa7" name="apps/pc_frontend/modules/application/actions/components.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="8e415110f864b6fa90d312698b0bd9f8" name="apps/pc_frontend/modules/application/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="775d3c2c8a417c9effd4d79333781c4a" name="apps/pc_frontend/modules/application/actions/components.class.php" role="data" />
    <file baseinstalldir="/" md5sum="31a9b416e4603892e50fc52658028ae8" name="apps/pc_frontend/modules/application/config/security.yml" role="data" />
    <file baseinstalldir="/" md5sum="57d3e957bc51aece25bf81abf22362b8" name="apps/pc_frontend/modules/application/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="5b12c51a9c552720d650537d44fccdaf" name="apps/pc_frontend/modules/application/templates/addSuccess.php" role="data" />
@@ -84,7 +114,7 @@ Stable release for OpenPNE3.6
    <file baseinstalldir="/" md5sum="b1b63bb5a83b3fc40cfd6fbee7a4c6fa" name="apps/pc_frontend/modules/application/templates/installSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="f9b85124bca3c3f9a3b37bd7db4a1c7d" name="apps/pc_frontend/modules/application/templates/inviteListSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="2467a9d9a7369f2852856e98c72e8709" name="apps/pc_frontend/modules/application/templates/inviteSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="f555decccb39bb31a9bb608bf70fccf2" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="ce3859d277a3de08c9b30b385b6c8483" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="6fd67e8d0e83b5ef85eb54b0670f590b" name="apps/pc_frontend/modules/application/templates/memberSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="995cb5c023e190cecd538242bf07eaa7" name="apps/pc_frontend/modules/application/templates/removeSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="1852f856ddc400e1d26dbe63e52f5360" name="apps/pc_frontend/modules/application/templates/settingSuccess.php" role="data" />
@@ -171,12 +201,12 @@ Stable release for OpenPNE3.6
    <file baseinstalldir="/" md5sum="7b6b8023f1e6fec80cf8b0dcd4754413" name="lib/update/0_8_1_to_0_8_2_dev_200902121145.php" role="data" />
    <file baseinstalldir="/" md5sum="989398cee6e728b4e9186a9929c158af" name="lib/update/0_8_2_dev_200902121145_to_0_8_2_dev_200902121523.php" role="data" />
    <file baseinstalldir="/" md5sum="b5422b69c1d5b40ab7bb6ea108ed7244" name="lib/util/opCacheStorageFile.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="80fa513ac4a9c3cdd9805cc3cc8b5ccd" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="91c8270c96ed0157e2345babd7fe4c25" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
    <file baseinstalldir="/" md5sum="a6ec4f4df695c4c02f2aa42cb3ed3817" name="lib/util/opOpenSocialContainerConfig.class.php" role="data" />
    <file baseinstalldir="/" md5sum="bcf00e04d42a800a47fb68494c30f6f3" name="lib/util/opOpenSocialMobileRewriter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="be4668d8bb757271cf5f015ba7247359" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
    <file baseinstalldir="/" md5sum="c91b6019ee8ccb0ed7af2f5e4c80d98a" name="lib/util/opOpenSocialSupportedFieldExport.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="d3de62f6c58e0cef6a8a6715e6a71a1f" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="0cbb18161de8a1c6228440001431583a" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
    <file baseinstalldir="/" md5sum="cbf66fb53f75fe4e033da6b9a1e4a328" name="lib/util/opShindigBlobCrypter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="1385f56583d51028cfd0cff1c4d23453" name="lib/util/opShindigCrypto.class.php" role="data" />
    <file baseinstalldir="/" md5sum="355f32c20f03191c256a3743c1050ec1" name="lib/util/opShindigOAuthLookupService.class.php" role="data" />
@@ -1409,7 +1439,7 @@ Stable release for OpenPNE3.6
    <file baseinstalldir="/" md5sum="eae2614d9eb0c3ee43cbf8f6d2c6ecfa" name="lib/vendor/Shindig/src/social/service/ResponseError.php" role="data" />
    <file baseinstalldir="/" md5sum="d18254e5a695389cfeced8bdf2080672" name="lib/vendor/Shindig/src/social/service/ResponseItem.php" role="data" />
    <file baseinstalldir="/" md5sum="99641948962d6ba3e6d5486606ee37dd" name="lib/vendor/Shindig/src/social/service/RestRequestItem.php" role="data" />
-   <file baseinstalldir="/" md5sum="bf4d4ae848dd97377e107013e6a4ab5c" name="lib/vendor/Shindig/src/social/service/RpcRequestItem.php" role="data" />
+   <file baseinstalldir="/" md5sum="6957c9ca1e454bb306f278b952a18a16" name="lib/vendor/Shindig/src/social/service/RpcRequestItem.php" role="data" />
    <file baseinstalldir="/" md5sum="3e9795d990882f3207e1a0217a8a18f5" name="lib/vendor/Shindig/src/social/service/SocialSpiException.php" role="data" />
    <file baseinstalldir="/" md5sum="452ca6e015a178aa7d2dbcc3a2e848a6" name="lib/vendor/Shindig/src/social/service/SystemHandler.php" role="data" />
    <file baseinstalldir="/" md5sum="63ca2d6afd41e0a9a284f7814fb091ac" name="lib/vendor/Shindig/src/social/servlet/ApiServlet.php" role="data" />
@@ -1452,6 +1482,9 @@ Stable release for OpenPNE3.6
    <file baseinstalldir="/" md5sum="385e49d1930c3c9898b0c9089dec09e2" name="web/js/tabs.js" role="data" />
    <file baseinstalldir="/" md5sum="3b83ef96387f14655fc854ddc3c6bd57" name="LICENSE" role="data" />
    <file baseinstalldir="/" md5sum="b13ec006a5f83dc3b0ac985c778263b9" name="LICENSE.Shindig" role="data" />
+   <file baseinstalldir="/" md5sum="efb7363db92d406d651dbc64917ef333" name="NOTICE" role="data" />
+   <file baseinstalldir="/" md5sum="395dfe25b52121a6610d32c0c2307f05" name="NOTICE.Shindig" role="data" />
+   <file baseinstalldir="/" md5sum="a849e1ed9d48be4696085908d12bbcd6" name="README" role="data" />
   </dir>
  </contents>
  <dependencies>
@@ -1674,6 +1707,21 @@ Supported location service, and added an ability to extend url of replacing on t
    <license>apache</license>
    <notes>
 Stable release for OpenPNE3.6
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-10-29</date>
+   <license>apache</license>
+   <notes>
+fixed JSON-RPC API because friend data can&apos;t be fetched.
    </notes>
   </release>
  </changelog>
