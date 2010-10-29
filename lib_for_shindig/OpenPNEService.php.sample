@@ -20,7 +20,7 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
 {
   // changed parameters
   // for example:
-  // 
+  //
   // const SNSURL = 'http://sns.example.com/';
 
   const SNSURL  = '#SNS_URL#';
@@ -36,7 +36,7 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
     $postData = json_encode($postParam);
 
     $headers = 'Content-Type: application/json; charaset=utf-8';
-    $request = new RemoteContentRequest($url.'?st='.base64_encode($token->toSerialForm()), $headers, $postData);
+    $request = new RemoteContentRequest($url.'?st='.$token->toSerialForm(), $headers, $postData);
     return $this->getResponseData($context->getHttpFetcher()->fetch($request, $context));
   }
 
@@ -47,11 +47,11 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
       throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
     }
     $resjson = json_decode($res->getResponseContent());
-    if (!($resjson && is_array($resjson) && count($resjson) == 1))
+    if (!($resjson && is_array($resjson) && 1 === count($resjson)))
     {
       throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
     }
-    $data = $resjson[0];
+    $data = isset($resjson[0]->result) ? $resjson[0]->result : $resjson[0]->data;
     if (isset($data->error))
     {
       throw new SocialSpiException($data->error->message, $data->error->code);
@@ -112,10 +112,10 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
   protected function getRestfulCollection($json)
   {
     $results = array();
-    if(isset($json->data->list))
+    if(isset($json->list))
     {
-      $totalSize = $json->data->totalResults;
-      foreach($json->data->list as $d)
+      $totalSize = $json->totalResults;
+      foreach($json->list as $d)
       {
         $result = array();
         foreach($d as $key => $value)
@@ -128,7 +128,7 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
     else
     {
       $totalSize = 1;
-      foreach($json->data as $key => $value)
+      foreach($json as $key => $value)
       {
         $results[0][$key] = $value;
       }
