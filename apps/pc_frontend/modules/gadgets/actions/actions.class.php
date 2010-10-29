@@ -13,10 +13,21 @@
  *
  * @package    opOpenSocialPlugin
  * @subpackage action
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 class gadgetsActions extends opOpenSocialServletActions
 {
+  protected function check()
+  {
+    if (!(
+      sfConfig::get('op_opensocial_is_allow_inner_container', false) ||
+      Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig', false)
+    ))
+    {
+      $this->forward('gadgets', 'deny');
+    }
+  }
+
   /**
    * Execute js action
    *
@@ -36,6 +47,7 @@ class gadgetsActions extends opOpenSocialServletActions
    */
   public function executeProxy(sfWebRequest $request)
   {
+    $this->check();
     sfConfig::set('sf_web_debug', false);
     $class = new ProxyServlet();
     self::servletExecute($class);
@@ -49,6 +61,7 @@ class gadgetsActions extends opOpenSocialServletActions
    */
   public function executeMakeRequest(sfWebRequest $request)
   {
+    $this->check();
     sfConfig::set('sf_web_debug', false);
     $class = new MakeRequestServlet();
     self::servletExecute($class);
@@ -62,6 +75,7 @@ class gadgetsActions extends opOpenSocialServletActions
   */
   public function executeIfr(sfWebRequest $request)
   {
+    $this->check();
     $class = new GadgetRenderingServlet();
     self::servletExecute($class);
     exit;
@@ -74,8 +88,19 @@ class gadgetsActions extends opOpenSocialServletActions
    */
   public function executeMetadata(sfWebRequest $request)
   {
+    $this->check();
     $class = new MetadataServlet();
     self::servletExecute($class);
     exit;
+  }
+
+ /**
+  * Execute deny action
+  *
+  *
+  * @param sfWebRequest $request A request object
+  */
+  public function executeDeny(sfWebRequest $request)
+  {
   }
 }

@@ -1,2 +1,6 @@
 all:
   has_layout: false
+
+denySuccess:
+  has_layout: true
+  layout: plain
