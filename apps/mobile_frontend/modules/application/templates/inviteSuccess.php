@@ -1,6 +1,6 @@
 <?php op_mobile_page_title(__('Invite App'), $application->getTitle()) ?>
 
-<?php if ($pager instanceof sfPager && $pager->getNbResults()): ?>
+<?php if ($pager->getRawValue() instanceof sfPager && $pager->getNbResults()): ?>
 <?php echo __('Select the member who wants to invite to this App.') ?>
 
 <hr color="<?php echo $op_color['core_color_12']?>">
