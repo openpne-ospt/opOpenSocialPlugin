@@ -106,6 +106,22 @@
         <source>Invite</source>
         <target>招待</target>
       </trans-unit>
+      <trans-unit id="">
+        <source>App name</source>
+        <target>ｱﾌﾟﾘ名</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Pending invitation to app</source>
+        <target>ｱﾌﾟﾘ招待承認待ち</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Member who invited this</source>
+        <target>招待者</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>You have just rejected request of invitation to app.</source>
+        <target>ｱﾌﾟﾘの招待を拒否しました。</target>
+      </trans-unit>
 
       <trans-unit id="">
         <source>My Apps</source>
