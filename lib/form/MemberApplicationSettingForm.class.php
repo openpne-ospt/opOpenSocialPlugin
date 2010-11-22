@@ -34,6 +34,8 @@ class MemberApplicationSettingForm extends sfForm
 
   public function setConfigWidgets($memberId, $modId)
   {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Escaping'));
+
     $memberApp = MemberApplicationPeer::retrieveByPk($modId);
     if (!$memberApp)
     {
@@ -57,7 +59,7 @@ class MemberApplicationSettingForm extends sfForm
       $param   = array();
       $choices = array();
       $param['IsRequired'] = false;
-      $param['Caption'] = $setting['displayName'];
+      $param['Caption'] = sfOutputEscaper::escape(sfConfig::get('sf_escaping_method'), $setting['displayName']);
       if (empty($setting['type']) || $setting['type'] == 'HIDDEN')
       {
         continue;
