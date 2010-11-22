@@ -43,18 +43,18 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2010-10-29</date>
- <time>23:07:19</time>
+ <date>2010-11-22</date>
+ <time>21:39:24</time>
  <version>
-  <release>0.9.9</release>
-  <api>0.9.9</api>
+  <release>0.9.9.1</release>
+  <api>0.9.9.1</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>fixed JSON-RPC API because friend data can&apos;t be fetched.</notes>
+ <notes>Fixed security issues.</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="8665be70ae66b94e14c285ff7627543d" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -125,7 +125,7 @@
    <file baseinstalldir="/" md5sum="88dac44eec7adb6d2adb0c9f8063ed2f" name="lib/form/AddApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="46c5474e9d956d5048e733b463b1426e" name="lib/form/ApplicationSearchForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2adc5c0f7ac6c8482a5a0f761cf53f6a" name="lib/form/ApplicationSettingForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="4700c1f19856457440abb5e9b9f15e04" name="lib/form/ApplicationUserSettingForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4ccf210628993e3b99258c2a0408447f" name="lib/form/ApplicationUserSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2c91313dd6f473898b70aa2ac54b1ea3" name="lib/form/doctrine/PluginApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="24618ae1cfdbb9e7569db71fa1329355" name="lib/form/doctrine/PluginApplicationPersistentDataForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="114454e02e1ec5b69ae8a3492d973166" name="lib/form/doctrine/PluginApplicationTranslationForm.class.php" role="data" />
@@ -1354,8 +1354,8 @@
    <file baseinstalldir="/" md5sum="56eed3bdd7a5dc0ddd81473e15ced131" name="test/unit/model/MemberApplicationTableTest.php" role="data" />
    <file baseinstalldir="/" md5sum="1aebe5f62fdd3288036614ced9fd673f" name="test/unit/model/MemberApplicationTest.php" role="data" />
    <file baseinstalldir="/" md5sum="1164ed5f837ff6601bfcca1b88996976" name="web/css/opensocial.css" role="data" />
-   <file baseinstalldir="/" md5sum="34764589073718f2a6f5fe73be6c8182" name="web/js/container.js" role="data" />
-   <file baseinstalldir="/" md5sum="b4001389e823a4ac99dd19d96e18a62f" name="web/js/container.js.src" role="data" />
+   <file baseinstalldir="/" md5sum="be5f2b30b8ba9196368f1e4455aa2b22" name="web/js/container.js" role="data" />
+   <file baseinstalldir="/" md5sum="e317a7477b82e3f4648fe67d084f41c2" name="web/js/container.js.src" role="data" />
    <file baseinstalldir="/" md5sum="0c2bd6d7e5c36c64caa9ade5e3dfec25" name="web/js/opensocial-util.js" role="data" />
    <file baseinstalldir="/" md5sum="5c474de4df3efc02a106590bb36bcb93" name="web/js/rpc_relay.html" role="data" />
    <file baseinstalldir="/" md5sum="b8a5ae08d06aad5f3b6bbf627fcb4830" name="web/js/tabs-min.js" role="data" />
@@ -1552,6 +1552,19 @@
    <date>2010-10-29</date>
    <license>apache</license>
    <notes>fixed JSON-RPC API because friend data can&apos;t be fetched.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.9.1</release>
+    <api>0.9.9.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-11-22</date>
+   <license>apache</license>
+   <notes>Fixed security issues.</notes>
   </release>
  </changelog>
 </package>
