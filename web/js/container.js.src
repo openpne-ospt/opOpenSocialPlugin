@@ -48,7 +48,7 @@ Container.prototype = {
   setTitle: function(title) {
     var element = $(this.f+'_title');
     if (element != undefined) {
-      element.update(title.replace(/&/g, '&amp;').replace(/</g, '&lt;'));
+      element.update(gadgets.util.escapeString(title));
     }
   },
   
