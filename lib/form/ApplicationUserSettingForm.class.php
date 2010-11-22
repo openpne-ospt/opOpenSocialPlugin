@@ -34,14 +34,16 @@ class ApplicationUserSettingForm extends sfForm
 
   protected function setConfigWidget()
   {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Escaping'));
+
     $application = $this->memberApplication->getApplication();
     $settings = $application->getSettings();
     foreach ($settings as $key => $setting)
     {
       $param   = array();
-      $choices = array(); 
+      $choices = array();
       $param['IsRequired'] = false;
-      $param['Caption'] = $setting['displayName'];
+      $param['Caption'] = sfOutputEscaper::escape(sfConfig::get('sf_escaping_method'), $setting['displayName']);
       if (empty($setting['datatype']) || $setting['datatype'] == 'HIDDEN')
       {
         continue;
