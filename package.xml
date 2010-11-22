@@ -13,11 +13,41 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-08-11</date>
- <time>03:09:24</time>
+ <developer>
+  <name>Ryosuke Kunitada</name>
+  <user>kunitada</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>Ryosuke Kunitada</name>
+  <user>kunitada</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>tozuka</name>
+  <user>tozuka</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>Kousuke Ebihara</name>
+  <user>ebihara</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>Minoru Takai</name>
+  <user>takai</user>
+  <email />
+  <active>yes</active>
+ </developer>
+ <date>2010-11-22</date>
+ <time>12:48:38</time>
  <version>
-  <release>0.8.2.1</release>
-  <api>0.8.2.1</api>
+  <release>0.8.2.2</release>
+  <api>0.8.2.2</api>
  </version>
  <stability>
   <release>beta</release>
@@ -97,7 +127,7 @@
    <file baseinstalldir="/" md5sum="e31d1c7e563c68f5497d0310a274b8f3" name="lib/form/ApplicationI18nForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="3a7e8681cad37feeac3e091b2203849c" name="lib/form/ApplicationPersistentDataForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="bd084702712b550567c265946a200f91" name="lib/form/MemberApplicationForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="6d6157ecc46e1c373303737c13398ea2" name="lib/form/MemberApplicationSettingForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="b8cd32bf28de2f397a9158292e5f9beb" name="lib/form/MemberApplicationSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="5191950bbd62ec933cff0c9733dc33ab" name="lib/form/OpensocialPersonFieldForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="12f6aab0c10a21ac85a07285e6dbe152" name="lib/helper/OpenSocialHelper.php" role="data" />
    <file baseinstalldir="/" md5sum="365acc83d2c73e8b515fd03f890882f5" name="lib/model/Application.php" role="data" />
@@ -382,7 +412,7 @@
    <file baseinstalldir="/" md5sum="ff88bebae885e67734ecd9cd819791fc" name="lib/vendor/Shindig/src/social/spi/UserId.php" role="data" />
    <file baseinstalldir="/" md5sum="544a36ffeed2661de7329ad02b82b87a" name="lib_for_shindig/OpenPNEService.php.sample" role="data" />
    <file baseinstalldir="/" md5sum="5e7eb695569f510ae6ba28cba3b99e71" name="web/css/opensocial.css" role="data" />
-   <file baseinstalldir="/" md5sum="b7a19418213364109587d74d5340a2df" name="web/js/container.js" role="data" />
+   <file baseinstalldir="/" md5sum="f1221d90b1d9bc17e1a2e542df0505a8" name="web/js/container.js" role="data" />
    <file baseinstalldir="/" md5sum="84d009076ba522cf33e7e03c90e6a8a2" name="web/js/opensocial-util.js" role="data" />
    <file baseinstalldir="/" md5sum="5c474de4df3efc02a106590bb36bcb93" name="web/js/rpc_relay.html" role="data" />
    <file baseinstalldir="/" md5sum="b8a5ae08d06aad5f3b6bbf627fcb4830" name="web/js/tabs-min.js" role="data" />
@@ -456,6 +486,19 @@
     <api>beta</api>
    </stability>
    <date>2010-08-11</date>
+   <license>apache</license>
+   <notes>Fixed security issues.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.2.2</release>
+    <api>0.8.2.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-11-22</date>
    <license>apache</license>
    <notes>Fixed security issues.</notes>
   </release>
