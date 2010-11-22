@@ -43,11 +43,11 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2010-10-29</date>
- <time>23:14:14</time>
+ <date>2010-11-22</date>
+ <time>20:34:14</time>
  <version>
-  <release>1.3.0</release>
-  <api>1.3.0</api>
+  <release>1.3.0.1</release>
+  <api>1.3.0.1</api>
  </version>
  <stability>
   <release>beta</release>
@@ -55,7 +55,7 @@
  </stability>
  <license>apache</license>
  <notes>
-Updated shindig to 2.0.2
+Fixed security issues.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -172,7 +172,7 @@ Updated shindig to 2.0.2
    <file baseinstalldir="/" md5sum="88dac44eec7adb6d2adb0c9f8063ed2f" name="lib/form/AddApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="566a59a69f5876a42122cbad1854c486" name="lib/form/ApplicationSearchForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2bdc0bb9abd12d06aac79c7be42a53c1" name="lib/form/ApplicationSettingForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="4700c1f19856457440abb5e9b9f15e04" name="lib/form/ApplicationUserSettingForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4ccf210628993e3b99258c2a0408447f" name="lib/form/ApplicationUserSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2c91313dd6f473898b70aa2ac54b1ea3" name="lib/form/doctrine/PluginApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2e8fd0c3d854d32ac05f49600488d0f9" name="lib/form/doctrine/PluginApplicationInviteForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="16a79ee58b83e6dcbce04baea63735f0" name="lib/form/doctrine/PluginApplicationLifecycleEventQueueForm.class.php" role="data" />
@@ -1527,8 +1527,8 @@ Updated shindig to 2.0.2
    <file baseinstalldir="/" md5sum="be22a7007726e5386df41428b1c4a484" name="test/unit/model/MemberApplicationTableTest.php" role="data" />
    <file baseinstalldir="/" md5sum="1aebe5f62fdd3288036614ced9fd673f" name="test/unit/model/MemberApplicationTest.php" role="data" />
    <file baseinstalldir="/" md5sum="1164ed5f837ff6601bfcca1b88996976" name="web/css/opensocial.css" role="data" />
-   <file baseinstalldir="/" md5sum="71b3307db0cad37f36b4cbafe75e1823" name="web/js/container.js" role="data" />
-   <file baseinstalldir="/" md5sum="56d13587f6e7960989749a8152248c29" name="web/js/container.js.src" role="data" />
+   <file baseinstalldir="/" md5sum="eb5644a2ed7c98e3ef0c400410fe74ff" name="web/js/container.js" role="data" />
+   <file baseinstalldir="/" md5sum="6d8b791a5cdbb713c78483ab06fabde0" name="web/js/container.js.src" role="data" />
    <file baseinstalldir="/" md5sum="ccdce439ef03d17d4f3c705b3f26f827" name="web/js/opensocial-util.js" role="data" />
    <file baseinstalldir="/" md5sum="cb8e75af1195f57ad65419958aea4806" name="web/js/opensocial-util.js.src" role="data" />
    <file baseinstalldir="/" md5sum="5c474de4df3efc02a106590bb36bcb93" name="web/js/rpc_relay.html" role="data" />
@@ -1783,6 +1783,21 @@ Stable release for OpenPNE3.6
    <license>apache</license>
    <notes>
 Updated shindig to 2.0.2
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.0.1</release>
+    <api>1.3.0.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-11-22</date>
+   <license>apache</license>
+   <notes>
+Fixed security issues.
    </notes>
   </release>
  </changelog>
