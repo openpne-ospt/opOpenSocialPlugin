@@ -8,6 +8,9 @@ $t = new lime_test(10, new lime_output_color());
 
 $table = Doctrine::getTable('Application');
 
+$conn = $table->getConnection();
+$conn->beginTransaction();
+
 // ->getAddApplicationRuleChoices()
 $t->diag('->getAddApplicationRuleChoices()');
 $t->is($table->getAddApplicationRuleChoices(),
@@ -16,7 +19,6 @@ $t->is($table->getAddApplicationRuleChoices(),
     1 => 'The SNS administrator\'s permission is necessary',
     2 => 'Allow',
 ), '->getAddApplicationRuleChoices() returns array of choices correctly');
-
 
 // change language
 sfContext::getInstance()->getUser()->setCulture('en_US');
@@ -33,10 +35,12 @@ $t->ok(isset($application->Translation['en_US']), '->addApplication() fetched en
 $t->diag('->getApplicationListPager()');
 $pager = $table->getApplicationListPager();
 $t->isa_ok($pager, 'sfDoctrinePager', '->getApplicationListPager() returns object of sfDoctrinePager');
-$t->is($pager->getNbResults(), 4, '->getApplicationListPager() returns 4 results');
+$t->is($pager->getNbResults(), 5, '->getApplicationListPager() returns 5 results');
 $pager = $table->getApplicationListPager(1, 20, 1);
 $t->isa_ok($pager, 'sfDoctrinePager', '->getApplicationListPager() returns object of sfDoctrinePager');
 $t->is($pager->getNbResults(), 2, '->getApplicationListPager() returns 2 results');
 $pager = $table->getApplicationListPager(1, 20, 1, false);
 $t->isa_ok($pager, 'sfDoctrinePager', '->getApplicationListPager() returns object of sfDoctrinePager');
 $t->is($pager->getNbResults(), 1, '->getApplicationListPager() returns 1 results');
+
+$conn->rollback();

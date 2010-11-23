@@ -8,6 +8,10 @@ sfContext::getInstance()->getUser()->setMemberId(1);
 $t = new lime_test(16, new lime_output_color());
 
 $table = Doctrine::getTable('ApplicationInvite');
+
+$conn = $table->getConnection();
+$conn->beginTransaction();
+
 $member2 = Doctrine::getTable('Member')->find(2);
 
 // ->getInvitesByToMemberId()
@@ -51,11 +55,11 @@ $invite->setFromMemberId(1);
 $invite->save();
 
 $event = new sfEvent(null, 'name', array(
-  'id' => 2,
+  'id' => $invite->id,
   'is_accepted' => false,
 ));
 $t->ok($table->processApplicationConfirm($event), '->processApplicationConfirm() returns true');
-$invite = $table->find(2);
+$invite = $table->find($invite->id);
 $t->ok(!$invite, 'invite object was deleted');
 $memberApplication = Doctrine::getTable('MemberApplication')
   ->findOneByMemberIdAndApplicationId(2, 3);
@@ -66,3 +70,5 @@ $event = new sfEvent(null, 'name', array(
   'is_accepted' => true,
 ));
 $t->ok(!$table->processApplicationConfirm($event), '->processApplicationConfirm() returns false');
+
+$conn->rollback();
