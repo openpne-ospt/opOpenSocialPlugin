@@ -39,7 +39,7 @@ $shindigConfig = array(
   'album_service'      => 'opJsonDbOpensocialService',
   'media_item_service' => 'opJsonDbOpensocialService',
 
-  'cache_time' => 'TEST KEY',
+  'cache_time' => 60*60,
   'cache_root' => sfConfig::get('sf_app_cache_dir').'/plugins/opOpenSocialPlugin',
 
   'curl_connection_timeout' => '15',
