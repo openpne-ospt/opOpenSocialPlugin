@@ -49,7 +49,7 @@ class applicationComponents extends sfComponents
     $opOpenSocialContainerConfig = new opOpenSocialContainerConfig();
     $containerName = $opOpenSocialContainerConfig->getContainerName();
 
-    $securityToken = BasicSecurityToken::createFromValues(
+    $securityToken = opShindigSecurityToken::createFromValues(
       $this->memberApplication->getMemberId(),  // owner
       $viewerId,                                // viewer
       $this->application->getId(),              // app id
