@@ -52,8 +52,8 @@ class ApplicationUserSettingForm extends sfForm
       switch ($setting['datatype'])
       {
         case 'BOOL' :
-          $param['FormType'] = 'checkbox';
-          $choices = array('1' => '');
+          $param['FormType'] = 'radio';
+          $choices = array('1' => 'Yes', '0' => 'No');
           break;
         case 'ENUM' :
           $param['FormType'] = 'select';
