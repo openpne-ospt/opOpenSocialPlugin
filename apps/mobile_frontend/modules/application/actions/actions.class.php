@@ -243,22 +243,28 @@ class applicationActions extends opOpenSocialApplicationActions
       {
         if ($isAutoConvert)
         {
-          header('Content-Type: '.$match[0].'; charset=Shift_JIS');
+          $this->response->setContentType($match[0].'; charset=Shift_JIS');
         }
         else
         {
-          header('Content-Type: '.$contentType);
+          $this->response->setContentType($contentType);
         }
         $rewriter = new opOpenSocialMobileRewriter($this);
-        echo $rewriter->rewrite($response->getBody(), $contentType, $isAutoConvert);
-        exit;
+        $this->response->setContent($rewriter->rewrite($response->getBody(), $contentType, $isAutoConvert));
       }
       else
       {
-        header('Content-Type: '.$contentType);
-        echo $response->getBody();
-        exit;
+        $this->response->setContentType($contentType);
+        $this->response->setContent($response->getBody());
       }
+
+      if ('test' === $this->context->getConfiguration()->getEnvironment())
+      {
+        return sfView::NONE;
+      }
+
+      $this->response->send();
+      exit;
     }
     elseif (
       $response->isRedirect() && ($location = $response->getHeader('location')) &&

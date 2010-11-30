@@ -7,10 +7,13 @@ sfContext::getInstance()->getUser()->setMemberId(1);
 
 $t = new lime_test(11, new lime_output_color());
 
+$table = Doctrine::getTable('MemberApplication');
+
+$conn = $table->getConnection();
+$conn->beginTransaction();
+
 $application = Doctrine::getTable('Application')->findOneByUrl("http://example.com/dummy.xml");
 $member = Doctrine::getTable('Member')->find(1);
-
-$table = Doctrine::getTable('memberApplication');
 
 // ->findOneByApplicationAndMember()
 $t->diag('->findOneByApplicationAndMember()');
@@ -44,3 +47,5 @@ $t->isa_ok($pager, 'sfDoctrinePager', '->getMemberApplications() return the sfDo
 $t->diag('->getInstalledFriendIds()');
 $ids = $table->getInstalledFriendIds($application, $member);
 $t->is(array(2 => '2'), $ids, '->getInstalledFriendIds() return installed friend ids');
+
+$conn->rollback();

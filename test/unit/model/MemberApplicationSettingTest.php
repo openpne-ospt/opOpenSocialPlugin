@@ -5,6 +5,9 @@ include dirname(__FILE__).'/../../bootstrap/database.php';
 
 $t = new lime_test(2, new lime_output_color());
 
+$conn = Doctrine::getTable('MemberApplicationSetting')->getConnection();
+$conn->beginTransaction();
+
 $t->diag('->preSave()');
 $object = new MemberApplicationSetting();
 $object->member_application_id = 1;
@@ -18,3 +21,5 @@ $object->type = 'user';
 $object->name = 'foo';
 $object->save();
 $t->is($object->hash, md5('1'.'user'.'foo'), 'saved hash by ->preSave()');
+
+$conn->rollback();

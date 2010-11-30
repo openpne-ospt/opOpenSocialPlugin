@@ -23,6 +23,7 @@ chdir(dirname(__FILE__).'/../../../..');
 
 require_once 'config/ProjectConfiguration.class.php';
 $configuration = ProjectConfiguration::getApplicationConfiguration($app, 'test', isset($debug) ? $debug : true);
+include dirname(__FILE__).'/database.php';
 sfContext::createInstance($configuration);
 
 // remove all cache

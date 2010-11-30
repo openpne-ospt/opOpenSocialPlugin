@@ -1,5 +1,13 @@
 <?php
 $webprefix = '';
+
+if ('test' === sfContext::getInstance()->getConfiguration()->getEnvironment())
+{
+  require dirname(__FILE__).'/test.php';
+
+  return;
+}
+
 if (sfContext::hasInstance())
 {
   $webprefix = sfContext::getInstance()->getRequest()->getScriptName();

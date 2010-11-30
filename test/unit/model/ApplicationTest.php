@@ -7,6 +7,9 @@ sfContext::getInstance()->getUser()->setMemberId(1);
 
 $t = new lime_test(13, new lime_output_color());
 
+$conn = Doctrine::getTable('Application')->getConnection();
+$conn->beginTransaction();
+
 $application1 = Doctrine::getTable('Application')->findOneByUrl("http://example.com/dummy.xml");
 $application2 = Doctrine::getTable('Application')->findOneByUrl("http://gist.github.com/raw/183505/a7f3d824cdcbbcf14c06f287537d0acb0b3e5468/gistfile1.xsl");
 $member = Doctrine::getTable('Member')->find(1);
@@ -56,3 +59,5 @@ $t->is($application1->getApplicationTypes(), array('pc'), '->getApplicationTypes
 // ->countMembers()
 $t->diag('->countMembers()');
 $t->is($application1->countMembers(), 2, '->countMembers() returns 2');
+
+$conn->rollback();

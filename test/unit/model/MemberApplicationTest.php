@@ -5,6 +5,9 @@ include dirname(__FILE__).'/../../bootstrap/database.php';
 
 $t = new lime_test(23, new lime_output_color());
 
+$conn = Doctrine::getTable('Application')->getConnection();
+$conn->beginTransaction();
+
 $application1 = Doctrine::getTable('Application')->findOneByUrl("http://example.com/dummy.xml");
 $application2 = Doctrine::getTable('Application')->findOneByUrl("http://gist.github.com/raw/183505/a7f3d824cdcbbcf14c06f287537d0acb0b3e5468/gistfile1.xsl");
 $application3 = Doctrine::getTable('Application')->findOneByUrl("http://example.com/dummy3.xml");
@@ -72,3 +75,5 @@ $t->ok(!$memberApplication3->isViewable($member2->getId()));
 $t->ok(!$memberApplication3->isViewable($member3->getId()));
 $t->ok(!$memberApplication3->isViewable($member4->getId()));
 $t->ok(!$memberApplication3->isViewable($member5->getId()));
+
+$conn->rollback();
