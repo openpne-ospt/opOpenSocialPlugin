@@ -21,7 +21,7 @@ class ApplicationSettingForm extends sfForm
     $publicFlagChoices = array(
       'public'  => 'All Members',
       'friends' => 'My Friends',
-      'private' => 'Private', 
+      'private' => 'Private',
     );
 
   protected
@@ -89,4 +89,3 @@ class ApplicationSettingForm extends sfForm
     }
   }
 }
-

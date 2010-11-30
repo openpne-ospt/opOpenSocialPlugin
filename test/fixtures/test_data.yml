@@ -76,6 +76,16 @@ SnsTerm:
       en:
         value: "nickname"
 
+Gadget:
+  home_apps:
+    type: "contents"
+    name: "applicationBoxes"
+    sort_order: 110
+  profile_apps:
+    type: "profileContents"
+    name: "applicationBoxes"
+    sort_order: 110
+
 Member:
   member_1:
     name: "A"
@@ -159,6 +169,46 @@ Application:
       ja_JP:
         title: "Test App"
         description: "Test App"
+        settings:
+          s1:
+            name: "s1"
+            displayName: "s1"
+            datatype: "ENUM"
+            defaultValue: ""
+            required: "true"
+            enumValues:
+              -
+                value: "o1"
+                displayValue: "o1"
+              -
+                value: "o2"
+                displayValue: "o2"
+            value: ""
+          s2:
+            name: "s2"
+            displayName: "s2"
+            datatype: "BOOL"
+            defaultValue: ""
+            required: "true"
+            enumValues: {}
+            value: ""
+          s3:
+            name: "s3"
+            displayName: "s3"
+            datatype: "STRING"
+            defaultValue: ""
+            required: "false"
+            enumValues: {}
+            value: ""
+          s4:
+            name: "s4"
+            displayName: "s4"
+            datatype: "HIDDEN"
+            defaultValue: ""
+            required: "1"
+            enumValues: {}
+            value: ""
+
   app_2:
     url: "http://gist.github.com/raw/183505/a7f3d824cdcbbcf14c06f287537d0acb0b3e5468/gistfile1.xsl"
     Translation:
