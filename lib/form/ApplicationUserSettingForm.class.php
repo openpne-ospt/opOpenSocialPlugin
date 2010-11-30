@@ -42,7 +42,8 @@ class ApplicationUserSettingForm extends sfForm
     {
       $param   = array();
       $choices = array();
-      $param['IsRequired'] = false;
+      $validatorBool = new sfValidatorBoolean();
+      $param['IsRequired'] = $validatorBool->clean($setting['required']);
       $param['Caption'] = sfOutputEscaper::escape(sfConfig::get('sf_escaping_method'), $setting['displayName']);
       if (empty($setting['datatype']) || $setting['datatype'] == 'HIDDEN')
       {
