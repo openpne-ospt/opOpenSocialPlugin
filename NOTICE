@@ -6,6 +6,16 @@ Copyright 2005-2010 OpenPNE Project
 This product includes parts of software (Shindig 2.0.2) developed by
 The Apache Software Foundation (http://www.apache.org/).
   - Apache License 2.0
+  - The following are copied to this plugin.
+    - LICENSE                                    => LICENSE.Shindig
+    - NOTICE                                     => NOTICE.Shindig
+    - features/src/main/main/javascript/features => vendor/Shindig/features
+    - config/*                                   => vendor/Shindig/config
+    - php/config/*                               => vendor/Shindig/config
+    - php/external/jsmin-php                     => vendor/Shindig/external/jsmin-php
+    - php/src                                    => vendor/Shindig/src
+  - Some class names have been changed by the following script.
+    - https://gist.github.com/659536
 
 This product includes software (PEAR::Crypt_Blowfish 1.1.0RC2) by
 Philippe Jausions and Matthew Fonda (http://pear.php.net/package/Crypt_Blowfish).
