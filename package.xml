@@ -43,11 +43,11 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2010-10-29</date>
- <time>22:49:51</time>
+ <date>2010-12-01</date>
+ <time>20:00:22</time>
  <version>
-  <release>1.2.1</release>
-  <api>1.2.1</api>
+  <release>1.2.2</release>
+  <api>1.2.2</api>
  </version>
  <stability>
   <release>stable</release>
@@ -55,7 +55,7 @@
  </stability>
  <license>apache</license>
  <notes>
-fixed JSON-RPC API because friend data can&apos;t be fetched.
+Added some tests for security countermeasures.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -63,14 +63,14 @@ fixed JSON-RPC API because friend data can&apos;t be fetched.
    <file baseinstalldir="/" md5sum="7f2a4c45f28a6277219a8c29e085f695" name="apps/api/modules/social/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="82c4164d360e66e59272919767fb19fd" name="apps/api/modules/social/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="7981d028691a2f81c32d4dd79d6d54e3" name="apps/mobile_frontend/config/routing.yml" role="data" />
-   <file baseinstalldir="/" md5sum="3f3b79e1a761c1e454397562040801f4" name="apps/mobile_frontend/i18n/messages.ja.xml" role="data" />
-   <file baseinstalldir="/" md5sum="832a5b1a47154f4f57fc3152dbf181af" name="apps/mobile_frontend/modules/application/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="a8c132d4a9e6ccb2c401cb38913dfe37" name="apps/mobile_frontend/i18n/messages.ja.xml" role="data" />
+   <file baseinstalldir="/" md5sum="b57d29c7a738ca210c6a8269c85e2b10" name="apps/mobile_frontend/modules/application/actions/actions.class.php" role="data" />
    <file baseinstalldir="/" md5sum="230d1d35180ee2643456b3202e7bb681" name="apps/mobile_frontend/modules/application/actions/components.class.php" role="data" />
    <file baseinstalldir="/" md5sum="31a9b416e4603892e50fc52658028ae8" name="apps/mobile_frontend/modules/application/config/security.yml" role="data" />
    <file baseinstalldir="/" md5sum="57559fbb734c09fe83cd0a1d65c96a23" name="apps/mobile_frontend/modules/application/templates/addSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="21be2daa57e54e6dc5fa136fb7c954d7" name="apps/mobile_frontend/modules/application/templates/gallerySuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="9b237be3543e1c7ac9bb45c5458f8e58" name="apps/mobile_frontend/modules/application/templates/infoSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="15bca29e7fe3ac2b361786c3dc46c3d5" name="apps/mobile_frontend/modules/application/templates/inviteSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="c0e1b04fd5a539d73406e407e70db530" name="apps/mobile_frontend/modules/application/templates/inviteSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="b733f3d3ae9380829e0466d1629f36ae" name="apps/mobile_frontend/modules/application/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="43ab54b588e25f77cda11818776dfb07" name="apps/mobile_frontend/modules/application/templates/locationError.php" role="data" />
    <file baseinstalldir="/" md5sum="325121126a24540baca8b0f684b7b67f" name="apps/mobile_frontend/modules/application/templates/locationSuccess.php" role="data" />
@@ -170,8 +170,8 @@ fixed JSON-RPC API because friend data can&apos;t be fetched.
    <file baseinstalldir="/" md5sum="ac61064b9de9b847702e84ac7eb989ed" name="lib/filter/doctrine/PluginMemberApplicationSettingFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="88dac44eec7adb6d2adb0c9f8063ed2f" name="lib/form/AddApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="566a59a69f5876a42122cbad1854c486" name="lib/form/ApplicationSearchForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="2bdc0bb9abd12d06aac79c7be42a53c1" name="lib/form/ApplicationSettingForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="4700c1f19856457440abb5e9b9f15e04" name="lib/form/ApplicationUserSettingForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="b1f5b6aa3afb5fc4738ddd10d29b6e54" name="lib/form/ApplicationSettingForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="d3e1ba877829a0db8358e978a6caa940" name="lib/form/ApplicationUserSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2c91313dd6f473898b70aa2ac54b1ea3" name="lib/form/doctrine/PluginApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2e8fd0c3d854d32ac05f49600488d0f9" name="lib/form/doctrine/PluginApplicationInviteForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="16a79ee58b83e6dcbce04baea63735f0" name="lib/form/doctrine/PluginApplicationLifecycleEventQueueForm.class.php" role="data" />
@@ -227,9 +227,10 @@ fixed JSON-RPC API because friend data can&apos;t be fetched.
    <file baseinstalldir="/" md5sum="abdead31b7eb289952ec105b228c73ef" name="lib/vendor/PEAR/Crypt/Blowfish/MCrypt.php" role="data" />
    <file baseinstalldir="/" md5sum="c0c01ba70caebc143b8c1d3a81a64ec9" name="lib/vendor/PEAR/Crypt/Blowfish/PHP.php" role="data" />
    <file baseinstalldir="/" md5sum="3a921dd280e484f1dddff4f28032981c" name="lib/vendor/Shindig/config/container.php" role="data" />
-   <file baseinstalldir="/" md5sum="0ba6ec4e552cf4551a8d79bb11ff53c7" name="lib/vendor/Shindig/config/local.php" role="data" />
+   <file baseinstalldir="/" md5sum="359dd1aa6457786b3d6d2c3bb4ca73cb" name="lib/vendor/Shindig/config/local.php" role="data" />
    <file baseinstalldir="/" md5sum="443ea0861724cce6316b37e5d199d837" name="lib/vendor/Shindig/config/oauth.json" role="data" />
    <file baseinstalldir="/" md5sum="62e7513aba416b5595ebb1d1fcb8dc1a" name="lib/vendor/Shindig/config/OSML_library.xml" role="data" />
+   <file baseinstalldir="/" md5sum="fb1a6e51aba38a727f61496e0f863054" name="lib/vendor/Shindig/config/test.php" role="data" />
    <file baseinstalldir="/" md5sum="31e8db435705e76a2606018943a3db46" name="lib/vendor/Shindig/features/features.txt" role="data" />
    <file baseinstalldir="/" md5sum="0de6ca99723924a43e9622ef02b7aba6" name="lib/vendor/Shindig/features/analytics/feature.xml" role="data" />
    <file baseinstalldir="/" md5sum="cca800149f47eff1e54989b5f372a710" name="lib/vendor/Shindig/features/auth-refresh/auth-refresh.js" role="data" />
@@ -1458,23 +1459,31 @@ fixed JSON-RPC API because friend data can&apos;t be fetched.
    <file baseinstalldir="/" md5sum="32f82288e36821254843ed116eea840b" name="lib/vendor/Shindig/src/social/spi/RestfulCollection.php" role="data" />
    <file baseinstalldir="/" md5sum="ff88bebae885e67734ecd9cd819791fc" name="lib/vendor/Shindig/src/social/spi/UserId.php" role="data" />
    <file baseinstalldir="/" md5sum="e95b3497be711a91aa3e8a15f9eec3e4" name="lib_for_shindig/OpenPNEService.php.sample" role="data" />
-   <file baseinstalldir="/" md5sum="fc2d244db0b042977e9563f0a960898b" name="test/bootstrap/database.php" role="data" />
-   <file baseinstalldir="/" md5sum="2089e76b9d0ae0fd4d222ee37ea68cb5" name="test/bootstrap/functional.php" role="data" />
+   <file baseinstalldir="/" md5sum="6f1d0f5d03b5e62d962dcc6be25c51bd" name="test/bootstrap/database.php" role="data" />
+   <file baseinstalldir="/" md5sum="fe08084ac2244f080921300dc2273e09" name="test/bootstrap/functional.php" role="data" />
    <file baseinstalldir="/" md5sum="4b9770b1215125c0704bfe2931a3215a" name="test/bootstrap/unit.php" role="data" />
-   <file baseinstalldir="/" md5sum="f637f8743a0f82d69b20870c6aa325eb" name="test/fixtures/test_data.yml" role="data" />
-   <file baseinstalldir="/" md5sum="3dbb728b843dbf2bb940ed44376b750c" name="test/functional/pc_frontend/skeletonActionsTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="f8155cf390ad9b276c89afba9b16a778" name="test/unit/model/ApplicationInviteTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="de63408abbd1be9a96b4b5ea4b0454cc" name="test/unit/model/ApplicationInviteTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="f147b05c0a0fb098e0f5849b09168f2c" name="test/unit/model/ApplicationLifecycleEventQueueTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="968f2575bb7bad0b0b1a156592becdcd" name="test/unit/model/ApplicationTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="7eb4f91634b284f5613a0b02f06f7ee2" name="test/unit/model/ApplicationTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="8d7e92d7d339c0a745fbf6e2c4b2c4dc" name="test/unit/model/MemberApplicationSettingTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="a8fac69c6842680f9af741e3b8dc8d2d" name="test/unit/model/MemberApplicationSettingTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="be22a7007726e5386df41428b1c4a484" name="test/unit/model/MemberApplicationTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="1aebe5f62fdd3288036614ced9fd673f" name="test/unit/model/MemberApplicationTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="915f94795f69390af67364c805e04bae" name="test/certs/private.key" role="data" />
+   <file baseinstalldir="/" md5sum="dbf4f42812af8af18ad93746e65afd88" name="test/certs/public.crt" role="data" />
+   <file baseinstalldir="/" md5sum="ba5a60aa0e0107dd863b1a94c63e171e" name="test/fixtures/test_data.yml" role="data" />
+   <file baseinstalldir="/" md5sum="741190a1b41a209692c40c6f9705afb5" name="test/functional/mobile_frontend/applicationActionsTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="b3ba0d0394fa9399887a384ab70ee150" name="test/functional/pc_backend/opOpenSocialPluginActionsTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="caf7175c4c0c68ade4de3b73557dad56" name="test/functional/pc_frontend/applicationActionsTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="172cb73479c7776f5ba37a4e0d4d4c89" name="test/unit/form/AddApplicationFormTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="a6e585fc65b8feced8e66809caada281" name="test/unit/form/ApplicationSearchFormTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="346d61179d26100914eb5d09b72535ef" name="test/unit/form/ApplicationSettingFormTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="16e4a1aab566b650acebac22cde7b77c" name="test/unit/form/ApplicationUserSettingFormTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="66a2e55cc4559d58effdfddba7296713" name="test/unit/model/ApplicationInviteTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="59a474daafbbb8e1aa6293f5ba80e1c1" name="test/unit/model/ApplicationInviteTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="ec2f4b36f7e652d6fdf57d197924e92d" name="test/unit/model/ApplicationLifecycleEventQueueTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="6d63d90a6db3e9a1582e67e8bb565c58" name="test/unit/model/ApplicationTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="e3bef3f53bf184ac7b1b7fbd24595457" name="test/unit/model/ApplicationTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="af3b70f343ecec0e53b09b41d26f1662" name="test/unit/model/MemberApplicationSettingTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="a8321c31219636e39245768503af971f" name="test/unit/model/MemberApplicationSettingTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="1a555ee589539101cf3d259c763aea2d" name="test/unit/model/MemberApplicationTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="2e941eb06ae079f4dddb208d7158cfe7" name="test/unit/model/MemberApplicationTest.php" role="data" />
    <file baseinstalldir="/" md5sum="1164ed5f837ff6601bfcca1b88996976" name="web/css/opensocial.css" role="data" />
-   <file baseinstalldir="/" md5sum="71b3307db0cad37f36b4cbafe75e1823" name="web/js/container.js" role="data" />
-   <file baseinstalldir="/" md5sum="56d13587f6e7960989749a8152248c29" name="web/js/container.js.src" role="data" />
+   <file baseinstalldir="/" md5sum="eb5644a2ed7c98e3ef0c400410fe74ff" name="web/js/container.js" role="data" />
+   <file baseinstalldir="/" md5sum="6d8b791a5cdbb713c78483ab06fabde0" name="web/js/container.js.src" role="data" />
    <file baseinstalldir="/" md5sum="ccdce439ef03d17d4f3c705b3f26f827" name="web/js/opensocial-util.js" role="data" />
    <file baseinstalldir="/" md5sum="cb8e75af1195f57ad65419958aea4806" name="web/js/opensocial-util.js.src" role="data" />
    <file baseinstalldir="/" md5sum="5c474de4df3efc02a106590bb36bcb93" name="web/js/rpc_relay.html" role="data" />
@@ -1482,7 +1491,7 @@ fixed JSON-RPC API because friend data can&apos;t be fetched.
    <file baseinstalldir="/" md5sum="385e49d1930c3c9898b0c9089dec09e2" name="web/js/tabs.js" role="data" />
    <file baseinstalldir="/" md5sum="3b83ef96387f14655fc854ddc3c6bd57" name="LICENSE" role="data" />
    <file baseinstalldir="/" md5sum="b13ec006a5f83dc3b0ac985c778263b9" name="LICENSE.Shindig" role="data" />
-   <file baseinstalldir="/" md5sum="efb7363db92d406d651dbc64917ef333" name="NOTICE" role="data" />
+   <file baseinstalldir="/" md5sum="eda2951d92b22220ec29feec31a97e91" name="NOTICE" role="data" />
    <file baseinstalldir="/" md5sum="395dfe25b52121a6610d32c0c2307f05" name="NOTICE.Shindig" role="data" />
    <file baseinstalldir="/" md5sum="a849e1ed9d48be4696085908d12bbcd6" name="README" role="data" />
   </dir>
@@ -1722,6 +1731,21 @@ Stable release for OpenPNE3.6
    <license>apache</license>
    <notes>
 fixed JSON-RPC API because friend data can&apos;t be fetched.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.2</release>
+    <api>1.2.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-12-01</date>
+   <license>apache</license>
+   <notes>
+Added some tests for security countermeasures.
    </notes>
   </release>
  </changelog>
