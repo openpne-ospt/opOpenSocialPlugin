@@ -145,20 +145,7 @@ class applicationActions extends opOpenSocialApplicationActions
 
     $method = $request->isMethod(sfWebRequest::POST) ? 'POST' : 'GET';
 
-    if (!isset($this->redirectCount))
-    {
-      $this->redirectCount = 0;
-    }
-
-    if (isset($this->redirectUrl))
-    {
-      $url = $this->redirectUrl;
-      $method = 'GET';
-    }
-    else
-    {
-      $url = $request->getParameter('url', $views['mobile']['href']);
-    }
+    $url = $request->getParameter('url', $views['mobile']['href']);
     $zendUri = Zend_Uri_Http::fromString($url);
     $queryString = $zendUri->getQuery();
     $zendUri->setQuery('');
@@ -247,16 +234,9 @@ class applicationActions extends opOpenSocialApplicationActions
       $this->response->send();
       exit;
     }
-    elseif (
-      $response->isRedirect() && ($location = $response->getHeader('location')) &&
-      $this->redirectCount < sfConfig::get('op_opensocial_maxredirects', 5)
-    )
+    elseif ($response->isRedirect() && ($location = $response->getHeader('location')))
     {
-      if (Zend_Uri_Http::check($location))
-      {
-        $this->redirectUrl = $location;
-      }
-      else
+      if (!Zend_Uri_Http::check($location))
       {
         $uri = $client->getUri();
         if (strpos($location, '?') !== false)
@@ -280,11 +260,10 @@ class applicationActions extends opOpenSocialApplicationActions
           $uri->setPath($path . '/' . $location);
         }
 
-        $this->redirectUrl = $uri->getUri();
+        $location = $uri->getUri();
       }
-      $this->redirectCount++;
 
-      return $this->executeRender($request);
+      $this->redirect('@application_render?id='.$this->application->id.'&url='.urlencode($location));
     }
 
     return sfView::ERROR;
