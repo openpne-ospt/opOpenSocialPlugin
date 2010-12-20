@@ -27,13 +27,12 @@ class opCacheStorageFile extends CacheStorageFile
 
   private function getCacheDir($key)
   {
-    return Shindig_Config::get('cache_root') . '/' . $this->prefix . '/' .
-        substr($key, 0, 2);
+    return Shindig_Config::get('cache_root').'/'.$this->prefix.'/'.substr($key, 0, 2);
   }
 
   private function getCacheFile($key)
   {
-    return $this->getCacheDir($key) . '/' . $key;
+    return $this->getCacheDir($key).'/'.$key;
   }
 
   public function store($key, $value)
@@ -51,6 +50,21 @@ class opCacheStorageFile extends CacheStorageFile
     return file_put_contents($cacheFile, $value);
   }
 
+  public function fetch($key) {
+    $cacheFile = $this->getCacheFile($key);
+    if (Shindig_File::exists($cacheFile) && Shindig_File::readable($cacheFile)) {
+      return @file_get_contents($cacheFile);
+    }
+    return false;
+  }
+
+  public function delete($key) {
+    $cacheFile = $this->getCacheFile($key);
+    if (! @unlink($cacheFile)) {
+      throw new CacheException("Cache file could not be deleted");
+    }
+  }
+
   public function lock($key)
   {
     $cacheDir = $this->getCacheDir($key);
@@ -65,7 +79,12 @@ class opCacheStorageFile extends CacheStorageFile
       }
       umask($old);
     }
-    @touch($cacheFile . '.lock');
+    @touch($cacheFile.'.lock');
+  }
+
+  public function unlock($key)
+  {
+    $cacheFile = $this->getCacheFile($key);
+    @unlink($cacheFile.'.lock');
   }
 }
-
