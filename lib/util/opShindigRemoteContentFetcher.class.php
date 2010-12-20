@@ -75,11 +75,15 @@ class opShindigRemoteContentFetcher extends RemoteContentFetcher {
     $client = new Zend_Http_Client();
     $client->setConfig($options);
     $client->setUri($request->getUrl());
+    $client->setHeaders($outHeaders);
+    if ($request->getContentType())
+    {
+      $client->setHeaders(Zend_Http_Client::CONTENT_TYPE, $request->getContentType());
+    }
 
     if ($request->isPost())
     {
       $client->setMethod(Zend_Http_Client::POST);
-      $client->setHeaders(Zend_Http_Client::CONTENT_TYPE, Zend_Http_Client::ENC_URLENCODED);
       $client->setRawData($request->getPostBody());
     }
     else
