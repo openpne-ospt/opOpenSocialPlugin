@@ -200,6 +200,11 @@ class opOpenSocialContainerConfig
 
     $features['views']['profile']['urlTemplate'] = $snsUrl.'member/{var}';
     $features['views']['canvas']['urlTemplate']  = $snsUrl.'application/canvas/id/{var}';
+    $features['views']['home'] = array(
+      'isOnlyVisible' => false,
+      'urlTemplate'   => $snsUrl,
+      'aliases'       => array()
+    );
 
     $features['rpc']['parentRelayUr'] = $snsUrl.'opOpenSocialPlugin/js/rpc_relay.html';
 
