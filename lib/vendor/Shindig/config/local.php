@@ -57,8 +57,10 @@ $shindigConfig = array(
   'album_service'      => 'opJsonDbOpensocialService',
   'media_item_service' => 'opJsonDbOpensocialService',
 
+  'invalidate_service' => 'opShindigInvalidateService',
+
   'cache_time' => Doctrine::getTable('SnsConfig')->get('shindig_cache_time', 60*60),
-  'cache_root' => sfConfig::get('sf_app_cache_dir').'/plugins/opOpenSocialPlugin',
+  'cache_root' => sfConfig::get('sf_cache_dir').'/plugins/opOpenSocialPlugin',
 
   'curl_connection_timeout' => '15',
 );

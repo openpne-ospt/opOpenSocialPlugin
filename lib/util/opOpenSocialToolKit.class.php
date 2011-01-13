@@ -30,6 +30,67 @@ class opOpenSocialToolKit
     return (object)$array;
   }
 
+  static public function invalidateRemoteContents(array $uris)
+  {
+    $invalidateService = trim(Shindig_Config::get('invalidate_service'));
+    $cache = Cache::createCache(Shindig_Config::get('data_cache'), 'RemoteContent');
+    $service = new $invalidateService($cache);
+
+    // dummy token
+    $token = opShindigSecurityToken::createFromValues(1, 1, 1, 'openpne', '', 1, '');
+    $service->invalidateApplicationResources($uris, $token);
+  }
+
+  static public function invalidateGadgetCache(GadgetContext $context)
+  {
+    $request = new RemoteContentRequest($context->getUrl());
+    $cache = Cache::createCache(Shindig_Config::get('data_cache'), 'RemoteContent');
+    $cacheData = $cache->get($request->toHash());
+    if ($cacheData)
+    {
+      $uris = array();
+      $xml = $cacheData->getResponseContent();
+      $parserClass = Shindig_Config::get('gadget_spec_parser');
+      $parser = new $parserClass();
+      $gadgetSpec = $parser->parse($xml, $context);
+
+      if ($gadgetSpec->locales)
+      {
+        foreach ($gadgetSpec->locales as $locale)
+        {
+          if (!empty($locale['messages']))
+          {
+            $uris[] = RemoteContentRequest::transformRelativeUrl($locale['messages'], $context->getUrl());
+          }
+        }
+      }
+
+      if (is_array($gadgetSpec->preloads))
+      {
+        foreach ($gadgetSpec->preloads as $preload)
+        {
+          if (!empty($preload['href']))
+          {
+            $uris[] = RemoteContentRequest::transformRelativeUrl($preload['href'], $context->getUrl());
+          }
+        }
+      }
+
+      if (is_array($gadgetSpec->templatesRequireLibraries))
+      {
+        foreach ($gadgetSpec->templatesRequireLibraries as $libraryUrl)
+        {
+          $uris[] = RemoteContentRequest::transformRelativeUrl($locale['messages'], $context->getUrl());
+        }
+      }
+
+      $uris[] = $request->getUrl();
+      self::invalidateRemoteContents($uris);
+    }
+  }
+
+  static protected $isInvalidatedCache = false;
+
   /**
    * fetch a OpenSocial application metadata
    *
@@ -40,15 +101,22 @@ class opOpenSocialToolKit
   {
     $cul = explode('_', $culture);
 
-    $_GET['nocache'] = 1;
     $context = new MetadataGadgetContext(self::arrayToObject(array(
       'country'   => isset($cul[1]) ? $cul[1] : 'ALL',
       'language'  => $cul[0],
       'view'      => 'default',
       'container' => 'openpne',
     )), $url);
+
+    if (!self::$isInvalidatedCache)
+    {
+      self::invalidateGadgetCache($context);
+      self::$isInvalidatedCache = true;
+    }
+
     $gadgetServer = new GadgetFactory($context, null);
     $gadgets = $gadgetServer->createGadget();
+
     return $gadgets;
   }
 
