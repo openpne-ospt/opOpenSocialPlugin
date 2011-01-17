@@ -47,12 +47,16 @@
         <target>キャッシュ時間(秒)</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Use outer OpenSocial container (Recomended)</source>
+        <source>Use a outer OpenSocial container (Recomended)</source>
         <target>外部のOpenSocialコンテナを利用(推奨)</target>
       </trans-unit>
       <trans-unit id="">
         <source>The OpenSocial container URL</source>
         <target>OpenSocialコンテナURL</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Relay cache invalidity notice back to the outer OpenSocial container</source>
+        <target>外部のコンテナにキャッシュ無効通知をリレーする</target>
       </trans-unit>
       <trans-unit id="">
         <source>Add App</source>

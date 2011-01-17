@@ -1,0 +1,15 @@
+<?php
+
+class OpenPNEServiceConfig
+{
+  // changed parameters
+  // for example:
+  //
+  // const SNSURL = 'http://sns.example.com/';
+
+  const SNSURL  = 'http://sns.example.com/';
+  const OAUTH_CONSUMER_KEY    = 'KEY';
+  const OAUTH_CONSUMER_SECRET = 'SECRET';
+
+  const ACTION  = 'api.php/social/rpc';
+}

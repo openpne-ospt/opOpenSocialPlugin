@@ -78,6 +78,24 @@ op_opensocial_delete_consumer_secret:
   requirements: { id: '\d+', sf_method: [get, post] }
   options: { model: Application, type: object }
 
+op_opensocial_show_backend_secret:
+  class: sfRequestRoute
+  url: /opOpenSocialPlugin/showConsumerSecret
+  param: { module: opOpenSocialPlugin, action: showBackendConsumerSecret }
+  requirements: { sf_method: [get] }
+
+op_opensocial_update_backend_secret:
+  class: sfRequestRoute
+  url: /opOpenSocialPlugin/updateConsumerSecret
+  param: { module: opOpenSocialPlugin, action: updateBackendConsumerSecret }
+  requirements: { sf_method: [get, post] }
+
+op_opensocial_delete_backend_secret:
+  class: sfRequestRoute
+  url: /opOpenSocialPlugin/deleteConsumerSecret
+  param: { module: opOpenSocialPlugin, action:deleteBackendConsumerSecret }
+  requirements: { sf_method: [get, post] }
+
 op_opensocial_nodefault:
   url: /opOpenSocialPlugin/*
   param: { module: default, action:error }

@@ -1,6 +1,6 @@
 <?php
 
-class opShindigInvalidateService implements InvalidateService
+class OpenPNEInvalidateService implements InvalidateService
 {
   protected
     $invalidationEntry,
@@ -14,9 +14,9 @@ class opShindigInvalidateService implements InvalidateService
   public function __construct(Cache $cache)
   {
     $this->cache = $cache;
-    $this->invalidationEntry = Cache::createCache(Shindig_Config::get('data_cache'), 'InvalidationEntry');
+    $this->invalidationEntry = Cache::createCache(Config::get('data_cache'), 'InvalidationEntry');
     if (self::$makerCache == null) {
-      self::$makerCache = Cache::createCache(Shindig_Config::get('data_cache'), 'MarkerCache');
+      self::$makerCache = Cache::createCache(Config::get('data_cache'), 'MarkerCache');
       $value = self::$makerCache->expiredGet('marker');
       if ($value['found'])
       {
@@ -47,41 +47,6 @@ class opShindigInvalidateService implements InvalidateService
       $request->setAuthType(RemoteContentRequest::$AUTH_SIGNED);
       $request->setNotSignedUri($uri);
       $this->cache->invalidate($request->toHash());
-    }
-
-    if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig', false) &&
-      Doctrine::getTable('SnsConfig')->get('is_relay_invalidation_notice', true))
-    {
-      require_once 'OAuth.php';
-
-      $shindigUrl = Doctrine::getTable('SnsConfig')->get('shindig_url');
-      if (substr($shindigUrl, -1) !== '/')
-      {
-        $shindigUrl .= '/';
-      }
-
-      $invalidateUrl = $shindigUrl.'gadgets/api/rest/cache';
-
-      $key    = Doctrine::getTable('SnsConfig')->get('shindig_backend_key');
-      $secret = Doctrine::getTable('SnsConfig')->get('shindig_backend_secret');
-      $consumer = new OAuthConsumer($key, $secret);
-      $oauthRequest = OAuthRequest::from_consumer_and_token(
-        $consumer,
-        null,
-        'POST',
-        $invalidateUrl
-      );
-      $oauthRequest->set_parameter('xoauth_requestor_id', 1);
-      $oauthRequest->sign_request(new OAuthSignatureMethod_HMAC_SHA1(), $consumer, null);
-      $request = new RemoteContentRequest($invalidateUrl.'?xoauth_requestor_id=1');
-      $request->setMethod('POST');
-      $request->setContentType('application/json');
-      $request->setPostBody(json_encode( array('invalidationKeys' => $uris)));
-      $request->setHeaders($oauthRequest->to_header());
-      $request->getOptions()->ignoreCache = true;
-      $remoteContent = Shindig_Config::get('remote_content');
-      $fetcher = new $remoteContent();
-      $fetcher->fetch($request);
     }
   }
 

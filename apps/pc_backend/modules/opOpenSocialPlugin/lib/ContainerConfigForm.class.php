@@ -56,11 +56,28 @@ class ContainerConfigForm extends sfForm
       'shindig_token_hmac_key'      => 'Token hmac key',
       'shindig_token_max_age'   => 'Token max age (s)',
       'shindig_cache_time'      => 'Cache time (s)',
-      'is_use_outer_shindig'    => 'Use outer OpenSocial container (Recomended)',
+      'is_use_outer_shindig'    => 'Use a outer OpenSocial container (Recomended)',
       'shindig_url'             => 'The OpenSocial container URL',
     ));
 
+    $this->fixFieldsForOuterShindig();
+
     $this->widgetSchema->setNameFormat('container_config[%s]');
+  }
+
+  protected function fixFieldsForOuterShindig()
+  {
+    if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig', false))
+    {
+      $this->setWidget('is_relay_invalidation_notice', new sfWidgetFormInputCheckbox());
+      $this->setValidator('is_relay_invalidation_notice', new sfValidatorBoolean());
+      $this->setDefault('is_relay_invalidation_notice', (bool)Doctrine::getTable('SnsConfig')->get('is_relay_invalidation_notice', true));
+      $this->widgetSchema->setLabel('is_relay_invalidation_notice', 'Relay cache invalidity notice back to the outer OpenSocial container');
+    }
+    elseif (isset($this->widgetSchema['is_relay_invalidation_notice']))
+    {
+      unset($this->widgetSchema['is_relay_invalidation_notice']);
+    }
   }
 
   public static function validate($validator, $values, $argments = array())
@@ -91,6 +108,9 @@ class ContainerConfigForm extends sfForm
       $snsConfig->setValue($value);
       $snsConfig->save();
     }
+
+    $this->fixFieldsForOuterShindig();
+
     return true;
   }
 }

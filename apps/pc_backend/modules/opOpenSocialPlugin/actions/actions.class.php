@@ -13,7 +13,7 @@
  *
  * @package    OpenPNE
  * @subpackage opOpenSocialPlugin
- * @author     Shogo Kawahara<kawahara@tejimaya.net>
+ * @author     Shogo Kawahara<kawahara@bucyou.net>
  */
 class opOpenSocialPluginActions extends sfActions
 {
@@ -65,6 +65,9 @@ class opOpenSocialPluginActions extends sfActions
         $this->containerConfigForm->save();
       }
     }
+
+    $this->consumerKey = Doctrine::getTable('SnsConfig')->get('shindig_backend_key', '');
+    $this->consumerSecret = Doctrine::getTable('SnsConfig')->get('shindig_backend_secret', '');
   }
 
  /**
@@ -268,6 +271,62 @@ class opOpenSocialPluginActions extends sfActions
       $this->application->setConsumerSecret('');
       $this->application->save();
       $this->redirect('@op_opensocial_info?id='.$this->application->getId());
+    }
+
+    return sfView::INPUT;
+  }
+
+ /**
+  * Executes show backend consumer secret
+  *
+  * @param sfWebRequest $request
+  */
+  public function executeShowBackendConsumerSecret(sfWebRequest $request)
+  {
+    $this->forward404Unless($this->getRequest()->isXmlHttpRequest());
+    $secret = Doctrine::getTable('SnsConfig')->get('shindig_backend_secret', '');
+    if ($secret)
+    {
+      $this->renderText($secret);
+    }
+
+    return sfView::NONE;
+  }
+
+ /**
+  * Executes update backend consumer secret
+  *
+  * @param sfWebRequest $request
+  */
+  public function executeUpdateBackendConsumerSecret(sfWebRequest $request)
+  {
+    if ($request->isMethod(sfWebRequest::POST))
+    {
+      $request->checkCSRFProtection();
+      $snsConfigTable = Doctrine::getTable('SnsConfig');
+      if (!$snsConfigTable->get('shindig_backend_key'))
+      {
+        $snsConfigTable->set('shindig_backend_key', opToolkit::generatePasswordString(16, false));
+      }
+      $snsConfigTable->set('shindig_backend_secret', opToolkit::generatePasswordString(32));
+      $this->redirect('@op_opensocial_container_config');
+    }
+
+    return sfView::INPUT;
+  }
+
+ /**
+  * Executes delete backend consumer secret
+  *
+  * @param sfWebRequest $request
+  */
+  public function executeDeleteBackendConsumerSecret(sfWebRequest $request)
+  {
+    if ($request->isMethod(sfWebRequest::POST))
+    {
+      $request->checkCSRFProtection();
+      Doctrine::getTable('SnsConfig')->set('shindig_backend_secret', '');
+      $this->redirect('@op_opensocial_container_config');
     }
 
     return sfView::INPUT;

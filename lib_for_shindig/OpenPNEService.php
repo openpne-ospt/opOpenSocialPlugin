@@ -14,24 +14,15 @@
  * This class is the one for Shindig.
  * Please set php/config/local.php of Shindig.
  *
- * @author Shogo Kawahara <kawahara@tejimaya.net>
+ * @author Shogo Kawahara <kawahara@bucyou.net>
  */
 class OpenPNEService implements ActivityService, PersonService, AppDataService, MessagesService, AlbumService, MediaItemService
 {
-  // changed parameters
-  // for example:
-  //
-  // const SNSURL = 'http://sns.example.com/';
-
-  const SNSURL  = '#SNS_URL#';
-
-  const ACTION  = 'api.php/social/rpc';
-
   protected function fetch($postParam, $token)
   {
     $context = new GadgetContext('GADGET');
     $context->setIgnoreCache(true);
-    $url = self::SNSURL.self::ACTION;
+    $url = OpenPNEServiceConfig::SNSURL.OpenPNEServiceConfig::ACTION;
 
     $postData = json_encode($postParam);
 
