@@ -105,7 +105,9 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
     $results = array();
     if(isset($json->list))
     {
-      $totalSize = $json->totalResults;
+      $totalSize   = isset($json->totalResults) ? $json->totalRequests : 1;
+      $startIndex  = isset($json->startIndex)   ? $json->startIndex    : RequestItem::$DEFAULT_START_INDEX;
+      $itemPerPage = isset($json->itemsPerPage) ? $json->itemsPerPage  : RequestItem::$DEFAULT_COUNT;
       foreach($json->list as $d)
       {
         $result = array();
@@ -118,15 +120,17 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
     }
     else
     {
-      $totalSize = 1;
+      $totalSize   = 1;
+      $startIndex  = RequestItem::$DEFAULT_START_INDEX;
+      $itemPerPage = RequestItem::$DEFAULT_COUNT;
       foreach($json as $key => $value)
       {
         $results[0][$key] = $value;
       }
     }
 
-    $collection = new RestfulCollection($results, $json->data->startIndex, $totalSize);
-    $collection->setItemsPerPage($json->data->itemsPerPage);
+    $collection = new RestfulCollection($results, $startIndex, $totalSize);
+    $collection->setItemsPerPage($itemPerPage);
     return $collection;
   }
 
