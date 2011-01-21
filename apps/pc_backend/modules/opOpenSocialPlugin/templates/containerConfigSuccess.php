@@ -18,9 +18,9 @@
 
 <?php if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig', false)): ?>
 <div>
-<h3>Download openpne.js</h3>
+<h3>Download <?php echo $containerName ?>.js</h3>
 <p>
-<?php echo link_to(__('Download openpne.js'), '@op_opensocial_generate_container_config') ?>
+<?php echo link_to(__('Download %0%', array('%0%' => $containerName.'.js')), '@op_opensocial_generate_container_config') ?>
 </p>
 <p>
 <ul>

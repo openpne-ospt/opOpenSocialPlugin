@@ -68,6 +68,8 @@ class opOpenSocialPluginActions extends sfActions
 
     $this->consumerKey = Doctrine::getTable('SnsConfig')->get('shindig_backend_key', '');
     $this->consumerSecret = Doctrine::getTable('SnsConfig')->get('shindig_backend_secret', '');
+    $opOpenSocialContainerConfig = new opOpenSocialContainerConfig(false);
+    $this->containerName = $opOpenSocialContainerConfig->getContainerName();
   }
 
  /**
@@ -178,8 +180,10 @@ class opOpenSocialPluginActions extends sfActions
     sfConfig::set('sf_web_debug', false);
     $response = $this->getResponse();
     $response->setContentType('text/javascript');
-    $response->setHttpHeader('Content-Disposition','attachment; filename="openpne.js');
     $opOpenSocialContainerConfig = new opOpenSocialContainerConfig(false);
+    $containerName = $opOpenSocialContainerConfig->getContainerName();
+
+    $response->setHttpHeader('Content-Disposition','attachment; filename="'.$containerName.'.js"');
     $this->json = $opOpenSocialContainerConfig->generate();
   }
 

@@ -21,9 +21,9 @@ class opOpenSocialContainerConfig
   protected $containerName = null;
   protected $isDevEnvironment = null;
 
-  public function __construct($isDevEnvironment = null, $containerName = 'openpne')
+  public function __construct($isDevEnvironment = null, $containerName = null)
   {
-    if ($isDevEnvironment === null)
+    if (null === $isDevEnvironment)
     {
       if (sfConfig::get('sf_environment') == 'dev')
       {
@@ -33,6 +33,11 @@ class opOpenSocialContainerConfig
       {
         $isDevEnvironment = false;
       }
+    }
+
+    if (null === $containerName)
+    {
+      $containerName = sfConfig::get('op_opensocial_container_name', 'openpne');
     }
 
     if ($isDevEnvironment)
@@ -118,6 +123,16 @@ class opOpenSocialContainerConfig
     return $result;
   }
 
+  protected function addSlashToUrl($url)
+  {
+    if (substr($url, -1) !== '/')
+    {
+      $url .= '/';
+    }
+
+    return $url;
+  }
+
   /**
    * generate a configutaion
    *
@@ -139,35 +154,43 @@ class opOpenSocialContainerConfig
     $containerTemplate = $this->loadTemplate($templateFile);
 
     $request = sfContext::getInstance()->getRequest();
+
+    $snsBaseUrl = $this->addSlashToUrl(sfConfig::get('op_base_url'));
+
     if (null === $snsUrl)
     {
-      $snsUrl = $request->getUriPrefix().$request->getRelativeUrlRoot().'/';
-      if($this->isDevEnvironment)
+      if (!($snsUrl = sfConfig::get('op_opensocial_sns_url')))
       {
-        $snsUrl .= 'pc_frontend_dev.php/';
+        $snsUrl = $snsBaseUrl;
+
+        if($this->isDevEnvironment)
+        {
+          $snsUrl .= 'pc_frontend_dev.php/';
+        }
       }
     }
+    $snsUrl = $this->addSlashToUrl($snsUrl);
 
     if (null === $apiUrl)
     {
-      if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
+      if (!($apiUrl = sfConfig::get('op_opensocial_api_url')))
       {
-        $apiUrl = Doctrine::getTable('SnsConfig')->get('shindig_url');
-        if (substr($apiUrl, -1) !== '/')
+        if (Doctrine::getTable('SnsConfig')->get('is_use_outer_shindig'))
         {
-          $apiUrl .= '/';
+          $apiUrl = Doctrine::getTable('SnsConfig')->get('shindig_url');
         }
-      }
-      else
-      {
-        $apiUrl = $request->getUriPrefix().$request->getRelativeUrlRoot().'/api';
-        if ($this->isDevEnvironment)
+        else
         {
-          $apiUrl .= '_dev';
+          $apiUrl = $snsBaseUrl.'api';
+          if ($this->isDevEnvironment)
+          {
+            $apiUrl .= '_dev';
+          }
+          $apiUrl .= '.php/';
         }
-        $apiUrl .= '.php/';
       }
     }
+    $apiUrl = $this->addSlashToUrl($apiUrl);
 
     if (null === $shindigUrl)
     {
@@ -180,6 +203,7 @@ class opOpenSocialContainerConfig
         $shindigUrl = $snsUrl;
       }
     }
+    $shindigUrl = $this->addSlashToUrl($shindigUrl);
 
     // override container template
     $containerTemplate['gadgets.container'] = array($this->containerName);
