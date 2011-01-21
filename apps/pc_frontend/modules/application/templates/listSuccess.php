@@ -13,7 +13,7 @@
 <?php op_include_application_information_box(
   'item_'.$memberApplication->getId(),
   $memberApplication->getApplication(),
-  $memberApplication->getId(),
+  $memberApplication,
   $isOwner
 ) ?>
 <?php endforeach; ?>

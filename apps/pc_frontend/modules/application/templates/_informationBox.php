@@ -7,8 +7,9 @@ if ($isOwner)
 
 <div class="partsHeading">
 <h3>
-<?php if ($mid) : ?>
-<?php echo link_to($application->getTitle(), '@application_canvas?id='.$mid) ?>
+<?php if ($memberApplication) : ?>
+<?php echo link_to($application->getTitle(), '@application_render?id='.$application->id.
+(!$isOwner ? '&member_id='.$memberApplication->getMemberId() : '')) ?>
 <?php else : ?>
 <?php echo $application->getTitle() ?>
 <?php endif ?>

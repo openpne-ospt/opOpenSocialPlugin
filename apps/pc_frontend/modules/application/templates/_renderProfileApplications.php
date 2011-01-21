@@ -10,7 +10,8 @@ $i = 0;
 <?php include_component('application', 'gadget', array(
   'view' => 'profile',
   'memberApplication' => $memberApplication,
-  'titleLinkTo' => '@application_canvas?id='.$memberApplication->getId(),
+  'titleLinkTo' => '@application_render?id='.$memberApplication->getApplicationId()
+                .'&member_id='.$memberApplication->getMemberId()
 )) ?>
 <?php $i++ ?>
 <?php endif; ?>

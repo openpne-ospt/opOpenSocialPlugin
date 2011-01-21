@@ -18,13 +18,13 @@ sfProjectConfiguration::getActive()->loadHelpers(array('Url', 'Javascript', 'opJ
  * @param integer     $mid         a module id
  * @param boolean     $isOwner
  */
-function op_include_application_information_box($id, $application, $mid = null, $isOwner = false)
+function op_include_application_information_box($id, $application, $memberApplication = null, $isOwner = false)
 {
   $params = array(
-    'id'          => $id,
-    'application' => $application,
-    'mid'         => $mid,
-    'isOwner'     => $isOwner
+    'id'                 => $id,
+    'application'        => $application,
+    'memberApplication'  => $memberApplication,
+    'isOwner'            => $isOwner
   );
   include_partial('application/informationBox', $params);
 }

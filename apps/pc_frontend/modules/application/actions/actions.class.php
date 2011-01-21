@@ -34,6 +34,24 @@ class applicationActions extends opOpenSocialApplicationActions
    */
   public function executeCanvas(sfWebRequest $request)
   {
+    if (!isset($this->memberApplication))
+    {
+      if ($request->hasParameter('member_id'))
+      {
+        $this->memberApplication = Doctrine::getTable('MemberApplication')
+          ->findOneByApplicationIdAndMemberId($this->application->id, $request->getParameter('member_id'));
+
+        $this->forward404Unless($this->memberApplication);
+      }
+      else
+      {
+        $this->memberApplication = Doctrine::getTable('MemberApplication')
+          ->findOneByApplicationAndMember($this->application, $this->member);
+
+        $this->redirectUnless($this->memberApplication, '@application_info?id='.$this->application->id);
+      }
+    }
+
     $this->forward404Unless($this->application->getIsPc());
     $this->forward404Unless($this->memberApplication->isViewable());
     $this->forward404Unless($this->application->isActive());
@@ -120,7 +138,7 @@ class applicationActions extends opOpenSocialApplicationActions
     $memberApplication = $this->processAdd($request);
     if ($memberApplication instanceof MemberApplication)
     {
-      $this->redirect('@application_canvas?id='.$memberApplication->getId());
+      $this->redirect('@application_render?id='.$memberApplication->getApplicationId());
     }
   }
 
