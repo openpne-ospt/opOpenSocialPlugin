@@ -19,7 +19,7 @@ class opOpenSocialPluginPcFrontendRouteCollection extends opOpenSocialPluginFron
 {
   protected function generateRoutes()
   {
-    return parent::generateRoutes() +
+    $routes =
       array(
         'application_list' => new sfDoctrineRoute(
           '/application/list/:id',
@@ -36,12 +36,6 @@ class opOpenSocialPluginPcFrontendRouteCollection extends opOpenSocialPluginFron
         'application_gallery' => new sfRoute(
           '/application/gallery',
           array('module' => 'application', 'action' => 'gallery')
-        ),
-        'application_canvas' => new sfDoctrineRoute(
-          '/application/canvas/:id',
-          array('module' => 'application', 'action' => 'canvas'),
-          array('id' => '\d+'),
-          array('model' => 'MemberApplication', 'type' => 'object')
         ),
         'application_render' => new sfDoctrineRoute(
           '/application/:id',
@@ -138,6 +132,18 @@ class opOpenSocialPluginPcFrontendRouteCollection extends opOpenSocialPluginFron
           array('module' => 'opensocial', 'action' => 'certificates')
         ),
       );
+
+    if (sfConfig::get('op_opensocial_is_enabled_old_routing', true))
+    {
+      $routes['application_canvas'] = new sfDoctrineRoute(
+        '/application/canvas/:id',
+        array('module' => 'application', 'action' => 'canvas'),
+        array('id' => '\d+'),
+        array('model' => 'MemberApplication', 'type' => 'object')
+      );
+    }
+
+    return parent::generateRoutes() + $routes;
   }
 
   protected function generateNoDefaults()
