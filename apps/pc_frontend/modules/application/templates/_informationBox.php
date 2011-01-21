@@ -44,9 +44,9 @@ if ($isOwner)
 <div class="operation">
 <ul>
 <?php if ($application->isActive()): ?>
-<?php if($isOwner) : ?>
-<li><?php echo link_to_app_setting(__('Settings'), $mid); ?></li>
-<li><?php echo link_to(__('Remove'), '@application_remove?id='.$mid); ?></li>
+<?php if($memberApplication && $isOwner) : ?>
+<li><?php echo link_to_app_setting(__('Settings'), $memberApplication->id); ?></li>
+<li><?php echo link_to(__('Remove'), '@application_remove?id='.$memberApplication->id); ?></li>
 <?php else : ?>
 <?php if ($application->getIsPc()): ?>
 <li><?php echo link_to(__('Add this App'), '@application_add?id='.$application->getId()) ?></li>
