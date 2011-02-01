@@ -321,9 +321,9 @@ class applicationActions extends opOpenSocialApplicationActions
     $this->getResponse()->setContentType('application/json');
 
     $result = $this->processInvite($request);
-    if ($result)
+    if (false !== $result)
     {
-      return $this->renderText(json_encode($resultIds));
+      return $this->renderText(json_encode($result));
     }
     else
     {
