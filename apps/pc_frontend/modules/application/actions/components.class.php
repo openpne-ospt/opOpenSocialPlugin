@@ -88,10 +88,12 @@ class applicationComponents extends sfComponents
       {
         $shindigUrl .= '/';
       }
+      $this->relayUrl  = $shindigUrl.'container/rpc_relay.html';
       $this->iframeUrl = $shindigUrl.'gadgets/ifr?'.http_build_query($getParams).'&st='.$securityToken->toSerialForm().'#rpctoken='.$this->rpcToken;
     }
     else
     {
+      $this->relayUrl  = javascript_path('/opOpenSocialPlugin/js/rpc_relay.html', true);
       $this->iframeUrl = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'&st='.$securityToken->toSerialForm().'#rpctoken='.$this->rpcToken;
     }
   }
