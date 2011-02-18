@@ -105,7 +105,7 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
     $results = array();
     if(isset($json->list))
     {
-      $totalSize   = isset($json->totalResults) ? $json->totalRequests : 1;
+      $totalSize   = isset($json->totalResults) ? $json->totalResults : 1;
       $startIndex  = isset($json->startIndex)   ? $json->startIndex    : RequestItem::$DEFAULT_START_INDEX;
       $itemPerPage = isset($json->itemsPerPage) ? $json->itemsPerPage  : RequestItem::$DEFAULT_COUNT;
       foreach($json->list as $d)
