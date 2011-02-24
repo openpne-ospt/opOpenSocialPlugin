@@ -112,10 +112,17 @@ EOF;
         }
         $client->setUri($href);
         $client->setHeaders($oauthRequest->to_header());
-        $response = $client->request();
-        if ($response->isSuccessful())
+
+        try
         {
-          $queue->delete();
+          $response = $client->request(); // throws Zend_Http_Client_Exception if failed
+          if ($response->isSuccessful())
+          {
+            $queue->delete();
+          }
+        }
+        catch (Zend_Http_Client_Exception $e)
+        {
         }
       }
       $application->free(true);
