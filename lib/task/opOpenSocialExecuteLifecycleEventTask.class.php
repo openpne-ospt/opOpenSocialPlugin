@@ -49,7 +49,10 @@ EOF;
       opOpenSocialToolKit::getOAuthConsumerKey();
     $consumer = new OAuthConsumer($consumerKey, null, null);
     $signatureMethod = new OAuthSignatureMethod_RSA_SHA1_opOpenSocialPlugin();
+
+    $client = new Zend_Http_Client();
     $httpOptions = opOpenSocialToolKit::getHttpOptions();
+    $client->setConfig($httpOptions);
 
     $queueGroups = Doctrine::getTable('ApplicationLifecycleEventQueue')->getQueueGroups();
 
@@ -88,7 +91,7 @@ EOF;
         $oauthRequest = OAuthRequest::from_consumer_and_token($consumer, null, $method, $href, $queue->getParams());
         $oauthRequest->sign_request($signatureMethod, $consumer, null);
 
-        $client = new Zend_Http_Client();
+        $client->resetParameters();
         if ('post' !== $method)
         {
           $method = 'get';
@@ -101,7 +104,6 @@ EOF;
           $client->setHeaders(Zend_Http_Client::CONTENT_TYPE, Zend_Http_Client::ENC_URLENCODED);
           $client->setRawData($oauthRequest->to_postdata());
         }
-        $client->setConfig($httpOptions);
         $client->setUri($href);
         $client->setHeaders($oauthRequest->to_header());
         $response = $client->request();
