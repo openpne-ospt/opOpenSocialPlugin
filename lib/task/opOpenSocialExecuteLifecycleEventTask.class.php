@@ -120,6 +120,11 @@ EOF;
           {
             $queue->delete();
           }
+          elseif (floor($response->getStatus() / 100) == 4)
+          {
+            // Client error 4xx (e.g. Not Found)
+            break;
+          }
         }
         catch (Zend_Http_Client_Exception $e)
         {
