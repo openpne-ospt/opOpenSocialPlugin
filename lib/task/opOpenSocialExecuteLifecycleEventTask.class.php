@@ -23,7 +23,7 @@ class opOpenSocialExecuteLifecycleEventTask extends sfDoctrineBaseTask
     $this->name      = 'execute-lifecycle-event';
 
     $this->addOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application', true);
-    $this->addOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev');
+    $this->addOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod');
     $this->addOption('consumer-key', null, sfCommandOption::PARAMETER_OPTIONAL, 'The consumer key for signing by OAuth', null);
     $this->addOption('limit-request', null, sfCommandOption::PARAMETER_OPTIONAL, 'Limit of request', 0);
     $this->addOption('limit-request-app', null, sfCommandOption::PARAMETER_OPTIONAL, 'Limit of request par an application', 0);
@@ -41,9 +41,7 @@ EOF;
   protected function execute($arguments = array(), $options = array())
   {
     require_once realpath(dirname(__FILE__).'/../../../../lib/vendor/OAuth/OAuth.php');
-
-    new sfDatabaseManager($this->configuration);
-    sfContext::createInstance($this->createConfiguration('pc_frontend', 'prod'), 'pc_frontend');
+    sfContext::createInstance($this->configuration);
 
     $consumerKey = (isset($options['consumer-key']) && $options['consumer-key']) ?
       $options['consumer-key'] :
