@@ -27,6 +27,7 @@ class opOpenSocialExecuteLifecycleEventTask extends sfDoctrineBaseTask
     $this->addOption('consumer-key', null, sfCommandOption::PARAMETER_OPTIONAL, 'The consumer key for signing by OAuth', null);
     $this->addOption('limit-request', null, sfCommandOption::PARAMETER_OPTIONAL, 'Limit of request', 0);
     $this->addOption('limit-request-app', null, sfCommandOption::PARAMETER_OPTIONAL, 'Limit of request par an application', 0);
+    $this->addOption('limit-failure', null, sfCommandOption::PARAMETER_OPTIONAL, 'Limit of failed request', -1);
 
     $this->briefDescription = 'Execute lifecycle event';
     $this->detailedDescription = <<<EOF
@@ -58,6 +59,7 @@ EOF;
 
     $limitRequest = (int)$options['limit-request'];
     $limitRequestApp = (int)$options['limit-request-app'];
+    $limitFailure = (int)$options['limit-failure'];
 
     $allRequest = 0;
     foreach ($queueGroups as $group)
@@ -78,6 +80,7 @@ EOF;
       $queues = Doctrine::getTable('ApplicationLifecycleEventQueue')
         ->getQueuesByApplicationId($group[0], $limitRequestApp);
 
+      $failCount = 0;
       foreach ($queues as $queue)
       {
         if (!isset($linkHash[$queue->getName()]))
@@ -119,9 +122,18 @@ EOF;
             // Client error 4xx (e.g. Not Found)
             break;
           }
+          else
+          {
+            // Server error 5xx and others
+            throw new Exception();
+          }
         }
-        catch (Zend_Http_Client_Exception $e)
+        catch (Exception $e)
         {
+          if ($limitFailure !== -1 && ++$failCount >= $limitFailure)
+          {
+            break;
+          }
         }
 
         $allRequest++;
