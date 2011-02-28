@@ -77,6 +77,12 @@ EOF;
 
       foreach ($queues as $queue)
       {
+        $allRequest++;
+        if ($limitRequest && $limitRequest < $allRequest)
+        {
+          break 2;
+        }
+
         if (!isset($linkHash[$queue->getName()]))
         {
           $queue->delete();
@@ -108,12 +114,6 @@ EOF;
         if ($response->isSuccessful())
         {
           $queue->delete();
-        }
-
-        $allRequest++;
-        if ($limitRequest && $limitRequest <= $allRequest)
-        {
-          break 2;
         }
       }
       $application->free(true);
