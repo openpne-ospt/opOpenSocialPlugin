@@ -165,6 +165,8 @@ Application:
   app_1:
     url: "http://example.com/dummy.xml"
     AdditionalMember: member_1
+    links:
+      - { rel: event.addapp, href: "<?php echo sfConfig::get('op_base_url') ?>/robots.txt", method: GET }
     Translation:
       ja_JP:
         title: "Test App"
@@ -211,6 +213,8 @@ Application:
 
   app_2:
     url: "http://gist.github.com/raw/183505/a7f3d824cdcbbcf14c06f287537d0acb0b3e5468/gistfile1.xsl"
+    links:
+      - { rel: event.addapp, href: "<?php echo sfConfig::get('op_base_url') ?>/robots.txt", method: GET }
     Translation:
       ja_JP:
         title: "Test App2"
@@ -218,6 +222,8 @@ Application:
   app_3:
     url: "http://example.com/dummy3.xml"
     AdditionalMember: member_1
+    links:
+      - { rel: event.addapp, href: "<?php echo sfConfig::get('op_base_url') ?>/dummy.txt", method: GET }
     is_active: false
     Translation:
       ja_JP:
@@ -324,7 +330,21 @@ ApplicationInvite:
     FromMember: member_1
 
 ApplicationLifecycleEventQueue:
-  app_1_event:
+<?php for ($i = 0; $i < 5; $i++): ?>
+  app_<?php echo $i ?>_event:
     Application: app_1
     Member: member_1
     name: "event.addapp"
+<?php endfor ?>
+<?php for (; $i < 10; $i++): ?>
+  app_<?php echo $i ?>_event:
+    Application: app_2
+    Member: member_1
+    name: "event.addapp"
+<?php endfor ?>
+<?php for (; $i < 15; $i++): ?>
+  app_<?php echo $i ?>_event:
+    Application: app_3
+    Member: member_1
+    name: "event.addapp"
+<?php endfor ?>
