@@ -11,7 +11,7 @@ $conn->beginTransaction();
 $t = new lime_test(3, new lime_output_color());
 
 // ->getQueueGroups()
-$t->is(array(array(1)), $table->getQueueGroups(), '->getQueueGroups() returns array of queue groups');
+$t->is(array(array(1), array(2), array(3)), $table->getQueueGroups(), '->getQueueGroups() returns array of queue groups');
 
 // ->getQueuesByApplicationId()
 $queues = $table->getQueuesByApplicationId(1, 1);
