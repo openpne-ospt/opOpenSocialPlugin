@@ -245,18 +245,44 @@ class opOpenSocialProfileExport extends opProfileExport
     {
       return '';
     }
+    $age = $this->getAge();
+    if (!$age)
+    {
+      // age of the person is private
+      return date('0000/m/d', strtotime($birth));
+    }
 
     return date('Y/m/d', strtotime($birth));
   }
 
   public function getAge()
   {
-    $birth = $this->getBirthday();
-    if (!$birth)
+    if (method_exists($this->member, 'getAge'))
     {
-      return '';
+      // for OpenPNE3.4 <=
+
+      if (null !== $this->viewer && $this->viewer->getId() !== $this->member->getId())
+      {
+        $age = $this->member->getAge(true, $this->viewer->getId());
+      }
+      else
+      {
+        $age = $this->member->getAge(false, $this->member->getId());
+      }
     }
-    return (int)(((int)date('Ymd') - (int)date('Ymd', strtotime($birth))) / 10000);
+    else
+    {
+      // for OpenPNE3.4 >
+      $birth = $this->getProfile('op_preset_birthday');
+      if (!$birth)
+      {
+        return '';
+      }
+
+      $age = (int)(((int)date('Ymd') - (int)date('Ymd', strtotime($birth))) / 10000);
+    }
+
+    return (false !== $age) ? $age : '';
   }
 
   public function getPhoneNumbers()
