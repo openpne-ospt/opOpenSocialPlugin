@@ -273,8 +273,8 @@ class opOpenSocialProfileExport extends opProfileExport
 
   public function getProfileUrl()
   {
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('opUtil'));
-    return app_url_for('pc_frontend', 'member/profile?id='.$this->member->getId(), true);
+    return sfContext::getInstance()->getConfiguration()
+      ->generateAppUrl('pc_frontend', array('sf_route' => 'obj_member_profile', 'id' => $this->member->id), true);
   }
 
   public function getLanguagesSpoken()
