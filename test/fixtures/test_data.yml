@@ -106,6 +106,69 @@ Member:
     name: "<&\"'>Member.name ESCAPING HTML TEST DATA"
     is_active: 1
 
+MemberImage:
+  member_image_1:
+    Member: member_2
+    File:
+      name: dummy
+      type: image/png
+      FileBin:
+        bin: ~
+
+Profile:
+  profile_intro:
+    name: op_preset_self_introduction
+  profile_sex:
+    name: op_preset_sex
+  profile_phone:
+    name: op_preset_telephone_number
+  profile_birthday:
+    name: op_preset_birthday
+  profile_region:
+    name: op_preset_region
+  profile_country:
+    name: op_preset_country
+  profile_postal_code:
+    name: op_preset_postal_code
+
+MemberProfile:
+  member_profile_1:
+    Member: member_2
+    Profile: profile_intro
+    value: dummy
+    public_flag: "<?php echo ProfileTable::PUBLIC_FLAG_SNS ?>"
+  member_profile_2:
+    Member: member_2
+    Profile: profile_sex
+    value: Man
+    public_flag: "<?php echo ProfileTable::PUBLIC_FLAG_SNS ?>"
+  member_profile_3:
+    Member: member_2
+    Profile: profile_phone
+    value: xxx-xxx-xxxx
+    public_flag: "<?php echo ProfileTable::PUBLIC_FLAG_SNS ?>"
+  member_profile_4:
+    Member: member_2
+    Profile: profile_birthday
+    value: "<?php echo date('Y-m-d', strtotime('-100 years')) ?>"
+    value_datetime: "<?php echo date('Y-m-d', strtotime('-100 years')) ?>"
+    public_flag: "<?php echo ProfileTable::PUBLIC_FLAG_SNS ?>"
+  member_profile_5:
+    Member: member_2
+    Profile: profile_region
+    value: Tokyo
+    public_flag: "<?php echo ProfileTable::PUBLIC_FLAG_SNS ?>"
+  member_profile_6:
+    Member: member_2
+    Profile: profile_country
+    value: JP
+    public_flag: "<?php echo ProfileTable::PUBLIC_FLAG_SNS ?>"
+  member_profile_7:
+    Member: member_2
+    Profile: profile_postal_code
+    value: xxx-xxxx
+    public_flag: "<?php echo ProfileTable::PUBLIC_FLAG_SNS ?>"
+
 MemberConfig:
   member_address_1:
     name: "pc_address"
@@ -119,6 +182,11 @@ MemberConfig:
     name: "password"
     value: "<?php echo md5('password') ?>"
     Member: member_1
+
+  member_language_2:
+    name: "language"
+    value: "ja_JP"
+    Member: member_2
 
   member_address_xss:
     name: "pc_address"
