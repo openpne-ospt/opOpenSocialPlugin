@@ -9,7 +9,7 @@ $conn->beginTransaction();
 
 $task = new opOpenSocialExecuteLifecycleEventTask($configuration->getEventDispatcher(), new sfFormatter());
 
-$t = new lime_test();
+$t = new lime_test(6, new lime_output_color());
 
 $t->diag('opOpenSocial:execute-lifecycle-event --limit-request=1');
 
