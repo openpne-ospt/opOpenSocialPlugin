@@ -97,7 +97,7 @@ Container.prototype = {
           var ids = [];
           var is_success = false;
           if (undefined != data && false !== data && data) {
-            var ids = data;
+            ids = data;
             is_success = true;
           }
           gadgets.rpc.call(f, 'shindig.requestShareApp_callback',
