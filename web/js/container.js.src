@@ -29,7 +29,7 @@ Container.prototype = {
 
   _parseIframeUrl: function(url) {
     var ret = new Object();
-    var hashParams = url.replace(/#.*$/, '').split('&');
+    var hashParams = url.replace(/^.*\?/, '').replace(/#.*$/, '').split(/&amp;|&/);
     var param = key = val = '';
     for (i = 0 ; i < hashParams.length; i++) {
       param = hashParams[i];
