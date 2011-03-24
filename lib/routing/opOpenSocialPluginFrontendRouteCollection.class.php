@@ -58,6 +58,12 @@ abstract class opOpenSocialPluginFrontendRouteCollection extends sfRouteCollecti
         array('id' => '\d+'),
         array('model' => 'Application', 'type' => 'object')
       ),
+      'application_render' => new sfDoctrineRoute(
+        '/application/:id',
+        array('module' => 'application', 'action' => 'render'),
+        array('id' => '\d+', 'sf_method' => array('get', 'post')),
+        array('model' => 'Application', 'type' => 'object')
+      ),
       'application_invite' => new sfDoctrineRoute(
         '/application/invite/:id',
         array('module' => 'application', 'action' => 'invite'),

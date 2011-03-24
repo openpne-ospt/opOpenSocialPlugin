@@ -37,12 +37,6 @@ class opOpenSocialPluginPcFrontendRouteCollection extends opOpenSocialPluginFron
           '/application/gallery',
           array('module' => 'application', 'action' => 'gallery')
         ),
-        'application_render' => new sfDoctrineRoute(
-          '/application/:id',
-          array('module' => 'application', 'action' => 'canvas'),
-          array('id' => '\d+'),
-          array('model' => 'Application', 'type' => 'object')
-        ),
         'application_member' => new sfDoctrineRoute(
           '/application/member/:id',
           array('module' => 'application', 'action' => 'member'),

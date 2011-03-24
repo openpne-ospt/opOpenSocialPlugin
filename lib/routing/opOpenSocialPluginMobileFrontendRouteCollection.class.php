@@ -21,12 +21,6 @@ class opOpenSocialPluginMobileFrontendRouteCollection extends opOpenSocialPlugin
   {
     return parent::generateRoutes() +
       array(
-        'application_render' => new sfDoctrineRoute(
-          '/application/:id',
-          array('module' => 'application', 'action' => 'render'),
-          array('id' => '\d+', 'sf_method' => array('get', 'post')),
-          array('model' => 'Application', 'type' => 'object')
-        ),
         'application_location' => new sfDoctrineRoute(
           '/application/location/:id',
           array('module' => 'application', 'action' => 'location'),
