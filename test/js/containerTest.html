@@ -1,0 +1,106 @@
+<html>
+<head>
+<title>container.js Test</title>
+
+<script type="text/javascript" src="../../../../plugins/sfProtoculousPlugin/web/js/prototype.js"></script>
+<script type="text/javascript" src="../../../../plugins/sfProtoculousPlugin/web/js/scriptaculous.js?load=unittest"></script>
+
+<!-- load features -->
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/globals/globals.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/core.config/config.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/core.config/configcontainer.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/core.log/log.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/core.log/taming.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/core.json/json.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/core.json/taming.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/core.util/util.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/core.util/taming.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/rpc/wpm.transport.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/rpc/fe.transport.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/rpc/nix.transport.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/rpc/rmr.transport.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/rpc/ifpc.transport.js"></script>
+<script type="text/javascript" src="../../lib/vendor/Shindig/features/rpc/rpc.js"></script>
+
+<script type="text/javascript" src="../../web/js/container.js"></script>
+</head>
+<body>
+<div id="testlog"></div>
+<script type="text/javascript">
+//<![CDATA[
+(function(){
+var iframeTitle = document.createElement("div");
+iframeTitle.id = "remote_iframe_1_title";
+document.body.appendChild(iframeTitle);
+iframeTitle.style.display = 'none';
+
+var iframe = document.createElement("iframe");
+iframe.id = "remote_iframe_1";
+document.body.appendChild(iframe);
+iframe.style.display = 'none';
+
+var url = "gadget.html?owner=1&aid=1&mid=1&st=foo#rpctoken=1234567890";
+iframe.src = url.escapeHTML();
+
+new Test.Unit.Runner({
+  testSetHeight: function() {with(this) {
+    gadgets.container = new Container("", "", "home", true);
+    var rpc = {
+      s: 'resize_iframe',
+      f: 'remote_iframe_1',
+      c: 0,
+      a: null,
+      t: null,
+      l: null
+    };
+
+    gadgets.container.setHeight.apply(rpc, [200]);
+    assertEqual('228px', document.getElementById('remote_iframe_1').style.height);
+
+    gadgets.container.setHeight.apply(rpc, [4068]);
+    assertEqual('4096px', document.getElementById('remote_iframe_1').style.height);
+
+    gadgets.container.setHeight.apply(rpc, [4069]);
+    assertEqual('4096px', document.getElementById('remote_iframe_1').style.height);
+  }},
+  testSetTitle: function() {with(this) {
+    gadgets.container = new Container("", "", "home", true);
+    var rpc = {
+      s: 'set_title',
+      f: 'remote_iframe_1',
+      c: 0,
+      a: null,
+      t: null,
+      l: null
+    };
+
+    gadgets.container.setTitle.apply(rpc, ['Foo']);
+    assertEqual('Foo', document.getElementById('remote_iframe_1_title').innerHTML);
+
+    gadgets.container.setTitle.apply(rpc, ['<b>Foo</b>']);
+    assertEqual('&lt;b&gt;Foo&lt;/b&gt;', document.getElementById('remote_iframe_1_title').innerHTML);
+  }},
+  testRequestNavigateTo: function() {with(this) {
+    gadgets.container = new Container("", "", "home", true);
+
+    // _parseIframeUrl
+    var iframe = document.getElementById('remote_iframe_1');
+    var params = gadgets.container._parseIframeUrl(iframe.src);
+
+    assertEqual('1', params.aid);
+    assertEqual('1', params.mid);
+    assertEqual('1', params.owner);
+    assertEqual('foo', params.st);
+
+    // _getUrlForView
+    assertEqual('', gadgets.container._getUrlForView('home', params.owner, params.aid, params.mid));
+    assertEqual('/member/1', gadgets.container._getUrlForView('profile', params.owner, params.aid, params.mid));
+    assertEqual('/application/canvas/1', gadgets.container._getUrlForView('canvas', params.owner, params.aid, params.mid));
+    assertEqual(null, gadgets.container._getUrlForView('xxxxxx', params.owner, params.aid, params.mid));
+  }}
+});
+})();
+//]]>
+</script>
+</body>
+</html>
