@@ -29,5 +29,11 @@ IframeModalBox.prototype = {
     if (this.closeCallback) {
       this.closeCallback(callback_params);
     }
+    this.clear();
+  },
+
+  clear: function() {
+    this.modalIframe.contentDocument.open();
+    this.modalIframe.contentDocument.close();
   }
 }
