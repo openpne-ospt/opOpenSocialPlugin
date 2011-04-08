@@ -13,41 +13,47 @@
   <email />
   <active>yes</active>
  </lead>
- <developer>
+ <lead>
   <name>Ryosuke Kunitada</name>
   <user>kunitada</user>
   <email />
   <active>yes</active>
- </developer>
- <developer>
-  <name>Ryosuke Kunitada</name>
-  <user>kunitada</user>
-  <email />
-  <active>yes</active>
- </developer>
- <developer>
+ </lead>
+ <lead>
   <name>tozuka</name>
   <user>tozuka</user>
   <email />
   <active>yes</active>
- </developer>
- <developer>
+ </lead>
+ <lead>
   <name>Kousuke Ebihara</name>
   <user>ebihara</user>
   <email />
   <active>yes</active>
- </developer>
- <developer>
+ </lead>
+ <lead>
   <name>Minoru Takai</name>
   <user>takai</user>
   <email />
   <active>yes</active>
+ </lead>
+ <lead>
+  <name>upsilon</name>
+  <user>upsilon</user>
+  <email />
+  <active>yes</active>
+ </lead>
+ <developer>
+  <name>Ryosuke Kunitada</name>
+  <user>kunitada</user>
+  <email />
+  <active>yes</active>
  </developer>
- <date>2010-12-01</date>
- <time>20:24:59</time>
+ <date>2011-04-09</date>
+ <time>05:24:43</time>
  <version>
-  <release>1.3.1</release>
-  <api>1.3.1</api>
+  <release>1.3.1.1</release>
+  <api>1.3.1.1</api>
  </version>
  <stability>
   <release>beta</release>
@@ -55,7 +61,7 @@
  </stability>
  <license>apache</license>
  <notes>
-Added tests for security countermeasures.
+changed to hide age of the person if it is private
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -205,7 +211,7 @@ Added tests for security countermeasures.
    <file baseinstalldir="/" md5sum="91c8270c96ed0157e2345babd7fe4c25" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
    <file baseinstalldir="/" md5sum="e7759ebe3944631673b6181af70299d9" name="lib/util/opOpenSocialContainerConfig.class.php" role="data" />
    <file baseinstalldir="/" md5sum="0da4f5dc2800b3e179873f3b1b47e3ec" name="lib/util/opOpenSocialMobileRewriter.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="be4668d8bb757271cf5f015ba7247359" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="fc2611fe37138b78985c9a30453391a7" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
    <file baseinstalldir="/" md5sum="c91b6019ee8ccb0ed7af2f5e4c80d98a" name="lib/util/opOpenSocialSupportedFieldExport.class.php" role="data" />
    <file baseinstalldir="/" md5sum="0cbb18161de8a1c6228440001431583a" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
    <file baseinstalldir="/" md5sum="e859661cdd1bd0d82d27c5ae3d75ac41" name="lib/util/opShindigBlobCrypter.class.php" role="data" />
@@ -1807,6 +1813,21 @@ Updated shindig to 2.0.2
    <license>apache</license>
    <notes>
 Added tests for security countermeasures.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1.1</release>
+    <api>1.3.1.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-04-09</date>
+   <license>apache</license>
+   <notes>
+changed to hide age of the person if it is private
    </notes>
   </release>
  </changelog>
