@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
     http://pear.php.net/dtd/tasks-1.0.xsd
     http://pear.php.net/dtd/package-2.0
     http://pear.php.net/dtd/package-2.0.xsd">
@@ -13,48 +13,56 @@
   <email />
   <active>yes</active>
  </lead>
- <developer>
+ <lead>
   <name>Ryosuke Kunitada</name>
   <user>kunitada</user>
   <email />
   <active>yes</active>
- </developer>
- <developer>
-  <name>Ryosuke Kunitada</name>
-  <user>kunitada</user>
-  <email />
-  <active>yes</active>
- </developer>
- <developer>
+ </lead>
+ <lead>
   <name>tozuka</name>
   <user>tozuka</user>
   <email />
   <active>yes</active>
- </developer>
- <developer>
+ </lead>
+ <lead>
   <name>Kousuke Ebihara</name>
   <user>ebihara</user>
   <email />
   <active>yes</active>
- </developer>
- <developer>
+ </lead>
+ <lead>
   <name>Minoru Takai</name>
   <user>takai</user>
   <email />
   <active>yes</active>
+ </lead>
+ <lead>
+  <name>upsilon</name>
+  <user>upsilon</user>
+  <email />
+  <active>yes</active>
+ </lead>
+ <developer>
+  <name>Ryosuke Kunitada</name>
+  <user>kunitada</user>
+  <email />
+  <active>yes</active>
  </developer>
- <date>2010-11-22</date>
- <time>21:39:24</time>
+ <date>2011-04-09</date>
+ <time>05:06:27</time>
  <version>
-  <release>0.9.9.1</release>
-  <api>0.9.9.1</api>
+  <release>0.9.9.2</release>
+  <api>0.9.9.2</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>Fixed security issues.</notes>
+ <notes>
+changed to hide age of the person if it is private
+ </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="8665be70ae66b94e14c285ff7627543d" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -148,7 +156,7 @@
    <file baseinstalldir="/" md5sum="b5422b69c1d5b40ab7bb6ea108ed7244" name="lib/util/opCacheStorageFile.class.php" role="data" />
    <file baseinstalldir="/" md5sum="f6bd059cc551fcd24deae456e2a6035a" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
    <file baseinstalldir="/" md5sum="30c4b794bb75d82d081e7a4ac285c924" name="lib/util/opOpenSocialContainerConfig.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="602ac86576727dd9b147ce187cb87379" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="9d24c57a40c53ec7a21c99b955f33439" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
    <file baseinstalldir="/" md5sum="e25ac6b226ceac7374836f0760c63528" name="lib/util/opOpenSocialSupportedFieldExport.class.php" role="data" />
    <file baseinstalldir="/" md5sum="cc15be422877a0b37ea4b502fbfd4791" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
    <file baseinstalldir="/" md5sum="cbf66fb53f75fe4e033da6b9a1e4a328" name="lib/util/opShindigBlobCrypter.class.php" role="data" />
@@ -1375,11 +1383,6 @@
    <pearinstaller>
     <min>1.4.0</min>
    </pearinstaller>
-   <package>
-    <name>symfony</name>
-    <channel>pear.symfony-project.com</channel>
-    <min>1.2.0</min>
-   </package>
   </required>
  </dependencies>
  <phprelease />
@@ -1395,7 +1398,9 @@
    </stability>
    <date>2009-02-05</date>
    <license>Apache</license>
-   <notes>First release</notes>
+   <notes>
+First release
+   </notes>
   </release>
   <release>
    <version>
@@ -1408,7 +1413,9 @@
    </stability>
    <date>2009-02-06</date>
    <license>Apache</license>
-   <notes>Fixed some security hole and changed base language from Japanese to English on the pc_frontend.</notes>
+   <notes>
+Fixed some security hole and changed base language from Japanese to English on the pc_frontend.
+   </notes>
   </release>
   <release>
    <version>
@@ -1421,7 +1428,9 @@
    </stability>
    <date>2009-02-25</date>
    <license>Apache</license>
-   <notes>Added an ability to render iframes of the outer OpenSocial container and fixed the PersistentAPI.</notes>
+   <notes>
+Added an ability to render iframes of the outer OpenSocial container and fixed the PersistentAPI.
+   </notes>
   </release>
   <release>
    <version>
@@ -1434,7 +1443,9 @@
    </stability>
    <date>2009-09-08</date>
    <license>apache</license>
-   <notes>This version is compatible with Doctrine.</notes>
+   <notes>
+This version is compatible with Doctrine.
+   </notes>
   </release>
   <release>
    <version>
@@ -1447,7 +1458,9 @@
    </stability>
    <date>2009-10-07</date>
    <license>apache</license>
-   <notes>The preseted profile item was made to correspond to API</notes>
+   <notes>
+The preseted profile item was made to correspond to API
+   </notes>
   </release>
   <release>
    <version>
@@ -1460,7 +1473,9 @@
    </stability>
    <date>2009-11-24</date>
    <license>apache</license>
-   <notes>Fixed MemberApplicationSetting model, because index key is too long.</notes>
+   <notes>
+Fixed MemberApplicationSetting model, because index key is too long.
+   </notes>
   </release>
   <release>
    <version>
@@ -1473,7 +1488,9 @@
    </stability>
    <date>2009-12-05</date>
    <license>apache</license>
-   <notes>Added an ability for Albums API.</notes>
+   <notes>
+Added an ability for Albums API.
+   </notes>
   </release>
   <release>
    <version>
@@ -1486,7 +1503,9 @@
    </stability>
    <date>2009-12-22</date>
    <license>apache</license>
-   <notes>Added an ability to approve install of the app from SNS admin.</notes>
+   <notes>
+Added an ability to approve install of the app from SNS admin.
+   </notes>
   </release>
   <release>
    <version>
@@ -1499,7 +1518,9 @@
    </stability>
    <date>2010-02-20</date>
    <license>apache</license>
-   <notes>Fixed error when app was searched.</notes>
+   <notes>
+Fixed error when app was searched.
+   </notes>
   </release>
   <release>
    <version>
@@ -1512,7 +1533,9 @@
    </stability>
    <date>2010-04-01</date>
    <license>apache</license>
-   <notes>Fix unit test</notes>
+   <notes>
+Fix unit test
+   </notes>
   </release>
   <release>
    <version>
@@ -1525,7 +1548,9 @@
    </stability>
    <date>2010-05-02</date>
    <license>apache</license>
-   <notes>Fixed API bug.</notes>
+   <notes>
+Fixed API bug.
+   </notes>
   </release>
   <release>
    <version>
@@ -1538,7 +1563,9 @@
    </stability>
    <date>2010-07-13</date>
    <license>apache</license>
-   <notes>Fixed slow page.</notes>
+   <notes>
+Fixed slow page.
+   </notes>
   </release>
   <release>
    <version>
@@ -1551,7 +1578,9 @@
    </stability>
    <date>2010-10-29</date>
    <license>apache</license>
-   <notes>fixed JSON-RPC API because friend data can&apos;t be fetched.</notes>
+   <notes>
+fixed JSON-RPC API because friend data can&apos;t be fetched.
+   </notes>
   </release>
   <release>
    <version>
@@ -1564,7 +1593,24 @@
    </stability>
    <date>2010-11-22</date>
    <license>apache</license>
-   <notes>Fixed security issues.</notes>
+   <notes>
+Fixed security issues.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.9.2</release>
+    <api>0.9.9.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-09</date>
+   <license>apache</license>
+   <notes>
+changed to hide age of the person if it is private
+   </notes>
   </release>
  </changelog>
 </package>
