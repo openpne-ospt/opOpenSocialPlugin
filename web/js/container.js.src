@@ -18,7 +18,7 @@ Container.prototype = {
   },
 
   setHeight: function(height) {
-    if ($(this.f) != undefined) {
+    if ($(this.f) !== undefined) {
       height += 28;
       if (height > gadgets.container.maxHeight) {
         height = gadgets.container.maxHeight;
@@ -41,7 +41,7 @@ Container.prototype = {
   },
 
   setUserPref: function(editToken, name, value) {
-    if ($(this.f) != undefined) {
+    if ($(this.f) !== undefined) {
       var params = gadgets.container._parseIframeUrl($(this.f).src);
       var url = gadgets.container.apiPrefix + '/prefs/set';
       new Ajax.Request(url, {method: 'get', parameters: { name: name, value: value, st: params.st }});
@@ -50,7 +50,7 @@ Container.prototype = {
 
   setTitle: function(title) {
     var element = $(this.f+'_title');
-    if (element != undefined) {
+    if (element !== undefined) {
       element.update(gadgets.util.escapeString(title));
     }
   },
@@ -68,7 +68,7 @@ Container.prototype = {
   },
 
   requestNavigateTo: function(view, opt_params) {
-    if ($(this.f) != undefined) {
+    if ($(this.f) !== undefined) {
       var params = gadgets.container._parseIframeUrl($(this.f).src);
       var url = gadgets.container._getUrlForView(view, params.owner, params.aid, params.mid);
       if (opt_params) {
@@ -77,7 +77,7 @@ Container.prototype = {
           url += '?appParams=' + encodeURIComponent(paramStr);
         }
       }
-      if (url && document.location.href.indexOf(url) == -1) {
+      if (url && url !== document.location.href.indexOf(url)) {
         document.location.href = url;
       }
     }
@@ -92,7 +92,7 @@ Container.prototype = {
 
     if (ret) {
       var mod_id = ret[1];
-      if ('canvas' == gadgets.container.view && gadgets.container.hasApp) {
+      if ('canvas' === gadgets.container.view && gadgets.container.hasApp) {
         iframeModalBox.open(gadgets.container.webPrefix+'/application/invite/' + mod_id, function(data) {
           var ids = [];
           var is_success = false;

@@ -128,7 +128,12 @@ class opOpenSocialContainerConfig
           'canvas' => array(
             'isOnlyVisible' => true,
             'urlTemplate' => '#sns_url#application/canvas/id/{var}',
-          )
+          ),
+          'home' => array(
+            'isOnlyVisible' => false,
+            'urlTemplate' => '#sns_url#',
+            'aliases' => array(),
+          ),
         ),
         'rpc' => array(
           'parentRelayUrl' => '#sns_url#opOpenSocialPlugin/js/rpc_relay.html',
