@@ -3,7 +3,7 @@
 <div id="gadgets-gadget-title-bar-<?php echo $memberApplication->getId() ?>" class="partsHeading">
 <p class="link">
 <?php if($isOwner): ?>
-<?php echo link_to_app_setting(__('Settings'), $memberApplication->getId(), true) ?> | 
+<?php echo link_to_app_setting(__('Settings'), $memberApplication->getId(), true) ?> |
 <?php endif; ?>
 <?php echo link_to(__('App Info'), '@application_info?id='.$application->getId()) ?>
 </p>
@@ -17,7 +17,7 @@
 </div></div>
 <?php javascript_tag() ?>
 (function (){
-gadgets.rpc.setRelayUrl("remote_iframe_<?php echo $memberApplication->getId() ?>", "<?php echo javascript_path('/opOpenSocialPlugin/js/rpc_relay.html', true) ?>");
+gadgets.rpc.setRelayUrl("remote_iframe_<?php echo $memberApplication->getId() ?>", "<?php echo escape_javascript($relayUrl) ?>");
 gadgets.rpc.setAuthToken("remote_iframe_<?php echo $memberApplication->getId() ?>", "<?php echo $rpcToken ?>");
 })();
 <?php end_javascript_tag(); ?>
