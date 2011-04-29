@@ -33,7 +33,8 @@ IframeModalBox.prototype = {
   },
 
   clear: function() {
-    this.modalIframe.contentDocument.open();
-    this.modalIframe.contentDocument.close();
+    var modalIframeDoc = this.modalIframe.contentDocument || this.modalIframe.contentWindow.document;
+    modalIframeDoc.open();
+    modalIframeDoc.close();
   }
 }
