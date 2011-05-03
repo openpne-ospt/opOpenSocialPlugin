@@ -108,9 +108,21 @@ MemberApplicationSetting:
     value: 1
 
 ApplicationPersistentData:
-  member_1_app_1_data:
+  member_1_app_1_data_1:
     Application: app_1
     Member: member_1
+    name: "test_key"
+    value: "tetete"
+
+  member_1_app_1_data_2:
+    Application: app_1
+    Member: member_1
+    name: "test_key2"
+    value: "tetete"
+
+  member_2_app_1_data_1:
+    Application: app_1
+    Member: member_2
     name: "test_key"
     value: "tetete"
 
