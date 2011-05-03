@@ -1,6 +1,6 @@
 <?php use_helper('Javascript') ?>
 <?php slot('invite_list_body'); ?>
-<?php if ($pager->getNbResults()): ?>
+<?php if ($pager && $pager->getNbResults()): ?>
 <div id="member_list_box">
 <?php echo __('Check the members who sends the invitation.') ?>
 <table>
