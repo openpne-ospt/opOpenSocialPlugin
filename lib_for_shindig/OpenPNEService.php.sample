@@ -20,7 +20,7 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
 {
   // changed parameters
   // for example:
-  // 
+  //
   // const SNSURL = 'http://sns.example.com/';
 
   const SNSURL  = '#SNS_URL#';
@@ -114,7 +114,10 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
     $results = array();
     if(isset($json->data->list))
     {
-      $totalSize = $json->data->totalResults;
+      $totalSize   = isset($json->data->totalResults) ? $json->data->totalResults  : 1;
+      $startIndex  = isset($json->data->startIndex)   ? $json->data->startIndex    : RequestItem::$DEFAULT_START_INDEX;
+      $itemPerPage = isset($json->data->itemsPerPage) ? $json->data->itemsPerPage  : RequestItem::$DEFAULT_COUNT;
+
       foreach($json->data->list as $d)
       {
         $result = array();
@@ -127,15 +130,17 @@ class OpenPNEService implements ActivityService, PersonService, AppDataService, 
     }
     else
     {
-      $totalSize = 1;
+      $totalSize   = 1;
+      $startIndex  = RequestItem::$DEFAULT_START_INDEX;
+      $itemPerPage = RequestItem::$DEFAULT_COUNT;
       foreach($json->data as $key => $value)
       {
         $results[0][$key] = $value;
       }
     }
 
-    $collection = new RestfulCollection($results, $json->data->startIndex, $totalSize);
-    $collection->setItemsPerPage($json->data->itemsPerPage);
+    $collection = new RestfulCollection($results, $startIndex, $totalSize);
+    $collection->setItemsPerPage($itemPerPage);
     return $collection;
   }
 
