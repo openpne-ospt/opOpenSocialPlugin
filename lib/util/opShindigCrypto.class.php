@@ -15,7 +15,7 @@ include_once('Crypt/Blowfish.php');
  *
  * @package    opOpenSocialPlugin
  * @subpackage util
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 class opShindigCrypto
 {

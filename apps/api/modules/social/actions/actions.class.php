@@ -15,7 +15,7 @@ require_once 'OAuth.php';
  *
  * @package    OpenPNE
  * @subpackage opOpenSocialPlugin
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 class socialActions extends opOpenSocialServletActions
 {

@@ -13,7 +13,7 @@
  *
  * @package    opOpenSocialPlugin
  * @subpackage form
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 
 class ApplicationSearchForm extends sfForm
