@@ -2,7 +2,7 @@ var Container = Class.create();
 
 Container.prototype = {
   maxHeight: 4096,
-  
+
   initialize: function(web_prefix, api_prefix) {
     gadgets.rpc.register('resize_iframe', this.setHeight);
     gadgets.rpc.register('set_pref', this.setUserPref);
@@ -13,9 +13,9 @@ Container.prototype = {
     this.webPrefix = web_prefix;
     this.apiPrefix = api_prefix;
   },
-  
+
   setHeight: function(height) {
-    if ($(this.f) != undefined) {
+    if ($(this.f) !== undefined) {
       height += 28;
       if (height > gadgets.container.maxHeight) {
         height = gadgets.container.maxHeight;
@@ -23,7 +23,7 @@ Container.prototype = {
       Element.setStyle($(this.f), {'height':height+'px'});
     }
   },
-  
+
   _parseIframeUrl: function(url) {
     var ret = new Object();
     var hashParams = url.replace(/#.*$/, '').split('&');
@@ -36,22 +36,22 @@ Container.prototype = {
     }
     return ret;
   },
-  
+
   setUserPref: function(editToken, name, value) {
-    if ($(this.f) != undefined) {
+    if ($(this.f) !== undefined) {
       var params = gadgets.container._parseIframeUrl($(this.f).src);
       var url = gadgets.container.apiPrefix + '/prefs/set';
       new Ajax.Request(url, {method: 'get', parameters: { name: name, value: value, st: params.st }});
     }
   },
-  
+
   setTitle: function(title) {
     var element = $(this.f+'_title');
-    if (element != undefined) {
+    if (element !== undefined) {
       element.update(gadgets.util.escapeString(title));
     }
   },
-  
+
   _getUrlForView: function(view, person, app, mod) {
     if (view === 'home') {
       return gadgets.container.webPrefix;
@@ -63,9 +63,9 @@ Container.prototype = {
       return null;
     }
   },
-  
+
   requestNavigateTo: function(view, opt_params) {
-    if ($(this.f) != undefined) {
+    if ($(this.f) !== undefined) {
       var params = gadgets.container._parseIframeUrl($(this.f).src);
       var url = gadgets.container._getUrlForView(view, params.owner, params.aid, params.mid);
       if (opt_params) {
@@ -74,7 +74,7 @@ Container.prototype = {
           url += '?appParams=' + encodeURIComponent(paramStr);
         }
       }
-      if (url && document.location.href.indexOf(url) == -1) {
+      if (url && url !== document.location.href.indexOf(url)) {
         document.location.href = url;
       }
     }
