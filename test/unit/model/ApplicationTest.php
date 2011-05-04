@@ -3,7 +3,7 @@
 include dirname(__FILE__).'/../../bootstrap/unit.php';
 include dirname(__FILE__).'/../../bootstrap/database.php';
 
-$t = new lime_test(11, new lime_output_color());
+$t = new lime_test(20, new lime_output_color());
 
 $application1 = Doctrine::getTable('Application')->findOneByUrl("http://example.com/dummy.xml");
 $application2 = Doctrine::getTable('Application')->findOneByUrl("http://gist.github.com/raw/183505/a7f3d824cdcbbcf14c06f287537d0acb0b3e5468/gistfile1.xsl");
@@ -33,10 +33,28 @@ $t->isa_ok($application1->getPersistentData(1, 'test_key'), 'ApplicationPersiste
 
 // ->getPersistentDatas()
 $t->diag('->getPersistentDatas()');
-$persistentDatas1 = $application1->getPersistentDatas(2, array());
+$persistentDatas1 = $application1->getPersistentDatas(1, array());
 $t->isa_ok($persistentDatas1, 'Doctrine_Collection', '->getPersistentDatas() return Doctrine_Collection object');
+$t->is(count($persistentDatas1), 2, '->getPersistentDatas() return 2 items');
+
 $persistentDatas2 = $application1->getPersistentDatas(array(), array());
 $t->ok($persistentDatas2 === null, '->getPersistentData() return null when memberId is blank array');
+
+$persistentDatas3 = $application1->getPersistentDatas(1, 'test_key');
+$t->isa_ok($persistentDatas3, 'Doctrine_Collection', '->getPersistentDatas() return Doctrine_Collection object');
+$t->is(count($persistentDatas3), 1, '->getPersistentDatas() return an item');
+
+$persistentDatas4 = $application1->getPersistentDatas(array(1, 2), array());
+$t->isa_ok($persistentDatas4, 'Doctrine_Collection', '->getPersistentDatas() return Doctrine_Collection object');
+$t->is(count($persistentDatas4), 3, '->getPersistentDatas() return 3 items');
+
+$persistentDatas5 = $application1->getPersistentDatas(1, array('test_key', 'test_key2', 'dummy'));
+$t->isa_ok($persistentDatas5, 'Doctrine_Collection', '->getPersistentDatas() return Doctrine_Collection object');
+$t->is(count($persistentDatas5), 2, '->getPersistentDatas() return 2 items');
+
+$persistentDatas6 = $application1->getPersistentDatas(array(1, 2), array('test_key', 'test_key2'));
+$t->isa_ok($persistentDatas6, 'Doctrine_Collection', '->getPersistentDatas() return Doctrine_Collection object');
+$t->is(count($persistentDatas6), 3, '->getPersistentDatas() return 3 items');
 
 // ->updateApplication()
 $t->diag('->updateApplication()');
