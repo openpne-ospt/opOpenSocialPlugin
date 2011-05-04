@@ -12,7 +12,7 @@
  * OAuthSignatureMethod_RSA_SHA1_opOpenSocialPlugin
  *
  * @package    opOpenSocialPlugin
- * @author     Shogo Kawahara <kawahara@tejimaya.com> 
+ * @author     Shogo Kawahara <kawahara@bucyou.net> 
  */
 class OAuthSignatureMethod_RSA_SHA1_opOpenSocialPlugin extends OAuthSignatureMethod_RSA_SHA1 {
   protected function fetch_private_cert(&$request) {
