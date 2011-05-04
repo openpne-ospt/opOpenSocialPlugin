@@ -13,7 +13,7 @@
  *
  * @package    opOpenSocialPlugin
  * @subpackage config
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 class opOpenSocialPluginConfiguration extends sfPluginConfiguration
 {

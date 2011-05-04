@@ -13,7 +13,7 @@
  *
  *
  * @package  opOpenSocialPlugin
- * @author   Shogo Kawahara <kawahara@tejimaya.net>
+ * @author   Shogo Kawahara <kawahara@bucyou.net>
  */
 class opOpenSocialRoute extends sfRoute implements opAPIRouteInterface
 {

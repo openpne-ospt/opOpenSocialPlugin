@@ -15,7 +15,7 @@
  *
  * @package    opOpenSocialPlugin
  * @subpackage model
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 abstract class PluginMemberApplicationSetting extends BaseMemberApplicationSetting
 {

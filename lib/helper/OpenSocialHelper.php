@@ -5,7 +5,7 @@
  *
  * @package    OpenPNE
  * @subpackage helper
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 
 sfProjectConfiguration::getActive()->loadHelpers(array('Url', 'Javascript', 'opJavascript'));

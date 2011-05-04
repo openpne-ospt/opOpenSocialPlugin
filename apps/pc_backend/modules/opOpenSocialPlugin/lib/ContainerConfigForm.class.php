@@ -13,7 +13,7 @@
  *
  * @package    OpenPNE
  * @subpackage form
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 class ContainerConfigForm extends sfForm
 {
