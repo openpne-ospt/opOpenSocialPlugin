@@ -13,7 +13,7 @@
  *
  * @package    opOpenSocialPlugin
  * @subpackage action
- * @author     Shogo Kawahara <kawahara@tejimaya.net>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 abstract class opOpenSocialServletActions extends sfActions
 {

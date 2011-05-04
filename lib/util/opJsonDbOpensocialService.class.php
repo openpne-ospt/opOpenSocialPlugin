@@ -11,7 +11,7 @@
 /**
  * opJsonDbOpensocialService
  *
- * @author Shogo Kawahara <kawahara@tejimaya.net>
+ * @author Shogo Kawahara <kawahara@bucyou.net>
  */
 class opJsonDbOpensocialService implements ActivityService, PersonService, AppDataService, MessagesService, AlbumService, MediaItemService
 {

@@ -13,7 +13,7 @@
  *
  * @package    opOpenSocialPlugin
  * @subpackage model
- * @author     Shogo Kawahara <kawahara@tejimaya.com>
+ * @author     Shogo Kawahara <kawahara@bucyou.net>
  */
 
 class PluginApplicationLifecycleEventQueueTable extends Doctrine_Table

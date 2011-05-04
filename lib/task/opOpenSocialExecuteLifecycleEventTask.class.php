@@ -13,7 +13,7 @@
  *
  * @package    opOpenSocialPlugin
  * @subpackage task
- * @author     ShogoKawahara <kawahara@tejimaya.com>
+ * @author     ShogoKawahara <kawahara@bucyou.net>
  */
 class opOpenSocialExecuteLifecycleEventTask extends sfDoctrineBaseTask
 {

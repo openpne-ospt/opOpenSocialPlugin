@@ -11,7 +11,7 @@
 /**
  * opOpenSocialGenkeyTask
  *
- * @author ShogoKawahara <kawahara@tejimaya.net>
+ * @author ShogoKawahara <kawahara@bucyou.net>
  */
 class opOpenSocialGenkeyTask extends sfDoctrineBaseTask
 {
