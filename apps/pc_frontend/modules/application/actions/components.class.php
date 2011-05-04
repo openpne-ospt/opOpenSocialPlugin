@@ -74,6 +74,8 @@ class applicationComponents extends sfComponents
       'url'       => $this->application->getUrl(),
     );
 
+    $this->rpcToken = rand(0, getrandmax());
+
     $userprefParamPrefix = Shindig_Config::get('userpref_param_prefix','up_');
     foreach ($this->memberApplication->getUserSettings() as $name => $value)
     {
@@ -86,11 +88,13 @@ class applicationComponents extends sfComponents
       {
         $shindigUrl .= '/';
       }
-      $this->iframeUrl = $shindigUrl.'gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+      $this->relayUrl  = $shindigUrl.'container/rpc_relay.html';
+      $this->iframeUrl = $shindigUrl.'gadgets/ifr?'.http_build_query($getParams).'#rpctoken='.$this->rpcToken;
     }
     else
     {
-      $this->iframeUrl = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'#rpctoken='.rand(0,getrandmax());
+      $this->relayUrl  = javascript_path('/opOpenSocialPlugin/js/rpc_relay.html', true);
+      $this->iframeUrl = sfContext::getInstance()->getController()->genUrl('gadgets/ifr').'?'.http_build_query($getParams).'#rpctoken='.$this->rpcToken;
     }
   }
 
