@@ -29,6 +29,8 @@ $shindigConfig = array(
   'security_token'         => 'opShindigSecurityToken',
   'oauth_lookup_service'   => 'opShindigOAuthLookupService',
 
+  'gadget_class' => 'Shindig_Gadget',
+
   'data_cache'    => 'opCacheStorageFile',
   'feature_cache' => 'opCacheStorageFile',
 

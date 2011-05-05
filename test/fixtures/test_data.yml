@@ -107,31 +107,82 @@ Member:
     is_active: 1
 
 MemberConfig:
-  member_address_1:
+  member_1_address:
     name: "pc_address"
     value: "sns@example.com"
     Member: member_1
-  member_mobile_address_1:
+  member_1_mobile_address:
     name: "mobile_address"
     value: "sns@example.com"
     Member: member_1
-  member_password_1:
+  member_1_password:
     name: "password"
     value: "<?php echo md5('password') ?>"
     Member: member_1
 
-  member_address_xss:
+  member_1_age_public_flag:
+    name: "age_public_flag"
+    value: 1
+    Member: member_1
+  member_2_age_public_flag:
+    name: "age_public_flag"
+    value: 1
+    Member: member_2
+  member_3_age_public_flag:
+    name: "age_public_flag"
+    value: 1
+    Member: member_3
+
+  member_xss_address:
     name: "pc_address"
     value: "sns-xss@example.com"
     Member: member_xss
-  member_mobile_address_xss:
+  member_xss_mobile_address:
     name: "mobile_address"
     value: "sns-xss@example.com"
     Member: member_xss
-  member_password_xss:
+  member_xss_password:
     name: "password"
     value: "<?php echo md5('password') ?>"
     Member: member_xss
+
+Profile:
+  profile_birthday:
+    name: "op_preset_birthday"
+    is_required: 0
+    form_type: "date"
+    value_type: "string"
+    is_disp_regist: 1
+    is_disp_config: 1
+    is_disp_search: 1
+    is_edit_public_flag: 1
+    default_public_flag: 1
+    sort_order: 0
+
+MemberProfile:
+  member_1_profile_birthday:
+    value: "1989-01-08"
+    value_datetime: "1989-01-08"
+    public_flag: 1
+    Member: member_1
+    Profile: profile_birthday
+    children: []
+
+  member_2_profile_birthday:
+    value: "1989-01-08"
+    value_datetime: "1989-01-08"
+    public_flag: 1
+    Member: member_2
+    Profile: profile_birthday
+    children: []
+
+  member_3_profile_birthday:
+    value: "1989-01-08"
+    value_datetime: "1989-01-08"
+    public_flag: 1
+    Member: member_3
+    Profile: profile_birthday
+    children: []
 
 MemberRelationship:
   member_1_member_2:

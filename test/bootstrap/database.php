@@ -18,7 +18,7 @@ if (!isset($app))
   $app = array_pop($dirPieces);
 }
 
-$testRevision = 3;
+$testRevision = 4;
 
 $configuration = ProjectConfiguration::getApplicationConfiguration($app, 'test', true);
 new sfDatabaseManager($configuration);
