@@ -243,10 +243,10 @@ class opOpenSocialProfileExport extends opProfileExport
     if (!$age)
     {
       // age of the person is private
-      return date('0000/m/d', strtotime($birth));
+      return date('0000-m-d', strtotime($birth));
     }
 
-    return date('Y/m/d', strtotime($birth));
+    return date('Y-m-d', strtotime($birth));
   }
 
   public function getAge()
