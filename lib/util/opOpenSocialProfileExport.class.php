@@ -81,7 +81,8 @@ class opOpenSocialProfileExport extends opProfileExport
 
     if (null !== $this->viewer)
     {
-      if (!$profile->isViewable($this->viewer->getId()))
+      if ($this->member->getId() !== $this->viewer->getId()
+        && !$profile->isViewable($this->viewer->getId()))
       {
         return '';
       }
