@@ -652,7 +652,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     {
       foreach ($objects as $object)
       {
-        $result['albumId']      = $object->getId();
+        $result['albumId']      = $object->getAlbumId();
         $result['created']      = $object->getCreatedAt();
         $result['description']  = opOpenSocialToolKit::convertEmojiForApi($object->getDescription());
         $result['fileSize']     = $object->getFilesize();
