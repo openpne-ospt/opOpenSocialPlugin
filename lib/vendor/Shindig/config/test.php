@@ -31,8 +31,8 @@ $shindigConfig = array(
 
   'gadget_class' => 'Shindig_Gadget',
 
-  'data_cache'    => 'opCacheStorageFile',
-  'feature_cache' => 'opCacheStorageFile',
+  'data_cache'    => 'opShindigCacheStorageFile',
+  'feature_cache' => 'opShindigCacheStorageFile',
 
   'person_service'     => 'opJsonDbOpensocialService',
   'activity_service'   => 'opJsonDbOpensocialService',
