@@ -25,6 +25,7 @@
 <?php op_include_box('inviteListBox', get_slot('invite_list_body'), array(
   'title' => __('The invitation to this app is sent'),
 )) ?>
+<?php if ($pager && $pager->getNbResults()): ?>
 <?php javascript_tag() ?>
 var member_ids = [];
 var changePage = function (page) {
@@ -85,3 +86,4 @@ var submit = function (f) {
 }
 $('invite_button').disable();
 <?php end_javascript_tag(); ?>
+<?php endif; ?>
