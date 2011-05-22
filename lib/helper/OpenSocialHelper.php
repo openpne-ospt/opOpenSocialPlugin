@@ -84,6 +84,7 @@ function make_app_setting_modal_box($id)
 {
   sfContext::getInstance()->getResponse()->addJavascript(sfConfig::get('sf_prototype_web_dir').'/js/prototype');
   sfContext::getInstance()->getResponse()->addJavascript('util');
+  sfContext::getInstance()->getResponse()->addJavascript('/opOpenSocialPlugin/js/opensocial-util');
 
   $modalbox = '<div id="'.$id.'" class="modalWall" style="display:none" onclick="iframeModalBox.close(); false;"></div>'
             . '<div id="'.$id.'_contents" class="modalBox" style="display: none;">'
