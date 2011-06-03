@@ -561,7 +561,7 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       }
       $result['ownerId'] = $object->getMemberId();
       $result['thumbnailUrl'] = '';
-      if ($object->getFile())
+      if ($object->getFileId())
       {
         sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'sfImage'));
         $result['thumbnailUrl'] = sf_image_path($object->getFile(), array('size' => '180x180'), true);
