@@ -139,6 +139,8 @@ abstract class opOpenSocialApplicationActions extends sfActions
 
   abstract public function executeInfo(sfWebRequest $request);
 
+  abstract public function executeRender(sfWebRequest $request);
+
   abstract public function executeInvite(sfWebRequest $request);
 
  /**

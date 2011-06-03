@@ -34,22 +34,29 @@ class applicationActions extends opOpenSocialApplicationActions
    */
   public function executeCanvas(sfWebRequest $request)
   {
-    if (!isset($this->memberApplication))
+    $this->redirect('application_render', $this->application);
+  }
+
+ /**
+  * Executes render
+  *
+  * @param sfWebRequest $request A request object
+  */
+  public function executeRender(sfWebRequest $request)
+  {
+    if ($request->hasParameter('member_id'))
     {
-      if ($request->hasParameter('member_id'))
-      {
-        $this->memberApplication = Doctrine::getTable('MemberApplication')
-          ->findOneByApplicationIdAndMemberId($this->application->id, $request->getParameter('member_id'));
+      $this->memberApplication = Doctrine::getTable('MemberApplication')
+        ->findOneByApplicationIdAndMemberId($this->application->id, $request->getParameter('member_id'));
 
-        $this->forward404Unless($this->memberApplication);
-      }
-      else
-      {
-        $this->memberApplication = Doctrine::getTable('MemberApplication')
-          ->findOneByApplicationAndMember($this->application, $this->member);
+      $this->forward404Unless($this->memberApplication);
+    }
+    else
+    {
+      $this->memberApplication = Doctrine::getTable('MemberApplication')
+        ->findOneByApplicationAndMember($this->application, $this->member);
 
-        $this->redirectUnless($this->memberApplication, '@application_info?id='.$this->application->id);
-      }
+      $this->redirectUnless($this->memberApplication, '@application_info?id='.$this->application->id);
     }
 
     $this->forward404Unless($this->application->getIsPc());
