@@ -1,5 +1,5 @@
 opOpenSocialPlugin
-Copyright 2005-2010 OpenPNE Project
+Copyright 2005-2011 OpenPNE Project
 
 --------------------------------------------------------
 
@@ -20,3 +20,7 @@ The Apache Software Foundation (http://www.apache.org/).
 This product includes software (PEAR::Crypt_Blowfish 1.1.0RC2) by
 Philippe Jausions and Matthew Fonda (http://pear.php.net/package/Crypt_Blowfish).
   - New BSD License
+
+This produce uses the Control.Tabs library developed by Ryan Johnson <ryan@livepipe.net>.
+  - MIT License
+
