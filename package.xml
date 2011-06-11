@@ -49,31 +49,28 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2011-05-08</date>
- <time>20:20:18</time>
+ <date>2011-06-11</date>
+ <time>19:26:36</time>
  <version>
-  <release>1.2.3</release>
-  <api>1.2.3</api>
+  <release>1.2.4</release>
+  <api>1.2.4</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>
-Fixed the following bugs.
-#1828: [pc][mobile] Fatal error in application/invite when a member has no friend
-#2021: [pc] Fix the response /application/invite
-#2022: [api] PHP Notice in "lib_for_shindig/OpenPNEService.php"
-#2023: [pc] "home" view doesn't exists
-#2026: [etc] opOpenSocial:execute-lifecycle-event タスクの limit-request オプションで指定した値を守らない場合がある
-#2029: [pc] opShindigRemoteContentFetcher doesn't send header correctly set
-#2032: [mobile] Container doesn't send a location header when an external server sent a location header
-#2034: [api] PersistentAPI doesn't return all key-value pair
-#2035: [pc] gadgets.container._parseIframeUrl doesn't return first parameter correctly
-#2038: [pc] 招待完了時に正しいレスポンスが返されない
-#2039: [pc] Fix a mistake of the relayUrl in gadget component
- </notes>
+ <notes><![CDATA[
+Fixed issues:
+#2075: [api] /mediaitems/@me/@self/{albumId} で取得できるコレクションの albumId フィールドの値が間違っている
+#2098: [api] opOpenSocialProfileExport doesn't return birthday when public flag of birthday is '3' and owner is viewer
+#2101: [pc] modalboxを2回目以降に表示すると、読み込みが完了するまで前回表示時の内容が残ってしまう
+#2131: [pc] gadget doesn't drive because it occur error that "html4" is not defined (1.2.x only)
+#2146: [api] /albums/@me/@self で取得したアルバムのサムネイルが未設定の場合 thumbnailUrl フィールドに間違った値が入る
+#2210: [etc] NOTICE ファイルの更新
+#2213: [pc] Fix a js error in application/invite when the user doesn't have any friend (フレンドが0人の時に招待画面で JavaScript エラー)
+#2215: [pc] Fix two js errors in application/list screen when the user doesn't have any application (所有アプリが 0 件の時に アプリ一覧画面で JavaScript エラー)
+]]></notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="a33e79268b83907f431650b0f7a7e3ba" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -130,8 +127,8 @@ Fixed the following bugs.
    <file baseinstalldir="/" md5sum="6626dc341192173cf3c9811704b5849e" name="apps/pc_frontend/modules/application/templates/installedListSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="b1b63bb5a83b3fc40cfd6fbee7a4c6fa" name="apps/pc_frontend/modules/application/templates/installSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="f9b85124bca3c3f9a3b37bd7db4a1c7d" name="apps/pc_frontend/modules/application/templates/inviteListSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="3e36ade61acbf0311dd688705c8c2eaf" name="apps/pc_frontend/modules/application/templates/inviteSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="ce3859d277a3de08c9b30b385b6c8483" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="868479a6c5fd5f761032a3032074ff65" name="apps/pc_frontend/modules/application/templates/inviteSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="c6cc8397fe685771e255a009f5cf159f" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="6fd67e8d0e83b5ef85eb54b0670f590b" name="apps/pc_frontend/modules/application/templates/memberSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="995cb5c023e190cecd538242bf07eaa7" name="apps/pc_frontend/modules/application/templates/removeSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="1852f856ddc400e1d26dbe63e52f5360" name="apps/pc_frontend/modules/application/templates/settingSuccess.php" role="data" />
@@ -196,7 +193,7 @@ Fixed the following bugs.
    <file baseinstalldir="/" md5sum="114454e02e1ec5b69ae8a3492d973166" name="lib/form/doctrine/PluginApplicationTranslationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b3e5f77b65c2a6742a619c62b65577e0" name="lib/form/doctrine/PluginMemberApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="9f884bec92e3bd2d956b50e83f755db1" name="lib/form/doctrine/PluginMemberApplicationSettingForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="0d7e625e2f8d68c2ea1f611a84ab9061" name="lib/helper/OpenSocialHelper.php" role="data" />
+   <file baseinstalldir="/" md5sum="3225a3d442866ea24092e18e27df4361" name="lib/helper/OpenSocialHelper.php" role="data" />
    <file baseinstalldir="/" md5sum="f04e65c24428e04b7fb981144709e159" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
    <file baseinstalldir="/" md5sum="649eee6f9e3e3ff458bb4bea4d640f1d" name="lib/model/doctrine/PluginApplicationInvite.class.php" role="data" />
    <file baseinstalldir="/" md5sum="4e0e3a9f03b99ffba649395bd687f9f8" name="lib/model/doctrine/PluginApplicationInviteTable.class.php" role="data" />
@@ -218,10 +215,10 @@ Fixed the following bugs.
    <file baseinstalldir="/" md5sum="7b6b8023f1e6fec80cf8b0dcd4754413" name="lib/update/0_8_1_to_0_8_2_dev_200902121145.php" role="data" />
    <file baseinstalldir="/" md5sum="989398cee6e728b4e9186a9929c158af" name="lib/update/0_8_2_dev_200902121145_to_0_8_2_dev_200902121523.php" role="data" />
    <file baseinstalldir="/" md5sum="ab41cc6a1c1346c8d75566601c23806c" name="lib/util/opCacheStorageFile.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="5fe4a134c30a43b93e12881a4dd9555c" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="9ddc6b673dffb2218d5a028ba547d1c3" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
    <file baseinstalldir="/" md5sum="8df1c17543fe4a4a10681f01870d027a" name="lib/util/opOpenSocialContainerConfig.class.php" role="data" />
    <file baseinstalldir="/" md5sum="bcf00e04d42a800a47fb68494c30f6f3" name="lib/util/opOpenSocialMobileRewriter.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="18dce63379458be36702b747c1e766aa" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="8c477bfecd1bf4dcd09aa24cc6f5bac7" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2c1f7a9b14ac30f19acaf8d206d44c91" name="lib/util/opOpenSocialSupportedFieldExport.class.php" role="data" />
    <file baseinstalldir="/" md5sum="546014caf375755c84ae4422d9bb3554" name="lib/util/opOpenSocialToolKit.class.php" role="data" />
    <file baseinstalldir="/" md5sum="8b941d4a5e102d389519e741739c935e" name="lib/util/opShindigBlobCrypter.class.php" role="data" />
@@ -256,7 +253,7 @@ Fixed the following bugs.
    <file baseinstalldir="/" md5sum="dc9897a76dd843b83f577caa62a73a82" name="lib/vendor/Shindig/features/caja/feature.xml" role="data" />
    <file baseinstalldir="/" md5sum="9a9794ef86a9a05ed78352c138667ad7" name="lib/vendor/Shindig/features/caja/taming.js" role="data" />
    <file baseinstalldir="/" md5sum="df232900ac55f49d8a0eb3560013592c" name="lib/vendor/Shindig/features/content-rewrite/feature.xml" role="data" />
-   <file baseinstalldir="/" md5sum="908e230c23bb4be1ca0bdcbfd0095d70" name="lib/vendor/Shindig/features/core/feature.xml" role="data" />
+   <file baseinstalldir="/" md5sum="a9ef6c641e6146aeb41a043aa0104051" name="lib/vendor/Shindig/features/core/feature.xml" role="data" />
    <file baseinstalldir="/" md5sum="11773afab21ea43767de20e0b89d7716" name="lib/vendor/Shindig/features/core.auth/auth-init.js" role="data" />
    <file baseinstalldir="/" md5sum="beacb217ef9d33a6fe0caad2d15fba41" name="lib/vendor/Shindig/features/core.auth/auth.js" role="data" />
    <file baseinstalldir="/" md5sum="2a2954b63933cf3bd17eadd5078d1c2a" name="lib/vendor/Shindig/features/core.auth/feature.xml" role="data" />
@@ -1501,14 +1498,14 @@ Fixed the following bugs.
    <file baseinstalldir="/" md5sum="1164ed5f837ff6601bfcca1b88996976" name="web/css/opensocial.css" role="data" />
    <file baseinstalldir="/" md5sum="426fb5fa4e4a176df6979174f7986142" name="web/js/container.js" role="data" />
    <file baseinstalldir="/" md5sum="2108bb8ebaefd9d4d221d16359d73d2f" name="web/js/container.js.src" role="data" />
-   <file baseinstalldir="/" md5sum="ccdce439ef03d17d4f3c705b3f26f827" name="web/js/opensocial-util.js" role="data" />
-   <file baseinstalldir="/" md5sum="cb8e75af1195f57ad65419958aea4806" name="web/js/opensocial-util.js.src" role="data" />
+   <file baseinstalldir="/" md5sum="2867c4704ef00313610f33fa9b5f6ee4" name="web/js/opensocial-util.js" role="data" />
+   <file baseinstalldir="/" md5sum="9c3f05d67ce9babf5b9ae32537d9af25" name="web/js/opensocial-util.js.src" role="data" />
    <file baseinstalldir="/" md5sum="5c474de4df3efc02a106590bb36bcb93" name="web/js/rpc_relay.html" role="data" />
    <file baseinstalldir="/" md5sum="b8a5ae08d06aad5f3b6bbf627fcb4830" name="web/js/tabs-min.js" role="data" />
    <file baseinstalldir="/" md5sum="385e49d1930c3c9898b0c9089dec09e2" name="web/js/tabs.js" role="data" />
    <file baseinstalldir="/" md5sum="3b83ef96387f14655fc854ddc3c6bd57" name="LICENSE" role="data" />
    <file baseinstalldir="/" md5sum="b13ec006a5f83dc3b0ac985c778263b9" name="LICENSE.Shindig" role="data" />
-   <file baseinstalldir="/" md5sum="eda2951d92b22220ec29feec31a97e91" name="NOTICE" role="data" />
+   <file baseinstalldir="/" md5sum="2a5bba7b8e122e428c8ad97c8813aaa3" name="NOTICE" role="data" />
    <file baseinstalldir="/" md5sum="395dfe25b52121a6610d32c0c2307f05" name="NOTICE.Shindig" role="data" />
    <file baseinstalldir="/" md5sum="a849e1ed9d48be4696085908d12bbcd6" name="README" role="data" />
   </dir>
@@ -1780,16 +1777,39 @@ Added some tests for security countermeasures.
 Fixed the following bugs.
 #1828: [pc][mobile] Fatal error in application/invite when a member has no friend
 #2021: [pc] Fix the response /application/invite
-#2022: [api] PHP Notice in "lib_for_shindig/OpenPNEService.php"
-#2023: [pc] "home" view doesn't exists
+#2022: [api] PHP Notice in &quot;lib_for_shindig/OpenPNEService.php&quot;
+#2023: [pc] &quot;home&quot; view doesn&apos;t exists
 #2026: [etc] opOpenSocial:execute-lifecycle-event タスクの limit-request オプションで指定した値を守らない場合がある
-#2029: [pc] opShindigRemoteContentFetcher doesn't send header correctly set
-#2032: [mobile] Container doesn't send a location header when an external server sent a location header
-#2034: [api] PersistentAPI doesn't return all key-value pair
-#2035: [pc] gadgets.container._parseIframeUrl doesn't return first parameter correctly
+#2029: [pc] opShindigRemoteContentFetcher doesn&apos;t send header correctly set
+#2032: [mobile] Container doesn&apos;t send a location header when an external server sent a location header
+#2034: [api] PersistentAPI doesn&apos;t return all key-value pair
+#2035: [pc] gadgets.container._parseIframeUrl doesn&apos;t return first parameter correctly
 #2038: [pc] 招待完了時に正しいレスポンスが返されない
 #2039: [pc] Fix a mistake of the relayUrl in gadget component
    </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.4</release>
+    <api>1.2.4</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-06-11</date>
+   <license>apache</license>
+   <notes><![CDATA[
+Fixed issues:
+#2075: [api] /mediaitems/@me/@self/{albumId} で取得できるコレクションの albumId フィールドの値が間違っている
+#2098: [api] opOpenSocialProfileExport doesn't return birthday when public flag of birthday is '3' and owner is viewer
+#2101: [pc] modalboxを2回目以降に表示すると、読み込みが完了するまで前回表示時の内容が残ってしまう
+#2131: [pc] gadget doesn't drive because it occur error that "html4" is not defined (1.2.x only)
+#2146: [api] /albums/@me/@self で取得したアルバムのサムネイルが未設定の場合 thumbnailUrl フィールドに間違った値が入る
+#2210: [etc] NOTICE ファイルの更新
+#2213: [pc] Fix a js error in application/invite when the user doesn't have any friend (フレンドが0人の時に招待画面で JavaScript エラー)
+#2215: [pc] Fix two js errors in application/list screen when the user doesn't have any application (所有アプリが 0 件の時に アプリ一覧画面で JavaScript エラー)
+]]></notes>
   </release>
  </changelog>
 </package>
