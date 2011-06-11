@@ -16,7 +16,7 @@ sfProjectConfiguration::getActive()->loadHelpers(array('Url', 'Javascript', 'opJ
  * @param integer     $id
  * @param Application $application a instance of the Application
  * @param integer     $mid         a module id
- * @param boolean     $isOwner 
+ * @param boolean     $isOwner
  */
 function op_include_application_information_box($id, $application, $mid = null, $isOwner = false)
 {
@@ -51,8 +51,8 @@ function op_include_application_setting()
 
     $apiUrl  = $request->getUriPrefix().$request->getRelativeUrlRoot().'/api';
     $apiUrl .= $isDev ? '_dev' : '';
-    $apiUrl .= '.php'; 
-    
+    $apiUrl .= '.php';
+
     echo javascript_tag(sprintf(<<<EOF
 gadgets.container = new Container("%s", "%s");
 EOF

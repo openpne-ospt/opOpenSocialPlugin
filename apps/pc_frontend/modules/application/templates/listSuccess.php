@@ -28,7 +28,7 @@
 <?php op_include_box('NoApp', get_slot('no_app_alert')) ?>
 <?php endif; ?>
 
-<?php if ($isOwner) : ?>
+<?php if ($isOwner && isset($memberApplications) && count($memberApplications)) : ?>
 <?php echo sortable_element('order', array(
   'url'  => '@application_sort',
   'tag'  => 'div',
