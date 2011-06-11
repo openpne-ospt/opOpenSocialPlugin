@@ -644,16 +644,16 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
     {
       foreach ($objects as $object)
       {
-        $result['albumId'] = $object->getId();
-        $result['created'] = $object->getCreatedAt();
-        $result['description'] = $object->getDescription();
-        $result['fileSize'] = $object->getFilesize();
-        $result['id']       = $object->getId();
+        $result['albumId']      = $object->getAlbumId();
+        $result['created']      = $object->getCreatedAt();
+        $result['description']  = $object->getDescription();
+        $result['fileSize']     = $object->getFilesize();
+        $result['id']           = $object->getId();
         $result['lastUpdated']  = $object->getUpdatedAt();
         $result['thumbnailUrl'] = '';
-        $result['title']    = $object->getDescription();
-        $result['type']     = 'IMAGE';
-        $result['url']      = '';
+        $result['title']        = $object->getDescription();
+        $result['type']         = 'IMAGE';
+        $result['url']          = '';
         if ($object->getFile())
         {
           sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'sfImage'));
