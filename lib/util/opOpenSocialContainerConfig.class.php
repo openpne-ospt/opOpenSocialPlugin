@@ -251,7 +251,20 @@ class opOpenSocialContainerConfig
       'appdata.get',
       'appdata.update',
       'appdata.delete',
+      'activities.get',
+      'activities.create',
+      'http.head',
+      'http.get',
+      'http.put',
+      'http.post',
+      'http.delete',
     );
+
+    if (class_exists('Album'))
+    {
+      $features['osapi.services'][$apiUrl.'social/rpc'] =
+        array_merge($features['osapi.services'][$apiUrl.'social/rpc'], array('albums.get', 'mediaitems.get'));
+    }
 
     $features['oapi']['endPoint'] = array($apiUrl.'/social/rpc');
 
