@@ -50,12 +50,12 @@ $shindigConfig = array(
   'data_cache'    => 'opShindigCacheStorageFile',
   'feature_cache' => 'opShindigCacheStorageFile',
 
-  'person_service'     => 'opJsonDbOpensocialService',
-  'activity_service'   => 'opJsonDbOpensocialService',
-  'app_data_service'   => 'opJsonDbOpensocialService',
-  'messages_service'   => 'opJsonDbOpensocialService',
-  'album_service'      => 'opJsonDbOpensocialService',
-  'media_item_service' => 'opJsonDbOpensocialService',
+  'person_service'     => 'opOpenSocialPersonService',
+  'activity_service'   => 'opOpenSocialActivityService',
+  'app_data_service'   => 'opOpenSocialAppDataService',
+  'messages_service'   => 'opOpenSocialMessagesService',
+  'album_service'      => 'opOpenSocialAlbumService',
+  'media_item_service' => 'opOpenSocialMediaItemService',
 
   'invalidate_service' => 'opShindigInvalidateService',
 
