@@ -174,11 +174,11 @@ class opJsonDbOpensocialService implements ActivityService, PersonService, AppDa
       {
         if (strpos($uri, '://') !== false)
         {
-          $a['streamUrl'] = $uri;
+          $a['url'] = $uri;
         }
         else
         {
-          $a['streamUrl'] = app_url_for('pc_frontend', $uri, true);
+          $a['url'] = app_url_for('pc_frontend', $uri, true);
         }
       }
       if ($activity->getForeignTable() == Doctrine::getTable('MemberApplication')->getTableName())
