@@ -13,7 +13,7 @@
  *
  * @author Shogo Kawahara <kawahara@bucyou.net>
  */
-class opOpenSocialServiceBase
+abstract class opOpenSocialServiceBase
 {
   protected function getIdSet($user, GroupId $group, SecurityToken $token)
   {
