@@ -84,9 +84,17 @@ class opOpenSocialActivityService extends opOpenSocialServiceBase implements Act
       $a['title']      = opOpenSocialToolKit::convertEmojiForApi($activity->getBody());
       $a['postedTime'] = date(DATE_ATOM, strtotime($activity->getCreatedAt()));
 
-      if ($activity->getUri())
+      $uri = $activity->getUri();
+      if ($uri)
       {
-        $a['streamUrl'] = app_url_for('pc_frontend', $activity->getUri(), true);
+        if (strpos($uri, '://') !== false)
+        {
+          $a['streamUrl'] = $uri;
+        }
+        else
+        {
+          $a['streamUrl'] = app_url_for('pc_frontend', $uri, true);
+        }
       }
       if ($activity->getForeignTable() == Doctrine::getTable('MemberApplication')->getTableName())
       {
@@ -108,7 +116,15 @@ class opOpenSocialActivityService extends opOpenSocialServiceBase implements Act
         }
         else
         {
-          $mediaItem['url'] = app_url_for('pc_frontend', $image->getUri(), true);
+          $imageUri = $image->getUri();
+          if (strpos($imageUri, '://') !== false)
+          {
+            $mediaItem['url'] = $imageUri;
+          }
+          else
+          {
+            $mediaItem['url'] = app_url_for('pc_frontend', $imageUri, true);
+          }
           $mediaItem['type'] = $image->getMimeType();
         }
         $mediaItems[] = $mediaItem;
