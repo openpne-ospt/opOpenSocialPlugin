@@ -263,7 +263,11 @@ class opOpenSocialContainerConfig
     if (class_exists('Album'))
     {
       $features['osapi.services'][$apiUrl.'social/rpc'] =
-        array_merge($features['osapi.services'][$apiUrl.'social/rpc'], array('albums.get', 'mediaitems.get'));
+        array_merge($features['osapi.services'][$apiUrl.'social/rpc'], array(
+          'albums.get',
+          'mediaitems.get',
+          'mediaitems.create',
+        ));
     }
 
     $features['oapi']['endPoint'] = array($apiUrl.'/social/rpc');
