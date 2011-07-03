@@ -15,6 +15,34 @@
  */
 class opOpenSocialMediaItemService extends opOpenSocialServiceBase implements MediaItemService
 {
+  /**
+   * get MediaItem from AlbumImage
+   *
+   * @param AlbumImage $albumImage
+   * @return array
+   */
+  protected function getMediaItemFromAlbumImage(AlbumImage $albumImage)
+  {
+    $result['albumId']      = $albumImage->getAlbumId();
+    $result['created']      = $albumImage->getCreatedAt();
+    $result['description']  = opOpenSocialToolKit::convertEmojiForApi($albumImage->getDescription());
+    $result['fileSize']     = $albumImage->getFilesize();
+    $result['id']           = $albumImage->getId();
+    $result['lastUpdated']  = $albumImage->getUpdatedAt();
+    $result['thumbnailUrl'] = '';
+    $result['title']        = $albumImage->getDescription();
+    $result['type']         = 'IMAGE';
+    $result['url']          = '';
+    if ($albumImage->getFile())
+    {
+      sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'sfImage'));
+      $result['thumbnailUrl'] = sf_image_path($albumImage->getFile(), array('size' => '180x180'), true);
+      $result['url'] = sf_image_path($albumImage->getFile(), array(), true);
+    }
+
+    return $result;
+  }
+
   public function getMediaItems($userId, $groupId, $albumId, $mediaItemIds, $collectionOptions, $fields, $token)
   {
     if (!class_exists('Album'))
@@ -77,23 +105,7 @@ class opOpenSocialMediaItemService extends opOpenSocialServiceBase implements Me
     {
       foreach ($objects as $object)
       {
-        $result['albumId']      = $object->getAlbumId();
-        $result['created']      = $object->getCreatedAt();
-        $result['description']  = opOpenSocialToolKit::convertEmojiForApi($object->getDescription());
-        $result['fileSize']     = $object->getFilesize();
-        $result['id']           = $object->getId();
-        $result['lastUpdated']  = $object->getUpdatedAt();
-        $result['thumbnailUrl'] = '';
-        $result['title']        = $object->getDescription();
-        $result['type']         = 'IMAGE';
-        $result['url']          = '';
-        if ($object->getFile())
-        {
-          sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'sfImage'));
-          $result['thumbnailUrl'] = sf_image_path($object->getFile(), array('size' => '180x180'), true);
-          $result['url'] = sf_image_path($object->getFile(), array(), true);
-        }
-        $results[] = $result;
+        $results[] = $this->getMediaItemFromAlbumImage($object);
       }
     }
 
@@ -102,9 +114,101 @@ class opOpenSocialMediaItemService extends opOpenSocialServiceBase implements Me
     return $collection;
   }
 
+  /**
+   * createMediaItem
+   *
+   * @param UserId    $userId
+   * @param GroupId   $groupId
+   * @param array     $mediaItem
+   * @param array     $data      An associative array that describes the uploaded file.
+   * @param string    $token
+   * @return the created media item.
+   * @see   MediaItemService::createMediaItem()
+   */
   public function createMediaItem($userId, $groupId, $mediaItem, $data, $token)
   {
-    throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+    // check plugin
+    if (!class_exists('Album'))
+    {
+      throw new SocialSpiException("Not implemented", ResponseError::$NOT_IMPLEMENTED);
+    }
+
+    // validate userId
+    if (!is_object($userId))
+    {
+      $userId  = new UserId('userId', $userId);
+      $groupId = new GroupId('self', null);
+    }
+
+    $memberIds = $this->getIdSet($userId, $groupId, $token);
+    if ($groupId->getType() !== 'self' || count($memberIds) !== 1)
+    {
+      throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+    }
+    $memberId = $memberIds[0];
+
+    // validate file
+    if (!is_readable($data['tmp_name']))
+    {
+      throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+    }
+
+    $validatorFile = new opValidatorImageFile();
+    $validatedFile = null;
+    try
+    {
+      $validatedFile = $validatorFile->clean($data);
+    }
+    catch (sfValidatorError $e)
+    {
+      throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+    }
+
+    // validate mediaitem
+    // check album id
+    if (!isset($mediaItem['albumId']))
+    {
+      throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+    }
+    $album = Doctrine::getTable('Album')->find($mediaItem['albumId']);
+
+    if (!$album)
+    {
+      throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+    }
+
+    if ($memberId != $album->getMemberId())
+    {
+      throw new SocialSpiException("Forbidden", ResponseError::$FORBIDDEN);
+    }
+
+    $file = new File();
+    $file->setFromValidatedFile($validatedFile);
+
+    // check description
+    $description = '';
+    if (isset($mediaItem['title']))
+    {
+      $stringValidator = new opValidatorString(array('required' => false, 'trim' => true));
+      try
+      {
+        $description = $stringValidator->clean($mediaItem['title']);
+      }
+      catch (sfValidatorError $e)
+      {
+        throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
+      }
+    }
+    $description = empty($description) ? $file->getName() : $description;
+
+    $albumImage = new AlbumImage();
+    $albumImage->setAlbum($album);
+    $albumImage->setFile($file);
+    $albumImage->setDescription($description);
+    $albumImage->save();
+
+    // save
+    return $this->getMediaItemFromAlbumImage($albumImage);
   }
 
   public function updateMediaItem($userId, $groupId, $mediaItem, $token)

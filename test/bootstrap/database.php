@@ -18,7 +18,7 @@ if (!isset($app))
   $app = array_pop($dirPieces);
 }
 
-$testRevision = 4;
+$testRevision = 5;
 
 $configuration = ProjectConfiguration::getApplicationConfiguration($app, 'test', true);
 new sfDatabaseManager($configuration);
@@ -57,4 +57,5 @@ catch (Exception $e)
   $snsConfig->set('add_application_rule', 2); // ALLOW
   $snsConfig->set('opensocial_is_enable_mobile', 1);
   $snsConfig->set('is_check_mobile_ip', 0);
+  $snsConfig->set('image_max_filesize', 10000);
 }

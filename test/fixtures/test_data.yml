@@ -411,3 +411,16 @@ ApplicationLifecycleEventQueue:
     Member: member_1
     name: "event.addapp"
 <?php endfor ?>
+
+Album:
+  member_1_album:
+    Member: member_1
+    title: "foo"
+    body: "bar"
+    public_flag: 1
+
+  member_2_album:
+    Member: member_2
+    title: "foo"
+    body: "bar"
+    public_flag: 2
