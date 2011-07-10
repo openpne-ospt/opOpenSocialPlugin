@@ -80,5 +80,16 @@ function link_to_app_setting($text, $mid, $isReload = false)
 
 function make_app_setting_modal_box($id)
 {
-  return make_modal_box($id, '<iframe width="400" height="400" frameborder="0"></iframe>');
+  sfContext::getInstance()->getResponse()->addJavascript(sfConfig::get('sf_prototype_web_dir').'/js/prototype');
+  sfContext::getInstance()->getResponse()->addJavascript('util');
+  $div = '<div id="'.$id.'" class="modalWall" style="display:none" onclick="closeModalBox(\''.$id.'\');"></div>'
+       . '<div id="'.$id.'_contents" class="modalBox" style="display: none;">'
+       . '<iframe width="400" height="400" frameborder="0"></iframe>'
+       . '</div>'
+       . '<script type="text/javascript">'
+       . 'var contents = $("'.$id.'_contents");'
+       . 'contents.setStyle(getCenterMuchScreen(contents))'
+       . '</script>';
+
+  return $div;
 }

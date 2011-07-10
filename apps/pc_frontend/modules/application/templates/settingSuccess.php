@@ -1,11 +1,7 @@
 <?php if(isset($isValid) && $isValid): ?>
 <?php use_helper('Javascript') ?>
 <?php echo javascript_tag("
-var modal = parent.$('opensocial_modal_box');
-var modalContents = parent.$('opensocial_modal_box_contents');
-var modalIframe = modalContents.getElementsByTagName('iframe')[0];
-Element.hide(modal);
-Element.hide(modalContents);
+parent.closeModalBox('opensocial_modal_box');
 "); ?>
 <?php if($sf_params->get('is_reload')) : ?>
 <?php echo javascript_tag("
