@@ -49,23 +49,18 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2011-06-12</date>
- <time>12:33:33</time>
+ <date>2011-07-10</date>
+ <time>15:04:24</time>
  <version>
-  <release>0.9.11</release>
-  <api>0.9.11</api>
+  <release>0.9.12</release>
+  <api>0.9.12</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>Fixed the following bugs.
-#2100: [api] opOpenSocialProfileExport doesn&apos;t return birthday when public flag of birthday is &apos;3&apos; and owner is viewer
-#2125: [api] /mediaitems/@me/@self/{albumId} で取得できるコレクションの albumId フィールドの値が間違っている
-#2148: [api] /albums/@me/@self で取得したアルバムのサムネイルが未設定の場合 thumbnailUrl フィールドに間違った値が入る
-#2212: [etc] NOTICE ファイルの更新
-#2217: [pc] Fix two js errors in application/list screen when the user doesn&apos;t have any application</notes>
+ <notes>Fixed the following issue. #2218: [pc] modalboxを2回目以降に表示すると、読み込みが完了するまで前回表示時の内容が残ってしまう (0.9.x)</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="a33e79268b83907f431650b0f7a7e3ba" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -99,7 +94,7 @@
    <file baseinstalldir="/" md5sum="c6cc8397fe685771e255a009f5cf159f" name="apps/pc_frontend/modules/application/templates/listSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="6fd67e8d0e83b5ef85eb54b0670f590b" name="apps/pc_frontend/modules/application/templates/memberSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="5396b3bef9b9c94fdcc63018715e81d8" name="apps/pc_frontend/modules/application/templates/removeSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="6ec8f603d2f244895165f728b44096c5" name="apps/pc_frontend/modules/application/templates/settingSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="b9efb4405af31607979ac407b135aa36" name="apps/pc_frontend/modules/application/templates/settingSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="1244b75f67b8b5fe4f426d7f22a8e72c" name="apps/pc_frontend/modules/application/templates/_gadget.php" role="data" />
    <file baseinstalldir="/" md5sum="fd1badbfb86a6a6e26ceeec4f2540eac" name="apps/pc_frontend/modules/application/templates/_informationBox.php" role="data" />
    <file baseinstalldir="/" md5sum="3cd9ec6b63021869add245d3ea2c3898" name="apps/pc_frontend/modules/application/templates/_renderHomeApplications.php" role="data" />
@@ -142,7 +137,7 @@
    <file baseinstalldir="/" md5sum="114454e02e1ec5b69ae8a3492d973166" name="lib/form/doctrine/PluginApplicationTranslationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b3e5f77b65c2a6742a619c62b65577e0" name="lib/form/doctrine/PluginMemberApplicationForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="9f884bec92e3bd2d956b50e83f755db1" name="lib/form/doctrine/PluginMemberApplicationSettingForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="6238fad1cd30909d7eea02d98a23b1ad" name="lib/helper/OpenSocialHelper.php" role="data" />
+   <file baseinstalldir="/" md5sum="0652cc20e2d508bb6e43c842e7c23980" name="lib/helper/OpenSocialHelper.php" role="data" />
    <file baseinstalldir="/" md5sum="f58bd8f34ede7fe4c539ced2d591f922" name="lib/model/doctrine/PluginApplication.class.php" role="data" />
    <file baseinstalldir="/" md5sum="17074e5ebf1e895307a1874b766189ac" name="lib/model/doctrine/PluginApplicationPersistentData.class.php" role="data" />
    <file baseinstalldir="/" md5sum="affbd7cff00381499bd928e65523fb08" name="lib/model/doctrine/PluginApplicationPersistentDataTable.class.php" role="data" />
@@ -1367,7 +1362,7 @@
    <file baseinstalldir="/" md5sum="1164ed5f837ff6601bfcca1b88996976" name="web/css/opensocial.css" role="data" />
    <file baseinstalldir="/" md5sum="d5f385852b52f20315fa98230e68a972" name="web/js/container.js" role="data" />
    <file baseinstalldir="/" md5sum="7e9dc92647977d86757b8c7df6c73d18" name="web/js/container.js.src" role="data" />
-   <file baseinstalldir="/" md5sum="0c2bd6d7e5c36c64caa9ade5e3dfec25" name="web/js/opensocial-util.js" role="data" />
+   <file baseinstalldir="/" md5sum="0777009fe03fe30a65ce7cba09968cd4" name="web/js/opensocial-util.js" role="data" />
    <file baseinstalldir="/" md5sum="5c474de4df3efc02a106590bb36bcb93" name="web/js/rpc_relay.html" role="data" />
    <file baseinstalldir="/" md5sum="b8a5ae08d06aad5f3b6bbf627fcb4830" name="web/js/tabs-min.js" role="data" />
    <file baseinstalldir="/" md5sum="385e49d1930c3c9898b0c9089dec09e2" name="web/js/tabs.js" role="data" />
@@ -1602,6 +1597,19 @@
 #2148: [api] /albums/@me/@self で取得したアルバムのサムネイルが未設定の場合 thumbnailUrl フィールドに間違った値が入る
 #2212: [etc] NOTICE ファイルの更新
 #2217: [pc] Fix two js errors in application/list screen when the user doesn&apos;t have any application</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.12</release>
+    <api>0.9.12</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-07-10</date>
+   <license>apache</license>
+   <notes>Fixed the following issue. #2218: [pc] modalboxを2回目以降に表示すると、読み込みが完了するまで前回表示時の内容が残ってしまう (0.9.x)</notes>
   </release>
  </changelog>
 </package>
