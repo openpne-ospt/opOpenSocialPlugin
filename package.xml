@@ -49,25 +49,21 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2011-06-12</date>
- <time>12:53:19</time>
+ <date>2011-07-10</date>
+ <time>14:41:07</time>
  <version>
-  <release>1.0.6</release>
-  <api>1.0.6</api>
+  <release>1.0.7</release>
+  <api>1.0.7</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>Fixed the following bugs.
-#2099: [api] opOpenSocialProfileExport doesn&apos;t return birthday when public flag of birthday is &apos;3&apos; and owner is viewer
-#2102: [pc] modalboxを2回目以降に表示すると、読み込みが完了するまで前回表示時の内容が残ってしまう
-#2124: [api] /mediaitems/@me/@self/{albumId} で取得できるコレクションの albumId フィールドの値が間違っている
-#2147: [api] /albums/@me/@self で取得したアルバムのサムネイルが未設定の場合 thumbnailUrl フィールドに間違った値が入る
-#2211: [etc] NOTICE ファイルの更新
-#2214: [pc] Fix a js error in application/invite when the user doesn&apos;t have any friend
-#2216: [pc] Fix two js errors in application/list screen when the user doesn&apos;t have any application</notes>
+ <notes>
+Fixed the following issues.
+#2247: [api] 取得したアクティビティのフィールドに含まれるURLがおかしい
+#2249: [api] 取得したアクティビティのリンク先URLが streamUrl に格納されている</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="a33e79268b83907f431650b0f7a7e3ba" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -174,7 +170,7 @@
    <file baseinstalldir="/" md5sum="7b6b8023f1e6fec80cf8b0dcd4754413" name="lib/update/0_8_1_to_0_8_2_dev_200902121145.php" role="data" />
    <file baseinstalldir="/" md5sum="989398cee6e728b4e9186a9929c158af" name="lib/update/0_8_2_dev_200902121145_to_0_8_2_dev_200902121523.php" role="data" />
    <file baseinstalldir="/" md5sum="ab41cc6a1c1346c8d75566601c23806c" name="lib/util/opCacheStorageFile.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="5754c245883f65fb37a86831113e05aa" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="7c13bdf12a08e114dde373240f798fcb" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
    <file baseinstalldir="/" md5sum="6d3f387c2b75d5546959ae405c4e95f3" name="lib/util/opOpenSocialContainerConfig.class.php" role="data" />
    <file baseinstalldir="/" md5sum="cb2b50dadfadefbc4cb6d9a143ac8272" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
    <file baseinstalldir="/" md5sum="5ebab051296e336c3b2467080000ebd1" name="lib/util/opOpenSocialSupportedFieldExport.class.php" role="data" />
@@ -1682,6 +1678,22 @@
 #2211: [etc] NOTICE ファイルの更新
 #2214: [pc] Fix a js error in application/invite when the user doesn&apos;t have any friend
 #2216: [pc] Fix two js errors in application/list screen when the user doesn&apos;t have any application</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.7</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-07-10</date>
+   <license>apache</license>
+   <notes>
+Fixed the following issues.
+#2247: [api] 取得したアクティビティのフィールドに含まれるURLがおかしい
+#2249: [api] 取得したアクティビティのリンク先URLが streamUrl に格納されている</notes>
   </release>
  </changelog>
 </package>
