@@ -49,28 +49,21 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2011-06-11</date>
- <time>19:26:36</time>
+ <date>2011-07-10</date>
+ <time>14:25:00</time>
  <version>
-  <release>1.2.4</release>
-  <api>1.2.4</api>
+  <release>1.2.5</release>
+  <api>1.2.5</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes><![CDATA[
-Fixed issues:
-#2075: [api] /mediaitems/@me/@self/{albumId} で取得できるコレクションの albumId フィールドの値が間違っている
-#2098: [api] opOpenSocialProfileExport doesn't return birthday when public flag of birthday is '3' and owner is viewer
-#2101: [pc] modalboxを2回目以降に表示すると、読み込みが完了するまで前回表示時の内容が残ってしまう
-#2131: [pc] gadget doesn't drive because it occur error that "html4" is not defined (1.2.x only)
-#2146: [api] /albums/@me/@self で取得したアルバムのサムネイルが未設定の場合 thumbnailUrl フィールドに間違った値が入る
-#2210: [etc] NOTICE ファイルの更新
-#2213: [pc] Fix a js error in application/invite when the user doesn't have any friend (フレンドが0人の時に招待画面で JavaScript エラー)
-#2215: [pc] Fix two js errors in application/list screen when the user doesn't have any application (所有アプリが 0 件の時に アプリ一覧画面で JavaScript エラー)
-]]></notes>
+ <notes>
+Fixed the following issues.
+#2246: [api] 取得したアクティビティのフィールドに含まれるURLがおかしい
+#2248: [api] 取得したアクティビティのリンク先URLが streamUrl に格納されている</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="a33e79268b83907f431650b0f7a7e3ba" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -215,7 +208,7 @@ Fixed issues:
    <file baseinstalldir="/" md5sum="7b6b8023f1e6fec80cf8b0dcd4754413" name="lib/update/0_8_1_to_0_8_2_dev_200902121145.php" role="data" />
    <file baseinstalldir="/" md5sum="989398cee6e728b4e9186a9929c158af" name="lib/update/0_8_2_dev_200902121145_to_0_8_2_dev_200902121523.php" role="data" />
    <file baseinstalldir="/" md5sum="ab41cc6a1c1346c8d75566601c23806c" name="lib/util/opCacheStorageFile.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="9ddc6b673dffb2218d5a028ba547d1c3" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="88940a974bf3c5c0fc5a39816f02950d" name="lib/util/opJsonDbOpensocialService.class.php" role="data" />
    <file baseinstalldir="/" md5sum="8df1c17543fe4a4a10681f01870d027a" name="lib/util/opOpenSocialContainerConfig.class.php" role="data" />
    <file baseinstalldir="/" md5sum="bcf00e04d42a800a47fb68494c30f6f3" name="lib/util/opOpenSocialMobileRewriter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="8c477bfecd1bf4dcd09aa24cc6f5bac7" name="lib/util/opOpenSocialProfileExport.class.php" role="data" />
@@ -1799,17 +1792,33 @@ Fixed the following bugs.
    </stability>
    <date>2011-06-11</date>
    <license>apache</license>
-   <notes><![CDATA[
+   <notes>
 Fixed issues:
 #2075: [api] /mediaitems/@me/@self/{albumId} で取得できるコレクションの albumId フィールドの値が間違っている
-#2098: [api] opOpenSocialProfileExport doesn't return birthday when public flag of birthday is '3' and owner is viewer
+#2098: [api] opOpenSocialProfileExport doesn&apos;t return birthday when public flag of birthday is &apos;3&apos; and owner is viewer
 #2101: [pc] modalboxを2回目以降に表示すると、読み込みが完了するまで前回表示時の内容が残ってしまう
-#2131: [pc] gadget doesn't drive because it occur error that "html4" is not defined (1.2.x only)
+#2131: [pc] gadget doesn&apos;t drive because it occur error that &quot;html4&quot; is not defined (1.2.x only)
 #2146: [api] /albums/@me/@self で取得したアルバムのサムネイルが未設定の場合 thumbnailUrl フィールドに間違った値が入る
 #2210: [etc] NOTICE ファイルの更新
-#2213: [pc] Fix a js error in application/invite when the user doesn't have any friend (フレンドが0人の時に招待画面で JavaScript エラー)
-#2215: [pc] Fix two js errors in application/list screen when the user doesn't have any application (所有アプリが 0 件の時に アプリ一覧画面で JavaScript エラー)
-]]></notes>
+#2213: [pc] Fix a js error in application/invite when the user doesn&apos;t have any friend (フレンドが0人の時に招待画面で JavaScript エラー)
+#2215: [pc] Fix two js errors in application/list screen when the user doesn&apos;t have any application (所有アプリが 0 件の時に アプリ一覧画面で JavaScript エラー)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.5</release>
+    <api>1.2.5</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-07-10</date>
+   <license>apache</license>
+   <notes>
+Fixed the following issues.
+#2246: [api] 取得したアクティビティのフィールドに含まれるURLがおかしい
+#2248: [api] 取得したアクティビティのリンク先URLが streamUrl に格納されている</notes>
   </release>
  </changelog>
 </package>
