@@ -76,7 +76,7 @@ class ApplicationSearchForm extends sfForm
       }
       foreach ($keywords as $keyword)
       {
-        $query->addWhere('t.title LIKE ?', '%'.$keyword.'%');
+        $query->addWhere('t.title LIKE ?', '%'.Doctrine_Manager::connection()->formatter->escapePattern($keyword).'%');
       }
     }
     $orderBy = $this->getValue('order_by');
