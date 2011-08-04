@@ -67,7 +67,14 @@ class ApplicationSearchForm extends sfForm
       }
       foreach ($keywords as $keyword)
       {
-        $query->addWhere('t.title LIKE ?', '%'.$keyword.'%');
+        if (method_exists($query, 'andWhereLike'))
+        {
+          $query->andWhereLike('t.title', $keyword);
+        }
+        else
+        {
+          $query->addWhere('t.title LIKE ?', '%'.$keyword.'%');
+        }
       }
     }
     $orderBy = $this->getValue('order_by');
