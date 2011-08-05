@@ -76,12 +76,14 @@ class ApplicationSearchForm extends sfForm
       }
       foreach ($keywords as $keyword)
       {
-        if (defined('OPENPNE_VERSION') && version_compare(OPENPNE_VERSION, '3.6beta13-dev', '>='))
+        if (method_exists($query, 'andWhereLike'))
         {
-          $keyword = Doctrine_Manager::connection()->formatter->escapePattern($keyword);
+          $query->andWhereLike('t.title', $keyword);
         }
-
-        $query->addWhere('t.title LIKE ?', '%'.$keyword.'%');
+        else
+        {
+          $query->addWhere('t.title LIKE ?', '%'.$keyword.'%');
+        }
       }
     }
     $orderBy = $this->getValue('order_by');
