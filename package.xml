@@ -49,21 +49,18 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2011-07-10</date>
- <time>14:41:07</time>
+ <date>2011-08-15</date>
+ <time>22:43:11</time>
  <version>
-  <release>1.0.7</release>
-  <api>1.0.7</api>
+  <release>1.0.8</release>
+  <api>1.0.8</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>
-Fixed the following issues.
-#2247: [api] 取得したアクティビティのフィールドに含まれるURLがおかしい
-#2249: [api] 取得したアクティビティのリンク先URLが streamUrl に格納されている</notes>
+ <notes>Fixed the following bug. #2351: [etc] 部分一致検索を行う箇所でワイルドカード検索ができてしまう</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="a33e79268b83907f431650b0f7a7e3ba" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -144,7 +141,7 @@ Fixed the following issues.
    <file baseinstalldir="/" md5sum="2a880a5f2dad9181cb5dc0b25f7f0c75" name="lib/filter/doctrine/PluginMemberApplicationFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="ac61064b9de9b847702e84ac7eb989ed" name="lib/filter/doctrine/PluginMemberApplicationSettingFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="c0a5353ae55726475035065e389b5477" name="lib/form/AddApplicationForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="e71d049082931faac77e921e52f74617" name="lib/form/ApplicationSearchForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="d6e076616d0105167ca7a82782f4ce76" name="lib/form/ApplicationSearchForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="ac92d515bb305205a8b31e8bb0fb61c6" name="lib/form/ApplicationSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b22893f2bfc33fbf3322dc2dc790e914" name="lib/form/ApplicationUserSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2c91313dd6f473898b70aa2ac54b1ea3" name="lib/form/doctrine/PluginApplicationForm.class.php" role="data" />
@@ -1419,7 +1416,6 @@ Fixed the following issues.
    <file baseinstalldir="/" md5sum="a0752720b2426f0976bc0e53ee6bef79" name="lib/vendor/Shindig/src/social/spi/PersonService.php" role="data" />
    <file baseinstalldir="/" md5sum="32f82288e36821254843ed116eea840b" name="lib/vendor/Shindig/src/social/spi/RestfulCollection.php" role="data" />
    <file baseinstalldir="/" md5sum="ff88bebae885e67734ecd9cd819791fc" name="lib/vendor/Shindig/src/social/spi/UserId.php" role="data" />
-   <file baseinstalldir="/" md5sum="e82f674da8440dbfad8747d4ab0f0e01" name="lib_for_shindig/OpenPNEService.php" role="data" />
    <file baseinstalldir="/" md5sum="3ed225889e96ef2e85793089325447f1" name="lib_for_shindig/OpenPNEService.php.sample" role="data" />
    <file baseinstalldir="/" md5sum="fc2d244db0b042977e9563f0a960898b" name="test/bootstrap/database.php" role="data" />
    <file baseinstalldir="/" md5sum="2089e76b9d0ae0fd4d222ee37ea68cb5" name="test/bootstrap/functional.php" role="data" />
@@ -1690,10 +1686,22 @@ Fixed the following issues.
    </stability>
    <date>2011-07-10</date>
    <license>apache</license>
-   <notes>
-Fixed the following issues.
+   <notes>Fixed the following issues.
 #2247: [api] 取得したアクティビティのフィールドに含まれるURLがおかしい
 #2249: [api] 取得したアクティビティのリンク先URLが streamUrl に格納されている</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.8</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-08-15</date>
+   <license>apache</license>
+   <notes>Fixed the following bug. #2351: [etc] 部分一致検索を行う箇所でワイルドカード検索ができてしまう</notes>
   </release>
  </changelog>
 </package>
