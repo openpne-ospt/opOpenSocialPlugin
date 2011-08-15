@@ -49,21 +49,18 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2011-07-10</date>
- <time>14:25:00</time>
+ <date>2011-08-15</date>
+ <time>22:54:17</time>
  <version>
-  <release>1.2.5</release>
-  <api>1.2.5</api>
+  <release>1.2.6</release>
+  <api>1.2.6</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>
-Fixed the following issues.
-#2246: [api] 取得したアクティビティのフィールドに含まれるURLがおかしい
-#2248: [api] 取得したアクティビティのリンク先URLが streamUrl に格納されている</notes>
+ <notes>Fixed the following bug. #2350: [etc] 部分一致検索を行う箇所でワイルドカード検索ができてしまう</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="a33e79268b83907f431650b0f7a7e3ba" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -176,7 +173,7 @@ Fixed the following issues.
    <file baseinstalldir="/" md5sum="2a880a5f2dad9181cb5dc0b25f7f0c75" name="lib/filter/doctrine/PluginMemberApplicationFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="ac61064b9de9b847702e84ac7eb989ed" name="lib/filter/doctrine/PluginMemberApplicationSettingFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="c0a5353ae55726475035065e389b5477" name="lib/form/AddApplicationForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="e7402735bee6cf3564b544536d76922b" name="lib/form/ApplicationSearchForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="40cc0ec2ef06c85e350460ef816464ad" name="lib/form/ApplicationSearchForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="4ec6a9c7779421401592b80f8c54f379" name="lib/form/ApplicationSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b22893f2bfc33fbf3322dc2dc790e914" name="lib/form/ApplicationUserSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2c91313dd6f473898b70aa2ac54b1ea3" name="lib/form/doctrine/PluginApplicationForm.class.php" role="data" />
@@ -1818,7 +1815,21 @@ Fixed issues:
    <notes>
 Fixed the following issues.
 #2246: [api] 取得したアクティビティのフィールドに含まれるURLがおかしい
-#2248: [api] 取得したアクティビティのリンク先URLが streamUrl に格納されている</notes>
+#2248: [api] 取得したアクティビティのリンク先URLが streamUrl に格納されている
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.6</release>
+    <api>1.2.6</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-08-15</date>
+   <license>apache</license>
+   <notes>Fixed the following bug. #2350: [etc] 部分一致検索を行う箇所でワイルドカード検索ができてしまう</notes>
   </release>
  </changelog>
 </package>
