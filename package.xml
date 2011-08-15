@@ -49,18 +49,18 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2011-07-10</date>
- <time>15:04:24</time>
+ <date>2011-08-15</date>
+ <time>22:36:17</time>
  <version>
-  <release>0.9.12</release>
-  <api>0.9.12</api>
+  <release>0.9.13</release>
+  <api>0.9.13</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>Fixed the following issue. #2218: [pc] modalboxを2回目以降に表示すると、読み込みが完了するまで前回表示時の内容が残ってしまう (0.9.x)</notes>
+ <notes>Fixed the following bug. #2352: [etc] 部分一致検索を行う箇所でワイルドカード検索ができてしまう</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="a33e79268b83907f431650b0f7a7e3ba" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -129,7 +129,7 @@
    <file baseinstalldir="/" md5sum="2a880a5f2dad9181cb5dc0b25f7f0c75" name="lib/filter/doctrine/PluginMemberApplicationFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="ac61064b9de9b847702e84ac7eb989ed" name="lib/filter/doctrine/PluginMemberApplicationSettingFormFilter.class.php" role="data" />
    <file baseinstalldir="/" md5sum="c0a5353ae55726475035065e389b5477" name="lib/form/AddApplicationForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="1d9be8b2ec056cc24e199ef87c3a6f86" name="lib/form/ApplicationSearchForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="fafd291c7b17b5caf5d6ade9055b5fba" name="lib/form/ApplicationSearchForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="ac92d515bb305205a8b31e8bb0fb61c6" name="lib/form/ApplicationSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="b22893f2bfc33fbf3322dc2dc790e914" name="lib/form/ApplicationUserSettingForm.class.php" role="data" />
    <file baseinstalldir="/" md5sum="2c91313dd6f473898b70aa2ac54b1ea3" name="lib/form/doctrine/PluginApplicationForm.class.php" role="data" />
@@ -1610,6 +1610,19 @@
    <date>2011-07-10</date>
    <license>apache</license>
    <notes>Fixed the following issue. #2218: [pc] modalboxを2回目以降に表示すると、読み込みが完了するまで前回表示時の内容が残ってしまう (0.9.x)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.13</release>
+    <api>0.9.13</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-08-15</date>
+   <license>apache</license>
+   <notes>Fixed the following bug. #2352: [etc] 部分一致検索を行う箇所でワイルドカード検索ができてしまう</notes>
   </release>
  </changelog>
 </package>
