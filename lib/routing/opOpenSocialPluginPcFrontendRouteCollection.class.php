@@ -106,6 +106,10 @@ class opOpenSocialPluginPcFrontendRouteCollection extends opOpenSocialPluginFron
           array('model' => 'Application', 'type' => 'object')
         ),
 
+        'gadgets_resources' => new sfRoute(
+          '/gadgets/resources/*',
+          array('module' => 'gadgets', 'action' => 'resources')
+        ),
         'gadgets_js' => new sfRoute(
           '/gadgets/js/*',
           array('module' => 'gadgets', 'action' => 'js')

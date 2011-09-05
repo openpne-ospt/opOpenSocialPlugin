@@ -13,6 +13,7 @@ The Apache Software Foundation (http://www.apache.org/).
     - config/*                                   => vendor/Shindig/config
     - php/config/*                               => vendor/Shindig/config
     - php/external/jsmin-php                     => vendor/Shindig/external/jsmin-php
+    - php/external/resources                     => vendor/Shindig/external/recources
     - php/src                                    => vendor/Shindig/src
   - Some class names have been changed by the following script.
     - https://gist.github.com/659536

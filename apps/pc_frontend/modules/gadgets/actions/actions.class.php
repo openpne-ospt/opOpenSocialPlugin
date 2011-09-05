@@ -29,6 +29,18 @@ class gadgetsActions extends opOpenSocialServletActions
   }
 
   /**
+   * Execute resources action
+   *
+   * @param sfWebRequest $request A request object
+   */
+  public function executeResources(sfWebRequest $request)
+  {
+    $class = new ResourcesFilesServlet();
+    self::servletExecute($class);
+    exit;
+  }
+
+  /**
    * Execute js action
    *
    * @param sfWebRequest $request A request object
