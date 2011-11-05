@@ -217,7 +217,7 @@ Application:
     url: "http://example.com/dummy.xml"
     AdditionalMember: member_1
     links:
-      - { rel: event.addapp, href: "<?php echo sfConfig::get('op_base_url') ?>/robots.txt", method: GET }
+      - { rel: event.addapp, href: "http://example.com/addapp", method: GET }
     Translation:
       ja_JP:
         title: "Test App"
@@ -265,7 +265,7 @@ Application:
   app_2:
     url: "http://gist.github.com/raw/183505/a7f3d824cdcbbcf14c06f287537d0acb0b3e5468/gistfile1.xsl"
     links:
-      - { rel: event.addapp, href: "<?php echo sfConfig::get('op_base_url') ?>/robots.txt", method: GET }
+      - { rel: event.addapp, href: "http://example.com/addapp", method: GET }
     Translation:
       ja_JP:
         title: "Test App2"
@@ -274,7 +274,7 @@ Application:
     url: "http://example.com/dummy3.xml"
     AdditionalMember: member_1
     links:
-      - { rel: event.addapp, href: "<?php echo sfConfig::get('op_base_url') ?>/dummy.txt", method: GET }
+      - { rel: event.addapp, href: "http://example.invalid/addapp", method: GET }
     is_active: false
     Translation:
       ja_JP:

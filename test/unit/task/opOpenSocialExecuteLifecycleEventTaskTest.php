@@ -9,6 +9,41 @@ $conn->beginTransaction();
 
 $task = new opOpenSocialExecuteLifecycleEventTask($configuration->getEventDispatcher(), new sfFormatter());
 
+class Zend_Http_Client_Adapter_Mock implements Zend_Http_Client_Adapter_Interface
+{
+  protected
+    $url = null;
+
+  public function setConfig($config = array())
+  {
+  }
+
+  public function connect($host, $port = 80, $secure = false)
+  {
+  }
+
+  public function write($method, $url, $http_ver = '1.1', $headers = array(), $body = '')
+  {
+    $this->url = $url;
+  }
+
+  public function read()
+  {
+    if (0 === strpos($this->url->getUri(), 'http://example.com:80/addapp'))
+    {
+      return "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nOK";
+    }
+
+    throw new Zend_Http_Client_Exception();
+  }
+
+  public function close()
+  {
+  }
+}
+
+$task->setHttpClientAdapter(new Zend_Http_Client_Adapter_Mock());
+
 $t = new lime_test(6, new lime_output_color());
 
 $t->diag('opOpenSocial:execute-lifecycle-event --limit-request=1');

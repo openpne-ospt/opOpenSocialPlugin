@@ -17,6 +17,8 @@
  */
 class opOpenSocialExecuteLifecycleEventTask extends sfDoctrineBaseTask
 {
+  protected $httpClientAdapter = null;
+
   protected function configure()
   {
     $this->namespace = 'opOpenSocial';
@@ -38,6 +40,16 @@ Call it with:
 EOF;
   }
 
+  public function getHttpClientAdapter()
+  {
+    return $this->httpClientAdapter;
+  }
+
+  public function setHttpClientAdapter($adapter)
+  {
+    $this->httpClientAdapter = $adapter;
+  }
+
   protected function execute($arguments = array(), $options = array())
   {
     require_once realpath(dirname(__FILE__).'/../../../../lib/vendor/OAuth/OAuth.php');
@@ -52,6 +64,11 @@ EOF;
     $client = new Zend_Http_Client();
     $httpOptions = opOpenSocialToolKit::getHttpOptions();
     $client->setConfig($httpOptions);
+
+    if (null !== $this->httpClientAdapter)
+    {
+      $client->setAdapter($this->httpClientAdapter);
+    }
 
     $queueGroups = Doctrine::getTable('ApplicationLifecycleEventQueue')->getQueueGroups();
 
