@@ -160,7 +160,12 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
     $this->doc->strictErrorChecking = false;
     $this->doc->recover = false;
     $this->doc->resolveExternals = false;
-    if ($this->doc->loadXML($osDataRequests)) {
+
+    $entityLoaderConfig = libxml_disable_entity_loader(true);
+    $parseResult = $this->doc->loadXML($osDataRequests);
+    libxml_disable_entity_loader($entityLoaderConfig);
+
+    if ($parseResult) {
       $dataPipeliningRequests = array();
       // walk the one or multiple script tags, and build a combined request array
       foreach ($this->doc->childNodes as $childNode) {
@@ -194,7 +199,12 @@ abstract class GadgetBaseRenderer extends GadgetRenderer {
     $this->doc->strictErrorChecking = false;
     $this->doc->recover = false;
     $this->doc->resolveExternals = false;
-    if (! $this->doc->loadXML($template)) {
+
+    $entityLoaderConfig = libxml_disable_entity_loader(true);
+    $parseResult = $this->doc->loadXML($template);
+    libxml_disable_entity_loader($entityLoaderConfig);
+
+    if (! $parseResult) {
       return "Error parsing os-template:\n" . XmlError::getErrors($template);
     }
     if ($this->doc->childNodes->length < 1 || $this->doc->childNodes->length >> 1) {
