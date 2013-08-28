@@ -29,13 +29,19 @@ class TemplateParser {
   private $templateLibrary;
 
   public function dumpNode($node, $function) {
+
     $doc = new DOMDocument(null, 'utf-8');
     $doc->preserveWhiteSpace = true;
     $doc->formatOutput = false;
     $doc->strictErrorChecking = false;
     $doc->recover = false;
     $doc->resolveExternals = false;
-    if (! $newNode = @$doc->importNode($node, false)) {
+
+    $entityLoaderConfig = libxml_disable_entity_loader(true);
+    $newNode = @$doc->importNode($node, false);
+    libxml_disable_entity_loader($entityLoaderConfig);
+
+    if (! $newNode) {
       echo "[Invalid node, dump failed]<br><br>";
       return;
     }

@@ -250,7 +250,10 @@ class MakeRequest {
     if ((int)$result->getHttpCode() == 200) {
       $content = $result->getResponseContent();
       try {
+        $entityLoaderConfig = libxml_disable_entity_loader(true);
         $feed = Zend_Feed::importString($content);
+        libxml_disable_entity_loader($entityLoaderConfig);
+
         if ($feed instanceof Zend_Feed_Rss) {
           // Try get author
           if ($feed->author()) {
