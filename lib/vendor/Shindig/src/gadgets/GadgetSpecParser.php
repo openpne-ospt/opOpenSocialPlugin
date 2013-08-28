@@ -29,13 +29,19 @@ class GadgetSpecParser {
     }
     // make sure we can generate a detailed error report
     libxml_use_internal_errors(true);
-    if (($doc = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)) == false) {
+
+    $entityLoaderConfig = libxml_disable_entity_loader(true);
+    $doc = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
+    libxml_disable_entity_loader($entityLoaderConfig);
+
+    if (!$doc) {
       $errors = @libxml_get_errors();
       $xmlErrors = '';
       foreach ($errors as $error) {
         $xmlErrors .= $this->displayXmlError($error);
       }
       @libxml_clear_errors();
+
       throw new SpecParserException("<b>Invalid XML Document</b><br/>\n" . $xmlErrors);
     }
     if (count($doc->ModulePrefs) != 1) {

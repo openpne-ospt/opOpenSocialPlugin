@@ -28,7 +28,10 @@ class MessageBundleParser {
   }
 
   public function parse($xml) {
+    $entityLoaderConfig = libxml_disable_entity_loader(true);
     $doc = @simplexml_load_string($xml);
+    libxml_disable_entity_loader($entityLoaderConfig);
+
     return $this->getMessages($doc);
   }
 

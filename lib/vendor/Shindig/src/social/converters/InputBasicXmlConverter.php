@@ -24,7 +24,11 @@
 class InputBasicXmlConverter {
 
   public static function loadString($requestParam, $namespace = null) {
-    return simplexml_load_string($requestParam, 'SimpleXMLElement', LIBXML_NOCDATA, $namespace);
+      $entityLoaderConfig = libxml_disable_entity_loader(true); 
+      $result = @simplexml_load_string($requestParam, 'SimpleXMLElement', LIBXML_NOCDATA, $namespace);
+      libxml_disable_entity_loader($entityLoaderConfig);
+
+      return $result;
   }
 
   public static function convertActivities($xml, $activityXml) {
