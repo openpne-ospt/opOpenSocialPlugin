@@ -140,7 +140,12 @@ class TemplateLibrary {
     $doc->strictErrorChecking = false;
     $doc->recover = false;
     $doc->resolveExternals = false;
-    if (! $doc->loadXML($library)) {
+
+    $entityLoaderConfig = libxml_disable_entity_loader(true);
+    $parseResult = $doc->loadXML($library);
+    libxml_disable_entity_loader($entityLoaderConfig);
+
+    if (! $parseResult) {
       throw new ExpressionException("Error parsing template library:\n" . XmlError::getErrors($library));
     }
     // Theoretically this could support multiple <Templates> root nodes, which isn't quite spec, but owell

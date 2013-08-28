@@ -239,7 +239,10 @@ class GadgetFeatureRegistry {
    * @return feature array
    */
   private function parse($content, $path) {
+    $entityLoaderConfig = libxml_disable_entity_loader(true);
     $doc = simplexml_load_string($content);
+    libxml_disable_entity_loader($entityLoaderConfig);
+
     $feature = array();
     $feature['deps'] = array();
     $feature['basePath'] = $path;
