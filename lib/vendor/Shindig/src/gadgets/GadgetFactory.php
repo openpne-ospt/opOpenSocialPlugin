@@ -275,7 +275,12 @@ class GadgetFactory {
   private function parseMessageBundle($messageBundleData) {
     libxml_use_internal_errors(true);
     $doc = new DOMDocument();
-    if (! $doc->loadXML($messageBundleData, LIBXML_NOCDATA)) {
+
+    $entityLoaderConfig = libxml_disable_entity_loader(true);
+    $parseResult = $doc->loadXML($messageBundleData, LIBXML_NOCDATA);
+    libxml_disable_entity_loader($entityLoaderConfig);
+
+    if (! $parseResult) {
       throw new GadgetSpecException("Error parsing gadget xml:\n".XmlError::getErrors($messageBundleData));
     }
     $messageBundle = array();

@@ -34,7 +34,12 @@ class GadgetSpecParser {
   public function parse($xmlContent) {
     libxml_use_internal_errors(true);
     $doc = new DOMDocument();
-    if (! $doc->loadXML($xmlContent, LIBXML_NOCDATA)) {
+
+    $entityLoaderConfig = libxml_disable_entity_loader(true);
+    $parseResult = $doc->loadXML($xmlContent, LIBXML_NOCDATA);
+    libxml_disable_entity_loader($entityLoaderConfig);
+
+    if (! $parseResult) {
       throw new GadgetSpecException("Error parsing gadget xml:\n".XmlError::getErrors($xmlContent));
     }
     //TODO: we could do a XSD schema validation here, but both the schema and most of the gadgets seem to have some form of schema
