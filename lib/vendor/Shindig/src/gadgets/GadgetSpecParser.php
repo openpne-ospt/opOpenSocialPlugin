@@ -41,7 +41,6 @@ class GadgetSpecParser {
         $xmlErrors .= $this->displayXmlError($error);
       }
       @libxml_clear_errors();
-
       throw new SpecParserException("<b>Invalid XML Document</b><br/>\n" . $xmlErrors);
     }
     if (count($doc->ModulePrefs) != 1) {
