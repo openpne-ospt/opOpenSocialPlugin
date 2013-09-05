@@ -72,9 +72,9 @@ class XmlError {
     $doc->recover = false;
     $doc->resolveExternals = false;
 
-    $entityLoaderConfig = libxml_disable_entity_loader(true); 
+    $entityLoaderConfig = libxml_disable_entity_loader(true);
     $newNode = @$doc->importNode($node, false);
-    libxml_disable_entity_loader($entityLoaderConfig); 
+    libxml_disable_entity_loader($entityLoaderConfig);
 
     if (! $newNode) {
       echo "[Invalid node, dump failed]<br><br>";

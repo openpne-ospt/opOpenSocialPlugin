@@ -29,7 +29,6 @@ class TemplateParser {
   private $templateLibrary;
 
   public function dumpNode($node, $function) {
-
     $doc = new DOMDocument(null, 'utf-8');
     $doc->preserveWhiteSpace = true;
     $doc->formatOutput = false;
