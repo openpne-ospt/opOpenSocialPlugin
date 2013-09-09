@@ -49,11 +49,11 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2011-04-09</date>
- <time>05:06:27</time>
+ <date>2013-09-09</date>
+ <time>20:55:48</time>
  <version>
-  <release>0.9.9.2</release>
-  <api>0.9.9.2</api>
+  <release>0.9.9.3</release>
+  <api>0.9.9.3</api>
  </version>
  <stability>
   <release>stable</release>
@@ -61,7 +61,7 @@
  </stability>
  <license>apache</license>
  <notes>
-changed to hide age of the person if it is private
+Disabled xml external entity loader (OPSA-2013-003)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1236,10 +1236,10 @@ changed to hide age of the person if it is private
    <file baseinstalldir="/" md5sum="b929fecb45063d7f8f2fd683703ff19d" name="lib/vendor/Shindig/src/gadgets/GadgetBlacklist.php" role="data" />
    <file baseinstalldir="/" md5sum="a2dc9e825bfa6df2f0262716668e7e62" name="lib/vendor/Shindig/src/gadgets/GadgetContext.php" role="data" />
    <file baseinstalldir="/" md5sum="0a9ea7657a98501c2107ecddb593ad20" name="lib/vendor/Shindig/src/gadgets/GadgetException.php" role="data" />
-   <file baseinstalldir="/" md5sum="74d2c6afa1bf516b399243823a3226a0" name="lib/vendor/Shindig/src/gadgets/GadgetFactory.php" role="data" />
-   <file baseinstalldir="/" md5sum="473ddec3433327c0370d2b02a4db0a4f" name="lib/vendor/Shindig/src/gadgets/GadgetFeatureRegistry.php" role="data" />
+   <file baseinstalldir="/" md5sum="e43fa6902f198ec0f86331a7f1b016fc" name="lib/vendor/Shindig/src/gadgets/GadgetFactory.php" role="data" />
+   <file baseinstalldir="/" md5sum="af0892c3e4e2af106e1682fd536d7c73" name="lib/vendor/Shindig/src/gadgets/GadgetFeatureRegistry.php" role="data" />
    <file baseinstalldir="/" md5sum="16fa2bf0e02a98151e390e068eb62381" name="lib/vendor/Shindig/src/gadgets/GadgetSpec.php" role="data" />
-   <file baseinstalldir="/" md5sum="cef99e5efba2b5bb3c1078b25dcd5a0e" name="lib/vendor/Shindig/src/gadgets/GadgetSpecParser.php" role="data" />
+   <file baseinstalldir="/" md5sum="0e8bf9742035f5b51c9337b52bd8d64f" name="lib/vendor/Shindig/src/gadgets/GadgetSpecParser.php" role="data" />
    <file baseinstalldir="/" md5sum="56d219389829a301ad5a8c0a765b87fa" name="lib/vendor/Shindig/src/gadgets/MakeRequestHandler.php" role="data" />
    <file baseinstalldir="/" md5sum="49a0c6e218dc23216a4f45cf2204d81c" name="lib/vendor/Shindig/src/gadgets/MetadataContext.php" role="data" />
    <file baseinstalldir="/" md5sum="241a5322d269d4203d630b74628eec41" name="lib/vendor/Shindig/src/gadgets/MetadataHandler.php" role="data" />
@@ -1261,7 +1261,7 @@ changed to hide age of the person if it is private
    <file baseinstalldir="/" md5sum="b39064cce5fc64ee5e74e96248af1796" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthServiceProvider.php" role="data" />
    <file baseinstalldir="/" md5sum="342b9db8e034526a07bf4766098eb6f6" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthSpec.php" role="data" />
    <file baseinstalldir="/" md5sum="29e3bf74f3cd8901a6e96b470b5d2d95" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthStore.php" role="data" />
-   <file baseinstalldir="/" md5sum="22494c16900fd04818ff74467fbb6318" name="lib/vendor/Shindig/src/gadgets/render/GadgetBaseRenderer.php" role="data" />
+   <file baseinstalldir="/" md5sum="c38ab9b0f17136ad47ce24a39010d833" name="lib/vendor/Shindig/src/gadgets/render/GadgetBaseRenderer.php" role="data" />
    <file baseinstalldir="/" md5sum="303ca0b5cf66947cad423e085678e839" name="lib/vendor/Shindig/src/gadgets/render/GadgetHrefRenderer.php" role="data" />
    <file baseinstalldir="/" md5sum="275c7c6b499aef4308baa0448af069f9" name="lib/vendor/Shindig/src/gadgets/render/GadgetHtmlRenderer.php" role="data" />
    <file baseinstalldir="/" md5sum="8ae5fc18fb8d12417fbb39e80864fefb" name="lib/vendor/Shindig/src/gadgets/render/GadgetRenderer.php" role="data" />
@@ -1284,7 +1284,7 @@ changed to hide age of the person if it is private
    <file baseinstalldir="/" md5sum="7625cdb837b21ef98442943a4aab9c57" name="lib/vendor/Shindig/src/gadgets/templates/ExpressionParser.php" role="data" />
    <file baseinstalldir="/" md5sum="f637ff18835f11b8ef4447a5c3690e3a" name="lib/vendor/Shindig/src/gadgets/templates/TemplateParser.php" role="data" />
    <file baseinstalldir="/" md5sum="e5d2eff8dd7ec09859d30bcd94b6456d" name="lib/vendor/Shindig/src/social/converters/InputAtomConverter.php" role="data" />
-   <file baseinstalldir="/" md5sum="58387939c81fc13239df5fe56a847929" name="lib/vendor/Shindig/src/social/converters/InputBasicXmlConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="15e336abc06675816f1c698fb8ac7a94" name="lib/vendor/Shindig/src/social/converters/InputBasicXmlConverter.php" role="data" />
    <file baseinstalldir="/" md5sum="824f55bf2a83fab36afcec77a7f1b366" name="lib/vendor/Shindig/src/social/converters/InputConverter.php" role="data" />
    <file baseinstalldir="/" md5sum="3cff84d53b52d748a3ba6b05ccfbe5d0" name="lib/vendor/Shindig/src/social/converters/InputJsonConverter.php" role="data" />
    <file baseinstalldir="/" md5sum="0102e0ce6e1e3dab95dec1dca3dae191" name="lib/vendor/Shindig/src/social/converters/InputXmlConverter.php" role="data" />
@@ -1383,6 +1383,11 @@ changed to hide age of the person if it is private
    <pearinstaller>
     <min>1.4.0</min>
    </pearinstaller>
+   <package>
+    <name>symfony</name>
+    <channel>pear.symfony-project.com</channel>
+    <min>1.2.0</min>
+   </package>
   </required>
  </dependencies>
  <phprelease />
@@ -1610,6 +1615,21 @@ Fixed security issues.
    <license>apache</license>
    <notes>
 changed to hide age of the person if it is private
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.9.3</release>
+    <api>0.9.9.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2013-09-09</date>
+   <license>apache</license>
+   <notes>
+Disabled xml external entity loader (OPSA-2013-003)
    </notes>
   </release>
  </changelog>
