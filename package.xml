@@ -49,18 +49,20 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2011-08-15</date>
- <time>22:54:17</time>
+ <date>2013-09-09</date>
+ <time>20:27:21</time>
  <version>
-  <release>1.2.6</release>
-  <api>1.2.6</api>
+  <release>1.2.6.1</release>
+  <api>1.2.6.1</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>Fixed the following bug. #2350: [etc] 部分一致検索を行う箇所でワイルドカード検索ができてしまう</notes>
+ <notes>
+Disabled xml external entity loader (OPSA-2013-003)
+ </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="a33e79268b83907f431650b0f7a7e3ba" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -1326,7 +1328,7 @@
    <file baseinstalldir="/" md5sum="c9f3f45d89ed07eda7264ee3e07eaba4" name="lib/vendor/Shindig/src/common/RemoteContentRequest.php" role="data" />
    <file baseinstalldir="/" md5sum="5bd6dccfb3bca7383a00e4d482bb55db" name="lib/vendor/Shindig/src/common/SecurityToken.php" role="data" />
    <file baseinstalldir="/" md5sum="09a2733668ad490d0a51af1106f0ed0c" name="lib/vendor/Shindig/src/common/SecurityTokenDecoder.php" role="data" />
-   <file baseinstalldir="/" md5sum="914a6654afe12a9247b2776ec910e428" name="lib/vendor/Shindig/src/common/XmlError.php" role="data" />
+   <file baseinstalldir="/" md5sum="622a12f06d88f1f73208fb7636af0c6f" name="lib/vendor/Shindig/src/common/XmlError.php" role="data" />
    <file baseinstalldir="/" md5sum="22c5ca43ce3938db38d019e9233d5767" name="lib/vendor/Shindig/src/common/sample/BasicBlobCrypter.php" role="data" />
    <file baseinstalldir="/" md5sum="f7d3de02aa92a9f5b684174a2c22c43f" name="lib/vendor/Shindig/src/common/sample/BasicOAuthDataStore.php" role="data" />
    <file baseinstalldir="/" md5sum="e9841d820fe3c71f106f797fe98441a9" name="lib/vendor/Shindig/src/common/sample/BasicOAuthLookupService.php" role="data" />
@@ -1343,11 +1345,11 @@
    <file baseinstalldir="/" md5sum="b929fecb45063d7f8f2fd683703ff19d" name="lib/vendor/Shindig/src/gadgets/GadgetBlacklist.php" role="data" />
    <file baseinstalldir="/" md5sum="dd65345ff68f3d6b504a9f736829592a" name="lib/vendor/Shindig/src/gadgets/GadgetContext.php" role="data" />
    <file baseinstalldir="/" md5sum="0a9ea7657a98501c2107ecddb593ad20" name="lib/vendor/Shindig/src/gadgets/GadgetException.php" role="data" />
-   <file baseinstalldir="/" md5sum="74ab28d16e8b31bf4b77f06d62ee8855" name="lib/vendor/Shindig/src/gadgets/GadgetFactory.php" role="data" />
-   <file baseinstalldir="/" md5sum="fe2a878baf9746ebffee13ed49c42e63" name="lib/vendor/Shindig/src/gadgets/GadgetFeatureRegistry.php" role="data" />
+   <file baseinstalldir="/" md5sum="5ee9a2cd9b71e33baba5fa2d2285f695" name="lib/vendor/Shindig/src/gadgets/GadgetFactory.php" role="data" />
+   <file baseinstalldir="/" md5sum="4bfca9cdb44f59093effc1b8f16e043a" name="lib/vendor/Shindig/src/gadgets/GadgetFeatureRegistry.php" role="data" />
    <file baseinstalldir="/" md5sum="9a2ad5931cbb375b05fe6a66778a4af3" name="lib/vendor/Shindig/src/gadgets/GadgetSpec.php" role="data" />
-   <file baseinstalldir="/" md5sum="17b7a5c2381a938f4a114be7a89a3910" name="lib/vendor/Shindig/src/gadgets/GadgetSpecParser.php" role="data" />
-   <file baseinstalldir="/" md5sum="ec0efa0c541dd058ca98bb8cb4e2d5d3" name="lib/vendor/Shindig/src/gadgets/MakeRequest.php" role="data" />
+   <file baseinstalldir="/" md5sum="84e2add31683653bacf87f3a4ac6e3f1" name="lib/vendor/Shindig/src/gadgets/GadgetSpecParser.php" role="data" />
+   <file baseinstalldir="/" md5sum="d52eaf17cdd9777f10ad6bb2e7485af9" name="lib/vendor/Shindig/src/gadgets/MakeRequest.php" role="data" />
    <file baseinstalldir="/" md5sum="4954899523e98a0ba909c8bdab26fd6a" name="lib/vendor/Shindig/src/gadgets/MakeRequestHandler.php" role="data" />
    <file baseinstalldir="/" md5sum="19a6640c6dd47b289097a0849517de2c" name="lib/vendor/Shindig/src/gadgets/MakeRequestOptions.php" role="data" />
    <file baseinstalldir="/" md5sum="49a0c6e218dc23216a4f45cf2204d81c" name="lib/vendor/Shindig/src/gadgets/MetadataContext.php" role="data" />
@@ -1370,7 +1372,7 @@
    <file baseinstalldir="/" md5sum="b39064cce5fc64ee5e74e96248af1796" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthServiceProvider.php" role="data" />
    <file baseinstalldir="/" md5sum="342b9db8e034526a07bf4766098eb6f6" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthSpec.php" role="data" />
    <file baseinstalldir="/" md5sum="b1aa80d22a778b6f2841cbb78f729f04" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthStore.php" role="data" />
-   <file baseinstalldir="/" md5sum="c6b219f8c7d9eebf1fd65621787d1b1f" name="lib/vendor/Shindig/src/gadgets/render/GadgetBaseRenderer.php" role="data" />
+   <file baseinstalldir="/" md5sum="f6613f2019f74a92ee5efbfcd84b9584" name="lib/vendor/Shindig/src/gadgets/render/GadgetBaseRenderer.php" role="data" />
    <file baseinstalldir="/" md5sum="312b91c64f851bab0981625f0905ae60" name="lib/vendor/Shindig/src/gadgets/render/GadgetHrefRenderer.php" role="data" />
    <file baseinstalldir="/" md5sum="087e045e5035fcee4f1d35076742ba2d" name="lib/vendor/Shindig/src/gadgets/render/GadgetHtmlRenderer.php" role="data" />
    <file baseinstalldir="/" md5sum="c5259267bd480eec8ab646253d758b7b" name="lib/vendor/Shindig/src/gadgets/render/GadgetRenderer.php" role="data" />
@@ -1394,10 +1396,10 @@
    <file baseinstalldir="/" md5sum="493036a2830788dee036d3e67acae905" name="lib/vendor/Shindig/src/gadgets/templates/ExpParser.php" role="data" />
    <file baseinstalldir="/" md5sum="c67ef61a22742ce88ce15db1914866ed" name="lib/vendor/Shindig/src/gadgets/templates/ExpressionParser.php" role="data" />
    <file baseinstalldir="/" md5sum="657774b83cbfa7586a63f1893f6a8335" name="lib/vendor/Shindig/src/gadgets/templates/ExpType.php" role="data" />
-   <file baseinstalldir="/" md5sum="210bfe1e2152881498801252ad919ed2" name="lib/vendor/Shindig/src/gadgets/templates/TemplateLibrary.php" role="data" />
-   <file baseinstalldir="/" md5sum="a7627a3357baf51ea325152c55ba635e" name="lib/vendor/Shindig/src/gadgets/templates/TemplateParser.php" role="data" />
+   <file baseinstalldir="/" md5sum="f268ac9e50e0bf6cfceb8bcbc959279f" name="lib/vendor/Shindig/src/gadgets/templates/TemplateLibrary.php" role="data" />
+   <file baseinstalldir="/" md5sum="373acf1b7977bc4aa4052d13115679dd" name="lib/vendor/Shindig/src/gadgets/templates/TemplateParser.php" role="data" />
    <file baseinstalldir="/" md5sum="e5d2eff8dd7ec09859d30bcd94b6456d" name="lib/vendor/Shindig/src/social/converters/InputAtomConverter.php" role="data" />
-   <file baseinstalldir="/" md5sum="58387939c81fc13239df5fe56a847929" name="lib/vendor/Shindig/src/social/converters/InputBasicXmlConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="15e336abc06675816f1c698fb8ac7a94" name="lib/vendor/Shindig/src/social/converters/InputBasicXmlConverter.php" role="data" />
    <file baseinstalldir="/" md5sum="824f55bf2a83fab36afcec77a7f1b366" name="lib/vendor/Shindig/src/social/converters/InputConverter.php" role="data" />
    <file baseinstalldir="/" md5sum="f212b6cf56afca663e81d88b91fe7a33" name="lib/vendor/Shindig/src/social/converters/InputJsonConverter.php" role="data" />
    <file baseinstalldir="/" md5sum="0102e0ce6e1e3dab95dec1dca3dae191" name="lib/vendor/Shindig/src/social/converters/InputXmlConverter.php" role="data" />
@@ -1829,7 +1831,24 @@ Fixed the following issues.
    </stability>
    <date>2011-08-15</date>
    <license>apache</license>
-   <notes>Fixed the following bug. #2350: [etc] 部分一致検索を行う箇所でワイルドカード検索ができてしまう</notes>
+   <notes>
+Fixed the following bug. #2350: [etc] 部分一致検索を行う箇所でワイルドカード検索ができてしまう
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.6.1</release>
+    <api>1.2.6.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2013-09-09</date>
+   <license>apache</license>
+   <notes>
+Disabled xml external entity loader (OPSA-2013-003)
+   </notes>
   </release>
  </changelog>
 </package>
