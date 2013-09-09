@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
     http://pear.php.net/dtd/tasks-1.0.xsd
     http://pear.php.net/dtd/package-2.0
     http://pear.php.net/dtd/package-2.0.xsd">
@@ -49,18 +49,20 @@
   <email />
   <active>yes</active>
  </developer>
- <date>2011-08-15</date>
- <time>22:36:17</time>
+ <date>2013-09-09</date>
+ <time>20:44:32</time>
  <version>
-  <release>0.9.13</release>
-  <api>0.9.13</api>
+  <release>0.9.13.1</release>
+  <api>0.9.13.1</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license>apache</license>
- <notes>Fixed the following bug. #2352: [etc] 部分一致検索を行う箇所でワイルドカード検索ができてしまう</notes>
+ <notes>
+Disabled xml external entity loader (OPSA-2013-003)
+ </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="a33e79268b83907f431650b0f7a7e3ba" name="apps/api/modules/prefs/actions/actions.class.php" role="data" />
@@ -1234,10 +1236,10 @@
    <file baseinstalldir="/" md5sum="b929fecb45063d7f8f2fd683703ff19d" name="lib/vendor/Shindig/src/gadgets/GadgetBlacklist.php" role="data" />
    <file baseinstalldir="/" md5sum="a2dc9e825bfa6df2f0262716668e7e62" name="lib/vendor/Shindig/src/gadgets/GadgetContext.php" role="data" />
    <file baseinstalldir="/" md5sum="0a9ea7657a98501c2107ecddb593ad20" name="lib/vendor/Shindig/src/gadgets/GadgetException.php" role="data" />
-   <file baseinstalldir="/" md5sum="74d2c6afa1bf516b399243823a3226a0" name="lib/vendor/Shindig/src/gadgets/GadgetFactory.php" role="data" />
-   <file baseinstalldir="/" md5sum="473ddec3433327c0370d2b02a4db0a4f" name="lib/vendor/Shindig/src/gadgets/GadgetFeatureRegistry.php" role="data" />
+   <file baseinstalldir="/" md5sum="e43fa6902f198ec0f86331a7f1b016fc" name="lib/vendor/Shindig/src/gadgets/GadgetFactory.php" role="data" />
+   <file baseinstalldir="/" md5sum="af0892c3e4e2af106e1682fd536d7c73" name="lib/vendor/Shindig/src/gadgets/GadgetFeatureRegistry.php" role="data" />
    <file baseinstalldir="/" md5sum="16fa2bf0e02a98151e390e068eb62381" name="lib/vendor/Shindig/src/gadgets/GadgetSpec.php" role="data" />
-   <file baseinstalldir="/" md5sum="cef99e5efba2b5bb3c1078b25dcd5a0e" name="lib/vendor/Shindig/src/gadgets/GadgetSpecParser.php" role="data" />
+   <file baseinstalldir="/" md5sum="0e8bf9742035f5b51c9337b52bd8d64f" name="lib/vendor/Shindig/src/gadgets/GadgetSpecParser.php" role="data" />
    <file baseinstalldir="/" md5sum="56d219389829a301ad5a8c0a765b87fa" name="lib/vendor/Shindig/src/gadgets/MakeRequestHandler.php" role="data" />
    <file baseinstalldir="/" md5sum="49a0c6e218dc23216a4f45cf2204d81c" name="lib/vendor/Shindig/src/gadgets/MetadataContext.php" role="data" />
    <file baseinstalldir="/" md5sum="241a5322d269d4203d630b74628eec41" name="lib/vendor/Shindig/src/gadgets/MetadataHandler.php" role="data" />
@@ -1259,7 +1261,7 @@
    <file baseinstalldir="/" md5sum="b39064cce5fc64ee5e74e96248af1796" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthServiceProvider.php" role="data" />
    <file baseinstalldir="/" md5sum="342b9db8e034526a07bf4766098eb6f6" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthSpec.php" role="data" />
    <file baseinstalldir="/" md5sum="29e3bf74f3cd8901a6e96b470b5d2d95" name="lib/vendor/Shindig/src/gadgets/oauth/OAuthStore.php" role="data" />
-   <file baseinstalldir="/" md5sum="22494c16900fd04818ff74467fbb6318" name="lib/vendor/Shindig/src/gadgets/render/GadgetBaseRenderer.php" role="data" />
+   <file baseinstalldir="/" md5sum="c38ab9b0f17136ad47ce24a39010d833" name="lib/vendor/Shindig/src/gadgets/render/GadgetBaseRenderer.php" role="data" />
    <file baseinstalldir="/" md5sum="303ca0b5cf66947cad423e085678e839" name="lib/vendor/Shindig/src/gadgets/render/GadgetHrefRenderer.php" role="data" />
    <file baseinstalldir="/" md5sum="275c7c6b499aef4308baa0448af069f9" name="lib/vendor/Shindig/src/gadgets/render/GadgetHtmlRenderer.php" role="data" />
    <file baseinstalldir="/" md5sum="8ae5fc18fb8d12417fbb39e80864fefb" name="lib/vendor/Shindig/src/gadgets/render/GadgetRenderer.php" role="data" />
@@ -1282,7 +1284,7 @@
    <file baseinstalldir="/" md5sum="7625cdb837b21ef98442943a4aab9c57" name="lib/vendor/Shindig/src/gadgets/templates/ExpressionParser.php" role="data" />
    <file baseinstalldir="/" md5sum="f637ff18835f11b8ef4447a5c3690e3a" name="lib/vendor/Shindig/src/gadgets/templates/TemplateParser.php" role="data" />
    <file baseinstalldir="/" md5sum="e5d2eff8dd7ec09859d30bcd94b6456d" name="lib/vendor/Shindig/src/social/converters/InputAtomConverter.php" role="data" />
-   <file baseinstalldir="/" md5sum="58387939c81fc13239df5fe56a847929" name="lib/vendor/Shindig/src/social/converters/InputBasicXmlConverter.php" role="data" />
+   <file baseinstalldir="/" md5sum="15e336abc06675816f1c698fb8ac7a94" name="lib/vendor/Shindig/src/social/converters/InputBasicXmlConverter.php" role="data" />
    <file baseinstalldir="/" md5sum="824f55bf2a83fab36afcec77a7f1b366" name="lib/vendor/Shindig/src/social/converters/InputConverter.php" role="data" />
    <file baseinstalldir="/" md5sum="3cff84d53b52d748a3ba6b05ccfbe5d0" name="lib/vendor/Shindig/src/social/converters/InputJsonConverter.php" role="data" />
    <file baseinstalldir="/" md5sum="0102e0ce6e1e3dab95dec1dca3dae191" name="lib/vendor/Shindig/src/social/converters/InputXmlConverter.php" role="data" />
@@ -1401,7 +1403,9 @@
    </stability>
    <date>2009-02-05</date>
    <license>Apache</license>
-   <notes>First release</notes>
+   <notes>
+First release
+   </notes>
   </release>
   <release>
    <version>
@@ -1414,7 +1418,9 @@
    </stability>
    <date>2009-02-06</date>
    <license>Apache</license>
-   <notes>Fixed some security hole and changed base language from Japanese to English on the pc_frontend.</notes>
+   <notes>
+Fixed some security hole and changed base language from Japanese to English on the pc_frontend.
+   </notes>
   </release>
   <release>
    <version>
@@ -1427,7 +1433,9 @@
    </stability>
    <date>2009-02-25</date>
    <license>Apache</license>
-   <notes>Added an ability to render iframes of the outer OpenSocial container and fixed the PersistentAPI.</notes>
+   <notes>
+Added an ability to render iframes of the outer OpenSocial container and fixed the PersistentAPI.
+   </notes>
   </release>
   <release>
    <version>
@@ -1440,7 +1448,9 @@
    </stability>
    <date>2009-09-08</date>
    <license>apache</license>
-   <notes>This version is compatible with Doctrine.</notes>
+   <notes>
+This version is compatible with Doctrine.
+   </notes>
   </release>
   <release>
    <version>
@@ -1453,7 +1463,9 @@
    </stability>
    <date>2009-10-07</date>
    <license>apache</license>
-   <notes>The preseted profile item was made to correspond to API</notes>
+   <notes>
+The preseted profile item was made to correspond to API
+   </notes>
   </release>
   <release>
    <version>
@@ -1466,7 +1478,9 @@
    </stability>
    <date>2009-11-24</date>
    <license>apache</license>
-   <notes>Fixed MemberApplicationSetting model, because index key is too long.</notes>
+   <notes>
+Fixed MemberApplicationSetting model, because index key is too long.
+   </notes>
   </release>
   <release>
    <version>
@@ -1479,7 +1493,9 @@
    </stability>
    <date>2009-12-05</date>
    <license>apache</license>
-   <notes>Added an ability for Albums API.</notes>
+   <notes>
+Added an ability for Albums API.
+   </notes>
   </release>
   <release>
    <version>
@@ -1492,7 +1508,9 @@
    </stability>
    <date>2009-12-22</date>
    <license>apache</license>
-   <notes>Added an ability to approve install of the app from SNS admin.</notes>
+   <notes>
+Added an ability to approve install of the app from SNS admin.
+   </notes>
   </release>
   <release>
    <version>
@@ -1505,7 +1523,9 @@
    </stability>
    <date>2010-02-20</date>
    <license>apache</license>
-   <notes>Fixed error when app was searched.</notes>
+   <notes>
+Fixed error when app was searched.
+   </notes>
   </release>
   <release>
    <version>
@@ -1518,7 +1538,9 @@
    </stability>
    <date>2010-04-01</date>
    <license>apache</license>
-   <notes>Fix unit test</notes>
+   <notes>
+Fix unit test
+   </notes>
   </release>
   <release>
    <version>
@@ -1531,7 +1553,9 @@
    </stability>
    <date>2010-05-02</date>
    <license>apache</license>
-   <notes>Fixed API bug.</notes>
+   <notes>
+Fixed API bug.
+   </notes>
   </release>
   <release>
    <version>
@@ -1544,7 +1568,9 @@
    </stability>
    <date>2010-07-13</date>
    <license>apache</license>
-   <notes>Fixed slow page.</notes>
+   <notes>
+Fixed slow page.
+   </notes>
   </release>
   <release>
    <version>
@@ -1557,7 +1583,9 @@
    </stability>
    <date>2010-10-29</date>
    <license>apache</license>
-   <notes>fixed JSON-RPC API because friend data can&apos;t be fetched.</notes>
+   <notes>
+fixed JSON-RPC API because friend data can&apos;t be fetched.
+   </notes>
   </release>
   <release>
    <version>
@@ -1570,7 +1598,8 @@
    </stability>
    <date>2011-05-08</date>
    <license>apache</license>
-   <notes>Fixed the following bugs.
+   <notes>
+Fixed the following bugs.
 #1823: [pc] UserPref.required is not driving
 #1825: [etc] Warning in ApplicationUserSettingForm::save() while saving data type of &quot;BOOL&quot;
 #2046: [pc] &quot;home&quot; view doesn&apos;t exists
@@ -1578,7 +1607,8 @@
 #2048: [api] PHP Notice in &quot;lib_for_shindig/OpenPNEService.php&quot;
 #2049: [pc] Fix a mistake of the relayUrl in gadget component
 #2050: [api] PersistentAPI doesn&apos;t return all key-value pair
-#2051: [pc] gadgets.container._parseIframeUrl doesn&apos;t return first parameter correctly.</notes>
+#2051: [pc] gadgets.container._parseIframeUrl doesn&apos;t return first parameter correctly.
+   </notes>
   </release>
   <release>
    <version>
@@ -1591,12 +1621,14 @@
    </stability>
    <date>2011-06-12</date>
    <license>apache</license>
-   <notes>Fixed the following bugs.
+   <notes>
+Fixed the following bugs.
 #2100: [api] opOpenSocialProfileExport doesn&apos;t return birthday when public flag of birthday is &apos;3&apos; and owner is viewer
 #2125: [api] /mediaitems/@me/@self/{albumId} で取得できるコレクションの albumId フィールドの値が間違っている
 #2148: [api] /albums/@me/@self で取得したアルバムのサムネイルが未設定の場合 thumbnailUrl フィールドに間違った値が入る
 #2212: [etc] NOTICE ファイルの更新
-#2217: [pc] Fix two js errors in application/list screen when the user doesn&apos;t have any application</notes>
+#2217: [pc] Fix two js errors in application/list screen when the user doesn&apos;t have any application
+   </notes>
   </release>
   <release>
    <version>
@@ -1609,7 +1641,9 @@
    </stability>
    <date>2011-07-10</date>
    <license>apache</license>
-   <notes>Fixed the following issue. #2218: [pc] modalboxを2回目以降に表示すると、読み込みが完了するまで前回表示時の内容が残ってしまう (0.9.x)</notes>
+   <notes>
+Fixed the following issue. #2218: [pc] modalboxを2回目以降に表示すると、読み込みが完了するまで前回表示時の内容が残ってしまう (0.9.x)
+   </notes>
   </release>
   <release>
    <version>
@@ -1622,7 +1656,24 @@
    </stability>
    <date>2011-08-15</date>
    <license>apache</license>
-   <notes>Fixed the following bug. #2352: [etc] 部分一致検索を行う箇所でワイルドカード検索ができてしまう</notes>
+   <notes>
+Fixed the following bug. #2352: [etc] 部分一致検索を行う箇所でワイルドカード検索ができてしまう
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.13.1</release>
+    <api>0.9.13.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2013-09-09</date>
+   <license>apache</license>
+   <notes>
+Disabled xml external entity loader (OPSA-2013-003)
+   </notes>
   </release>
  </changelog>
 </package>
