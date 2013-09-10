@@ -91,7 +91,10 @@ class JsFeatureLoader {
   }
 
   private function parse($content, $path) {
-    $doc = simplexml_load_string($content);
+    $entityLoaderConfig = libxml_disable_entity_loader(true);
+    $doc = @simplexml_load_string($content);
+    libxml_disable_entity_loader($entityLoaderConfig);
+
     $feature = new ParsedFeature();
     $feature->basePath = $path;
     if (! isset($doc->name)) {
