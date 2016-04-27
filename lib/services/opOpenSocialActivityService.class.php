@@ -181,8 +181,8 @@ class opOpenSocialActivityService extends opOpenSocialServiceBase implements Act
         throw new SocialSpiException("Bad Request", ResponseError::$BAD_REQUEST);
       }
 
-
-      if (sfConfig::get('opensocial_activity_post_limit_time', 30))
+      $activityPostLimitTime = (int)Doctrine_Core::getTable('SnsConfig')->get('opensocial_activity_post_limit_time', 30);
+      if (0 !== $activityPostLimitTime)
       {
         $object = Doctrine::getTable('ActivityData')->createQuery()
           ->where('foreign_table = ?', Doctrine::getTable('Application')->getTableName())
@@ -193,7 +193,7 @@ class opOpenSocialActivityService extends opOpenSocialServiceBase implements Act
         if ($object)
         {
           $interval = time() - strtotime($object->getCreatedAt());
-          if ($interval < sfConfig::get('opensocial_activity_post_limit_time', 30))
+          if ($interval < $activityPostLimitTime)
           {
             throw new SocialSpiException("Service Unavailable", 503);
           }
