@@ -35,17 +35,17 @@
   'only' => 'sortable',
   'with' => 'Sortable.serialize("order")+"&'.urlencode($form->getCSRFFieldName()).'='.urlencode($form->getCSRFToken()).'"'
 )); ?>
+<?php endif ?>
+<?php if ($isOwner): ?>
 <div class="moreInfo">
 <ul class="moreInfo">
 <li>
 <?php echo link_to(__('App Gallery'), '@application_gallery') ?>
-<?php if ($isOwner): ?>
 <?php if ($isInstallApp): ?>
 <li><?php echo link_to(__('Install new App'), '@application_install') ?></li>
 <?php endif; ?>
 <?php if ($isInstalledApp): ?>
 <li><?php echo link_to(__('Apps Installed by You'), '@application_installed_list') ?></li>
-<?php endif; ?>
 <?php endif; ?>
 </li>
 </ul>
